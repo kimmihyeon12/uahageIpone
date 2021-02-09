@@ -1,0 +1,101 @@
+name: uahage
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  shared_preferences: ^0.5.7
+  http: ^0.12.2
+  crypto: ^2.1.5
+  kakao_flutter_sdk: ^0.5.2
+  # flutter_kakao_map: ^0.0.4
+  flutter_naver_login: ^1.2.0
+  geolocator: ^6.1.13
+  webview_flutter: ^0.3.19+9
+  location: ^3.0.0
+  lite_rolling_switch: ^0.1.1
+  page_transition: ^1.1.7+6
+  image_picker: ^0.6.6+5
+  dio: ^3.0.9
+  flutter_web_auth: ^0.2.4
+  custom_switch: ^0.0.1
+  clipboard: ^0.1.2+8
+  fluttertoast: ^7.1.6
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/firstPage/
+    - assets/secondPage/
+    - assets/registrationPage/
+    - assets/myPage/
+    - assets/agreementPage/
+    - assets/homePage/
+    - assets/NavigationbarPage/
+    - assets/searchPage/
+    - assets/listPage/
+    - assets/sublistPage/
+    - assets/starPage/
+    - assets/
+
+  fonts:
+    - family: S_CoreDream_4
+      fonts:
+        - asset: fonts/scdream4.otf
+
+    - family: S_CoreDream_8
+      fonts:
+        - asset: fonts/scdream8.otf
+    - family: NotoSansCJKkr_Bold
+      fonts:
+        - asset: fonts/notosans_bold.otf
+
+    - family: NotoSansCJKkr_Medium
+      fonts:
+        - asset: fonts/NotoSansmm.otf
+
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
