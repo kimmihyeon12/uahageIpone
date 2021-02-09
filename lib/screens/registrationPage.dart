@@ -6,7 +6,6 @@ import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//yangi o'zgarish
 class registrationPage extends StatefulWidget {
   String userId;
   String loginOption;
