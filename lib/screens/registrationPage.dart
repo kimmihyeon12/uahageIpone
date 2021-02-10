@@ -6,6 +6,7 @@ import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+//changing from windows
 class registrationPage extends StatefulWidget {
   String userId;
   String loginOption;
@@ -711,11 +712,13 @@ class _registrationPageState extends State<registrationPage> {
                                 FlatButton(
                                     onPressed: () async {
                                       Navigator.pop(context);
-                                      if(!saveError) {
+                                      if (!saveError) {
                                         SharedPreferences prefs =
-                                            await SharedPreferences.getInstance();
+                                            await SharedPreferences
+                                                .getInstance();
 
-                                        await prefs.setString('uahageUserId', userId);
+                                        await prefs.setString(
+                                            'uahageUserId', userId);
                                         await prefs.setString(
                                             "uahageLoginOption", loginOption);
                                         Navigator.pushReplacement(
@@ -724,8 +727,7 @@ class _registrationPageState extends State<registrationPage> {
                                             builder: (context) =>
                                                 navigationPage(
                                                     userId: userId,
-                                                    loginOption:
-                                                    loginOption),
+                                                    loginOption: loginOption),
                                           ),
                                         );
                                       }
