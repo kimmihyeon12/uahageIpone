@@ -36,17 +36,23 @@ class _WrapperState extends State<Wrapper> {
     // final user = Provider.of<User>(context);
     print("userID = " + userId);
     if (userId == "") {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => loginPage()));
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => loginPage()));
+      return loginPage();
     } else {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => navigationPage(
-                    userId: userId,
-                    loginOption: loginOption,
-                    oldNickname: "",
-                  )));
+      return navigationPage(
+        userId: userId,
+        loginOption: loginOption,
+        oldNickname: "",
+      );
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) => navigationPage(
+      //               userId: userId,
+      //               loginOption: loginOption,
+      //               oldNickname: "",
+      //             )));
     }
   }
 }
