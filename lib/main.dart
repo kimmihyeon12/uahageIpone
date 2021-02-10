@@ -2,12 +2,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:uahage/screens/wrapper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uahage/NavigationPage/Navigationbar.dart';
-import 'package:uahage/screens/loginPage.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyHomePage());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,21 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -58,10 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // userId == "" ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()  ):Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => navigatorPage()
 
             Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Wrapper()),
-          // (Route<dynamic> route) => false,
-        ),
+                context, MaterialPageRoute(builder: (context) => Wrapper())),
       );
 
   @override
@@ -70,106 +55,116 @@ class _MyHomePageState extends State<MyHomePage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Stack(
-          children: [
-            Container(
-              child: Image(
-                image: AssetImage('./assets/firstPage/backgroundimage.png'),
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
-                // height: 50,
+    return MaterialApp(
+      home: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          body: Stack(
+            children: [
+              Container(
+                child: Image(
+                  image: AssetImage('./assets/firstPage/backgroundimage.png'),
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fitWidth,
+                  // height: 50,
+                ),
+                //  color:Colors.black
               ),
-              //  color:Colors.black
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: Image(
-                image: AssetImage('./assets/firstPage/backfamily.png'),
+              Container(
+                alignment: Alignment.bottomCenter,
+                child: Image(
+                  image: AssetImage('./assets/firstPage/backfamily.png'),
 
-                width: 1446 / (1501 / MediaQuery.of(context).size.width),
-                // height: 50,
+                  width: 1446 / (1501 / MediaQuery.of(context).size.width),
+                  // height: 50,
+                ),
               ),
-            ),
-            Row(
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(
-                  left: 658 / (1501 / MediaQuery.of(context).size.width),
-                )),
-                Image(
-                  image: AssetImage('./assets/firstPage/Lighting.png'),
-                  height: 440 / (2667 / MediaQuery.of(context).size.height),
-                  width: 143 / (1501 / MediaQuery.of(context).size.width),
-                ),
-                Image(
-                  image: AssetImage('./assets/firstPage/logo.png'),
-                  height: 88 / (2667 / MediaQuery.of(context).size.height),
-                  width: 662 / (1501 / MediaQuery.of(context).size.width),
-                ),
-              ],
-            ),
-            Center(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+              Row(
                 children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(
-                        0,
-                        666 / (2667 / MediaQuery.of(context).size.height),
-                        0,
-                        0),
-                    child: Image(
-                      image: AssetImage('./assets/firstPage/group.png'),
-                      height: 357 / (2667 / MediaQuery.of(context).size.height),
-                      width: 325 / (1501 / MediaQuery.of(context).size.width),
-                    ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                    left: 658 / (1501 / MediaQuery.of(context).size.width),
+                  )),
+                  Image(
+                    image: AssetImage('./assets/firstPage/Lighting.png'),
+                    height: 440 / (2667 / MediaQuery.of(context).size.height),
+                    width: 143 / (1501 / MediaQuery.of(context).size.width),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0,
-                        79 / (2667 / MediaQuery.of(context).size.height), 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "우리아이",
-                          style: TextStyle(
-                              fontFamily: "S_CoreDream_8",
-                              //   height: 1.0,
-                              //   letterSpacing: -1.0,
-                              fontSize: 71 /
-                                  (2667 / MediaQuery.of(context).size.height),
-                              // fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(255, 114, 148, 1.0)),
-                        ),
-                        Text(
-                          "와 함께하는",
-                          style: TextStyle(
-                              fontFamily: "S_CoreDream_4",
-                              //  height: 1.0,
-                              //   letterSpacing: -1.0,
-                              fontSize: 71 /
-                                  (2667 / MediaQuery.of(context).size.height),
-                              color: Color.fromRGBO(255, 114, 148, 1.0)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0,
-                        49 / (2667 / MediaQuery.of(context).size.height), 0, 0),
-                    child: Image(
-                      image: AssetImage('./assets/firstPage/uahage.png'),
-                      height: 113 / (2667 / MediaQuery.of(context).size.height),
-                      // height: 50,
-                    ),
+                  Image(
+                    image: AssetImage('./assets/firstPage/logo.png'),
+                    height: 88 / (2667 / MediaQuery.of(context).size.height),
+                    width: 662 / (1501 / MediaQuery.of(context).size.width),
                   ),
                 ],
               ),
-            ),
-          ],
-        ));
+              Center(
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(
+                          0,
+                          666 / (2667 / MediaQuery.of(context).size.height),
+                          0,
+                          0),
+                      child: Image(
+                        image: AssetImage('./assets/firstPage/group.png'),
+                        height:
+                            357 / (2667 / MediaQuery.of(context).size.height),
+                        width: 325 / (1501 / MediaQuery.of(context).size.width),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(
+                          0,
+                          79 / (2667 / MediaQuery.of(context).size.height),
+                          0,
+                          0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "우리아이",
+                            style: TextStyle(
+                                fontFamily: "S_CoreDream_8",
+                                //   height: 1.0,
+                                //   letterSpacing: -1.0,
+                                fontSize: 71 /
+                                    (2667 / MediaQuery.of(context).size.height),
+                                // fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(255, 114, 148, 1.0)),
+                          ),
+                          Text(
+                            "와 함께하는",
+                            style: TextStyle(
+                                fontFamily: "S_CoreDream_4",
+                                //  height: 1.0,
+                                //   letterSpacing: -1.0,
+                                fontSize: 71 /
+                                    (2667 / MediaQuery.of(context).size.height),
+                                color: Color.fromRGBO(255, 114, 148, 1.0)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(
+                          0,
+                          49 / (2667 / MediaQuery.of(context).size.height),
+                          0,
+                          0),
+                      child: Image(
+                        image: AssetImage('./assets/firstPage/uahage.png'),
+                        height:
+                            113 / (2667 / MediaQuery.of(context).size.height),
+                        // height: 50,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )),
+    );
   }
 }
