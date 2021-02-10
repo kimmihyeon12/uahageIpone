@@ -57,10 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
         () =>
             // userId == "" ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()  ):Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => navigatorPage()
 
-            Navigator.pushAndRemoveUntil(
+            Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Wrapper()),
-          (Route<dynamic> route) => false,
+          // (Route<dynamic> route) => false,
         ),
       );
 
