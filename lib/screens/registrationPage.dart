@@ -6,15 +6,12 @@ import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-<<<<<<< HEAD
 //changing from windows
-=======
 //sadas
 //dsada
 //dssd
 //ds
 // dsfs
->>>>>>> e8cdf53abd6133a9ad9050b1b352f74acddb74ed
 class registrationPage extends StatefulWidget {
   String userId;
   String loginOption;
