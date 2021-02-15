@@ -37,10 +37,10 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
   var star_color = false;
 
   var mainimage = [
-    "./assets/sublistPage/image8.png",
-    "./assets/sublistPage/image9.png",
-    "./assets/sublistPage/image9.png",
-    "./assets/sublistPage/image11.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_experience_sublist/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_experience_sublist/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_experience_sublist/image3.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_experience_sublist/image4.png",
   ];
   @override
   void initState() {
@@ -87,7 +87,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
           Text(
             "주소가 복사되었어요",
             style: TextStyle(
-              fontSize: 45/screenWidth,
+              fontSize: 45 / screenWidth,
               fontFamily: 'NotoSansCJKkr_Medium',
               letterSpacing: 0,
               color: Colors.white,
@@ -101,6 +101,20 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 1),
+    );
+  }
+
+  Image mainImage(image) {
+    return Image.network(
+      image,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+      // width: MediaQuery.of(context).size.width,
+      fit: BoxFit.fitWidth,
     );
   }
 
@@ -151,30 +165,17 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                   ],
                 ),
               ),
-              index % 4 == 0
-                  ? Image.asset(
-                      mainimage[0],
-                      width: MediaQuery.of(context).size.width,
-                    )
-                  : index % 4 == 1
-                      ? Image.asset(
-                          mainimage[1],
-                          width: MediaQuery.of(context).size.width,
-                        )
-                      : index % 4 == 2
-                          ? Image.asset(
-                              mainimage[2],
-                              width: MediaQuery.of(context).size.width,
-                            )
-                          : index % 3 == 3
-                              ? Image.asset(
-                                  mainimage[3],
-                                  width: MediaQuery.of(context).size.width,
-                                )
-                              : Image.asset(
-                                  mainimage[3],
-                                  width: MediaQuery.of(context).size.width,
-                                ),
+
+              (() {
+                if (index % 4 == 0) {
+                  return mainImage(mainimage[0]);
+                } else if (index % 4 == 1) {
+                  return mainImage(mainimage[1]);
+                } else if (index % 4 == 2) {
+                  return mainImage(mainimage[2]);
+                } else
+                  return mainImage(mainimage[3]);
+              }()),
 
               Card(
                 elevation: 0.3,

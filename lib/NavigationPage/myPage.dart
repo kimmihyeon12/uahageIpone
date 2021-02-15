@@ -472,28 +472,6 @@ class _myPageState extends State<myPage> {
                           onTap: loginOption != "login"
                               ? () {
                                   _showPicker(context);
-                                  // FutureBuilder(
-                                  //   future: _showPicker(context),
-                                  //   builder: (context, snapshot) {
-                                  //     if (snapshot.hasError) {
-                                  //       return AlertDialog(
-                                  //         actions: [
-                                  //           FlatButton(
-                                  //             onPressed: () {
-                                  //               Navigator.pop(context);
-                                  //             },
-                                  //             child: Text("ok"),
-                                  //           )
-                                  //         ],
-                                  //       );
-                                  //     } else if (snapshot.hasData) {}
-                                  //     return Container(
-                                  //       child: Center(
-                                  //         child: CircularProgressIndicator(),
-                                  //       ),
-                                  //     );
-                                  //   },
-                                  // );
                                 }
                               : () {
                                   Fluttertoast.showToast(

@@ -48,7 +48,6 @@ class _homePageState extends State<homePage> {
 
   @override
   void dispose() {
-    print('ddddddddddddddddddddddddddddddddddddddddddddddddd');
     super.dispose();
   }
 
@@ -64,20 +63,28 @@ class _homePageState extends State<homePage> {
   int index = 1;
   @override
   Widget build(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
     imageView(fileName) {
-      return Image.asset(
-        "./assets/homePage/" + fileName + ".png",
+      return Image.network(
+        "https://uahage.s3.ap-northeast-2.amazonaws.com/homePage/$fileName.png",
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
         fit: BoxFit.fill,
       );
     }
 
     var ScreenHeight = MediaQuery.of(context).size.height;
     var ScreenWidth = MediaQuery.of(context).size.width;
-        double screenHeight = 2668 / MediaQuery.of(context).size.height;
+    double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
 
     var homeimage = [
@@ -175,8 +182,7 @@ class _homePageState extends State<homePage> {
                                           child: Text(
                                             store_namelist[index],
                                             style: TextStyle(
-                                              fontSize:
-                                                  56 / screenWidth,
+                                              fontSize: 56 / screenWidth,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
                                             ),
@@ -195,8 +201,7 @@ class _homePageState extends State<homePage> {
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize:
-                                                    45 / screenWidth,
+                                                fontSize: 45 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                               ),
@@ -271,8 +276,7 @@ class _homePageState extends State<homePage> {
                             left: 950 / screenWidth,
                           )),
                           FutureBuilder(
-                            future:
-                                Future.delayed(Duration(milliseconds: 1500)),
+                            future: Future.delayed(Duration(milliseconds: 700)),
                             builder: (c, s) =>
                                 s.connectionState == ConnectionState.done
                                     ? InkWell(
@@ -349,7 +353,6 @@ class _homePageState extends State<homePage> {
                               imageView("image2"),
                               imageView("image3"),
                               imageView("image4"),
-                              // imageView("image5"),
                             ],
                             onPageChanged: (int page) {
                               setState(() {
@@ -401,11 +404,8 @@ class _homePageState extends State<homePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(
-                          49 / screenWidth,
-                          53 / screenHeight,
-                          49 / screenWidth,
-                          0),
+                      margin: EdgeInsets.fromLTRB(49 / screenWidth,
+                          53 / screenHeight, 49 / screenWidth, 0),
                       height: 182 / screenHeight,
                       child: Theme(
                         data: new ThemeData(
@@ -419,6 +419,8 @@ class _homePageState extends State<homePage> {
                               searchkey = txt;
                             });
                           },
+                          // autofocus: false,
+                          // showCursor: false,
                           style: TextStyle(
                               color: Color(0xffcccccc),
                               fontSize: 55 / screenWidth,
@@ -427,8 +429,8 @@ class _homePageState extends State<homePage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(width: 0)),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                76 / screenWidth, 0, 0, 0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(76 / screenWidth, 0, 0, 0),
                             hintText: "장소, 주소, 상호명을 검색해주세요",
                             hintStyle: TextStyle(
                                 color: Color(0xffcccccc),
@@ -471,6 +473,7 @@ class _homePageState extends State<homePage> {
                                 height: 211 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -490,6 +493,7 @@ class _homePageState extends State<homePage> {
                                 height: 255 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -510,6 +514,7 @@ class _homePageState extends State<homePage> {
                                 height: 264 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Fluttertoast.showToast(
                                   msg: "  서비스 준비 중이에요!  ",
                                   toastLength: Toast.LENGTH_SHORT,
@@ -532,6 +537,7 @@ class _homePageState extends State<homePage> {
                                 height: 248 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Fluttertoast.showToast(
                                   msg: "  서비스 준비 중이에요!  ",
                                   toastLength: Toast.LENGTH_SHORT,
@@ -563,6 +569,7 @@ class _homePageState extends State<homePage> {
                                 height: 251 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -582,6 +589,7 @@ class _homePageState extends State<homePage> {
                                 height: 230 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -601,6 +609,7 @@ class _homePageState extends State<homePage> {
                                 height: 239 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Fluttertoast.showToast(
                                   msg: "  서비스 준비 중이에요!  ",
                                   toastLength: Toast.LENGTH_SHORT,
@@ -623,6 +632,7 @@ class _homePageState extends State<homePage> {
                                 height: 202 / screenHeight,
                               ),
                               onTap: () {
+                                currentFocus.unfocus();
                                 Fluttertoast.showToast(
                                   msg: "  서비스 준비 중이에요!  ",
                                   toastLength: Toast.LENGTH_SHORT,
@@ -700,8 +710,7 @@ class _homePageState extends State<homePage> {
                                   fontFamily: "NotoSansCJKkr_Medium",
                                   //  height: 1.0,
                                   //   letterSpacing: -1.0,
-                                  fontSize: 40 /
-                                      screenWidth,
+                                  fontSize: 40 / screenWidth,
                                   color: Color.fromRGBO(151, 151, 151, 1.0)),
                             ),
                           ]),

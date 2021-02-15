@@ -38,8 +38,8 @@ class _examination_institution_sublistState
   List<String> star_color_list = List(10);
   var star_color = false;
   var mainimage = [
-    "./assets/sublistPage/image4.png",
-    "./assets/sublistPage/image5.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_exam_sublist_/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_exam_sublist_/image2.png",
   ];
 
   @override
@@ -152,19 +152,10 @@ class _examination_institution_sublistState
                 ),
               ),
               index % 2 == 0
-                  ? Image.asset(
-                      mainimage[0],
-                      width: MediaQuery.of(context).size.width,
-                    )
+                  ? mainImage(mainimage[0])
                   : index % 2 == 1
-                      ? Image.asset(
-                          mainimage[1],
-                          width: MediaQuery.of(context).size.width,
-                        )
-                      : Image.asset(
-                          mainimage[1],
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                      ? mainImage(mainimage[1])
+                      : mainImage(mainimage[2]),
 
               Card(
                 elevation: 0.3,
@@ -391,6 +382,20 @@ class _examination_institution_sublistState
           ),
         ),
       ),
+    );
+  }
+
+  Image mainImage(image) {
+    return Image.network(
+      image,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+      // width: MediaQuery.of(context).size.width,
+      fit: BoxFit.fitWidth,
     );
   }
 }

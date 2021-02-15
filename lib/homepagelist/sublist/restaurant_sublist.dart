@@ -127,9 +127,9 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
   ];
 
   var mainimage = [
-    "./assets/sublistPage/image1.png",
-    "./assets/sublistPage/image2.png",
-    "./assets/sublistPage/image3.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_sublist/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_sublist/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_sublist/image3.png"
   ];
 
   _showToast(double screenWidth) {
@@ -159,6 +159,20 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 1),
+    );
+  }
+
+  Image mainImage(image) {
+    return Image.network(
+      image,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+      // width: MediaQuery.of(context).size.width,
+      fit: BoxFit.fitWidth,
     );
   }
 
@@ -205,26 +219,14 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                   ],
                 ),
               ),
-              index % 3 == 0
-                  ? Image.asset(
-                      mainimage[0],
-                      width: MediaQuery.of(context).size.width,
-                    )
-                  : index % 3 == 1
-                      ? Image.asset(
-                          mainimage[1],
-                          width: MediaQuery.of(context).size.width,
-                        )
-                      : index % 3 == 2
-                          ? Image.asset(
-                              mainimage[2],
-                              width: MediaQuery.of(context).size.width,
-                            )
-                          : Image.asset(
-                              mainimage[2],
-                              width: MediaQuery.of(context).size.width,
-                            ),
-
+              (() {
+                if (index % 4 == 0) {
+                  return mainImage(mainimage[0]);
+                } else if (index % 4 == 1) {
+                  return mainImage(mainimage[1]);
+                } else
+                  return mainImage(mainimage[2]);
+              }()),
               Card(
                 elevation: 0.3,
                 child: Row(
@@ -532,8 +534,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                         children: [
                           Container(
                             padding: EdgeInsets.only(
-                              left: 75 /
-                                  screenWidth,
+                              left: 75 / screenWidth,
                               top: 40 / screenHeight,
                             ),
                             child: Text(

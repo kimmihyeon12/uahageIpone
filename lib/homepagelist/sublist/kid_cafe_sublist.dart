@@ -36,8 +36,8 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   var star_color = false;
 
   var mainimage = [
-    "./assets/sublistPage/image6.png",
-    "./assets/sublistPage/image7.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image2.png",
   ];
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     });
   }
 
-  _showToast(screenWidth ) {
+  _showToast(screenWidth) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -98,6 +98,20 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 1),
+    );
+  }
+
+  Image mainImage(image) {
+    return Image.network(
+      image,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+      // width: MediaQuery.of(context).size.width,
+      fit: BoxFit.fitWidth,
     );
   }
 
@@ -148,20 +162,27 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                   ],
                 ),
               ),
-              index % 2 == 0
-                  ? Image.asset(
-                      mainimage[0],
-                      width: MediaQuery.of(context).size.width,
-                    )
-                  : index % 2 == 1
-                      ? Image.asset(
-                          mainimage[1],
-                          width: MediaQuery.of(context).size.width,
-                        )
-                      : Image.asset(
-                          mainimage[1],
-                          width: MediaQuery.of(context).size.width,
-                        ),
+
+              (() {
+                if (index % 2 == 0) {
+                  return mainImage(mainimage[0]);
+                } else
+                  return mainImage(mainimage[1]);
+              }()),
+              // index % 2 == 0
+              //     ? Image.asset(
+              //         mainimage[0],
+              //         width: MediaQuery.of(context).size.width,
+              //       )
+              //     : index % 2 == 1
+              //         ? Image.asset(
+              //             mainimage[1],
+              //             width: MediaQuery.of(context).size.width,
+              //           )
+              //         : Image.asset(
+              //             mainimage[1],
+              //             width: MediaQuery.of(context).size.width,
+              //           ),
 
               Card(
                 elevation: 0.3,
