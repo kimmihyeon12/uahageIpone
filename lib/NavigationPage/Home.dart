@@ -344,6 +344,7 @@ class _homePageState extends State<homePage> {
                             ),
                             scrollDirection: Axis.horizontal,
                             children: [
+                              imageView("homeimage"),
                               imageView("image1"),
                               imageView("image2"),
                               imageView("image3"),
@@ -372,7 +373,7 @@ class _homePageState extends State<homePage> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 1, horizontal: 10),
                               child: Text(
-                                '$index/4',
+                                '$index/5',
                                 style: TextStyle(
                                   fontSize: 62 / screenWidth,
                                   color: Colors.white,

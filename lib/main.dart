@@ -63,97 +63,97 @@ class _MyHomePageState extends State<MyHomePage> {
       DeviceOrientation.portraitDown,
     ]);
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        // resizeToAvoidBottomPadding: false,
         body: Stack(
-          children: [
-            Container(
-              child: Image(
-                image: AssetImage('./assets/firstPage/backgroundimage.png'),
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
-                // height: 50,
-              ),
-              //  color:Colors.black
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: Image(
-                image: AssetImage('./assets/firstPage/backfamily.png'),
+      children: [
+        Container(
+          child: Image(
+            image: AssetImage('./assets/firstPage/backgroundimage.png'),
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.fitWidth,
+            // height: 50,
+          ),
+          //  color:Colors.black
+        ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          child: Image(
+            image: AssetImage('./assets/firstPage/backfamily.png'),
 
-                width: 1446 / screenWidth,
-                // height: 50,
-              ),
+            width: 1446 / screenWidth,
+            // height: 50,
+          ),
+        ),
+        Row(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(
+              left: 658 / screenWidth,
+            )),
+            Image(
+              image: AssetImage('./assets/firstPage/Lighting.png'),
+              height: 440 / screenHeight,
+              width: 143 / screenWidth,
             ),
-            Row(
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(
-                  left: 658 / screenWidth,
-                )),
-                Image(
-                  image: AssetImage('./assets/firstPage/Lighting.png'),
-                  height: 440 / screenHeight,
-                  width: 143 / screenWidth,
-                ),
-                Image(
-                  image: AssetImage('./assets/firstPage/logo.png'),
-                  height: 88 / screenHeight,
-                  width: 662 / screenWidth,
-                ),
-              ],
-            ),
-            Center(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 666 / screenHeight, 0, 0),
-                    child: Image(
-                      image: AssetImage('./assets/firstPage/group.png'),
-                      height: 357 / screenHeight,
-                      width: 325 / screenWidth,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 79 / screenHeight, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "우리아이",
-                          style: TextStyle(
-                              fontFamily: "S_CoreDream_8",
-                              //   height: 1.0,
-                              //   letterSpacing: -1.0,
-                              fontSize: 71 / screenHeight,
-                              // fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(255, 114, 148, 1.0)),
-                        ),
-                        Text(
-                          "와 함께하는",
-                          style: TextStyle(
-                              fontFamily: "S_CoreDream_4",
-                              //  height: 1.0,
-                              //   letterSpacing: -1.0,
-                              fontSize: 71 / screenHeight,
-                              color: Color.fromRGBO(255, 114, 148, 1.0)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 49 / screenHeight, 0, 0),
-                    child: Image(
-                      image: AssetImage('./assets/firstPage/uahage.png'),
-                      height: 113 / screenHeight,
-                      // height: 50,
-                    ),
-                  ),
-                ],
-              ),
+            Image(
+              image: AssetImage('./assets/firstPage/logo.png'),
+              height: 88 / screenHeight,
+              width: 662 / screenWidth,
             ),
           ],
-        ));
+        ),
+        Center(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 666 / screenHeight, 0, 0),
+                child: Image(
+                  image: AssetImage('./assets/firstPage/group.png'),
+                  height: 357 / screenHeight,
+                  width: 325 / screenWidth,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 79 / screenHeight, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "우리아이",
+                      style: TextStyle(
+                          fontFamily: "S_CoreDream_8",
+                          //   height: 1.0,
+                          //   letterSpacing: -1.0,
+                          fontSize: 71 / screenHeight,
+                          // fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(255, 114, 148, 1.0)),
+                    ),
+                    Text(
+                      "와 함께하는",
+                      style: TextStyle(
+                          fontFamily: "S_CoreDream_4",
+                          //  height: 1.0,
+                          //   letterSpacing: -1.0,
+                          fontSize: 71 / screenHeight,
+                          color: Color.fromRGBO(255, 114, 148, 1.0)),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 49 / screenHeight, 0, 0),
+                child: Image(
+                  image: AssetImage('./assets/firstPage/uahage.png'),
+                  height: 113 / screenHeight,
+                  // height: 50,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ));
   }
 }

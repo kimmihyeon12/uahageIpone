@@ -29,7 +29,7 @@ dependencies:
   flutter_naver_login: ^1.2.0
   geolocator: ^6.1.13
   webview_flutter: ^0.3.19+9
-  location: ^3.0.0
+  # location: ^3.0.0
   lite_rolling_switch: ^0.1.1
   page_transition: ^1.1.7+6
   image_picker: ^0.6.6+5

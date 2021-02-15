@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -364,9 +365,9 @@ class _myPageState extends State<myPage> {
     // print("widgetbuuild imageLink " + imageLink);
     return WillPopScope(
       onWillPop: () async {
-        exit(0);
-        // SystemNavigator.pop();
-        // return true;
+        // exit(0);
+        SystemNavigator.pop();
+        return true;
       },
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -698,12 +699,15 @@ class _myPageState extends State<myPage> {
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
                                           // print("hasdata " + snapshot.data);
-                                          return nickNameShow(
-                                              snapshot.data, screenHeight);
+                                          return snapshot.data != ""
+                                              ? nickNameShow(
+                                                  snapshot.data, screenWidth)
+                                              : nickNameShow(
+                                                  "우아하게", screenWidth);
                                         } else if (snapshot.hasError) {
                                           // print("haserror " + snapshot.error);
                                           return nickNameShow(
-                                              snapshot.error, screenHeight);
+                                              snapshot.error, screenWidth);
                                         }
                                         return Center(
                                           child: SizedBox(
