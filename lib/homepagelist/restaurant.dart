@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -176,6 +177,13 @@ class _restaurantState extends State<restaurant> {
     _scrollController.dispose();
   }
 
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var ScreenHeight = MediaQuery.of(context).size.height;
@@ -292,15 +300,16 @@ class _restaurantState extends State<restaurant> {
                   if (snapshot.data == null) {
                     return Center(
                       child: SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 5.0,
-                          valueColor: new AlwaysStoppedAnimation<Color>(
-                            Colors.pinkAccent,
+                          width: 60,
+                          height: 60,
+                          child: buildSpinKitThreeBounce(80, screenWidth)
+                          // CircularProgressIndicator(
+                          //   strokeWidth: 5.0,
+                          //   valueColor: new AlwaysStoppedAnimation<Color>(
+                          //     Colors.pinkAccent,
+                          //   ),
+                          // ),
                           ),
-                        ),
-                      ),
                     );
                   } else {
                     return ListView.builder(
@@ -330,8 +339,10 @@ class _restaurantState extends State<restaurant> {
                                           meetingroom:
                                               snapshot.data[index].meetingroom,
                                           diapers: snapshot.data[index].diapers,
-                                          playroom: snapshot.data[index].playroom,
-                                          carriage: snapshot.data[index].carriage,
+                                          playroom:
+                                              snapshot.data[index].playroom,
+                                          carriage:
+                                              snapshot.data[index].carriage,
                                           nursingroom:
                                               snapshot.data[index].nursingroom,
                                           chair: snapshot.data[index].chair,
@@ -349,41 +360,35 @@ class _restaurantState extends State<restaurant> {
                                     left: 26 / (1501 / ScreenWidth),
                                   ),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      ((){
-                                        if(index % 4 == 1){
-                                         return Image.asset(
+                                      (() {
+                                        if (index % 4 == 1) {
+                                          return Image.asset(
                                             listimage[0],
                                             height: 414 / (2667 / ScreenHeight),
                                           );
-                                        }
-                                        else if(index % 4 == 2){
+                                        } else if (index % 4 == 2) {
                                           return Image.asset(
                                             listimage[1],
-                                            height:
-                                            414 / (2667 / ScreenHeight),
+                                            height: 414 / (2667 / ScreenHeight),
                                           );
-                                        }
-                                        else if(index % 4 == 3){
+                                        } else if (index % 4 == 3) {
                                           return Image.asset(
                                             listimage[2],
-                                            height:
-                                            414 / (2667 / ScreenHeight),
+                                            height: 414 / (2667 / ScreenHeight),
                                           );
-                                        }else{
+                                        } else {
                                           return Image.asset(
                                             listimage[3],
-                                            height:
-                                            414 / (2667 / ScreenHeight),
+                                            height: 414 / (2667 / ScreenHeight),
                                           );
                                         }
                                       }()),
-
                                       Padding(
                                           padding: EdgeInsets.only(
-                                        left: 53 /
-                                            screenWidth,
+                                        left: 53 / screenWidth,
                                       )),
                                       Column(
                                         crossAxisAlignment:
@@ -400,8 +405,7 @@ class _restaurantState extends State<restaurant> {
                                                   snapshot
                                                       .data[index].store_name,
                                                   style: TextStyle(
-                                                    fontSize: 56 /
-                                                        screenWidth,
+                                                    fontSize: 56 / screenWidth,
                                                     fontFamily:
                                                         'NotoSansCJKkr_Medium',
                                                   ),
@@ -437,8 +441,8 @@ class _restaurantState extends State<restaurant> {
                                                               Colors.black45,
                                                           textColor:
                                                               Colors.white,
-                                                          fontSize: 56 /
-                                                               screenWidth,
+                                                          fontSize:
+                                                              56 / screenWidth,
                                                         );
                                                       }
                                                     : () async {
@@ -519,8 +523,7 @@ class _restaurantState extends State<restaurant> {
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize:
-                                                    45 / screenWidth,
+                                                fontSize: 45 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                               ),
@@ -534,8 +537,7 @@ class _restaurantState extends State<restaurant> {
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize:
-                                                    45 / 60 / screenWidth,
+                                                fontSize: 45 / 60 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                               ),
@@ -543,16 +545,18 @@ class _restaurantState extends State<restaurant> {
                                           ),
                                           SafeArea(
                                             child: Container(
-                                              height: 150 / (2667 / ScreenHeight),
+                                              height:
+                                                  150 / (2667 / ScreenHeight),
                                               width: 800 / (1501 / ScreenWidth),
                                               alignment: Alignment.bottomRight,
                                               child: Row(
                                                 children: [
-                                                  chair(
-                                                      snapshot.data[index].chair),
+                                                  chair(snapshot
+                                                      .data[index].chair),
                                                   carriage(snapshot
                                                       .data[index].carriage),
-                                                  menu(snapshot.data[index].menu),
+                                                  menu(snapshot
+                                                      .data[index].menu),
                                                   bed(snapshot.data[index].bed),
                                                   tableware(snapshot
                                                       .data[index].tableware),

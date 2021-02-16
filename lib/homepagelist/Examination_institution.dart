@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -115,6 +116,13 @@ class _examination_institutionState extends State<examination_institution> {
     return examination_institutions;
   }
 
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -135,14 +143,14 @@ class _examination_institutionState extends State<examination_institution> {
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
                 onTap: () {
                   Navigator.pop(context);
                 },
                 child: Row(
-
                   children: [
                     Image.asset(
                       "./assets/listPage/backbutton.png",
@@ -150,9 +158,10 @@ class _examination_institutionState extends State<examination_institution> {
                       height: 76 / (2667 / ScreenHeight),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(
-                      left: 62 / screenWidth,
-                    ),),
+                      padding: EdgeInsets.only(
+                        left: 62 / screenWidth,
+                      ),
+                    ),
                     Container(
                       // width: 310 / screenWidth,
                       // margin: EdgeInsets.only(left: 50 / screenWidth),
@@ -215,15 +224,16 @@ class _examination_institutionState extends State<examination_institution> {
                   if (snapshot.data == null) {
                     return Center(
                       child: SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 5.0,
-                          valueColor: new AlwaysStoppedAnimation<Color>(
-                            Colors.pinkAccent,
+                          width: 60,
+                          height: 60,
+                          child: buildSpinKitThreeBounce(80, screenWidth)
+                          // CircularProgressIndicator(
+                          //   strokeWidth: 5.0,
+                          //   valueColor: new AlwaysStoppedAnimation<Color>(
+                          //     Colors.pinkAccent,
+                          //   ),
+                          // ),
                           ),
-                        ),
-                      ),
                     );
                   } else {
                     return ListView.builder(
@@ -244,8 +254,8 @@ class _examination_institutionState extends State<examination_institution> {
                                             snapshot.data[index].store_name,
                                         address: snapshot.data[index].address,
                                         phone: snapshot.data[index].phone,
-                                        examinationitem:
-                                            snapshot.data[index].Examination_item,
+                                        examinationitem: snapshot
+                                            .data[index].Examination_item,
                                         userId: userId,
                                         loginOption: loginOption,
                                       ),
@@ -261,20 +271,19 @@ class _examination_institutionState extends State<examination_institution> {
                                     left: 26 / (1501 / ScreenWidth),
                                   ),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      ((){
-                                        if(index % 2 == 0){
+                                      (() {
+                                        if (index % 2 == 0) {
                                           return Image.asset(
                                             listimage[0],
                                             height: 414 / (2667 / ScreenHeight),
                                           );
-                                        }
-                                        else{
+                                        } else {
                                           return Image.asset(
                                             listimage[1],
-                                            height:
-                                            414 / (2667 / ScreenHeight),
+                                            height: 414 / (2667 / ScreenHeight),
                                           );
                                         }
                                       }()),
@@ -294,15 +303,16 @@ class _examination_institutionState extends State<examination_institution> {
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  width:
-                                                      750 / (1501 / ScreenWidth),
-                                                  height:
-                                                      100 / (2667 / ScreenHeight),
+                                                  width: 750 /
+                                                      (1501 / ScreenWidth),
+                                                  height: 100 /
+                                                      (2667 / ScreenHeight),
                                                   child: Text(
                                                     snapshot
                                                         .data[index].store_name,
                                                     style: TextStyle(
-                                                      fontSize: 56 / screenWidth,
+                                                      fontSize:
+                                                          56 / screenWidth,
                                                       fontFamily:
                                                           'NotoSansCJKkr_Medium',
                                                     ),
@@ -327,26 +337,31 @@ class _examination_institutionState extends State<examination_institution> {
                                                   onPressed: loginOption ==
                                                           "login"
                                                       ? () {
-                                                          Fluttertoast.showToast(
-                                                            msg: "  로그인 해주세요!  ",
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg:
+                                                                "  로그인 해주세요!  ",
                                                             toastLength: Toast
                                                                 .LENGTH_SHORT,
-                                                            gravity: ToastGravity
-                                                                .BOTTOM,
-                                                            timeInSecForIosWeb: 1,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .BOTTOM,
+                                                            timeInSecForIosWeb:
+                                                                1,
                                                             backgroundColor:
                                                                 Colors.black45,
                                                             textColor:
                                                                 Colors.white,
-                                                            fontSize:
-                                                                48 / screenWidth,
+                                                            fontSize: 48 /
+                                                                screenWidth,
                                                           );
                                                         }
                                                       : () async {
                                                           setState(() {
-                                                            store_name1 = snapshot
-                                                                .data[index]
-                                                                .store_name;
+                                                            store_name1 =
+                                                                snapshot
+                                                                    .data[index]
+                                                                    .store_name;
                                                             address1 = snapshot
                                                                 .data[index]
                                                                 .address;
@@ -363,16 +378,19 @@ class _examination_institutionState extends State<examination_institution> {
                                                                 'null') {
                                                               star_color = true;
                                                               star_color_list[
-                                                                  index] = "test";
+                                                                      index] =
+                                                                  "test";
                                                               print(
                                                                   ' star_color_list[index]');
                                                               print(
                                                                   star_color_list[
                                                                       index]);
                                                             } else {
-                                                              star_color = false;
+                                                              star_color =
+                                                                  false;
                                                               star_color_list[
-                                                                  index] = 'null';
+                                                                      index] =
+                                                                  'null';
                                                             }
                                                             ;
 
@@ -389,7 +407,8 @@ class _examination_institutionState extends State<examination_institution> {
                                           )),
                                           SafeArea(
                                             child: Container(
-                                              height: 160 / (2667 / ScreenHeight),
+                                              height:
+                                                  160 / (2667 / ScreenHeight),
                                               width: 800 / (1501 / ScreenWidth),
                                               child: Text(
                                                 snapshot.data[index].address,
@@ -405,7 +424,8 @@ class _examination_institutionState extends State<examination_institution> {
                                           ),
                                           SafeArea(
                                             child: Container(
-                                              height: 150 / (1501 / ScreenWidth),
+                                              height:
+                                                  150 / (1501 / ScreenWidth),
                                               width: 800 / (1501 / ScreenWidth),
                                               child: Text(
                                                 snapshot.data[index].phone,

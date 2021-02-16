@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class starPage extends StatefulWidget {
@@ -43,6 +43,13 @@ class _starPageState extends State<starPage> {
   var list = true;
   int _currentMax = 0;
   ScrollController _scrollController = ScrollController();
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
 
   @override
   void initState() {
@@ -128,15 +135,16 @@ class _starPageState extends State<starPage> {
             if (snapshot.data == null) {
               return Center(
                 child: SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 5.0,
-                    valueColor: new AlwaysStoppedAnimation<Color>(
-                      Colors.pinkAccent,
-                    ),
-                  ),
-                ),
+                    width: 60,
+                    height: 60,
+                    child:
+                        // CircularProgressIndicator(
+                        //   strokeWidth: 5.0,
+                        //   valueColor: new AlwaysStoppedAnimation<Color>(
+                        //     Colors.pinkAccent,
+                        //   ),
+                        // ),
+                        buildSpinKitThreeBounce(100, screenWidth)),
               );
             } else {
               print("snapshot length " + snapshot.data.length.toString());
@@ -198,38 +206,32 @@ class _starPageState extends State<starPage> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    ((){
-                                      if(index % 4 == 1){
+                                    (() {
+                                      if (index % 4 == 1) {
                                         return Image.asset(
                                           listimage[0],
                                           height: 414 / (2667 / ScreenHeight),
                                         );
-                                      }
-                                      else if(index % 4 == 2){
+                                      } else if (index % 4 == 2) {
                                         return Image.asset(
                                           listimage[1],
-                                          height:
-                                          414 / (2667 / ScreenHeight),
+                                          height: 414 / (2667 / ScreenHeight),
                                         );
-                                      }
-                                      else if(index % 4 == 3){
+                                      } else if (index % 4 == 3) {
                                         return Image.asset(
                                           listimage[2],
-                                          height:
-                                          414 / (2667 / ScreenHeight),
+                                          height: 414 / (2667 / ScreenHeight),
                                         );
-                                      }else{
+                                      } else {
                                         return Image.asset(
                                           listimage[3],
-                                          height:
-                                          414 / (2667 / ScreenHeight),
+                                          height: 414 / (2667 / ScreenHeight),
                                         );
                                       }
                                     }()),
                                     Padding(
                                         padding: EdgeInsets.only(
-                                      left: 53 /
-                                          screenWidth,
+                                      left: 53 / screenWidth,
                                     )),
                                     Column(
                                       crossAxisAlignment:
@@ -238,16 +240,12 @@ class _starPageState extends State<starPage> {
                                         Row(
                                           children: [
                                             Container(
-                                              width:
-                                                  750 / screenWidth,
-                                              height:
-                                                  100 / screenHeight,
+                                              width: 750 / screenWidth,
+                                              height: 100 / screenHeight,
                                               child: Text(
-                                                snapshot
-                                                    .data[index].store_name,
+                                                snapshot.data[index].store_name,
                                                 style: TextStyle(
-                                                  fontSize: 56 /
-                                                      screenWidth,
+                                                  fontSize: 56 / screenWidth,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
@@ -256,24 +254,20 @@ class _starPageState extends State<starPage> {
                                             IconButton(
                                               padding: EdgeInsets.all(0),
                                               constraints: BoxConstraints(
-                                                maxWidth: 170 /
-                                                    screenWidth,
-                                                maxHeight: 170 /
-                                                    screenHeight,
+                                                maxWidth: 170 / screenWidth,
+                                                maxHeight: 170 / screenHeight,
                                               ),
                                               icon: Image.asset(
                                                 // false
                                                 //     ? "./assets/listPage/star_grey.png"
                                                 //     :
-                                                    "./assets/listPage/star_color.png",
-                                                height: 60 /
-                                                    screenHeight,
+                                                "./assets/listPage/star_color.png",
+                                                height: 60 / screenHeight,
                                               ),
                                               onPressed: () async {
                                                 setState(() {
                                                   address1 = snapshot
                                                       .data[index].address;
-
                                                 });
                                                 click_star();
                                                 _showToast(screenWidth);
@@ -292,8 +286,7 @@ class _starPageState extends State<starPage> {
                                             style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize:
-                                                  45 /screenWidth,
+                                              fontSize: 45 / screenWidth,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
                                             ),
@@ -311,8 +304,7 @@ class _starPageState extends State<starPage> {
                                             style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize:
-                                                  45 / screenWidth,
+                                              fontSize: 45 / screenWidth,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
                                             ),
@@ -324,8 +316,7 @@ class _starPageState extends State<starPage> {
                                           alignment: Alignment.bottomRight,
                                           child: Row(
                                             children: [
-                                              chair(
-                                                  snapshot.data[index].chair),
+                                              chair(snapshot.data[index].chair),
                                               carriage(snapshot
                                                   .data[index].carriage),
                                               menu(snapshot.data[index].menu),
@@ -334,8 +325,8 @@ class _starPageState extends State<starPage> {
                                                   .data[index].tableware),
                                               meetingroom(snapshot
                                                   .data[index].meetingroom),
-                                              diapers(snapshot
-                                                  .data[index].diapers),
+                                              diapers(
+                                                  snapshot.data[index].diapers),
                                               playroom(snapshot
                                                   .data[index].playroom),
                                               nursingroom(snapshot

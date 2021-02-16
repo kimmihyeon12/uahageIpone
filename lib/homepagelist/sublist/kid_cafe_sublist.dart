@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -101,13 +102,20 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     );
   }
 
-  Image mainImage(image) {
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
+  Image mainImage(image, screenWidth) {
     return Image.network(
       image,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
         return Center(
-          child: CircularProgressIndicator(),
+          child: buildSpinKitThreeBounce(50, screenWidth),
         );
       },
       // width: MediaQuery.of(context).size.width,
@@ -165,9 +173,9 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
 
               (() {
                 if (index % 2 == 0) {
-                  return mainImage(mainimage[0]);
+                  return mainImage(mainimage[0], screenWidth);
                 } else
-                  return mainImage(mainimage[1]);
+                  return mainImage(mainimage[1], screenWidth);
               }()),
               // index % 2 == 0
               //     ? Image.asset(

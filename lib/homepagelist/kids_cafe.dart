@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -42,6 +43,13 @@ class _kids_cafeState extends State<kids_cafe> {
       latitude = '${geoposition.latitude}';
       longitude = '${geoposition.longitude}';
     });
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
   }
 
   int _currentMax = 0;
@@ -138,103 +146,100 @@ class _kids_cafeState extends State<kids_cafe> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "./assets/listPage/backbutton.png",
-                          width: 44 / (1501 / ScreenWidth),
-                          height: 76 / (2667 / ScreenHeight),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                          left: 45 / screenWidth,
-                        )),
-                        Container(
-                          // width: 310 / screenWidth,
-                          child: Text(
-                            '키즈·카페',
-                            style: TextStyle(
-                                fontSize: 62 / screenWidth,
-                                fontFamily: 'NotoSansCJKkr_Medium',
-                                color: Color.fromRGBO(255, 114, 148, 1.0)),
-                          ),
-                        ),
-                      ],
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    Image.asset(
+                      "./assets/listPage/backbutton.png",
+                      width: 44 / (1501 / ScreenWidth),
+                      height: 76 / (2667 / ScreenHeight),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(right: 30 / screenWidth),
-                    child: toggle
-                        ? InkWell(
-                            onTap: () {
-                              setState(() {
-                                toggle = !toggle;
-                                if (list) {
-                                  list = false;
-                                } else {
-                                  list = true;
-                                }
-                              });
-                            },
-                            child: Image.asset(
-                              './assets/on.png',
-                              width: 284 / screenWidth,
-                              height: 133 / screenHeight,
-                            ),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              setState(() {
-                                toggle = !toggle;
-                                if (list) {
-                                  list = false;
-                                } else {
-                                  list = true;
-                                }
-                              });
-                            },
-                            child: Image.asset(
-                              './assets/off.png',
-                              width: 284 / screenWidth,
-                              height: 133 / screenHeight,
-                            ),
-                          ),
-                  )
-                  // Container(
-                  //   margin: EdgeInsets.only(left: 590 / screenWidth),
-                  //   child: LiteRollingSwitch(
-                  //     value: false,
-                  //     textOn: '목록',
-                  //     textOff: '지도',
-                  //     colorOn: Color.fromRGBO(255, 114, 148, 1.0),
-                  //     colorOff: Color.fromRGBO(255, 114, 148, 1.0),
+                    Padding(
+                        padding: EdgeInsets.only(
+                      left: 45 / screenWidth,
+                    )),
+                    Container(
+                      // width: 310 / screenWidth,
+                      child: Text(
+                        '키즈·카페',
+                        style: TextStyle(
+                            fontSize: 62 / screenWidth,
+                            fontFamily: 'NotoSansCJKkr_Medium',
+                            color: Color.fromRGBO(255, 114, 148, 1.0)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 30 / screenWidth),
+                child: toggle
+                    ? InkWell(
+                        onTap: () {
+                          setState(() {
+                            toggle = !toggle;
+                            if (list) {
+                              list = false;
+                            } else {
+                              list = true;
+                            }
+                          });
+                        },
+                        child: Image.asset(
+                          './assets/on.png',
+                          width: 284 / screenWidth,
+                          height: 133 / screenHeight,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            toggle = !toggle;
+                            if (list) {
+                              list = false;
+                            } else {
+                              list = true;
+                            }
+                          });
+                        },
+                        child: Image.asset(
+                          './assets/off.png',
+                          width: 284 / screenWidth,
+                          height: 133 / screenHeight,
+                        ),
+                      ),
+              )
+              // Container(
+              //   margin: EdgeInsets.only(left: 590 / screenWidth),
+              //   child: LiteRollingSwitch(
+              //     value: false,
+              //     textOn: '목록',
+              //     textOff: '지도',
+              //     colorOn: Color.fromRGBO(255, 114, 148, 1.0),
+              //     colorOff: Color.fromRGBO(255, 114, 148, 1.0),
 
-                  //     //    iconOn:  , iconOff: , textSize:
-                  //     onChanged: (bool state) {},
-                  //     onTap: () {
-                  //       /*     Navigator.pushReplacement(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //               builder: (context) => map_list(),
-                  //             ));*/
-                  //       setState(() {
-                  //         if (list) {
-                  //           list = false;
-                  //         } else {
-                  //           list = true;
-                  //         }
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
-                ],
-
-
+              //     //    iconOn:  , iconOff: , textSize:
+              //     onChanged: (bool state) {},
+              //     onTap: () {
+              //       /*     Navigator.pushReplacement(
+              //             context,
+              //             MaterialPageRoute(
+              //               builder: (context) => map_list(),
+              //             ));*/
+              //       setState(() {
+              //         if (list) {
+              //           list = false;
+              //         } else {
+              //           list = true;
+              //         }
+              //       });
+              //     },
+              //   ),
+              // ),
+            ],
           ),
         ),
         body: list
@@ -244,15 +249,16 @@ class _kids_cafeState extends State<kids_cafe> {
                   if (snapshot.data == null) {
                     return Center(
                       child: SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 5.0,
-                          valueColor: new AlwaysStoppedAnimation<Color>(
-                            Colors.pinkAccent,
+                          width: 60,
+                          height: 60,
+                          child: buildSpinKitThreeBounce(80, screenWidth)
+                          // CircularProgressIndicator(
+                          //   strokeWidth: 5.0,
+                          //   valueColor: new AlwaysStoppedAnimation<Color>(
+                          //     Colors.pinkAccent,
+                          //   ),
+                          // ),
                           ),
-                        ),
-                      ),
                     );
                   } else {
                     return ListView.builder(
@@ -289,20 +295,19 @@ class _kids_cafeState extends State<kids_cafe> {
                                     left: 26 / (1501 / ScreenWidth),
                                   ),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      ((){
-                                        if(index % 2 == 0){
+                                      (() {
+                                        if (index % 2 == 0) {
                                           return Image.asset(
                                             listimage[0],
                                             height: 414 / (2667 / ScreenHeight),
                                           );
-                                        }
-                                        else{
+                                        } else {
                                           return Image.asset(
                                             listimage[1],
-                                            height:
-                                            414 / (2667 / ScreenHeight),
+                                            height: 414 / (2667 / ScreenHeight),
                                           );
                                         }
                                       }()),
@@ -322,10 +327,10 @@ class _kids_cafeState extends State<kids_cafe> {
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  width:
-                                                      750 / (1501 / ScreenWidth),
-                                                  height:
-                                                      100 / (2667 / ScreenHeight),
+                                                  width: 750 /
+                                                      (1501 / ScreenWidth),
+                                                  height: 100 /
+                                                      (2667 / ScreenHeight),
                                                   child: Text(
                                                     snapshot
                                                         .data[index].store_name,
@@ -356,13 +361,17 @@ class _kids_cafeState extends State<kids_cafe> {
                                                   onPressed: loginOption ==
                                                           "login"
                                                       ? () {
-                                                          Fluttertoast.showToast(
-                                                            msg: "  로그인 해주세요!  ",
+                                                          Fluttertoast
+                                                              .showToast(
+                                                            msg:
+                                                                "  로그인 해주세요!  ",
                                                             toastLength: Toast
                                                                 .LENGTH_SHORT,
-                                                            gravity: ToastGravity
-                                                                .BOTTOM,
-                                                            timeInSecForIosWeb: 1,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .BOTTOM,
+                                                            timeInSecForIosWeb:
+                                                                1,
                                                             backgroundColor:
                                                                 Colors.black45,
                                                             textColor:
@@ -374,9 +383,10 @@ class _kids_cafeState extends State<kids_cafe> {
                                                         }
                                                       : () async {
                                                           setState(() {
-                                                            store_name1 = snapshot
-                                                                .data[index]
-                                                                .store_name;
+                                                            store_name1 =
+                                                                snapshot
+                                                                    .data[index]
+                                                                    .store_name;
                                                             address1 = snapshot
                                                                 .data[index]
                                                                 .address;
@@ -384,23 +394,27 @@ class _kids_cafeState extends State<kids_cafe> {
                                                                 .data[index]
                                                                 .phone;
                                                             fare1 = snapshot
-                                                                .data[index].fare;
+                                                                .data[index]
+                                                                .fare;
 
                                                             if (star_color_list[
                                                                     index] ==
                                                                 'null') {
                                                               star_color = true;
                                                               star_color_list[
-                                                                  index] = "test";
+                                                                      index] =
+                                                                  "test";
                                                               print(
                                                                   ' star_color_list[index]');
                                                               print(
                                                                   star_color_list[
                                                                       index]);
                                                             } else {
-                                                              star_color = false;
+                                                              star_color =
+                                                                  false;
                                                               star_color_list[
-                                                                  index] = 'null';
+                                                                      index] =
+                                                                  'null';
                                                             }
                                                             ;
 
@@ -417,15 +431,16 @@ class _kids_cafeState extends State<kids_cafe> {
                                           )),
                                           SafeArea(
                                             child: Container(
-                                              height: 150 / (1501 / ScreenWidth),
+                                              height:
+                                                  150 / (1501 / ScreenWidth),
                                               width: 800 / (1501 / ScreenWidth),
                                               child: Text(
                                                 snapshot.data[index].address,
                                                 style: TextStyle(
                                                   // fontFamily: 'NatoSans',
                                                   color: Colors.grey,
-                                                  fontSize:
-                                                      45 / (2667 / ScreenHeight),
+                                                  fontSize: 45 /
+                                                      (2667 / ScreenHeight),
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
@@ -438,22 +453,26 @@ class _kids_cafeState extends State<kids_cafe> {
                                           )),
                                           SafeArea(
                                             child: Container(
-                                              height: 100 / (1501 / ScreenWidth),
+                                              height:
+                                                  100 / (1501 / ScreenWidth),
                                               width: 800 / (1501 / ScreenWidth),
-                                              child: snapshot.data[index].fare ==
-                                                      null
-                                                  ? Text(" ")
-                                                  : Text(
-                                                      snapshot.data[index].phone,
-                                                      style: TextStyle(
-                                                        // fontFamily: 'NatoSans',
-                                                        color: Colors.grey,
-                                                        fontSize: 45 /
-                                                            (2667 / ScreenHeight),
-                                                        fontFamily:
-                                                            'NotoSansCJKkr_Medium',
-                                                      ),
-                                                    ),
+                                              child:
+                                                  snapshot.data[index].fare ==
+                                                          null
+                                                      ? Text(" ")
+                                                      : Text(
+                                                          snapshot.data[index]
+                                                              .phone,
+                                                          style: TextStyle(
+                                                            // fontFamily: 'NatoSans',
+                                                            color: Colors.grey,
+                                                            fontSize: 45 /
+                                                                (2667 /
+                                                                    ScreenHeight),
+                                                            fontFamily:
+                                                                'NotoSansCJKkr_Medium',
+                                                          ),
+                                                        ),
                                             ),
                                           ),
                                         ],

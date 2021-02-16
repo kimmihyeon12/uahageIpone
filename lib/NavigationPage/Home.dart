@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/homepagelist/experience_center.dart';
 import 'package:uahage/homepagelist/restaurant.dart';
 import 'package:uahage/homepagelist/kids_cafe.dart';
@@ -61,6 +62,14 @@ class _homePageState extends State<homePage> {
   }
 
   int index = 1;
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
@@ -69,23 +78,23 @@ class _homePageState extends State<homePage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
+    var ScreenHeight = MediaQuery.of(context).size.height;
+    var ScreenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = 2668 / MediaQuery.of(context).size.height;
+    double screenWidth = 1500 / MediaQuery.of(context).size.width;
     imageView(fileName) {
       return Image.network(
         "https://uahage.s3.ap-northeast-2.amazonaws.com/homePage/$fileName.png",
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return Center(
-            child: CircularProgressIndicator(),
+            child: buildSpinKitThreeBounce(50, screenWidth),
           );
         },
         fit: BoxFit.fill,
       );
     }
-
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
 
     var homeimage = [
       "./assets/homePage/restaurant.png",

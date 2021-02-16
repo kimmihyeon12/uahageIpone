@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -152,10 +153,10 @@ class _examination_institution_sublistState
                 ),
               ),
               index % 2 == 0
-                  ? mainImage(mainimage[0])
+                  ? mainImage(mainimage[0], screenWidth)
                   : index % 2 == 1
-                      ? mainImage(mainimage[1])
-                      : mainImage(mainimage[2]),
+                      ? mainImage(mainimage[1], screenWidth)
+                      : mainImage(mainimage[2], screenWidth),
 
               Card(
                 elevation: 0.3,
@@ -385,13 +386,20 @@ class _examination_institution_sublistState
     );
   }
 
-  Image mainImage(image) {
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
+  Image mainImage(image, screenWidth) {
     return Image.network(
       image,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
         return Center(
-          child: CircularProgressIndicator(),
+          child: buildSpinKitThreeBounce(50, screenWidth),
         );
       },
       // width: MediaQuery.of(context).size.width,

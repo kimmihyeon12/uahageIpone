@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -349,6 +350,13 @@ class _myPageState extends State<myPage> {
     } catch (e) {}
   }
 
+  // SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+  //   return SpinKitThreeBounce(
+  //     color: Color(0xffFF728E),
+  //     size: size / screenWidth,
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
@@ -628,16 +636,22 @@ class _myPageState extends State<myPage> {
 
                                                                   return Center(
                                                                     child: SizedBox(
-                                                                        height: 200 / screenHeight,
-                                                                        width: 200 / screenWidth,
-                                                                        child: CircularProgressIndicator(
-                                                                          strokeWidth:
-                                                                              5.0,
-                                                                          valueColor:
-                                                                              new AlwaysStoppedAnimation<Color>(
-                                                                            Colors.pinkAccent,
-                                                                          ),
-                                                                        )),
+                                                                        height: 200 /
+                                                                            screenHeight,
+                                                                        width: 200 /
+                                                                            screenWidth,
+                                                                        child: buildSpinKitThreeBounce(
+                                                                            80,
+                                                                            screenWidth)
+                                                                        // CircularProgressIndicator(
+                                                                        //   strokeWidth:
+                                                                        //       5.0,
+                                                                        //   valueColor:
+                                                                        //       new AlwaysStoppedAnimation<Color>(
+                                                                        //     Colors.pinkAccent,
+                                                                        //   ),
+                                                                        // )
+                                                                        ),
                                                                   );
                                                                 }),
                                                       );
@@ -691,14 +705,16 @@ class _myPageState extends State<myPage> {
                                           child: SizedBox(
                                             height: 50 / screenHeight,
                                             width: 50 / screenWidth,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 5.0,
-                                              valueColor:
-                                                  new AlwaysStoppedAnimation<
-                                                      Color>(
-                                                Colors.pinkAccent,
-                                              ),
-                                            ),
+                                            child: buildSpinKitThreeBounce(
+                                                30, screenWidth),
+                                            // CircularProgressIndicator(
+                                            //   strokeWidth: 5.0,
+                                            //   valueColor:
+                                            //       new AlwaysStoppedAnimation<
+                                            //           Color>(
+                                            //     Colors.pinkAccent,
+                                            //   ),
+                                            // ),
                                           ),
                                         );
                                       },
@@ -1085,15 +1101,17 @@ class _myPageState extends State<myPage> {
                                             child: SizedBox(
                                                 height: 200 / screenHeight,
                                                 width: 200 / screenWidth,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  strokeWidth: 5.0,
-                                                  valueColor:
-                                                      new AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    Colors.pinkAccent,
-                                                  ),
-                                                )),
+                                                child: buildSpinKitThreeBounce(
+                                                    80, screenWidth)
+                                                //     CircularProgressIndicator(
+                                                //   strokeWidth: 5.0,
+                                                //   valueColor:
+                                                //       new AlwaysStoppedAnimation<
+                                                //           Color>(
+                                                //     Colors.pinkAccent,
+                                                //   ),
+                                                // ),
+                                                ),
                                           );
                                         },
                                       ),
@@ -1301,14 +1319,17 @@ class _myPageState extends State<myPage> {
                                                           200 / screenHeight,
                                                       width: 200 / screenWidth,
                                                       child:
-                                                          CircularProgressIndicator(
-                                                        strokeWidth: 5.0,
-                                                        valueColor:
-                                                            new AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          Colors.pinkAccent,
-                                                        ),
-                                                      )),
+                                                          buildSpinKitThreeBounce(
+                                                              80, screenWidth)
+                                                      //     CircularProgressIndicator(
+                                                      //   strokeWidth: 5.0,
+                                                      //   valueColor:
+                                                      //       new AlwaysStoppedAnimation<
+                                                      //           Color>(
+                                                      //     Colors.pinkAccent,
+                                                      //   ),
+                                                      // )
+                                                      ),
                                                 );
                                               },
                                             ),
@@ -1349,6 +1370,13 @@ class _myPageState extends State<myPage> {
           ),
         ),
       ),
+    );
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
     );
   }
 
