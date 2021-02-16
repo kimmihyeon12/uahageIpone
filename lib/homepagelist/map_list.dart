@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class map_list extends StatefulWidget {
   map_list({Key key, this.latitude, this.longitude, this.list})
@@ -53,6 +54,27 @@ class _map_listState extends State<map_list> {
   }
 
   int zoom = 4;
+  int position = 1;
+  final key = UniqueKey();
+
+  doneLoading(String A) {
+    setState(() {
+      position = 0;
+    });
+  }
+
+  startLoading(String A) {
+    setState(() {
+      position = 1;
+    });
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +86,31 @@ class _map_listState extends State<map_list> {
       body: SafeArea(
         child: Stack(
           children: [
-            WebView(
-              onWebViewCreated: (WebViewController webViewController) {
-                controller = webViewController;
-                controller.loadUrl(
-                    // latitude == 'NaN' ||
-                    //       longitude == 'NaN' ||
-                    //       latitude == '' ||
-                    //       longitude == ''
-                    //   ? 'http://211.55.236.196:3000/test' :
-                    'http://211.55.236.196:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
-              },
-              javascriptMode: JavascriptMode.unrestricted,
+            IndexedStack(
+              index: position,
+              children: [
+                WebView(
+                  key: key,
+                  onPageFinished: doneLoading,
+                  onPageStarted: startLoading,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    controller = webViewController;
+                    controller.loadUrl(
+                        // latitude == 'NaN' ||
+                        //       longitude == 'NaN' ||
+                        //       latitude == '' ||
+                        //       longitude == ''
+                        //   ? 'http://211.55.236.196:3000/test' :
+                        'http://211.55.236.196:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
+                  },
+                  javascriptMode: JavascriptMode.unrestricted,
+                ),
+                Container(
+                  color: Colors.white,
+                  child:
+                      Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+                ),
+              ],
             ),
             Row(
               children: [

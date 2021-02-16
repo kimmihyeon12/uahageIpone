@@ -187,17 +187,6 @@ class _searchPageState extends State<searchPage> {
                           //in Run/LogCat window of android studio
                           var messages = message.message;
                           Message = messages.split(",");
-                          // print(Message[0]);
-                          // print(Message[1]);
-                          // print(Message[2]);
-                          // print(Message[3]);
-                          // print(Message[4]);
-                          // print(Message[5]);
-                          // print(Message[6]);
-                          // print(Message[7]);
-                          // print(Message[8]);
-                          // print(Message[9]);
-                          // print(Message[10]);
                           showPopUpbottomMenu(
                               context, screenHeight, screenWidth);
                         })
