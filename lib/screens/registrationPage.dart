@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'dart:convert';
@@ -108,6 +109,13 @@ class _registrationPageState extends State<registrationPage> {
             saveError = true;
           });
     return jsonDecode(response.body)["message"];
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
   }
 
   // year calendar
@@ -312,16 +320,20 @@ class _registrationPageState extends State<registrationPage> {
                                                               width: 200 /
                                                                   screenWidth,
                                                               child:
-                                                                  CircularProgressIndicator(
-                                                                strokeWidth:
-                                                                    5.0,
-                                                                valueColor:
-                                                                    new AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  Colors
-                                                                      .pinkAccent,
-                                                                ),
-                                                              )),
+                                                                  buildSpinKitThreeBounce(
+                                                                      80,
+                                                                      screenWidth)
+                                                              //     CircularProgressIndicator(
+                                                              //   strokeWidth:
+                                                              //       5.0,
+                                                              //   valueColor:
+                                                              //       new AlwaysStoppedAnimation<
+                                                              //           Color>(
+                                                              //     Colors
+                                                              //         .pinkAccent,
+                                                              //   ),
+                                                              // )
+                                                              ),
                                                         );
                                                       }),
                                             );
@@ -770,12 +782,14 @@ class _registrationPageState extends State<registrationPage> {
       child: SizedBox(
           height: 200 / screenHeight,
           width: 200 / screenWidth,
-          child: CircularProgressIndicator(
-            strokeWidth: 5.0,
-            valueColor: new AlwaysStoppedAnimation<Color>(
-              Colors.pinkAccent,
-            ),
-          )),
+          child: buildSpinKitThreeBounce(80, screenWidth)
+          // CircularProgressIndicator(
+          //   strokeWidth: 5.0,
+          //   valueColor: new AlwaysStoppedAnimation<Color>(
+          //     Colors.pinkAccent,
+          //   ),
+          // )
+          ),
     );
   }
 

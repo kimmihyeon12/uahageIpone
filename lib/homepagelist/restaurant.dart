@@ -47,10 +47,10 @@ class _restaurantState extends State<restaurant> {
 
   String liststringdata = "restaurant";
   var listimage = [
-    "./assets/listPage/clipGroup.png",
-    "./assets/listPage/clipGroup1.png",
-    "./assets/listPage/layer1.png",
-    "./assets/listPage/layer2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image3.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image4.png",
   ];
   var iconimage = [
     "./assets/listPage/menu.png",
@@ -208,8 +208,8 @@ class _restaurantState extends State<restaurant> {
                   children: [
                     Image.asset(
                       "./assets/listPage/backbutton.png",
-                      width: 44 / (1501 / ScreenWidth),
-                      height: 76 / (2667 / ScreenHeight),
+                      width: 44 / screenWidth,
+                      height: 76 / screenHeight,
                     ),
                     Padding(
                         padding: EdgeInsets.only(
@@ -354,38 +354,90 @@ class _restaurantState extends State<restaurant> {
                                     ));
                               },
                               child: Container(
-                                  height: 500 / (2667 / ScreenHeight),
+                                  height: 500 / screenHeight,
                                   padding: EdgeInsets.only(
-                                    top: 30 / (2667 / ScreenHeight),
-                                    left: 26 / (1501 / ScreenWidth),
+                                    top: 30 / screenHeight,
+                                    left: 26 / screenWidth,
                                   ),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      (() {
-                                        if (index % 4 == 1) {
-                                          return Image.asset(
-                                            listimage[0],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else if (index % 4 == 2) {
-                                          return Image.asset(
-                                            listimage[1],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else if (index % 4 == 3) {
-                                          return Image.asset(
-                                            listimage[2],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else {
-                                          return Image.asset(
-                                            listimage[3],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        }
-                                      }()),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(width: 3.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        height: 414 / screenHeight,
+                                        width: 413 / screenWidth,
+                                        child: (() {
+                                          if (index % 4 == 1) {
+                                            return Image.network(
+                                              listimage[0],
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null)
+                                                  return child;
+                                                return Center(
+                                                  child:
+                                                      buildSpinKitThreeBounce(
+                                                          50, screenWidth),
+                                                );
+                                              },
+                                              fit: BoxFit.fill,
+                                              // height: 414 / screenHeight,
+                                            );
+                                          } else if (index % 4 == 2) {
+                                            return Image.network(
+                                              listimage[1],
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null)
+                                                  return child;
+                                                return Center(
+                                                  child:
+                                                      buildSpinKitThreeBounce(
+                                                          50, screenWidth),
+                                                );
+                                              },
+                                              fit: BoxFit.fill,
+                                              // height: 414 / screenHeight,
+                                            );
+                                          } else if (index % 4 == 3) {
+                                            return Image.network(
+                                              listimage[2],
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null)
+                                                  return child;
+                                                return Center(
+                                                  child:
+                                                      buildSpinKitThreeBounce(
+                                                          50, screenWidth),
+                                                );
+                                              },
+                                              fit: BoxFit.fill,
+                                              // height: 414 / screenHeight,
+                                            );
+                                          } else {
+                                            return Image.network(
+                                              listimage[3],
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null)
+                                                  return child;
+                                                return Center(
+                                                  child:
+                                                      buildSpinKitThreeBounce(
+                                                          50, screenWidth),
+                                                );
+                                              },
+                                              fit: BoxFit.fill,
+                                              // height: 414 / screenHeight,
+                                            );
+                                          }
+                                        }()),
+                                      ),
                                       Padding(
                                           padding: EdgeInsets.only(
                                         left: 53 / screenWidth,
@@ -397,10 +449,8 @@ class _restaurantState extends State<restaurant> {
                                           Row(
                                             children: [
                                               Container(
-                                                width:
-                                                    750 / (1501 / ScreenWidth),
-                                                height:
-                                                    100 / (2667 / ScreenHeight),
+                                                width: 750 / screenWidth,
+                                                height: 100 / screenHeight,
                                                 child: Text(
                                                   snapshot
                                                       .data[index].store_name,
@@ -414,18 +464,15 @@ class _restaurantState extends State<restaurant> {
                                               IconButton(
                                                 padding: EdgeInsets.all(0),
                                                 constraints: BoxConstraints(
-                                                  maxWidth: 170 /
-                                                      (1501 / ScreenWidth),
-                                                  maxHeight: 170 /
-                                                      (2667 / ScreenHeight),
+                                                  maxWidth: 170 / screenWidth,
+                                                  maxHeight: 170 / screenHeight,
                                                 ),
                                                 icon: Image.asset(
                                                   star_color_list[index] ==
                                                           'null'
                                                       ? "./assets/listPage/star_grey.png"
                                                       : "./assets/listPage/star_color.png",
-                                                  height: 60 /
-                                                      (2667 / ScreenHeight),
+                                                  height: 60 / screenHeight,
                                                 ),
                                                 onPressed: loginOption ==
                                                         "login"
@@ -513,11 +560,11 @@ class _restaurantState extends State<restaurant> {
                                           ),
                                           Padding(
                                               padding: EdgeInsets.only(
-                                            top: 10 / (2667 / ScreenHeight),
+                                            top: 10 / screenHeight,
                                           )),
                                           Container(
-                                            height: 80 / (2667 / ScreenHeight),
-                                            width: 800 / (1501 / ScreenWidth),
+                                            height: 80 / screenHeight,
+                                            width: 800 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
                                               style: TextStyle(
@@ -530,8 +577,8 @@ class _restaurantState extends State<restaurant> {
                                             ),
                                           ),
                                           Container(
-                                            height: 80 / (2667 / ScreenHeight),
-                                            width: 800 / (1501 / ScreenWidth),
+                                            height: 80 / screenHeight,
+                                            width: 800 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].phone,
                                               style: TextStyle(
@@ -545,9 +592,8 @@ class _restaurantState extends State<restaurant> {
                                           ),
                                           SafeArea(
                                             child: Container(
-                                              height:
-                                                  150 / (2667 / ScreenHeight),
-                                              width: 800 / (1501 / ScreenWidth),
+                                              height: 150 / screenHeight,
+                                              width: 800 / screenWidth,
                                               alignment: Alignment.bottomRight,
                                               child: Row(
                                                 children: [

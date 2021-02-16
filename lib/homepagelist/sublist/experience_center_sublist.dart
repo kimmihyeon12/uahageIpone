@@ -174,16 +174,20 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                 ),
               ),
 
-              (() {
-                if (index % 4 == 0) {
-                  return mainImage(mainimage[0], screenWidth);
-                } else if (index % 4 == 1) {
-                  return mainImage(mainimage[1], screenWidth);
-                } else if (index % 4 == 2) {
-                  return mainImage(mainimage[2], screenWidth);
-                } else
-                  return mainImage(mainimage[3], screenWidth);
-              }()),
+              Container(
+                height: 939 / screenHeight,
+                width: 1501 / screenWidth,
+                child: (() {
+                  if (index % 4 == 0) {
+                    return mainImage(mainimage[0], screenWidth);
+                  } else if (index % 4 == 1) {
+                    return mainImage(mainimage[1], screenWidth);
+                  } else if (index % 4 == 2) {
+                    return mainImage(mainimage[2], screenWidth);
+                  } else
+                    return mainImage(mainimage[3], screenWidth);
+                }()),
+              ),
 
               Card(
                 elevation: 0.3,

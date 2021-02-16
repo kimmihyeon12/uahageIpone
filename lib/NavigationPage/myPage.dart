@@ -426,51 +426,60 @@ class _myPageState extends State<myPage> {
                         height: 439 / screenHeight,
                         width: 439 / screenWidth,
                         child: CircleAvatar(
-                          backgroundImage: (() {
-                            if (_image != null) {
-                              print("1");
-                              return FileImage(_image);
-                            } else if (imageLink != "" && imageLink != null) {
-                              print("2");
-                              // print("here " + imageLink);
-                              return NetworkImage(imageLink); //imageURL
-
-                            } else {
-                              print("3");
-                              return AssetImage("./assets/myPage/avatar.png");
-                            }
-                          }()),
-                          // child: Image.network(imageLink),
-                          // child: (() {
-                          //   // your code here
-
-                          //   if (imageLink != "") {
+                          backgroundImage:
+                              AssetImage("./assets/myPage/avatar.png"),
+                          // backgroundImage: (() {
+                          //   if (_image != null) {
                           //     print("1");
-                          //     print("here " + imageLink);
-                          //     return new Container(
-                          //       decoration: BoxDecoration(
-                          //         shape: BoxShape.circle,
-                          //         image: DecorationImage(
-                          //             image: NetworkImage(imageLink), //imageURL
-                          //             fit: BoxFit.fitWidth),
-                          //       ),
-                          //     );
-                          //   } else if (_image == null) {
+                          //     return FileImage(_image);
+                          //   } else if (imageLink != "" && imageLink != null) {
                           //     print("2");
-                          //     return new Image.asset(
-                          //         "./assets/myPage/avatar.png");
+                          //     // print("here " + imageLink);
+                          //     return NetworkImage(imageLink); //imageURL
+
                           //   } else {
                           //     print("3");
-                          //     return new Container(
-                          //       decoration: BoxDecoration(
-                          //         shape: BoxShape.circle,
-                          //         image: DecorationImage(
-                          //             image: FileImage(_image),
-                          //             fit: BoxFit.fitWidth),
-                          //       ),
-                          //     );
+                          //     return AssetImage("./assets/myPage/avatar.png");
                           //   }
                           // }()),
+                          // child: Image.network(imageLink),
+                          child: (() {
+                            // your code here
+
+                            if (_image != null) {
+                              print("1");
+                              print("here " + imageLink);
+                              return Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: FileImage(_image), //imageURL
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              );
+                            } else if (imageLink != "" && imageLink != null) {
+                              print("2");
+                              return Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: NetworkImage(imageLink),
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              );
+                            } else {
+                              print("3");
+                              return Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "./assets/myPage/avatar.png"),
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              );
+                            }
+                          }()),
                         ),
                       ),
                       Container(

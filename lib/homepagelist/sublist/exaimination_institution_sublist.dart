@@ -39,8 +39,8 @@ class _examination_institution_sublistState
   List<String> star_color_list = List(10);
   var star_color = false;
   var mainimage = [
-    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_exam_sublist_/image1.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/images_exam_sublist_/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_exam_sublist_/image1.png",
   ];
 
   @override
@@ -152,11 +152,15 @@ class _examination_institution_sublistState
                   ],
                 ),
               ),
-              index % 2 == 0
-                  ? mainImage(mainimage[0], screenWidth)
-                  : index % 2 == 1
-                      ? mainImage(mainimage[1], screenWidth)
-                      : mainImage(mainimage[2], screenWidth),
+              Container(
+                height: 939 / screenHeight,
+                width: 1501 / screenWidth,
+                child: index % 2 == 0
+                    ? mainImage(mainimage[0], screenWidth)
+                    : index % 2 == 1
+                        ? mainImage(mainimage[1], screenWidth)
+                        : mainImage(mainimage[2], screenWidth),
+              ),
 
               Card(
                 elevation: 0.3,

@@ -32,8 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     // _loadUserId();
-
-    startTime();
   }
 
 // _loadUserId() async {
@@ -53,7 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => Wrapper()),
         ),
       );
-
+// Image(
+//           image: AssetImage('./assets/firstPage/backgroundimage.png'),
+//           width: MediaQuery.of(context).size.width,
+//           fit: BoxFit.fitWidth,
+//           // height: 50,
+//         ),
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
@@ -62,19 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    startTime();
     return Scaffold(
         // resizeToAvoidBottomPadding: false,
         body: Stack(
       children: [
-        Container(
-          child: Image(
-            image: AssetImage('./assets/firstPage/backgroundimage.png'),
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.fitWidth,
-            // height: 50,
-          ),
-          //  color:Colors.black
-        ),
         Container(
           alignment: Alignment.bottomCenter,
           child: Image(

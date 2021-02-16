@@ -85,7 +85,8 @@ class _homePageState extends State<homePage> {
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     imageView(fileName) {
       return Image.network(
-        "https://uahage.s3.ap-northeast-2.amazonaws.com/homePage/$fileName.png",
+        // 'http://hohoco.dothome.co.kr/img/$fileName.png',
+        "https://uahage.s3.ap-northeast-2.amazonaws.com/homepage/$fileName.png",
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return Center(
@@ -357,11 +358,11 @@ class _homePageState extends State<homePage> {
                             ),
                             scrollDirection: Axis.horizontal,
                             children: [
-                              imageView("homeimage"),
                               imageView("image1"),
                               imageView("image2"),
                               imageView("image3"),
                               imageView("image4"),
+                              imageView("image5")
                             ],
                             onPageChanged: (int page) {
                               setState(() {
@@ -393,22 +394,22 @@ class _homePageState extends State<homePage> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                top: 60 / screenHeight,
-                                left: 70 / screenWidth,
-                              ),
-                              child: Text(
-                                "영·유아 보호자와\n함께하는\n정보제공 서비스",
-                                style: TextStyle(
-                                    fontSize: 80 / screenWidth,
-                                    color: Color(0xffff7292),
-                                    fontFamily: 'NotoSansCJKkr_Medium'),
-                              ),
-                            ),
-                          )
+                          // Align(
+                          //   alignment: Alignment.topLeft,
+                          //   child: Container(
+                          //     margin: EdgeInsets.only(
+                          //       top: 60 / screenHeight,
+                          //       left: 70 / screenWidth,
+                          //     ),
+                          //     child: Text(
+                          //       "영·유아 보호자와\n함께하는\n정보제공 서비스",
+                          //       style: TextStyle(
+                          //           fontSize: 80 / screenWidth,
+                          //           color: Color(0xffff7292),
+                          //           fontFamily: 'NotoSansCJKkr_Medium'),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     ),

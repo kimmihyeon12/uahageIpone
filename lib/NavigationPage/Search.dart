@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -113,7 +114,10 @@ class _searchPageState extends State<searchPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.latitude == 'NaN' || widget.longitude == 'NaN' || widget.latitude == '' || widget.longitude == '') {
+    if (widget.latitude == 'NaN' ||
+        widget.longitude == 'NaN' ||
+        widget.latitude == '' ||
+        widget.longitude == '') {
       getCurrentLocation();
     } else
       setState(() {
@@ -125,6 +129,28 @@ class _searchPageState extends State<searchPage> {
     // getCurrentLocation();
   }
 
+  int position = 1;
+  final key = UniqueKey();
+
+  doneLoading(String A) {
+    setState(() {
+      position = 0;
+    });
+  }
+
+  startLoading(String A) {
+    setState(() {
+      position = 1;
+    });
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -134,41 +160,55 @@ class _searchPageState extends State<searchPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            WebView(
-              onWebViewCreated: (WebViewController webViewController) {
-                controller = webViewController;
-                controller.loadUrl(latitude == 'NaN' ||
-                        longitude == 'NaN' ||
-                        latitude == '' ||
-                        longitude == ''
-                    ? 'http://211.55.236.196:3000/map'
-                    : 'http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude');
-              },
-              javascriptMode: JavascriptMode.unrestricted,
-              javascriptChannels: Set.from([
-                JavascriptChannel(
-                    name: 'Print',
-                    onMessageReceived: (JavascriptMessage message) {
-                      //This is where you receive message from
-                      //javascript code and handle in Flutter/Dart
-                      //like here, the message is just being printed
-                      //in Run/LogCat window of android studio
-                      var messages = message.message;
-                      Message = messages.split(",");
-                      // print(Message[0]);
-                      // print(Message[1]);
-                      // print(Message[2]);
-                      // print(Message[3]);
-                      // print(Message[4]);
-                      // print(Message[5]);
-                      // print(Message[6]);
-                      // print(Message[7]);
-                      // print(Message[8]);
-                      // print(Message[9]);
-                      // print(Message[10]);
-                      showPopUpbottomMenu(context, screenHeight, screenWidth);
-                    })
-              ]),
+            IndexedStack(
+              index: position,
+              children: [
+                WebView(
+                  key: key,
+                  onPageFinished: doneLoading,
+                  onPageStarted: startLoading,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    controller = webViewController;
+                    controller.loadUrl(latitude == 'NaN' ||
+                            longitude == 'NaN' ||
+                            latitude == '' ||
+                            longitude == ''
+                        ? 'http://211.55.236.196:3000/map'
+                        : 'http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude');
+                  },
+                  javascriptMode: JavascriptMode.unrestricted,
+                  javascriptChannels: Set.from([
+                    JavascriptChannel(
+                        name: 'Print',
+                        onMessageReceived: (JavascriptMessage message) {
+                          //This is where you receive message from
+                          //javascript code and handle in Flutter/Dart
+                          //like here, the message is just being printed
+                          //in Run/LogCat window of android studio
+                          var messages = message.message;
+                          Message = messages.split(",");
+                          // print(Message[0]);
+                          // print(Message[1]);
+                          // print(Message[2]);
+                          // print(Message[3]);
+                          // print(Message[4]);
+                          // print(Message[5]);
+                          // print(Message[6]);
+                          // print(Message[7]);
+                          // print(Message[8]);
+                          // print(Message[9]);
+                          // print(Message[10]);
+                          showPopUpbottomMenu(
+                              context, screenHeight, screenWidth);
+                        })
+                  ]),
+                ),
+                Container(
+                  color: Colors.white,
+                  child:
+                      Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+                ),
+              ],
             ),
             Container(
               decoration: BoxDecoration(
@@ -180,7 +220,6 @@ class _searchPageState extends State<searchPage> {
               height: 196 / screenHeight,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-
                 children: [
                   Container(
                     margin: EdgeInsets.only(left: 42 / screenWidth),
@@ -191,45 +230,45 @@ class _searchPageState extends State<searchPage> {
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 41 / screenWidth),
-                    width: MediaQuery.of(context).size.width -80,
+                    width: MediaQuery.of(context).size.width - 80,
                     child: // 검색 조건을 설정해주세요
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("검색 조건을 설정해주세요",
-                                style: TextStyle(
-                                    color: const Color(0xffed7191),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 58 / screenWidth),
-                                textAlign: TextAlign.left),
-                            InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  grey_image = [
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                  ];
-                                });
-                                await showPopUpMenu(context, screenHeight, screenWidth);
-                              },
-                              child: Image.asset(
-                                "./assets/searchPage/cat_btn.png",
-                                height: 158 / screenHeight,
-                              ),
-                            ),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("검색 조건을 설정해주세요",
+                            style: TextStyle(
+                                color: const Color(0xffed7191),
+                                fontWeight: FontWeight.w500,
+                                fontFamily: "NotoSansCJKkr_Medium",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 58 / screenWidth),
+                            textAlign: TextAlign.left),
+                        InkWell(
+                          onTap: () async {
+                            setState(() {
+                              grey_image = [
+                                true,
+                                true,
+                                true,
+                                true,
+                                true,
+                                true,
+                                true,
+                                true,
+                                true,
+                              ];
+                            });
+                            await showPopUpMenu(
+                                context, screenHeight, screenWidth);
+                          },
+                          child: Image.asset(
+                            "./assets/searchPage/cat_btn.png",
+                            height: 158 / screenHeight,
+                          ),
                         ),
+                      ],
+                    ),
                   ),
-
                 ],
               ),
             ),
@@ -250,7 +289,7 @@ class _searchPageState extends State<searchPage> {
                           longitude == '') await getCurrentLocation();
                       controller.loadUrl(
                           "http://211.55.236.196:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                            // "http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude"
+                          // "http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude"
                           );
                     },
                     child: Container(

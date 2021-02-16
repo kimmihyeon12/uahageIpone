@@ -171,12 +171,16 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                 ),
               ),
 
-              (() {
-                if (index % 2 == 0) {
-                  return mainImage(mainimage[0], screenWidth);
-                } else
-                  return mainImage(mainimage[1], screenWidth);
-              }()),
+              Container(
+                height: 939 / screenHeight,
+                width: 1501 / screenWidth,
+                child: (() {
+                  if (index % 2 == 0) {
+                    return mainImage(mainimage[0], screenWidth);
+                  } else
+                    return mainImage(mainimage[1], screenWidth);
+                }()),
+              ),
               // index % 2 == 0
               //     ? Image.asset(
               //         mainimage[0],

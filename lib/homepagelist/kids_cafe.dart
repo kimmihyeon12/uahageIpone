@@ -21,8 +21,8 @@ class kids_cafe extends StatefulWidget {
 
 class _kids_cafeState extends State<kids_cafe> {
   var listimage = [
-    "./assets/listPage/kidcafeimage1.png",
-    "./assets/listPage/kidcafeimage2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image2.png",
   ];
 
   String latitude = "";
@@ -298,19 +298,49 @@ class _kids_cafeState extends State<kids_cafe> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      (() {
-                                        if (index % 2 == 0) {
-                                          return Image.asset(
-                                            listimage[0],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else {
-                                          return Image.asset(
-                                            listimage[1],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        }
-                                      }()),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(width: 3.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        height: 414 / screenHeight,
+                                        width: 413 / screenWidth,
+                                        child: (() {
+                                          if (index % 2 == 0) {
+                                            return Image.network(
+                                              listimage[0],
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null)
+                                                  return child;
+                                                return Center(
+                                                  child:
+                                                      buildSpinKitThreeBounce(
+                                                          50, screenWidth),
+                                                );
+                                              },
+                                              fit: BoxFit.fill,
+                                              // height: 414 / screenHeight,
+                                            );
+                                          } else {
+                                            return Image.network(
+                                              listimage[1],
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null)
+                                                  return child;
+                                                return Center(
+                                                  child:
+                                                      buildSpinKitThreeBounce(
+                                                          50, screenWidth),
+                                                );
+                                              },
+                                              fit: BoxFit.fill,
+                                              // height: 414 / screenHeight,
+                                            );
+                                          }
+                                        }()),
+                                      ),
                                       Padding(
                                           padding: EdgeInsets.only(
                                         left: 53 /

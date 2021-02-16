@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:convert';
 import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'package:uahage/screens/announce.dart';
@@ -192,6 +193,13 @@ class _agreementPageState extends State<agreementPage> {
     setState(() {
       loginOption = widget.loginOption;
     });
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
   }
 
   bool isAllSelected = false;
@@ -568,7 +576,8 @@ class _agreementPageState extends State<agreementPage> {
                                       child: SizedBox(
                                           height: 200 / screenHeight,
                                           width: 200 / screenWidth,
-                                          child: CircularProgressIndicator()),
+                                          child: buildSpinKitThreeBounce(
+                                              80, screenWidth)),
                                     );
                                   },
                                 ),
