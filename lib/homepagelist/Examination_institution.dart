@@ -76,6 +76,7 @@ class _examination_institutionState extends State<examination_institution> {
       "phone": phone1,
       "Examination_item": Examination_item1,
       "star_color": star_color,
+      "type": "examination_institution"
     };
     var response = await http.post(
       "http://211.55.236.196:3000/star",

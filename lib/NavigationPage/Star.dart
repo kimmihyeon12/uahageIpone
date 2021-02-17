@@ -5,6 +5,11 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
+import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
+import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
+import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 
 class starPage extends StatefulWidget {
   String loginOption;
@@ -107,7 +112,7 @@ class _starPageState extends State<starPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("widget reloaded!");
+    // print("widget reloaded!");
     var ScreenHeight = MediaQuery.of(context).size.height;
     var ScreenWidth = MediaQuery.of(context).size.width;
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -148,6 +153,7 @@ class _starPageState extends State<starPage> {
               );
             } else {
               print("snapshot length " + snapshot.data.length.toString());
+              // print(snapshot.data[0].type.toString());
               return snapshot.data.length == 0
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -200,7 +206,7 @@ class _starPageState extends State<starPage> {
                             child: Container(
                                 height: 500 / screenHeight,
                                 padding: EdgeInsets.only(
-                                  top: 30 / (2667 / ScreenHeight),
+                                  top: 30 / screenHeight,
                                   left: 26 / (1501 / ScreenWidth),
                                 ),
                                 child: Row(
@@ -210,22 +216,22 @@ class _starPageState extends State<starPage> {
                                       if (index % 4 == 1) {
                                         return Image.asset(
                                           listimage[0],
-                                          height: 414 / (2667 / ScreenHeight),
+                                          height: 414 / screenHeight,
                                         );
                                       } else if (index % 4 == 2) {
                                         return Image.asset(
                                           listimage[1],
-                                          height: 414 / (2667 / ScreenHeight),
+                                          height: 414 / screenHeight,
                                         );
                                       } else if (index % 4 == 3) {
                                         return Image.asset(
                                           listimage[2],
-                                          height: 414 / (2667 / ScreenHeight),
+                                          height: 414 / screenHeight,
                                         );
                                       } else {
                                         return Image.asset(
                                           listimage[3],
-                                          height: 414 / (2667 / ScreenHeight),
+                                          height: 414 / screenHeight,
                                         );
                                       }
                                     }()),
@@ -338,6 +344,99 @@ class _starPageState extends State<starPage> {
                                     ),
                                   ],
                                 )),
+                            onTap: () {
+                              String type1 = snapshot.data[index].type;
+                              if (type1 == "restaurant") {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: restaurant_sublist(
+                                          index: index,
+                                          storename:
+                                              snapshot.data[index].store_name,
+                                          address: snapshot.data[index].address,
+                                          bed: snapshot.data[index].bed,
+                                          phone: snapshot.data[index].phone,
+                                          menu: snapshot.data[index].menu,
+                                          tableware:
+                                              snapshot.data[index].tableware,
+                                          meetingroom:
+                                              snapshot.data[index].meetingroom,
+                                          diapers: snapshot.data[index].diapers,
+                                          playroom:
+                                              snapshot.data[index].playroom,
+                                          carriage:
+                                              snapshot.data[index].carriage,
+                                          nursingroom:
+                                              snapshot.data[index].nursingroom,
+                                          chair: snapshot.data[index].chair,
+                                          userId: userId,
+                                          loginOption: loginOption),
+                                      duration: Duration(milliseconds: 250),
+                                      reverseDuration:
+                                          Duration(milliseconds: 100),
+                                    ));
+                              } else if (type1 == "kids_cafe") {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: kid_cafe_sublist(
+                                        index: index,
+                                        storename:
+                                            snapshot.data[index].store_name,
+                                        address: snapshot.data[index].address,
+                                        phone: snapshot.data[index].phone,
+                                        fare: snapshot.data[index].fare,
+                                        userId: userId,
+                                        loginOption: loginOption,
+                                      ),
+                                      duration: Duration(milliseconds: 250),
+                                      reverseDuration:
+                                          Duration(milliseconds: 100),
+                                    ));
+                              } else if (type1 == "examination_institution") {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: examination_institution_sublist(
+                                        index: index,
+                                        storename:
+                                            snapshot.data[index].store_name,
+                                        address: snapshot.data[index].address,
+                                        phone: snapshot.data[index].phone,
+                                        examinationitem: snapshot
+                                            .data[index].Examination_item,
+                                        userId: userId,
+                                        loginOption: loginOption,
+                                      ),
+                                      duration: Duration(milliseconds: 250),
+                                      reverseDuration:
+                                          Duration(milliseconds: 100),
+                                    ));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: experience_center_sublist(
+                                        index: index,
+                                        storename:
+                                            snapshot.data[index].store_name,
+                                        address: snapshot.data[index].address,
+                                        phone: snapshot.data[index].phone,
+                                        fare: snapshot.data[index].fare,
+                                        userId: userId,
+                                        loginOption: loginOption,
+                                      ),
+                                      duration: Duration(milliseconds: 250),
+                                      reverseDuration:
+                                          Duration(milliseconds: 100),
+                                    ));
+                              }
+                            },
                           ),
                         );
                       });
@@ -369,7 +468,8 @@ class _starPageState extends State<starPage> {
           r["nursingroom"],
           r["chair"],
           r["fare"],
-          r["Examination_item"]);
+          r["Examination_item"],
+          r["type"]);
 
       star_list1.add(star_list);
     }
@@ -536,6 +636,7 @@ class Star_list {
   final String chair;
   final String fare;
   final String Examination_item;
+  final String type;
 
   Star_list(
       this.id,
@@ -552,5 +653,6 @@ class Star_list {
       this.nursingroom,
       this.chair,
       this.fare,
-      this.Examination_item);
+      this.Examination_item,
+      this.type);
 }

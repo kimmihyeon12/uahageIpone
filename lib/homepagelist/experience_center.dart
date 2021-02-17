@@ -85,6 +85,7 @@ class _experience_centerState extends State<experience_center> {
       "phone": phone1,
       "Examination_item": fare1,
       "star_color": star_color,
+      "type": "experience_center"
     };
     var response = await http.post(
       "http://211.55.236.196:3000/star",

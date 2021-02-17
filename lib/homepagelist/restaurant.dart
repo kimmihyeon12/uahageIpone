@@ -145,6 +145,7 @@ class _restaurantState extends State<restaurant> {
       "nursingroom": nursingroom1,
       "chair": chair1,
       "star_color": star_color,
+      "type": "restaurant"
     };
     var response = await http.post(
       "http://211.55.236.196:3000/star",

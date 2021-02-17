@@ -271,9 +271,9 @@ class _examination_institution_sublistState
                               ],
                             ),
                             onTap: () {
-                              FlutterClipboard.copy(address)
-                                  .then((value) => print('copied'));
-                              _showToast(screenWidth);
+                              FlutterClipboard.copy(address);
+                              //     .then((value) => print('copied'));
+                              // _showToast(screenWidth);
                             },
                           )
                         ],

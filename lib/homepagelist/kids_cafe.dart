@@ -83,6 +83,7 @@ class _kids_cafeState extends State<kids_cafe> {
       "phone": phone1,
       "Examination_item": fare1,
       "star_color": star_color,
+      "type": "kids_cafe"
     };
     var response = await http.post(
       "http://211.55.236.196:3000/star",
