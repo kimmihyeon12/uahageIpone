@@ -237,7 +237,7 @@ class _homePageState extends State<homePage> {
                             (WebViewController webViewController) async {
                           controller = webViewController;
                           await controller.loadUrl(
-                              'http://211.55.236.196:3000/homesearch?lat=$latitude&long=$longitude&address=%27$searchkey%27');
+                              'http://13.209.41.43/homesearch?lat=$latitude&long=$longitude&address=%27$searchkey%27');
                         },
                         javascriptMode: JavascriptMode.unrestricted,
                         javascriptChannels: Set.from([

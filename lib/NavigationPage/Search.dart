@@ -71,14 +71,14 @@ class _searchPageState extends State<searchPage> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://211.55.236.196:3000/getAddress?address=$searchKey')
+            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
         : null;
   }
 
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://211.55.236.196:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}");
+        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}");
   }
 
   Future click_star() async {
@@ -100,7 +100,7 @@ class _searchPageState extends State<searchPage> {
       "Examination_item": null
     };
     var response = await http.post(
-      "http://211.55.236.196:3000/star",
+      "http://13.209.41.43/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -173,8 +173,8 @@ class _searchPageState extends State<searchPage> {
                             longitude == 'NaN' ||
                             latitude == '' ||
                             longitude == ''
-                        ? 'http://211.55.236.196:3000/map'
-                        : 'http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude');
+                        ? 'http://13.209.41.43/map'
+                        : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
                   },
                   javascriptMode: JavascriptMode.unrestricted,
                   javascriptChannels: Set.from([
@@ -277,8 +277,8 @@ class _searchPageState extends State<searchPage> {
                           latitude == '' ||
                           longitude == '') await getCurrentLocation();
                       controller.loadUrl(
-                          "http://211.55.236.196:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                          // "http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude"
+                          "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
+                          // "http://13.209.41.43/getPos?lat=$latitude&long=$longitude"
                           );
                     },
                     child: Container(
@@ -304,7 +304,7 @@ class _searchPageState extends State<searchPage> {
                         /* IconButton(
                             onPressed: () {
                               controller.loadUrl(
-                                  "http://211.55.236.196:3000/zoomIn?lat=$latitude&long=$longitude");
+                                  "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
                             },
                             icon: Image.asset(
                               "assets/searchPage/plus.png",
@@ -314,7 +314,7 @@ class _searchPageState extends State<searchPage> {
                         IconButton(
                             onPressed: () {
                               controller.loadUrl(
-                                  "http://211.55.236.196:3000/zoomOut?lat=$latitude&long=$longitude");
+                                  "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
                             },
                             icon: Image.asset(
                               "assets/searchPage/minus.png",

@@ -66,7 +66,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
 
   Future _star_color() async {
     var data = await http.get(
-        'http://211.55.236.196:3000/substarcolor?user_id=$userId$loginOption&storename=$storename');
+        'http://13.209.41.43/substarcolor?user_id=$userId$loginOption&storename=$storename');
     var dec = jsonDecode(data.body);
     print(dec.length);
     setState(() {
@@ -566,7 +566,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                   (WebViewController webViewController) {
                                 controller = webViewController;
                                 controller.loadUrl(
-                                    'http://211.55.236.196:3000/storename?storename=$storename&address=$address');
+                                    'http://13.209.41.43/storename?storename=$storename&address=$address');
                                 // print(storename);
                                 // print(address);
                               },

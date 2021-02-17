@@ -86,7 +86,7 @@ class _kids_cafeState extends State<kids_cafe> {
       "type": "kids_cafe"
     };
     var response = await http.post(
-      "http://211.55.236.196:3000/star",
+      "http://13.209.41.43/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -96,7 +96,7 @@ class _kids_cafeState extends State<kids_cafe> {
 
   Future _star_color() async {
     var data = await http.get(
-        'http://211.55.236.196:3000/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
+        'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
     var dec = jsonDecode(data.body);
     // print(dec);
     for (int i = 0; i < dec.length; i++) {
@@ -110,7 +110,7 @@ class _kids_cafeState extends State<kids_cafe> {
     List<Kids_cafe> kids_cafes = [];
     String liststringdata = "Kids_cafe";
     var data = await http.get(
-        'http://211.55.236.196:3000/getList/$liststringdata?maxCount=$_currentMax');
+        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
     //?maxCount=$_currentMax
 
     var jsonData = json.decode(data.body);

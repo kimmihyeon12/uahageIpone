@@ -54,7 +54,7 @@ class _registrationPageState extends State<registrationPage> {
     var data;
     try {
       var response =
-          await http.get("http://211.55.236.196:3000/getNicknames/$nickName");
+          await http.get("http://13.209.41.43/getNicknames/$nickName");
       if (response.statusCode == 200) {
         data = jsonDecode(response.body)["message"];
 
@@ -95,7 +95,7 @@ class _registrationPageState extends State<registrationPage> {
           };
     // print(ss);
     var response = await http.post(
-      "http://211.55.236.196:3000/saveUser",
+      "http://13.209.41.43/saveUser",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

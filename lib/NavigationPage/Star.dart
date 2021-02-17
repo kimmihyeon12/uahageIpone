@@ -72,7 +72,7 @@ class _starPageState extends State<starPage> {
       "star_color": false,
     };
     var response = await http.post(
-      "http://211.55.236.196:3000/star",
+      "http://13.209.41.43/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -449,7 +449,7 @@ class _starPageState extends State<starPage> {
     print("called function");
     var star_list1 = [];
     var data = await http
-        .get('http://211.55.236.196:3000/starlist?user_id=$userId$loginOption');
+        .get('http://13.209.41.43/starlist?user_id=$userId$loginOption');
 
     var jsonData = json.decode(data.body);
     for (var r in jsonData) {

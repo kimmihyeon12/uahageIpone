@@ -68,8 +68,8 @@ class _myPageState extends State<myPage> {
 
   getMyInfo() async {
     try {
-      var response = await http.get(
-          "http://211.55.236.196:3000/getMyInfo?userId=$userId$loginOption");
+      var response = await http
+          .get("http://13.209.41.43/getMyInfo?userId=$userId$loginOption");
       var data = jsonDecode(response.body);
       print("printing info " + data.toString());
       if (data["gender"].toString() != "") {
@@ -89,8 +89,8 @@ class _myPageState extends State<myPage> {
 
   getMyAvatar() async {
     try {
-      var response = await http.get(
-          "http://211.55.236.196:3000/getAvatar/?email=$userId$loginOption");
+      var response = await http
+          .get("http://13.209.41.43/getAvatar/?email=$userId$loginOption");
       if (response.statusCode == 200) {
         String _imageLink = jsonDecode(response.body)["image"].toString();
         // print("response" + jsonDecode(response.body)["image"]);
@@ -114,7 +114,7 @@ class _myPageState extends State<myPage> {
     try {
       await http
           .put(
-            "http://211.55.236.196:3000/updateImage/$userId$loginOption",
+            "http://13.209.41.43/updateImage/$userId$loginOption",
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
@@ -129,7 +129,7 @@ class _myPageState extends State<myPage> {
     var data;
     try {
       var response =
-          await http.get("http://211.55.236.196:3000/getNicknames/$nickName");
+          await http.get("http://13.209.41.43/getNicknames/$nickName");
       if (response.statusCode == 200) {
         data = jsonDecode(response.body)["message"];
         setState(() {
@@ -159,7 +159,7 @@ class _myPageState extends State<myPage> {
     };
     // print(ss);
     var response = await http.post(
-      "http://211.55.236.196:3000/updateNickname/$nickName",
+      "http://13.209.41.43/updateNickname/$nickName",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -171,8 +171,8 @@ class _myPageState extends State<myPage> {
   Future getMyNickname() async {
     var data;
     try {
-      var response = await http.get(
-          "http://211.55.236.196:3000/getMyNickname?userId=$userId$loginOption");
+      var response = await http
+          .get("http://13.209.41.43/getMyNickname?userId=$userId$loginOption");
       // print("widgetID" + userId);
       if (response.statusCode == 200) {
         data = json.decode(response.body)["nickname"];
@@ -214,7 +214,7 @@ class _myPageState extends State<myPage> {
       try {
         // print(ss);
         await http.post(
-          "http://211.55.236.196:3000/api/profile/deleteImage",
+          "http://13.209.41.43/api/profile/deleteImage",
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -235,7 +235,7 @@ class _myPageState extends State<myPage> {
       var response;
       try {
         response = await dio.post(
-            'http://211.55.236.196:3000/api/profile/imgUpload/$userId$loginOption',
+            'http://13.209.41.43/api/profile/imgUpload/$userId$loginOption',
             data: formData);
         setState(() {
           _uploadedFileURL = response.data["location"];
@@ -255,7 +255,7 @@ class _myPageState extends State<myPage> {
     try {
       await http
           .put(
-            "http://211.55.236.196:3000/updateImage/$userId$loginOption",
+            "http://13.209.41.43/updateImage/$userId$loginOption",
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
@@ -327,7 +327,7 @@ class _myPageState extends State<myPage> {
       try {
         // print(ss);
         await http.post(
-          "http://211.55.236.196:3000/api/profile/deleteImage",
+          "http://13.209.41.43/api/profile/deleteImage",
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -339,12 +339,12 @@ class _myPageState extends State<myPage> {
     }
     try {
       var res = await http
-          .delete("http://211.55.236.196:3000/deleteStar/$userId$loginOption");
+          .delete("http://13.209.41.43/deleteStar/$userId$loginOption");
       print(jsonDecode(res.body));
     } catch (e) {}
     try {
-      var res = await http.delete(
-          "http://211.55.236.196:3000/deleteProfile/$userId$loginOption");
+      var res = await http
+          .delete("http://13.209.41.43/deleteProfile/$userId$loginOption");
       print(jsonDecode(res.body));
       return jsonDecode(res.body)["message"];
     } catch (e) {}

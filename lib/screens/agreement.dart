@@ -38,8 +38,8 @@ class _agreementPageState extends State<agreementPage> {
   Future checkNickname() async {
     var data;
     try {
-      var response = await http.get(
-          "http://211.55.236.196:3000/getEmail?email=$_accountEmail$loginOption");
+      var response = await http
+          .get("http://13.209.41.43/getEmail?email=$_accountEmail$loginOption");
       print("length " + response.body);
       if (response.statusCode == 200) {
         data = jsonDecode(response.body)["length"];

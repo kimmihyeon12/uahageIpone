@@ -63,7 +63,7 @@ class _examination_institution_sublistState
 
   Future _star_color() async {
     var data = await http.get(
-        'http://119.200.163.240:3000/substarcolor?user_id=$userId$loginOption&storename=$storename');
+        'http://13.209.41.43/substarcolor?user_id=$userId$loginOption&storename=$storename');
     var dec = jsonDecode(data.body);
     print(dec.length);
     setState(() {
@@ -374,7 +374,7 @@ class _examination_institution_sublistState
                                   (WebViewController webViewController) {
                                 controller = webViewController;
                                 controller.loadUrl(
-                                    'http://119.200.163.240:3000/storename?storename=$storename&address=$address');
+                                    'http://13.209.41.43/storename?storename=$storename&address=$address');
                                 print(storename);
                                 print(address);
                               },
