@@ -13,16 +13,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 class kids_cafe extends StatefulWidget {
   String loginOption;
   String userId;
+  String latitude = "";
+  String longitude = "";
   // String oldNickname;
-  kids_cafe({Key key, this.userId, this.loginOption}) : super(key: key);
+  kids_cafe(
+      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      : super(key: key);
   @override
   _kids_cafeState createState() => _kids_cafeState();
 }
 
 class _kids_cafeState extends State<kids_cafe> {
   var listimage = [
-    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image1.png",
-    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image2.png",
   ];
 
   String latitude = "";
@@ -30,20 +34,20 @@ class _kids_cafeState extends State<kids_cafe> {
   String liststringdata = 'Kids_cafe';
   String store_name1, address1, phone1, fare1;
   var star_color = false;
-  List<String> star_color_list = List(520);
+  List<String> star_color_list = List(1000);
   var list = true;
 
-  getCurrentLocation() async {
-    print("Geolocation started");
-    LocationPermission permission = await Geolocator.requestPermission();
+  // getCurrentLocation() async {
+  //   print("Geolocation started");
+  //   LocationPermission permission = await Geolocator.requestPermission();
 
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    setState(() {
-      latitude = '${geoposition.latitude}';
-      longitude = '${geoposition.longitude}';
-    });
-  }
+  //   final geoposition = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.best);
+  //   setState(() {
+  //     latitude = '${geoposition.latitude}';
+  //     longitude = '${geoposition.longitude}';
+  //   });
+  // }
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
@@ -53,7 +57,7 @@ class _kids_cafeState extends State<kids_cafe> {
   }
 
   int _currentMax = 0;
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
   String userId = "";
   String loginOption = "";
@@ -62,10 +66,12 @@ class _kids_cafeState extends State<kids_cafe> {
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
+      latitude = widget.latitude;
+      longitude = widget.longitude;
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
-    getCurrentLocation();
+    // getCurrentLocation();
     super.initState();
   }
 
@@ -95,8 +101,8 @@ class _kids_cafeState extends State<kids_cafe> {
     for (int i = 0; i < dec.length; i++) {
       //  print(dec[i]["store_name"].toString());
       star_color_list[i] = dec[i]["store_name"].toString();
-      print(star_color_list[i]);
     }
+    setState(() {});
   }
 
   Future<List<Kids_cafe>> _getrestaurant() async {
@@ -125,7 +131,7 @@ class _kids_cafeState extends State<kids_cafe> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
+    // _scrollController.dispose();
   }
 
   bool toggle = false;
@@ -261,8 +267,9 @@ class _kids_cafeState extends State<kids_cafe> {
                           ),
                     );
                   } else {
+                    print("length " + snapshot.data.length.toString());
                     return ListView.builder(
-                        controller: _scrollController,
+                        // controller: _scrollController,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           return Card(
@@ -301,45 +308,55 @@ class _kids_cafeState extends State<kids_cafe> {
                                       Container(
                                         decoration: BoxDecoration(
                                             // border: Border.all(width: 3.0),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                  (() {
+                                                    if (index % 2 == 0)
+                                                      return listimage[0];
+                                                    else
+                                                      return listimage[1];
+                                                  }()),
+                                                ),
+                                                fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
                                         height: 414 / screenHeight,
                                         width: 413 / screenWidth,
-                                        child: (() {
-                                          if (index % 2 == 0) {
-                                            return Image.network(
-                                              listimage[0],
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null)
-                                                  return child;
-                                                return Center(
-                                                  child:
-                                                      buildSpinKitThreeBounce(
-                                                          50, screenWidth),
-                                                );
-                                              },
-                                              fit: BoxFit.fill,
-                                              // height: 414 / screenHeight,
-                                            );
-                                          } else {
-                                            return Image.network(
-                                              listimage[1],
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null)
-                                                  return child;
-                                                return Center(
-                                                  child:
-                                                      buildSpinKitThreeBounce(
-                                                          50, screenWidth),
-                                                );
-                                              },
-                                              fit: BoxFit.fill,
-                                              // height: 414 / screenHeight,
-                                            );
-                                          }
-                                        }()),
+                                        // child: (() {
+                                        //   if (index % 2 == 0) {
+                                        //     return Image.network(
+                                        //       listimage[0],
+                                        //       loadingBuilder: (context, child,
+                                        //           loadingProgress) {
+                                        //         if (loadingProgress == null)
+                                        //           return child;
+                                        //         return Center(
+                                        //           child:
+                                        //               buildSpinKitThreeBounce(
+                                        //                   50, screenWidth),
+                                        //         );
+                                        //       },
+                                        //       fit: BoxFit.fitHeight,
+                                        //       // height: 414 / screenHeight,
+                                        //     );
+                                        //   } else {
+                                        //     return Image.network(
+                                        //       listimage[1],
+                                        //       loadingBuilder: (context, child,
+                                        //           loadingProgress) {
+                                        //         if (loadingProgress == null)
+                                        //           return child;
+                                        //         return Center(
+                                        //           child:
+                                        //               buildSpinKitThreeBounce(
+                                        //                   50, screenWidth),
+                                        //         );
+                                        //       },
+                                        //       fit: BoxFit.fitHeight,
+                                        //       // height: 414 / screenHeight,
+                                        //     );
+                                        //   }
+                                        // }()),
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(

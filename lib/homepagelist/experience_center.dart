@@ -13,18 +13,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 class experience_center extends StatefulWidget {
   String loginOption;
   String userId;
+  String latitude = "";
+  String longitude = "";
   // String oldNickname;
-  experience_center({Key key, this.userId, this.loginOption}) : super(key: key);
+  experience_center(
+      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      : super(key: key);
   @override
   _experience_centerState createState() => _experience_centerState();
 }
 
 class _experience_centerState extends State<experience_center> {
   var listimage = [
-    "./assets/listPage/experienceimage1.png",
-    "./assets/listPage/experienceimage2.png",
-    "./assets/listPage/experienceimage3.png",
-    "./assets/listPage/experienceimage4.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image3.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image4.png",
   ];
 
   String latitude = "";
@@ -34,7 +38,7 @@ class _experience_centerState extends State<experience_center> {
   String loginOption = "";
   String store_name1, address1, phone1, fare1;
   var star_color = false;
-  List<String> star_color_list = List(520);
+  List<String> star_color_list = List(1000);
   var list = true;
 
   getCurrentLocation() async {
@@ -57,17 +61,19 @@ class _experience_centerState extends State<experience_center> {
   }
 
   int _currentMax = 0;
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
   void initState() {
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
+      latitude = widget.latitude;
+      longitude = widget.longitude;
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
-    getCurrentLocation();
+    // getCurrentLocation();
     super.initState();
   }
 
@@ -97,8 +103,8 @@ class _experience_centerState extends State<experience_center> {
     for (int i = 0; i < dec.length; i++) {
       //  print(dec[i]["store_name"].toString());
       star_color_list[i] = dec[i]["store_name"].toString();
-      print(star_color_list[i]);
     }
+    setState(() {});
   }
 
   Future<List<Experience_center>> _getrestaurant() async {
@@ -128,7 +134,7 @@ class _experience_centerState extends State<experience_center> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
+    // _scrollController.dispose();
   }
 
   @override
@@ -236,7 +242,7 @@ class _experience_centerState extends State<experience_center> {
                     );
                   } else {
                     return ListView.builder(
-                        controller: _scrollController,
+                        // controller: _scrollController,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           return Card(
@@ -272,29 +278,51 @@ class _experience_centerState extends State<experience_center> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      (() {
-                                        if (index % 4 == 1) {
-                                          return Image.asset(
-                                            listimage[0],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else if (index % 4 == 2) {
-                                          return Image.asset(
-                                            listimage[1],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else if (index % 4 == 3) {
-                                          return Image.asset(
-                                            listimage[2],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else {
-                                          return Image.asset(
-                                            listimage[3],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        }
-                                      }()),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(width: 3.0),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                  (() {
+                                                    if (index % 4 == 0)
+                                                      return listimage[0];
+                                                    else if (index % 4 == 1)
+                                                      return listimage[1];
+                                                    else if (index % 4 == 2)
+                                                      return listimage[2];
+                                                    else
+                                                      return listimage[3];
+                                                  }()),
+                                                ),
+                                                fit: BoxFit.fitHeight),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        height: 414 / screenHeight,
+                                        width: 413 / screenWidth,
+                                      ),
+                                      // (() {
+                                      //   if (index % 4 == 1) {
+                                      //     return Image.asset(
+                                      //       listimage[0],
+                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //     );
+                                      //   } else if (index % 4 == 2) {
+                                      //     return Image.asset(
+                                      //       listimage[1],
+                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //     );
+                                      //   } else if (index % 4 == 3) {
+                                      //     return Image.asset(
+                                      //       listimage[2],
+                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //     );
+                                      //   } else {
+                                      //     return Image.asset(
+                                      //       listimage[3],
+                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //     );
+                                      //   }
+                                      // }()),
                                       Padding(
                                           padding: EdgeInsets.only(
                                         left: 53 /

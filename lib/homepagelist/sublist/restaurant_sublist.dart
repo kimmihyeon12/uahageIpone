@@ -231,9 +231,9 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                 height: 939 / screenHeight,
                 width: 1501 / screenWidth,
                 child: (() {
-                  if (index % 3 == 0) {
+                  if (index % 3 == 1) {
                     return mainImage(mainimage[0], screenWidth);
-                  } else if (index % 4 == 1) {
+                  } else if (index % 3 == 2) {
                     return mainImage(mainimage[1], screenWidth);
                   } else
                     return mainImage(mainimage[2], screenWidth);

@@ -14,8 +14,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 class restaurant extends StatefulWidget {
   String loginOption;
   String userId;
+  String latitude = "";
+  String longitude = "";
   // String oldNickname;
-  restaurant({Key key, this.userId, this.loginOption}) : super(key: key);
+  restaurant(
+      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      : super(key: key);
   @override
   _restaurantState createState() => _restaurantState();
 }
@@ -40,8 +44,8 @@ class _restaurantState extends State<restaurant> {
       chair1;
   var list = true;
   int _currentMax = 0;
-  ScrollController _scrollController = ScrollController();
-  List<String> star_color_list = List(520);
+  // ScrollController _scrollController = ScrollController();
+  List<String> star_color_list = List(1000);
   var star_color = false;
   bool toggle = false;
 
@@ -50,7 +54,6 @@ class _restaurantState extends State<restaurant> {
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image1.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image2.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image3.png",
-    "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image4.png",
   ];
   var iconimage = [
     "./assets/listPage/menu.png",
@@ -64,36 +67,59 @@ class _restaurantState extends State<restaurant> {
     "./assets/listPage/chair.png",
   ];
 
+  // Future myFuture;
+
   @override
   void initState() {
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
+      latitude = widget.latitude;
+      longitude = widget.longitude;
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
 
     _star_color();
+    // myFuture = _getrestaurant();
+    // _getrestaurant();
+    // _scrollController = new ScrollController()..addListener(_scrollListener);
     // _scrollController.addListener(() {
     //   if (_scrollController.position.pixels ==
-    //       _scrollController.position.maxScrollExtent) {
+    //           _scrollController.position.maxScrollExtent &&
+    //       _currentMax != 0) {
     //     // setState(() {
     //     //   _isLoading = true;
     //     // });
+    //     print("adding 10");
+    //     setState(() {
+    //       _currentMax += 10;
+    //     });
+    //   } else if (_currentMax == 0) {
     //     setState(() {
     //       _currentMax += 10;
     //     });
     //   }
     // });
+    // getCurrentLocation();
 
     print("login opt in res " + loginOption);
     print("id in res " + userId);
-    getCurrentLocation();
     super.initState();
   }
 
+  // void _scrollListener() {
+  //   print(_scrollController.position.extentAfter);
+  //   if (_scrollController.position.extentAfter < 1000) {
+  //     setState(() {
+  //       // _currentMax += 10;
+  //       // restaurants.addAll(new List<Restaurant> _getrestaurant());
+  //     });
+  //   }
+  // }
+
   getCurrentLocation() async {
     print("Geolocation started");
-    LocationPermission permission = await Geolocator.requestPermission();
+    // LocationPermission permission = await Geolocator.requestPermission();
 
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
@@ -139,11 +165,11 @@ class _restaurantState extends State<restaurant> {
       star_color_list[i] = dec[i]["store_name"].toString();
       print(star_color_list[i]);
     }
+    setState(() {});
   }
 
   Future<List<Restaurant>> _getrestaurant() async {
     List<Restaurant> restaurants = [];
-
     var data = await http.get(
         // 'http://211.55.236.196:3000/getList/$liststringdata?maxCount=$_currentMax');
         'http://211.55.236.196:3000/getList/$liststringdata');
@@ -173,8 +199,8 @@ class _restaurantState extends State<restaurant> {
 
   @override
   void dispose() {
+    // _scrollController.removeListener(_scrollListener);
     super.dispose();
-    _scrollController.dispose();
   }
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
@@ -312,11 +338,11 @@ class _restaurantState extends State<restaurant> {
                           ),
                     );
                   } else {
+                    print('snapshot.data.length : ${snapshot.data.length}');
                     return ListView.builder(
                         // controller: _scrollController,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          print('snapshot.data.length');
                           // print(snapshot.data.id[index]);
                           return Card(
                             elevation: 0.3,
@@ -366,77 +392,73 @@ class _restaurantState extends State<restaurant> {
                                       Container(
                                         decoration: BoxDecoration(
                                             // border: Border.all(width: 3.0),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                  (() {
+                                                    if (index % 3 == 1)
+                                                      return listimage[0];
+                                                    else if (index % 3 == 2)
+                                                      return listimage[1];
+                                                    else
+                                                      return listimage[2];
+                                                  }()),
+                                                ),
+                                                fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
                                         height: 414 / screenHeight,
                                         width: 413 / screenWidth,
-                                        child: (() {
-                                          if (index % 4 == 1) {
-                                            return Image.network(
-                                              listimage[0],
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null)
-                                                  return child;
-                                                return Center(
-                                                  child:
-                                                      buildSpinKitThreeBounce(
-                                                          50, screenWidth),
-                                                );
-                                              },
-                                              fit: BoxFit.fill,
-                                              // height: 414 / screenHeight,
-                                            );
-                                          } else if (index % 4 == 2) {
-                                            return Image.network(
-                                              listimage[1],
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null)
-                                                  return child;
-                                                return Center(
-                                                  child:
-                                                      buildSpinKitThreeBounce(
-                                                          50, screenWidth),
-                                                );
-                                              },
-                                              fit: BoxFit.fill,
-                                              // height: 414 / screenHeight,
-                                            );
-                                          } else if (index % 4 == 3) {
-                                            return Image.network(
-                                              listimage[2],
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null)
-                                                  return child;
-                                                return Center(
-                                                  child:
-                                                      buildSpinKitThreeBounce(
-                                                          50, screenWidth),
-                                                );
-                                              },
-                                              fit: BoxFit.fill,
-                                              // height: 414 / screenHeight,
-                                            );
-                                          } else {
-                                            return Image.network(
-                                              listimage[3],
-                                              loadingBuilder: (context, child,
-                                                  loadingProgress) {
-                                                if (loadingProgress == null)
-                                                  return child;
-                                                return Center(
-                                                  child:
-                                                      buildSpinKitThreeBounce(
-                                                          50, screenWidth),
-                                                );
-                                              },
-                                              fit: BoxFit.fill,
-                                              // height: 414 / screenHeight,
-                                            );
-                                          }
-                                        }()),
+                                        // child: (() {
+                                        //   if (index % 3 == 1) {
+                                        //     return Image.network(
+                                        //       listimage[0],
+                                        //       loadingBuilder: (context, child,
+                                        //           loadingProgress) {
+                                        //         if (loadingProgress == null)
+                                        //           return child;
+                                        //         return Center(
+                                        //           child:
+                                        //               buildSpinKitThreeBounce(
+                                        //                   50, screenWidth),
+                                        //         );
+                                        //       },
+                                        //       fit: BoxFit.fill,
+                                        //       // height: 414 / screenHeight,
+                                        //     );
+                                        //   } else if (index % 3 == 2) {
+                                        //     return Image.network(
+                                        //       listimage[1],
+                                        //       loadingBuilder: (context, child,
+                                        //           loadingProgress) {
+                                        //         if (loadingProgress == null)
+                                        //           return child;
+                                        //         return Center(
+                                        //           child:
+                                        //               buildSpinKitThreeBounce(
+                                        //                   50, screenWidth),
+                                        //         );
+                                        //       },
+                                        //       fit: BoxFit.fill,
+                                        //       // height: 414 / screenHeight,
+                                        //     );
+                                        //   } else {
+                                        //     return Image.network(
+                                        //       listimage[2],
+                                        //       loadingBuilder: (context, child,
+                                        //           loadingProgress) {
+                                        //         if (loadingProgress == null)
+                                        //           return child;
+                                        //         return Center(
+                                        //           child:
+                                        //               buildSpinKitThreeBounce(
+                                        //                   50, screenWidth),
+                                        //         );
+                                        //       },
+                                        //       fit: BoxFit.fill,
+                                        //       // height: 414 / screenHeight,
+                                        //     );
+                                        //   }
+                                        // }()),
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(

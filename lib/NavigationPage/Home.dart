@@ -488,8 +488,11 @@ class _homePageState extends State<homePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => restaurant(
-                                            userId: userId,
-                                            loginOption: loginOption)));
+                                              userId: userId,
+                                              loginOption: loginOption,
+                                              latitude: latitude,
+                                              longitude: longitude,
+                                            )));
                               },
                             ),
                             Padding(
@@ -509,8 +512,11 @@ class _homePageState extends State<homePage> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             examination_institution(
-                                                userId: userId,
-                                                loginOption: loginOption)));
+                                              userId: userId,
+                                              loginOption: loginOption,
+                                              latitude: latitude,
+                                              longitude: longitude,
+                                            )));
                               },
                             ),
                             Padding(
@@ -584,8 +590,11 @@ class _homePageState extends State<homePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => kids_cafe(
-                                            userId: userId,
-                                            loginOption: loginOption)));
+                                              userId: userId,
+                                              loginOption: loginOption,
+                                              latitude: latitude,
+                                              longitude: longitude,
+                                            )));
                               },
                             ),
                             Padding(
@@ -604,8 +613,11 @@ class _homePageState extends State<homePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => experience_center(
-                                            userId: userId,
-                                            loginOption: loginOption)));
+                                              userId: userId,
+                                              loginOption: loginOption,
+                                              latitude: latitude,
+                                              longitude: longitude,
+                                            )));
                               },
                             ),
                             Padding(

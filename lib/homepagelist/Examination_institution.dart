@@ -13,8 +13,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 class examination_institution extends StatefulWidget {
   String loginOption;
   String userId;
+  String latitude = "";
+  String longitude = "";
   // String oldNickname;
-  examination_institution({Key key, this.userId, this.loginOption})
+  examination_institution(
+      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
       : super(key: key);
   @override
   _examination_institutionState createState() =>
@@ -29,14 +32,14 @@ class _examination_institutionState extends State<examination_institution> {
   String liststringdata = 'Examination_institution';
   String store_name1, address1, phone1, Examination_item1;
   var star_color = false;
-  List<String> star_color_list = List(520);
+  List<String> star_color_list = List(1000);
   var list = true;
   int _currentMax = 0;
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
 
   var listimage = [
-    "./assets/listPage/hospitalimage1.png",
-    "./assets/listPage/hospitalimage2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image2.png",
   ];
 
   getCurrentLocation() async {
@@ -56,10 +59,12 @@ class _examination_institutionState extends State<examination_institution> {
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
+      latitude = widget.latitude;
+      longitude = widget.longitude;
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
-    getCurrentLocation();
+    // getCurrentLocation();
     super.initState();
   }
 
@@ -87,10 +92,9 @@ class _examination_institutionState extends State<examination_institution> {
     var dec = jsonDecode(data.body);
     // print(dec);
     for (int i = 0; i < dec.length; i++) {
-      //  print(dec[i]["store_name"].toString());
       star_color_list[i] = dec[i]["store_name"].toString();
-      print(star_color_list[i]);
     }
+    setState(() {});
   }
 
   Future<List<Examination_institution>> _getrestaurant() async {
@@ -126,7 +130,7 @@ class _examination_institutionState extends State<examination_institution> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
+    // _scrollController.dispose();
   }
 
   bool toggle = false;
@@ -237,7 +241,7 @@ class _examination_institutionState extends State<examination_institution> {
                     );
                   } else {
                     return ListView.builder(
-                        controller: _scrollController,
+                        // controller: _scrollController,
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           return Card(
@@ -274,19 +278,37 @@ class _examination_institutionState extends State<examination_institution> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      (() {
-                                        if (index % 2 == 0) {
-                                          return Image.asset(
-                                            listimage[0],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        } else {
-                                          return Image.asset(
-                                            listimage[1],
-                                            height: 414 / (2667 / ScreenHeight),
-                                          );
-                                        }
-                                      }()),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(width: 3.0),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                  (() {
+                                                    if (index % 2 == 0)
+                                                      return listimage[0];
+                                                    else
+                                                      return listimage[1];
+                                                  }()),
+                                                ),
+                                                fit: BoxFit.fitHeight),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        height: 414 / screenHeight,
+                                        width: 413 / screenWidth,
+                                      ),
+                                      // (() {
+                                      //   if (index % 2 == 0) {
+                                      //     return Image.asset(
+                                      //       listimage[0],
+                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //     );
+                                      //   } else {
+                                      //     return Image.asset(
+                                      //       listimage[1],
+                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //     );
+                                      //   }
+                                      // }()),
                                       Padding(
                                           padding: EdgeInsets.only(
                                         left: 53 /
