@@ -26,7 +26,7 @@ class _searchPageState extends State<searchPage> {
   String latitude = "";
   String longitude = "";
   String searchKey = "";
-  var star_color = true;
+  var star_color = false;
   String userId = "";
   String loginOption = "";
   int index = 1;
@@ -71,18 +71,18 @@ class _searchPageState extends State<searchPage> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
+            .loadUrl('http://211.55.236.196:3000/getAddress?address=$searchKey')
         : null;
   }
 
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}");
+        "http://211.55.236.196:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}");
   }
 
   Future click_star() async {
-    print("clicking start");
+    print("clicking start $star_color");
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -102,7 +102,7 @@ class _searchPageState extends State<searchPage> {
     };
     print(ss);
     var response = await http.post(
-      "http://13.209.41.43/star",
+      "http://211.55.236.196:3000/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -175,8 +175,8 @@ class _searchPageState extends State<searchPage> {
                             longitude == 'NaN' ||
                             latitude == '' ||
                             longitude == ''
-                        ? 'http://13.209.41.43/map'
-                        : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                        ? 'http://211.55.236.196:3000/map'
+                        : 'http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude');
                   },
                   javascriptMode: JavascriptMode.unrestricted,
                   javascriptChannels: Set.from([
@@ -279,8 +279,8 @@ class _searchPageState extends State<searchPage> {
                           latitude == '' ||
                           longitude == '') await getCurrentLocation();
                       controller.loadUrl(
-                          "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                          // "http://13.209.41.43/getPos?lat=$latitude&long=$longitude"
+                          "http://211.55.236.196:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
+                          // "http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude"
                           );
                     },
                     child: Container(
@@ -306,7 +306,7 @@ class _searchPageState extends State<searchPage> {
                         /* IconButton(
                             onPressed: () {
                               controller.loadUrl(
-                                  "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
+                                  "http://211.55.236.196:3000/zoomIn?lat=$latitude&long=$longitude");
                             },
                             icon: Image.asset(
                               "assets/searchPage/plus.png",
@@ -316,7 +316,7 @@ class _searchPageState extends State<searchPage> {
                         IconButton(
                             onPressed: () {
                               controller.loadUrl(
-                                  "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
+                                  "http://211.55.236.196:3000/zoomOut?lat=$latitude&long=$longitude");
                             },
                             icon: Image.asset(
                               "assets/searchPage/minus.png",
@@ -467,6 +467,9 @@ class _searchPageState extends State<searchPage> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
+    setState(() => {
+          star_color = false,
+        });
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -505,6 +508,8 @@ class _searchPageState extends State<searchPage> {
                                   carriage: Message[9],
                                   nursingroom: Message[10],
                                   chair: Message[11],
+                                  userId: userId,
+                                  loginOption: loginOption,
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
@@ -557,8 +562,8 @@ class _searchPageState extends State<searchPage> {
                                       // padding: EdgeInsets.all(0),
                                       icon: Image.asset(
                                           star_color
-                                              ? "./assets/listPage/star_grey.png"
-                                              : "./assets/listPage/star_color.png",
+                                              ? "./assets/listPage/star_color.png"
+                                              : "./assets/listPage/star_grey.png",
                                           height: 60 / screenHeight),
                                       onPressed: () {
                                         setState(() {
