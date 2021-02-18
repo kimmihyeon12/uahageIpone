@@ -100,6 +100,7 @@ class _searchPageState extends State<searchPage> {
       "star_color": star_color,
       "Examination_item": null
     };
+    print(ss);
     var response = await http.post(
       "http://211.55.236.196:3000/star",
       headers: <String, String>{

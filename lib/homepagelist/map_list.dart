@@ -33,7 +33,7 @@ class _map_listState extends State<map_list> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
+            .loadUrl('http://211.55.236.196:3000/getAddress?address=$searchKey')
         : null;
   }
 
@@ -100,8 +100,8 @@ class _map_listState extends State<map_list> {
                         //       longitude == 'NaN' ||
                         //       latitude == '' ||
                         //       longitude == ''
-                        //   ? 'http://13.209.41.43/test' :
-                        'http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
+                        //   ? 'http://211.55.236.196:3000/test' :
+                        'http://211.55.236.196:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
                   },
                   javascriptMode: JavascriptMode.unrestricted,
                 ),
@@ -124,8 +124,8 @@ class _map_listState extends State<map_list> {
                           latitude == '' ||
                           longitude == '') await getCurrentLocation();
                       controller.loadUrl(
-                          // 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude&address=$searchKey');
-                          'http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
+                          // 'http://211.55.236.196:3000/getPos?lat=$latitude&long=$longitude&address=$searchKey');
+                          'http://211.55.236.196:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
                       print(listrequest);
                     },
                     child: Container(
@@ -154,7 +154,7 @@ class _map_listState extends State<map_list> {
                 //                 zoom -= 1;
                 //               });
                 //               controller.loadUrl(
-                //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+                //                   "http://211.55.236.196:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
                 //             },
                 //             icon: Image.asset(
                 //               "assets/searchPage/plus.png",
@@ -167,7 +167,7 @@ class _map_listState extends State<map_list> {
                 //                 zoom += 1;
                 //               });
                 //               controller.loadUrl(
-                //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+                //                   "http://211.55.236.196:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
                 //             },
                 //             icon: Image.asset(
                 //               "assets/searchPage/minus.png",

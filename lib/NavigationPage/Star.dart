@@ -303,7 +303,7 @@ class _starPageState extends State<starPage> {
                                           top: 10 / screenHeight,
                                         )),
                                         Container(
-                                          // height: 80 / screenHeight,
+                                          height: 70 / screenHeight,
                                           width: 800 / screenWidth,
                                           child: Text(
                                             snapshot.data[index].address,
