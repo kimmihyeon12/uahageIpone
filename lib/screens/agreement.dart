@@ -68,21 +68,24 @@ class _agreementPageState extends State<agreementPage> {
       // await _create();
       // await _saveUserId();
       await checkNickname();
-      isAlreadyRegistered
-          ? Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => navigationPage(
-                    userId: _accountEmail, loginOption: loginOption),
-              ))
-          : Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => registrationPage(
-                  userId: _accountEmail,
-                  loginOption: loginOption,
-                ),
-              ));
+      if (isAlreadyRegistered) {
+        await _saveUserId();
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => navigationPage(
+                  userId: _accountEmail, loginOption: loginOption),
+            ));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => registrationPage(
+                userId: _accountEmail,
+                loginOption: loginOption,
+              ),
+            ));
+      }
       //push는 쌓임 , pushreplacement는 교체!
     } catch (e) {
       print(e.toString());
@@ -160,25 +163,28 @@ class _agreementPageState extends State<agreementPage> {
       // await _saveUserId();
       await checkNickname();
       // create database
-      isAlreadyRegistered
-          ? Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => navigationPage(
-                        userId: _accountEmail,
-                        loginOption: loginOption,
-                      )),
-              (Route<dynamic> route) => false,
-            )
-          : Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => registrationPage(
-                        userId: _accountEmail,
-                        loginOption: loginOption,
-                      )),
-              (Route<dynamic> route) => false,
-            );
+      if (isAlreadyRegistered) {
+        await _saveUserId();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => navigationPage(
+                    userId: _accountEmail,
+                    loginOption: loginOption,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => registrationPage(
+                    userId: _accountEmail,
+                    loginOption: loginOption,
+                  )),
+          (Route<dynamic> route) => false,
+        );
+      }
     } catch (e) {
       print(e);
     }
