@@ -49,15 +49,16 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                        padding: EdgeInsets.only(
-                      top: 500 / screenHeight,
-                    )),
+                    // Padding(
+                    //     padding: EdgeInsets.only(
+                    //   right: 10 / screenWidth,
+                    // )),
                     IconButton(
                       icon: Icon(Icons.arrow_back_ios_sharp),
                       iconSize: 100 / screenWidth,
-                      color: Colors.white,
+                      color: Colors.grey,
                       onPressed: () {
                         setState(() {
                           searchbtn = false;
@@ -65,10 +66,10 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         });
                       },
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                      left: 900 / screenWidth,
-                    )),
+                    // Padding(
+                    //     padding: EdgeInsets.only(
+                    //   left: 900 / screenWidth,
+                    // )),
                     InkWell(
                       child: Image.asset(
                         './assets/off.png',
