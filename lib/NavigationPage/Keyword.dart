@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Keyword extends StatefulWidget {
   Keyword({Key key, this.latitude, this.longitude, this.searchkey})
@@ -23,6 +24,9 @@ class _KeywordState extends State<Keyword> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = 2668 / MediaQuery.of(context).size.height;
+    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+    FocusScopeNode currentFocus = FocusScope.of(context);
     var latitude = widget.latitude;
     var longitude = widget.longitude;
     var searchkey = widget.searchkey;
@@ -47,17 +51,27 @@ class _KeywordState extends State<Keyword> {
                     print('messages: ' + messages);
                     //    controller.evaluateJavascript(javascriptString)
                     // return Map_List_Toggle(latitude:latitude,longitude:longitude,searchkey:messages);
-                    return Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Map_List_Toggle(
-                                latitude: latitude,
-                                longitude: longitude,
-                                searchkey: messages)));
-                    // setState(() {
-                    //   searchkey = messages;
-                    //   addressbtn = false;
-                    // });
+                    if (messages != 'null') {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Map_List_Toggle(
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  searchkey: messages)));
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "  옳바르게 입력해주세요!  ",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black45,
+                        textColor: Colors.white,
+                        fontSize: 48 / screenWidth,
+                      );
+                      currentFocus.unfocus();
+                      Navigator.pop(context);
+                    }
                   }),
             ]),
           ),
