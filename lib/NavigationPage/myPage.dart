@@ -454,7 +454,7 @@ class _myPageState extends State<myPage> {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       image: FileImage(_image), //imageURL
-                                      fit: BoxFit.fitWidth),
+                                      fit: BoxFit.fill),
                                 ),
                               );
                             } else if (imageLink != "" && imageLink != null) {
@@ -464,7 +464,7 @@ class _myPageState extends State<myPage> {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       image: NetworkImage(imageLink),
-                                      fit: BoxFit.fitWidth),
+                                      fit: BoxFit.fill),
                                 ),
                               );
                             } else {
@@ -475,7 +475,7 @@ class _myPageState extends State<myPage> {
                                   image: DecorationImage(
                                       image: AssetImage(
                                           "./assets/myPage/avatar.png"),
-                                      fit: BoxFit.fitWidth),
+                                      fit: BoxFit.fill),
                                 ),
                               );
                             }
