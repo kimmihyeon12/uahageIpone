@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -110,6 +112,8 @@ class _starPageState extends State<starPage> {
     );
   }
 
+  bool isIOS = Platform.isIOS;
+
   @override
   Widget build(BuildContext context) {
     // print("widget reloaded!");
@@ -120,9 +124,9 @@ class _starPageState extends State<starPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
-          elevation: 0,
+          // elevation: 0,
           centerTitle: true,
           title: Text(
             "즐겨찾기",

@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,6 +79,7 @@ class _navigationPageState extends State<navigationPage> {
     }
   }
 
+  bool isIOS = Platform.isIOS;
   ListQueue<int> _navigationQueue = ListQueue();
   @override
   Widget build(BuildContext context) {
@@ -90,83 +92,166 @@ class _navigationPageState extends State<navigationPage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return SafeArea(
-      child: Scaffold(
-        body: CallPage(_selectedTabIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedTabIndex,
-          showSelectedLabels: false, // <-- HERE
-          showUnselectedLabels: false,
-          elevation: 15,
-          onTap: (value) {
-            _selectedTabIndex = value;
-            _changeAge(value);
-            setState(() {});
-          },
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "assets/NavigationbarPage/home_grey.png",
-                width: 79 / (1501 / ScreenWidth),
-                height: 144 / (2667 / ScreenHeight),
-              ),
-              title: Text("home"),
-              activeIcon: Image.asset(
-                "assets/NavigationbarPage/home_pink.png",
-                width: 79 / (1501 / ScreenWidth),
-                height: 144 / (2667 / ScreenHeight),
-              ),
-              // title: Text("home"),
-            ),
-            BottomNavigationBarItem(
-              title: Text(""),
-              icon: Image.asset(
-                "assets/NavigationbarPage/search_grey.png",
-                width: 79 / (1501 / ScreenWidth),
-                height: 139 / (2667 / ScreenHeight),
-              ),
-              activeIcon: Image.asset(
-                "assets/NavigationbarPage/search_pink.png",
-                width: 79 / (1501 / ScreenWidth),
-                height: 139 / (2667 / ScreenHeight),
-              ),
-              // title: Text("search"),
-            ),
-            BottomNavigationBarItem(
-              title: Text(""),
+    isIOS
+        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+            .copyWith(
+                statusBarBrightness:
+                    Brightness.dark // Dark == white status bar -- for IOS.
+                ))
+        : null;
+    return isIOS
+        ? Scaffold(
+            body: CallPage(_selectedTabIndex),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _selectedTabIndex,
+              showSelectedLabels: false, // <-- HERE
+              showUnselectedLabels: false,
+              elevation: 15,
+              onTap: (value) {
+                _selectedTabIndex = value;
+                _changeAge(value);
+                setState(() {});
+              },
+              type: BottomNavigationBarType.fixed,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/NavigationbarPage/home_grey.png",
+                    width: 79 / (1501 / ScreenWidth),
+                    height: 144 / (2667 / ScreenHeight),
+                  ),
+                  title: Text("home"),
+                  activeIcon: Image.asset(
+                    "assets/NavigationbarPage/home_pink.png",
+                    width: 79 / (1501 / ScreenWidth),
+                    height: 144 / (2667 / ScreenHeight),
+                  ),
+                  // title: Text("home"),
+                ),
+                BottomNavigationBarItem(
+                  title: Text(""),
+                  icon: Image.asset(
+                    "assets/NavigationbarPage/search_grey.png",
+                    width: 79 / (1501 / ScreenWidth),
+                    height: 139 / (2667 / ScreenHeight),
+                  ),
+                  activeIcon: Image.asset(
+                    "assets/NavigationbarPage/search_pink.png",
+                    width: 79 / (1501 / ScreenWidth),
+                    height: 139 / (2667 / ScreenHeight),
+                  ),
+                  // title: Text("search"),
+                ),
+                BottomNavigationBarItem(
+                  title: Text(""),
 
-              icon: Image.asset(
-                "assets/NavigationbarPage/star_grey.png",
-                width: 162 / (1501 / ScreenWidth),
-                height: 147 / (2667 / ScreenHeight),
-              ),
-              activeIcon: Image.asset(
-                "assets/NavigationbarPage/star_pink.png",
-                width: 162 / (1501 / ScreenWidth),
-                height: 147 / (2667 / ScreenHeight),
-              ),
-              // title: Text("star"),
-            ),
-            BottomNavigationBarItem(
-              title: Text(""),
+                  icon: Image.asset(
+                    "assets/NavigationbarPage/star_grey.png",
+                    width: 162 / (1501 / ScreenWidth),
+                    height: 147 / (2667 / ScreenHeight),
+                  ),
+                  activeIcon: Image.asset(
+                    "assets/NavigationbarPage/star_pink.png",
+                    width: 162 / (1501 / ScreenWidth),
+                    height: 147 / (2667 / ScreenHeight),
+                  ),
+                  // title: Text("star"),
+                ),
+                BottomNavigationBarItem(
+                  title: Text(""),
 
-              icon: Image.asset(
-                "assets/NavigationbarPage/mypage_grey.png",
-                width: 132 / (1501 / ScreenWidth),
-                height: 141 / (2667 / ScreenHeight),
-              ),
-              activeIcon: Image.asset(
-                "assets/NavigationbarPage/mypage_grey.png",
-                width: 132 / (1501 / ScreenWidth),
-                height: 141 / (2667 / ScreenHeight),
-              ),
-              // title: Text("mypage"),
+                  icon: Image.asset(
+                    "assets/NavigationbarPage/mypage_grey.png",
+                    width: 132 / (1501 / ScreenWidth),
+                    height: 141 / (2667 / ScreenHeight),
+                  ),
+                  activeIcon: Image.asset(
+                    "assets/NavigationbarPage/mypage_grey.png",
+                    width: 132 / (1501 / ScreenWidth),
+                    height: 141 / (2667 / ScreenHeight),
+                  ),
+                  // title: Text("mypage"),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : SafeArea(
+            child: Scaffold(
+              body: CallPage(_selectedTabIndex),
+              bottomNavigationBar: BottomNavigationBar(
+                currentIndex: _selectedTabIndex,
+                showSelectedLabels: false, // <-- HERE
+                showUnselectedLabels: false,
+                elevation: 15,
+                onTap: (value) {
+                  _selectedTabIndex = value;
+                  _changeAge(value);
+                  setState(() {});
+                },
+                type: BottomNavigationBarType.fixed,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      "assets/NavigationbarPage/home_grey.png",
+                      width: 79 / (1501 / ScreenWidth),
+                      height: 144 / (2667 / ScreenHeight),
+                    ),
+                    title: Text("home"),
+                    activeIcon: Image.asset(
+                      "assets/NavigationbarPage/home_pink.png",
+                      width: 79 / (1501 / ScreenWidth),
+                      height: 144 / (2667 / ScreenHeight),
+                    ),
+                    // title: Text("home"),
+                  ),
+                  BottomNavigationBarItem(
+                    title: Text(""),
+                    icon: Image.asset(
+                      "assets/NavigationbarPage/search_grey.png",
+                      width: 79 / (1501 / ScreenWidth),
+                      height: 139 / (2667 / ScreenHeight),
+                    ),
+                    activeIcon: Image.asset(
+                      "assets/NavigationbarPage/search_pink.png",
+                      width: 79 / (1501 / ScreenWidth),
+                      height: 139 / (2667 / ScreenHeight),
+                    ),
+                    // title: Text("search"),
+                  ),
+                  BottomNavigationBarItem(
+                    title: Text(""),
+
+                    icon: Image.asset(
+                      "assets/NavigationbarPage/star_grey.png",
+                      width: 162 / (1501 / ScreenWidth),
+                      height: 147 / (2667 / ScreenHeight),
+                    ),
+                    activeIcon: Image.asset(
+                      "assets/NavigationbarPage/star_pink.png",
+                      width: 162 / (1501 / ScreenWidth),
+                      height: 147 / (2667 / ScreenHeight),
+                    ),
+                    // title: Text("star"),
+                  ),
+                  BottomNavigationBarItem(
+                    title: Text(""),
+
+                    icon: Image.asset(
+                      "assets/NavigationbarPage/mypage_grey.png",
+                      width: 132 / (1501 / ScreenWidth),
+                      height: 141 / (2667 / ScreenHeight),
+                    ),
+                    activeIcon: Image.asset(
+                      "assets/NavigationbarPage/mypage_grey.png",
+                      width: 132 / (1501 / ScreenWidth),
+                      height: 141 / (2667 / ScreenHeight),
+                    ),
+                    // title: Text("mypage"),
+                  ),
+                ],
+              ),
+            ),
+          );
   }
 
   void _changeAge(int value) {
