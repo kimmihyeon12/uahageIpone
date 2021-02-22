@@ -27,6 +27,12 @@ class Map_List_Toggle extends StatefulWidget {
 
 class _Map_List_ToggleState extends State<Map_List_Toggle> {
   @override
+  void initState() {
+    super.initState();
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
+  }
+
   var iconimage = [
     "./assets/listPage/menu.png",
     "./assets/listPage/bed.png",
@@ -50,14 +56,32 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   var index = 1;
   List<String> store_namelist = List(500);
   List<String> addresslist = List(500);
-  void initState() {
-    super.initState();
-    loginOption = widget.loginOption;
-    userId = widget.userId ?? "";
+  Future checkStar() async {
+    print("start checking");
+    var response;
+    try {
+      response = await http.get(
+          "http://121.147.203.82:3000/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          star_color = true;
+        });
+      } else {
+        setState(() {
+          star_color = false;
+        });
+      }
+    } catch (err) {
+      print(err);
+    }
   }
 
   Future click_star() async {
-    print("clicking start $star_color");
+    print("clicking star Future $star_color");
+    print(userId);
+    print(loginOption);
+
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -222,7 +246,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         (WebViewController webViewController) async {
                       controller = webViewController;
                       await controller.loadUrl(
-                          "http://112.187.123.9:3000/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+                          "http://13.209.41.43/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
                     },
                     javascriptMode: JavascriptMode.unrestricted,
                     javascriptChannels: Set.from([
@@ -248,9 +272,11 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           }),
                       JavascriptChannel(
                           name: 'Print1',
-                          onMessageReceived: (JavascriptMessage message) {
+                          onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
+
                             Message = messages.split(",");
+                            await checkStar();
                             showPopUpbottomMenu(
                                 context, screenHeight, screenWidth);
                           })
@@ -315,9 +341,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-    setState(() => {
-          star_color = false,
-        });
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -413,13 +436,15 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                               ? "./assets/listPage/star_color.png"
                                               : "./assets/listPage/star_grey.png",
                                           height: 60 / screenHeight),
-                                      onPressed: () {
-                                        setState(() {
-                                          star_color = !star_color;
-                                        });
-                                        loginOption != "login"
-                                            ? click_star()
-                                            : null;
+                                      onPressed: () async {
+                                        if (loginOption != "login") {
+                                          setState(() {
+                                            star_color = !star_color;
+                                          });
+                                          print("printing $star_color");
+
+                                          await click_star();
+                                        }
                                       },
                                     ),
                                   ],

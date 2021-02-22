@@ -2219,125 +2219,37 @@ class _myPageState extends State<myPage> {
 
                       //logout
 
-                      Container(
-                        margin: EdgeInsets.fromLTRB(
-                            931 / screenWidth,
-                            onEdit ? 88 / screenHeight : 370 / screenHeight,
-                            0,
-                            71 / screenHeight),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: // 로그아웃 하시겠습니까?
-                                        Text("로그아웃 하시겠습니까?",
-                                            style: TextStyle(
-                                                color: const Color(0xff4d4d4d),
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Medium",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 62.5 / screenWidth),
-                                            textAlign: TextAlign.left),
-                                    actions: [
-                                      FlatButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: // 아니요
-                                            Text("아니요",
-                                                style: TextStyle(
-                                                    color:
-                                                        const Color(0xffff7292),
-                                                    fontWeight: FontWeight.w500,
-                                                    fontFamily:
-                                                        "NotoSansCJKkr_Medium",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: _fontsize),
-                                                textAlign: TextAlign.left),
-                                      ),
-                                      FlatButton(
-                                        onPressed: () async {
-                                          SharedPreferences prefs =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          await prefs.remove("uahageUserId");
-                                          await prefs
-                                              .remove("uahageLoginOption");
-                                          Navigator.pop(context);
-
-                                          Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    loginPage()),
-                                            (Route<dynamic> route) => false,
-                                          );
-                                          // Navigator.of(context)
-                                          //     .popUntil((route) => route.isFirst);
-                                        },
-                                        child: // 네
-                                            Text("네",
-                                                style: TextStyle(
-                                                    color:
-                                                        const Color(0xffff7292),
-                                                    fontWeight: FontWeight.w500,
-                                                    fontFamily:
-                                                        "NotoSansCJKkr_Medium",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: _fontsize),
-                                                textAlign: TextAlign.left),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              child: // 로그아웃
-                                  Text("로그아웃",
-                                      style: textStyle52,
-                                      textAlign: TextAlign.left),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 15 / screenWidth,
-                                  right: 15 / screenWidth),
-                              child: Text(
-                                "|",
-                                style: textStyle52,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: loginOption == "login"
-                                  ? () {
-                                      Fluttertoast.showToast(
-                                        msg: "  로그인 해주세요!",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.black45,
-                                        textColor: Colors.white,
-                                        fontSize: 48 / screenWidth,
-                                      );
-                                    }
-                                  : () {
+                      userId != ""
+                          ? Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  931 / screenWidth,
+                                  onEdit
+                                      ? 88 / screenHeight
+                                      : 370 / screenHeight,
+                                  0,
+                                  71 / screenHeight),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                          title: Text(
-                                              "탈퇴하시겠습니까? 탈퇴 시 기존 데이터를 복구할 수 없습니다.",
-                                              style: TextStyle(
-                                                  color:
-                                                      const Color(0xff4d4d4d),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Medium",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 70.5 / screenWidth),
-                                              textAlign: TextAlign.left),
+                                          title: // 로그아웃 하시겠습니까?
+                                              Text("로그아웃 하시겠습니까?",
+                                                  style: TextStyle(
+                                                      color: const Color(
+                                                          0xff4d4d4d),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontFamily:
+                                                          "NotoSansCJKkr_Medium",
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize:
+                                                          62.5 / screenWidth),
+                                                  textAlign: TextAlign.left),
                                           actions: [
                                             FlatButton(
                                               onPressed: () {
@@ -2360,7 +2272,6 @@ class _myPageState extends State<myPage> {
                                             ),
                                             FlatButton(
                                               onPressed: () async {
-                                                Navigator.pop(context);
                                                 SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
@@ -2368,65 +2279,16 @@ class _myPageState extends State<myPage> {
                                                     .remove("uahageUserId");
                                                 await prefs.remove(
                                                     "uahageLoginOption");
-                                                //delete data in the database
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (_) => FutureBuilder(
-                                                    future: withdrawalUser(),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      if (snapshot.hasData) {
-                                                        print("hasdata");
-                                                        WidgetsBinding.instance
-                                                            .addPostFrameCallback(
-                                                                (_) {
-                                                          Navigator.of(context).pushReplacement(
-                                                              MaterialPageRoute(
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      withdrawal()));
-                                                        });
-                                                      } else if (snapshot
-                                                          .hasError) {
-                                                        WidgetsBinding.instance
-                                                            .addPostFrameCallback(
-                                                                (_) {
-                                                          Navigator.of(context).pushReplacement(
-                                                              MaterialPageRoute(
-                                                                  builder: (BuildContext
-                                                                          context) =>
-                                                                      withdrawal()));
-                                                        });
-                                                      }
+                                                Navigator.pop(context);
 
-                                                      return Center(
-                                                        child: SizedBox(
-                                                            height: 200 /
-                                                                screenHeight,
-                                                            width: 200 /
-                                                                screenWidth,
-                                                            child:
-                                                                buildSpinKitThreeBounce(
-                                                                    80,
-                                                                    screenWidth)
-                                                            //     CircularProgressIndicator(
-                                                            //   strokeWidth: 5.0,
-                                                            //   valueColor:
-                                                            //       new AlwaysStoppedAnimation<
-                                                            //           Color>(
-                                                            //     Colors.pinkAccent,
-                                                            //   ),
-                                                            // )
-                                                            ),
-                                                      );
-                                                    },
-                                                  ),
+                                                Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          loginPage()),
+                                                  (Route<dynamic> route) =>
+                                                      false,
                                                 );
-
-                                                // Navigator.pushReplacement(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) => loginPage()));
                                                 // Navigator.of(context)
                                                 //     .popUntil((route) => route.isFirst);
                                               },
@@ -2449,14 +2311,198 @@ class _myPageState extends State<myPage> {
                                         ),
                                       );
                                     },
-                              child: // 로그아웃   |   회원탈퇴
-                                  Text("회원탈퇴",
+                                    child: // 로그아웃
+                                        Text("로그아웃",
+                                            style: textStyle52,
+                                            textAlign: TextAlign.left),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        left: 15 / screenWidth,
+                                        right: 15 / screenWidth),
+                                    child: Text(
+                                      "|",
+                                      style: textStyle52,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: loginOption == "login"
+                                        ? () {
+                                            Fluttertoast.showToast(
+                                              msg: "  로그인 해주세요!",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 1,
+                                              backgroundColor: Colors.black45,
+                                              textColor: Colors.white,
+                                              fontSize: 48 / screenWidth,
+                                            );
+                                          }
+                                        : () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: Text(
+                                                    "탈퇴하시겠습니까? 탈퇴 시 기존 데이터를 복구할 수 없습니다.",
+                                                    style: TextStyle(
+                                                        color: const Color(
+                                                            0xff4d4d4d),
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontFamily:
+                                                            "NotoSansCJKkr_Medium",
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        fontSize:
+                                                            70.5 / screenWidth),
+                                                    textAlign: TextAlign.left),
+                                                actions: [
+                                                  FlatButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: // 아니요
+                                                        Text("아니요",
+                                                            style: TextStyle(
+                                                                color: const Color(
+                                                                    0xffff7292),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontFamily:
+                                                                    "NotoSansCJKkr_Medium",
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontSize:
+                                                                    _fontsize),
+                                                            textAlign:
+                                                                TextAlign.left),
+                                                  ),
+                                                  FlatButton(
+                                                    onPressed: () async {
+                                                      Navigator.pop(context);
+                                                      SharedPreferences prefs =
+                                                          await SharedPreferences
+                                                              .getInstance();
+                                                      await prefs.remove(
+                                                          "uahageUserId");
+                                                      await prefs.remove(
+                                                          "uahageLoginOption");
+                                                      //delete data in the database
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (_) =>
+                                                            FutureBuilder(
+                                                          future:
+                                                              withdrawalUser(),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                .hasData) {
+                                                              print("hasdata");
+                                                              WidgetsBinding
+                                                                  .instance
+                                                                  .addPostFrameCallback(
+                                                                      (_) {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pushReplacement(MaterialPageRoute(
+                                                                        builder:
+                                                                            (BuildContext context) =>
+                                                                                withdrawal()));
+                                                              });
+                                                            } else if (snapshot
+                                                                .hasError) {
+                                                              WidgetsBinding
+                                                                  .instance
+                                                                  .addPostFrameCallback(
+                                                                      (_) {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pushReplacement(MaterialPageRoute(
+                                                                        builder:
+                                                                            (BuildContext context) =>
+                                                                                withdrawal()));
+                                                              });
+                                                            }
+
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                  height: 200 /
+                                                                      screenHeight,
+                                                                  width: 200 /
+                                                                      screenWidth,
+                                                                  child: buildSpinKitThreeBounce(
+                                                                      80,
+                                                                      screenWidth)
+                                                                  //     CircularProgressIndicator(
+                                                                  //   strokeWidth: 5.0,
+                                                                  //   valueColor:
+                                                                  //       new AlwaysStoppedAnimation<
+                                                                  //           Color>(
+                                                                  //     Colors.pinkAccent,
+                                                                  //   ),
+                                                                  // )
+                                                                  ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      );
+
+                                                      // Navigator.pushReplacement(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (context) => loginPage()));
+                                                      // Navigator.of(context)
+                                                      //     .popUntil((route) => route.isFirst);
+                                                    },
+                                                    child: // 네
+                                                        Text("네",
+                                                            style: TextStyle(
+                                                                color: const Color(
+                                                                    0xffff7292),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontFamily:
+                                                                    "NotoSansCJKkr_Medium",
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .normal,
+                                                                fontSize:
+                                                                    _fontsize),
+                                                            textAlign:
+                                                                TextAlign.left),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                    child: // 로그아웃   |   회원탈퇴
+                                        Text("회원탈퇴",
+                                            style: textStyle52,
+                                            textAlign: TextAlign.left),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  931 / screenWidth,
+                                  onEdit
+                                      ? 88 / screenHeight
+                                      : 370 / screenHeight,
+                                  0,
+                                  71 / screenHeight),
+                              child: InkWell(
+                                  child: Text("로그인하기",
                                       style: textStyle52,
                                       textAlign: TextAlign.left),
-                            ),
-                          ],
-                        ),
-                      ),
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  }),
+                            )
                     ],
                   ),
                 ),
