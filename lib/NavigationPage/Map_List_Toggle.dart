@@ -61,7 +61,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     var response;
     try {
       response = await http.get(
-          "http://121.147.203.82:3000/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
       print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
