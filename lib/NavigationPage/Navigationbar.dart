@@ -83,8 +83,8 @@ class _navigationPageState extends State<navigationPage> {
   ListQueue<int> _navigationQueue = ListQueue();
   @override
   Widget build(BuildContext context) {
-    print("nav " + latitude);
-    print("nav " + longitude);
+    // print("nav " + latitude);
+    // print("nav " + longitude);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     var ScreenWidth = MediaQuery.of(context).size.width;
     var ScreenHeight = MediaQuery.of(context).size.height;
@@ -98,7 +98,10 @@ class _navigationPageState extends State<navigationPage> {
                 statusBarBrightness:
                     Brightness.dark // Dark == white status bar -- for IOS.
                 ))
-        : null;
+        : SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            systemNavigationBarColor: Color(0xffd9d4d5), // navigation bar color
+            statusBarColor: Color(0xffd9d4d5), // status bar color
+          ));
     return isIOS
         ? Scaffold(
             body: CallPage(_selectedTabIndex),

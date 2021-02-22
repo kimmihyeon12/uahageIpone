@@ -82,6 +82,7 @@ class _homePageState extends State<homePage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    print(Platform.operatingSystem);
 
     var ScreenHeight = MediaQuery.of(context).size.height;
     var ScreenWidth = MediaQuery.of(context).size.width;
