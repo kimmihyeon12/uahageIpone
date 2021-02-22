@@ -5,21 +5,33 @@ import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Keyword extends StatefulWidget {
-  Keyword({Key key, this.latitude, this.longitude, this.searchkey})
+  Keyword(
+      {Key key,
+      this.latitude,
+      this.longitude,
+      this.searchkey,
+      this.userId,
+      this.loginOption})
       : super(key: key);
+  String userId;
+  String loginOption;
   String latitude;
   String longitude;
   String searchkey;
+
   @override
   _KeywordState createState() => _KeywordState();
 }
 
 class _KeywordState extends State<Keyword> {
   var messages;
-
+  String userId = "";
+  String loginOption = "";
   WebViewController controller;
   void initState() {
     super.initState();
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
   }
 
   @override
@@ -39,7 +51,7 @@ class _KeywordState extends State<Keyword> {
               print('latitude:' + latitude);
               print('longitude:' + longitude);
               await controller.loadUrl(
-                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
+                  'http://112.187.123.9:3000/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
               // showToggle = true;
             },
             javascriptMode: JavascriptMode.unrestricted,
@@ -56,6 +68,8 @@ class _KeywordState extends State<Keyword> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Map_List_Toggle(
+                                  userId: userId,
+                                  loginOption: loginOption,
                                   latitude: latitude,
                                   longitude: longitude,
                                   searchkey: messages)));
@@ -72,6 +86,10 @@ class _KeywordState extends State<Keyword> {
                       currentFocus.unfocus();
                       Navigator.pop(context);
                     }
+                    // setState(() {
+                    //   searchkey = messages;
+                    //   addressbtn = false;
+                    // });
                   }),
             ]),
           ),
