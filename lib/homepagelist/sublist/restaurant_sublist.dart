@@ -315,12 +315,12 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               ? "./assets/listPage/star_color.png"
                               : "./assets/listPage/star_grey.png",
                           height: 60 / screenHeight),
-                      onPressed: () async {
-                        setState(() {
-                          star_color = !star_color;
-                        });
-                        await click_star();
-                      },
+                      onPressed: null
+                      // setState(() {
+                      //   star_color = !star_color;
+                      // });
+                      // await click_star();
+                      ,
                     ),
                   ],
                 ),
