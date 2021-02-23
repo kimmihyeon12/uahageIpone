@@ -261,7 +261,7 @@ class _agreementPageState extends State<agreementPage> {
                 textAlign: TextAlign.left),
           ),
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // // head
               Container(
@@ -272,17 +272,19 @@ class _agreementPageState extends State<agreementPage> {
 
               // // Title
 
-              Container(
-                margin: EdgeInsets.only(top: 1125 / screenHeight),
-                child: // 서비스 약관에 동의해주세요.
-                    Text("서비스 약관에 동의해주세요.",
-                        style: TextStyle(
-                            color: const Color(0xffff7292),
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "NotoSansCJKkr_Bold",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 116.5 / screenWidth),
-                        textAlign: TextAlign.left),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 1125 / screenHeight),
+                  child: // 서비스 약관에 동의해주세요.
+                      Text("서비스 약관에 동의해주세요.",
+                          style: TextStyle(
+                              color: const Color(0xffff7292),
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "NotoSansCJKkr_Bold",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 21), //116.5 / screenWidth
+                          textAlign: TextAlign.left),
+                ),
               ),
 
               // Agreement
@@ -300,11 +302,11 @@ class _agreementPageState extends State<agreementPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 91 / screenHeight,
+                          height: 180 / screenHeight,
                           margin: EdgeInsets.only(
                               left: 37 / screenWidth,
-                              top: 65 / screenHeight,
-                              bottom: 65 / screenHeight),
+                              top: 90 / screenHeight,
+                              bottom: 90 / screenHeight),
                           child: InkWell(
                             onTap: () {
                               setState(() {
@@ -320,7 +322,7 @@ class _agreementPageState extends State<agreementPage> {
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                            left: 30 / screenWidth,
+                            left: 44 / screenWidth,
                           ),
                           child: Text("모두 동의합니다.",
                               style: TextStyle(
@@ -328,7 +330,7 @@ class _agreementPageState extends State<agreementPage> {
                                   fontWeight: FontWeight.w700,
                                   fontFamily: "NotoSansCJKkr_Bold",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 62.5 / screenWidth),
+                                  fontSize: 87.5 / screenWidth),
                               textAlign: TextAlign.left),
                         ),
                       ],
@@ -339,11 +341,11 @@ class _agreementPageState extends State<agreementPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 91 / screenHeight,
+                          height: 180 / screenHeight,
                           margin: EdgeInsets.only(
                               left: 37 / screenWidth,
-                              top: 65 / screenHeight,
-                              bottom: 65 / screenHeight),
+                              top: 90 / screenHeight,
+                              bottom: 90 / screenHeight),
                           child: InkWell(
                               onTap: () {
                                 setState(() {
@@ -359,7 +361,7 @@ class _agreementPageState extends State<agreementPage> {
                         Container(
                           width: 1100 / screenWidth,
                           margin:
-                              EdgeInsets.only(left: 34 / screenWidth, right: 0),
+                              EdgeInsets.only(left: 49 / screenWidth, right: 0),
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).push(
@@ -377,10 +379,10 @@ class _agreementPageState extends State<agreementPage> {
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 62.5 / screenWidth),
+                                        fontSize: 87.5 / screenWidth),
                                     textAlign: TextAlign.left),
                                 Container(
-                                  height: 74 / screenHeight,
+                                  height: 104 / screenHeight,
                                   margin:
                                       EdgeInsets.only(right: 20 / screenWidth),
                                   child: Image.asset(
@@ -398,7 +400,7 @@ class _agreementPageState extends State<agreementPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 91 / screenHeight,
+                          height: 180 / screenHeight,
                           margin: EdgeInsets.only(
                               left: 37 / screenWidth,
                               top: 65 / screenHeight,
@@ -457,7 +459,7 @@ class _agreementPageState extends State<agreementPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 91 / screenHeight,
+                          height: 180 / screenHeight,
                           margin: EdgeInsets.only(
                               left: 37 / screenWidth,
                               top: 65 / screenHeight,
