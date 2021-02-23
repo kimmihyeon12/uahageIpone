@@ -99,7 +99,8 @@ class _searchPageState extends State<searchPage> {
       "nursingroom": Message[10],
       "chair": Message[11],
       "star_color": star_color,
-      "Examination_item": null
+      "Examination_item": null,
+      "type": "restaurant"
     };
     print(ss);
     var response = await http.post(
@@ -109,6 +110,27 @@ class _searchPageState extends State<searchPage> {
       },
       body: jsonEncode(ss),
     );
+  }
+
+  Future checkStar() async {
+    print("start checking");
+    var response;
+    try {
+      response = await http.get(
+          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          star_color = true;
+        });
+      } else {
+        setState(() {
+          star_color = false;
+        });
+      }
+    } catch (err) {
+      print(err);
+    }
   }
 
   // WebViewController _controller;
@@ -194,13 +216,15 @@ class _searchPageState extends State<searchPage> {
                         javascriptChannels: Set.from([
                           JavascriptChannel(
                               name: 'Print',
-                              onMessageReceived: (JavascriptMessage message) {
+                              onMessageReceived:
+                                  (JavascriptMessage message) async {
                                 //This is where you receive message from
                                 //javascript code and handle in Flutter/Dart
                                 //like here, the message is just being printed
                                 //in Run/LogCat window of android studio
                                 var messages = message.message;
                                 Message = messages.split(",");
+                                await checkStar();
                                 showPopUpbottomMenu(
                                     context, screenHeight, screenWidth);
                               })
@@ -369,13 +393,15 @@ class _searchPageState extends State<searchPage> {
                       javascriptChannels: Set.from([
                         JavascriptChannel(
                             name: 'Print',
-                            onMessageReceived: (JavascriptMessage message) {
+                            onMessageReceived:
+                                (JavascriptMessage message) async {
                               //This is where you receive message from
                               //javascript code and handle in Flutter/Dart
                               //like here, the message is just being printed
                               //in Run/LogCat window of android studio
                               var messages = message.message;
                               Message = messages.split(",");
+                              await checkStar();
                               showPopUpbottomMenu(
                                   context, screenHeight, screenWidth);
                             })
@@ -655,9 +681,6 @@ class _searchPageState extends State<searchPage> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-    setState(() => {
-          star_color = false,
-        });
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -732,6 +755,7 @@ class _searchPageState extends State<searchPage> {
                                       children: [
                                         Container(
                                           width: 680 / screenWidth,
+                                          height: 75 / screenHeight,
                                           // height: 100 / screenHeight,
                                           child: Text(Message[0],
                                               style: TextStyle(
@@ -753,24 +777,24 @@ class _searchPageState extends State<searchPage> {
                                               ? "./assets/listPage/star_color.png"
                                               : "./assets/listPage/star_grey.png",
                                           height: 60 / screenHeight),
-                                      onPressed: () {
-                                        setState(() {
-                                          star_color = !star_color;
-                                        });
-                                        loginOption != "login"
-                                            ? click_star()
-                                            : null;
+                                      onPressed: () async {
+                                        if (loginOption != "login") {
+                                          setState(() {
+                                            star_color = !star_color;
+                                          });
+                                          print("printing $star_color");
+
+                                          await click_star();
+                                        }
                                       },
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  top: 10 / screenHeight,
-                                )),
+
                                 Container(
                                   // height: 150 / screenHeight,
                                   width: 800 / screenWidth,
+                                  height: 56 / screenHeight,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                           color: const Color(0xffb0b0b0),
@@ -780,7 +804,10 @@ class _searchPageState extends State<searchPage> {
                                           fontSize: 45 / screenWidth),
                                       textAlign: TextAlign.left),
                                 ),
+
                                 Container(
+                                  margin:
+                                      EdgeInsets.only(top: 20 / screenHeight),
                                   height: 150 / screenHeight,
                                   width: 800 / screenWidth,
                                   alignment: Alignment.bottomRight,
@@ -822,12 +849,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[0], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[0], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -838,12 +865,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[1], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[1], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -854,12 +881,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[2], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[2], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -870,12 +897,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[3], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[3], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -886,12 +913,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[4], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[4], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -902,12 +929,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[5], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[5], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -918,7 +945,7 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[6], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[6], width: 0, height: 0),
@@ -932,12 +959,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[7], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[7], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -948,12 +975,12 @@ class _searchPageState extends State<searchPage> {
         ? Container(
             child: Image.asset(iconimage[8], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[8], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 }

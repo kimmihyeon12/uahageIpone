@@ -71,51 +71,19 @@ class _restaurantState extends State<restaurant> {
 
   @override
   void initState() {
+    super.initState();
+
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
       latitude = widget.latitude;
       longitude = widget.longitude;
-      // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
-
-    _star_color();
-    // myFuture = _getrestaurant();
-    // _getrestaurant();
-    // _scrollController = new ScrollController()..addListener(_scrollListener);
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.pixels ==
-    //           _scrollController.position.maxScrollExtent &&
-    //       _currentMax != 0) {
-    //     // setState(() {
-    //     //   _isLoading = true;
-    //     // });
-    //     print("adding 10");
-    //     setState(() {
-    //       _currentMax += 10;
-    //     });
-    //   } else if (_currentMax == 0) {
-    //     setState(() {
-    //       _currentMax += 10;
-    //     });
-    //   }
-    // });
-    // getCurrentLocation();
 
     print("login opt in res " + loginOption);
     print("id in res " + userId);
-    super.initState();
+    _star_color();
   }
-
-  // void _scrollListener() {
-  //   print(_scrollController.position.extentAfter);
-  //   if (_scrollController.position.extentAfter < 1000) {
-  //     setState(() {
-  //       // _currentMax += 10;
-  //       // restaurants.addAll(new List<Restaurant> _getrestaurant());
-  //     });
-  //   }
-  // }
 
   getCurrentLocation() async {
     print("Geolocation started");
@@ -292,30 +260,6 @@ class _restaurantState extends State<restaurant> {
                           height: 133 / screenHeight,
                         ),
                       ),
-                // LiteRollingSwitch(
-                //   value: false,
-                //   textOn: '목록',
-                //   textOff: '지도',
-                //   colorOn: Color.fromRGBO(255, 114, 148, 1.0),
-                //   colorOff: Color.fromRGBO(255, 114, 148, 1.0),
-
-                //   //    iconOn:  , iconOff: , textSize:
-                //   onChanged: (bool state) {},
-                //   onTap: () {
-                //     /*     Navigator.pushReplacement(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) => map_list(),
-                //           ));*/
-                //     setState(() {
-                //       if (list) {
-                //         list = false;
-                //       } else {
-                //         list = true;
-                //       }
-                //     });
-                //   },
-                // ),
               ),
             ],
           ),
@@ -664,12 +608,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[0], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[0], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -680,12 +624,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[1], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[1], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -696,12 +640,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[2], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[2], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -712,12 +656,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[3], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[3], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -728,12 +672,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[4], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[4], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -744,12 +688,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[5], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[5], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -760,7 +704,7 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[6], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[6], width: 0, height: 0),
@@ -774,12 +718,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[7], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[7], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -790,12 +734,12 @@ class _restaurantState extends State<restaurant> {
         ? Container(
             child: Image.asset(iconimage[8], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[8], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 }

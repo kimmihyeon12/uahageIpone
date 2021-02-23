@@ -61,21 +61,68 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
       carriage,
       nursingroom,
       chair;
-  List<String> star_color_list = List(10);
+  // List<String> star_color_list = List(10);
   var star_color = false;
 
-  Future _star_color() async {
-    var data = await http.get(
-        'http://13.209.41.43/substarcolor?user_id=$userId$loginOption&storename=$storename');
-    var dec = jsonDecode(data.body);
-    print(dec.length);
-    setState(() {
-      if (dec.length == 0) {
-        star_color_list[0] = 'null';
+  // Future _star_color() async {
+  //   var data = await http.get(
+  //       'http://13.209.41.43/substarcolor?user_id=$userId$loginOption&storename=$storename');
+  //   var dec = jsonDecode(data.body);
+  //   print(dec.length);
+  //   setState(() {
+  //     if (dec.length == 0) {
+  //       star_color_list[0] = 'null';
+  //     } else {
+  //       star_color_list[0] = dec[0]["store_name"].toString();
+  //     }
+  //   });
+  // }
+  Future checkStar() async {
+    print("start checking");
+    var response;
+    try {
+      response = await http.get(
+          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          star_color = true;
+        });
       } else {
-        star_color_list[0] = dec[0]["store_name"].toString();
+        setState(() {
+          star_color = false;
+        });
       }
-    });
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  Future click_star() async {
+    Map<String, dynamic> ss = {
+      "user_id": userId + loginOption,
+      "store_name": storename,
+      "address": address,
+      "phone": phone,
+      "menu": menu,
+      "bed": bed,
+      "tableware": tableware,
+      "meetingroom": meetingroom,
+      "diapers": diapers,
+      "playroom": playroom,
+      "carriage": carriage,
+      "nursingroom": nursingroom,
+      "chair": chair,
+      "star_color": star_color,
+      "type": "restaurant"
+    };
+    var response = await http.post(
+      "http://13.209.41.43/star",
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(ss),
+    );
   }
 
   @override
@@ -99,7 +146,8 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
       loginOption = widget.loginOption;
     });
     print(storename);
-    _star_color();
+    // _star_color();
+    checkStar();
 
     super.initState();
   }
@@ -263,27 +311,16 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                           maxWidth: 170 / screenWidth,
                           maxHeight: 170 / screenHeight),
                       icon: Image.asset(
-                          star_color_list[0] == 'null'
-                              ? "./assets/listPage/star_grey.png"
-                              : "./assets/listPage/star_color.png",
+                          star_color
+                              ? "./assets/listPage/star_color.png"
+                              : "./assets/listPage/star_grey.png",
                           height: 60 / screenHeight),
-
-                      /*      onPressed:() async {
+                      onPressed: () async {
                         setState(() {
-                       if( star_color_list[0]=='null'){
-                            setState(() {
-                            star_color = true;
-                              star_color_list[0]="test";
-                            });
-                          }else{
-                            setState(() {
-                              star_color=false;
-                             star_color_list[0]='null';
-                            });
-                          };
-                          click_star();
+                          star_color = !star_color;
                         });
-                      },*/
+                        await click_star();
+                      },
                     ),
                   ],
                 ),

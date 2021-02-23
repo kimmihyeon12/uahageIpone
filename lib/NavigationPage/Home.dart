@@ -323,15 +323,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                Fluttertoast.showToast(
-                                  msg: "  서비스 준비 중이에요!  ",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.black45,
-                                  textColor: Colors.white,
-                                  fontSize: 48 / screenWidth,
-                                );
+                                showToast(screenWidth);
                               },
                             ),
                             Padding(
@@ -346,15 +338,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                Fluttertoast.showToast(
-                                  msg: "  서비스 준비 중이에요!  ",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.black45,
-                                  textColor: Colors.white,
-                                  fontSize: 48 / screenWidth,
-                                );
+                                showToast(screenWidth);
                               },
                             ),
                           ],
@@ -424,15 +408,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                Fluttertoast.showToast(
-                                  msg: "  서비스 준비 중이에요!  ",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.black45,
-                                  textColor: Colors.white,
-                                  fontSize: 48 / screenWidth,
-                                );
+                                showToast(screenWidth);
                               },
                             ),
                             Padding(
@@ -447,15 +423,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                Fluttertoast.showToast(
-                                  msg: "  서비스 준비 중이에요!  ",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.black45,
-                                  textColor: Colors.white,
-                                  fontSize: 48 / screenWidth,
-                                );
+                                showToast(screenWidth);
                               },
                             ),
                           ],
@@ -478,15 +446,8 @@ class _homePageState extends State<homePage> {
                                 height: 221 / screenHeight,
                               ),
                               onTap: () {
-                                Fluttertoast.showToast(
-                                  msg: "  서비스 준비 중이에요!  ",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.black45,
-                                  textColor: Colors.white,
-                                  fontSize: 48 / screenWidth,
-                                );
+                                currentFocus.unfocus();
+                                showToast(screenWidth);
                               },
                             ),
                           ],
@@ -519,7 +480,7 @@ class _homePageState extends State<homePage> {
                               top: 57 / screenHeight,
                             )),
                             Text(
-                              "상호명 : (주)호호컴퍼니\n대표이사 : 김화영     사업자등록번호 : 322-86-01766\n유선번호 : 061-331-3116  팩스 : 061-331-3117\nemail : hohoco0701@gmail.com \n주소 : 전남 나주시 빛가람로 740 한빛타워 6층 601호\ncopyrightⓒ 호호컴퍼니 Inc. All Rights Reserved.            \n사업자 정보 확인   |   이용약관   |   개인정보처리방침",
+                              "상호명 : (주)호호컴퍼니\n대표이사 : 김화영     사업자등록번호 : 322-86-01766\n유선번호 : 061-331-3116  팩스 : 061-331-3117\nemail : hohoco0701@gmail.com \n주소 : 전라남도 나주시 빛가람로 740 한빛타워 6층 601호\ncopyrightⓒ 호호컴퍼니 Inc. All Rights Reserved.            \n사업자 정보 확인   |   이용약관   |   개인정보처리방침",
                               style: TextStyle(
                                   fontFamily: "NotoSansCJKkr_Medium",
                                   //  height: 1.0,
@@ -752,15 +713,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              Fluttertoast.showToast(
-                                msg: "  서비스 준비 중이에요!  ",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black45,
-                                textColor: Colors.white,
-                                fontSize: 48 / screenWidth,
-                              );
+                              showToast(screenWidth);
                             },
                           ),
                           Padding(
@@ -775,15 +728,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              Fluttertoast.showToast(
-                                msg: "  서비스 준비 중이에요!  ",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black45,
-                                textColor: Colors.white,
-                                fontSize: 48 / screenWidth,
-                              );
+                              showToast(screenWidth);
                             },
                           ),
                         ],
@@ -853,15 +798,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              Fluttertoast.showToast(
-                                msg: "  서비스 준비 중이에요!  ",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black45,
-                                textColor: Colors.white,
-                                fontSize: 48 / screenWidth,
-                              );
+                              showToast(screenWidth);
                             },
                           ),
                           Padding(
@@ -876,15 +813,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              Fluttertoast.showToast(
-                                msg: "  서비스 준비 중이에요!  ",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black45,
-                                textColor: Colors.white,
-                                fontSize: 48 / screenWidth,
-                              );
+                              showToast(screenWidth);
                             },
                           ),
                         ],
@@ -907,15 +836,8 @@ class _homePageState extends State<homePage> {
                               height: 221 / screenHeight,
                             ),
                             onTap: () {
-                              Fluttertoast.showToast(
-                                msg: "  서비스 준비 중이에요!  ",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black45,
-                                textColor: Colors.white,
-                                fontSize: 48 / screenWidth,
-                              );
+                              currentFocus.unfocus();
+                              showToast(screenWidth);
                             },
                           ),
                         ],
@@ -948,7 +870,7 @@ class _homePageState extends State<homePage> {
                             top: 57 / screenHeight,
                           )),
                           Text(
-                            "상호명 : (주)호호컴퍼니\n대표이사 : 김화영     사업자등록번호 : 322-86-01766\n유선번호 : 061-331-3116  팩스 : 061-331-3117\nemail : hohoco0701@gmail.com \n주소 : 전남 나주시 빛가람로 740 한빛타워 6층 601호\ncopyrightⓒ 호호컴퍼니 Inc. All Rights Reserved.            \n사업자 정보 확인   |   이용약관   |   개인정보처리방침",
+                            "상호명 : (주)호호컴퍼니\n대표이사 : 김화영     사업자등록번호 : 322-86-01766\n유선번호 : 061-331-3116  팩스 : 061-331-3117\nemail : hohoco0701@gmail.com \n주소 : 전라남도 나주시 빛가람로 740 한빛타워 6층 601호\ncopyrightⓒ 호호컴퍼니 Inc. All Rights Reserved.            \n사업자 정보 확인   |   이용약관   |   개인정보처리방침",
                             style: TextStyle(
                                 fontFamily: "NotoSansCJKkr_Medium",
                                 //  height: 1.0,
@@ -962,5 +884,17 @@ class _homePageState extends State<homePage> {
               ),
             ),
           );
+  }
+
+  void showToast(double screenWidth) {
+    Fluttertoast.showToast(
+      msg: "  서비스 준비 중이에요!  ",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black45,
+      textColor: Colors.white,
+      fontSize: 48 / screenWidth,
+    );
   }
 }

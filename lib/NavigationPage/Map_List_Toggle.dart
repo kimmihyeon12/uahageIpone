@@ -56,6 +56,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   var index = 1;
   List<String> store_namelist = List(500);
   List<String> addresslist = List(500);
+
   Future checkStar() async {
     print("start checking");
     var response;
@@ -97,7 +98,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       "nursingroom": Message[10],
       "chair": Message[11],
       "star_color": star_color,
-      "Examination_item": null
+      "Examination_item": null,
+      "type": "restaurant"
     };
     print(ss);
     var response = await http.post(
