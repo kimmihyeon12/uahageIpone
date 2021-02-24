@@ -525,38 +525,35 @@ class _restaurantState extends State<restaurant> {
                                               ),
                                             ],
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                            top: 10 / screenHeight,
-                                          )),
+
                                           Container(
-                                            height: 80 / screenHeight,
-                                            width: 800 / screenWidth,
+                                            height: 153 / screenHeight,
+                                            width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize: 45 / screenWidth,
+                                                fontSize: 55 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                               ),
                                             ),
                                           ),
-                                          Container(
-                                            height: 80 / screenHeight,
-                                            width: 800 / screenWidth,
-                                            child: Text(
-                                              snapshot.data[index].phone,
-                                              style: TextStyle(
-                                                // fontFamily: 'NatoSans',
-                                                color: Colors.grey,
-                                                fontSize: 45 / 60 / screenWidth,
-                                                fontFamily:
-                                                    'NotoSansCJKkr_Medium',
-                                              ),
-                                            ),
-                                          ),
+                                          // Container(
+                                          //   height: 80 / screenHeight,
+                                          //   width: 800 / screenWidth,
+                                          //   child: Text(
+                                          //     snapshot.data[index].phone,
+                                          //     style: TextStyle(
+                                          //       // fontFamily: 'NatoSans',
+                                          //       color: Colors.grey,
+                                          //       fontSize: 45 / 60 / screenWidth,
+                                          //       fontFamily:
+                                          //           'NotoSansCJKkr_Medium',
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           SafeArea(
                                             child: Container(
                                               height: 150 / screenHeight,

@@ -443,47 +443,47 @@ class _experience_centerState extends State<experience_center> {
                                           )),
                                           SafeArea(
                                             child: Container(
-                                              height: 150 / screenHeight,
-                                              width: 800 / (1501 / ScreenWidth),
+                                              height: 153 / screenHeight,
+                                              width: 650 / (1501 / ScreenWidth),
                                               child: Text(
                                                 snapshot.data[index].address,
                                                 style: TextStyle(
                                                   // fontFamily: 'NatoSans',
                                                   color: Colors.grey,
-                                                  fontSize: 45 / screenWidth,
+                                                  fontSize: 55 / screenWidth,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                            top: 20 / (2667 / ScreenHeight),
-                                          )),
-                                          SafeArea(
-                                            child: Container(
-                                              height:
-                                                  100 / (1501 / ScreenWidth),
-                                              width: 800 / (1501 / ScreenWidth),
-                                              child: snapshot
-                                                          .data[index].fare ==
-                                                      null
-                                                  ? Text("정보 없음")
-                                                  : Text(
-                                                      snapshot
-                                                          .data[index].phone,
-                                                      style: TextStyle(
-                                                        // fontFamily: 'NatoSans',
-                                                        color: Colors.grey,
-                                                        fontSize:
-                                                            45 / screenWidth,
-                                                        fontFamily:
-                                                            'NotoSansCJKkr_Medium',
-                                                      ),
-                                                    ),
-                                            ),
-                                          ),
+                                          // Padding(
+                                          //     padding: EdgeInsets.only(
+                                          //   top: 20 / (2667 / ScreenHeight),
+                                          // )),
+                                          // SafeArea(
+                                          //   child: Container(
+                                          //     height:
+                                          //         100 / (1501 / ScreenWidth),
+                                          //     width: 800 / (1501 / ScreenWidth),
+                                          //     child: snapshot
+                                          //                 .data[index].fare ==
+                                          //             null
+                                          //         ? Text("정보 없음")
+                                          //         : Text(
+                                          //             snapshot
+                                          //                 .data[index].phone,
+                                          //             style: TextStyle(
+                                          //               // fontFamily: 'NatoSans',
+                                          //               color: Colors.grey,
+                                          //               fontSize:
+                                          //                   45 / screenWidth,
+                                          //               fontFamily:
+                                          //                   'NotoSansCJKkr_Medium',
+                                          //             ),
+                                          //           ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ],

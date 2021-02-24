@@ -423,44 +423,41 @@ class _examination_institutionState extends State<examination_institution> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                            top: 10 / (2667 / ScreenHeight),
-                                          )),
+
                                           SafeArea(
                                             child: Container(
                                               height:
-                                                  160 / (2667 / ScreenHeight),
-                                              width: 800 / (1501 / ScreenWidth),
+                                                  153 / (2667 / ScreenHeight),
+                                              width: 650 / (1501 / ScreenWidth),
                                               child: Text(
                                                 snapshot.data[index].address,
                                                 style: TextStyle(
                                                   // fontFamily: 'NatoSans',
                                                   color: Colors.grey,
-                                                  fontSize: 45 / screenWidth,
+                                                  fontSize: 55 / screenWidth,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          SafeArea(
-                                            child: Container(
-                                              height:
-                                                  150 / (1501 / ScreenWidth),
-                                              width: 800 / (1501 / ScreenWidth),
-                                              child: Text(
-                                                snapshot.data[index].phone,
-                                                style: TextStyle(
-                                                  // fontFamily: 'NatoSans',
-                                                  color: Colors.grey,
-                                                  fontSize: 45 / screenWidth,
-                                                  fontFamily:
-                                                      'NotoSansCJKkr_Medium',
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                          // SafeArea(
+                                          //   child: Container(
+                                          //     height:
+                                          //         150 / (1501 / ScreenWidth),
+                                          //     width: 800 / (1501 / ScreenWidth),
+                                          //     child: Text(
+                                          //       snapshot.data[index].phone,
+                                          //       style: TextStyle(
+                                          //         // fontFamily: 'NatoSans',
+                                          //         color: Colors.grey,
+                                          //         fontSize: 45 / screenWidth,
+                                          //         fontFamily:
+                                          //             'NotoSansCJKkr_Medium',
+                                          //       ),
+                                          //     ),
+                                          //   ),
+                                          // ),
                                           // Container(
                                           //   width: 800 / (1501 / ScreenWidth),
                                           //   child: Text(

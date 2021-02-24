@@ -473,56 +473,52 @@ class _kids_cafeState extends State<kids_cafe> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                            top: 10 / (2667 / ScreenHeight),
-                                          )),
+
                                           SafeArea(
                                             child: Container(
                                               height:
                                                   150 / (1501 / ScreenWidth),
-                                              width: 800 / (1501 / ScreenWidth),
+                                              width: 650 / (1501 / ScreenWidth),
                                               child: Text(
                                                 snapshot.data[index].address,
                                                 style: TextStyle(
                                                   // fontFamily: 'NatoSans',
                                                   color: Colors.grey,
-                                                  fontSize: 45 /
-                                                      (2667 / ScreenHeight),
+                                                  fontSize: 55 / screenWidth,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                            top: 20 / (2667 / ScreenHeight),
-                                          )),
-                                          SafeArea(
-                                            child: Container(
-                                              height:
-                                                  100 / (1501 / ScreenWidth),
-                                              width: 800 / (1501 / ScreenWidth),
-                                              child:
-                                                  snapshot.data[index].fare ==
-                                                          null
-                                                      ? Text(" ")
-                                                      : Text(
-                                                          snapshot.data[index]
-                                                              .phone,
-                                                          style: TextStyle(
-                                                            // fontFamily: 'NatoSans',
-                                                            color: Colors.grey,
-                                                            fontSize: 45 /
-                                                                (2667 /
-                                                                    ScreenHeight),
-                                                            fontFamily:
-                                                                'NotoSansCJKkr_Medium',
-                                                          ),
-                                                        ),
-                                            ),
-                                          ),
+                                          // Padding(
+                                          //     padding: EdgeInsets.only(
+                                          //   top: 20 / (2667 / ScreenHeight),
+                                          // )),
+                                          // SafeArea(
+                                          //   child: Container(
+                                          //     height:
+                                          //         100 / (1501 / ScreenWidth),
+                                          //     width: 800 / (1501 / ScreenWidth),
+                                          //     child:
+                                          //         snapshot.data[index].fare ==
+                                          //                 null
+                                          //             ? Text(" ")
+                                          //             : Text(
+                                          //                 snapshot.data[index]
+                                          //                     .phone,
+                                          //                 style: TextStyle(
+                                          //                   // fontFamily: 'NatoSans',
+                                          //                   color: Colors.grey,
+                                          //                   fontSize: 45 /
+                                          //                       (2667 /
+                                          //                           ScreenHeight),
+                                          //                   fontFamily:
+                                          //                       'NotoSansCJKkr_Medium',
+                                          //                 ),
+                                          //               ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ],
