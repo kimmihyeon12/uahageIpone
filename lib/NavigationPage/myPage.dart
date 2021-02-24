@@ -35,6 +35,7 @@ class myPage extends StatefulWidget {
 
 class _myPageState extends State<myPage> {
   TextEditingController yController = TextEditingController();
+
   String birthday = "";
   String nickName = "";
   String oldNickname = "";
@@ -73,12 +74,28 @@ class _myPageState extends State<myPage> {
       var data = jsonDecode(response.body);
       print("printing info " + data.toString());
       if (data["gender"].toString() != "") {
-        setState(() {
-          data["gender"].toString() == "boy"
-              ? genderImage[0] = true
-              : genderImage[1] = true;
-          birthday = data["birthday"].toString();
-        });
+        // var datee = data["birthday"].toString() == ""
+        //     ? [""]
+        //     : data["birthday"].toString().split('-');
+        // dynamic dd = datee.length == 0
+        //     ? data["birthday"].toString()
+        //     : datee[0] + "년 " + datee[1] + "월 " + datee[2] + "일";
+        if (data["gender"].toString() == "boy") {
+          setState(() {
+            genderImage[0] = true;
+            genderImage[1] = false;
+            birthday = data["birthday"].toString();
+            yController.text = birthday;
+          });
+        } else {
+          setState(() {
+            genderImage[0] = false;
+            genderImage[1] = true;
+            birthday = data["birthday"].toString();
+            yController.text = birthday;
+          });
+        }
+
         _change(data["age"].toString());
       }
     } catch (err) {
@@ -350,18 +367,13 @@ class _myPageState extends State<myPage> {
     } catch (e) {}
   }
 
-  // SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
-  //   return SpinKitThreeBounce(
-  //     color: Color(0xffFF728E),
-  //     size: size / screenWidth,
-  //   );
-  // }
-
   bool isIOS = Platform.isIOS;
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
     var _fontsize = 52.5 / screenWidth;
     var textStyle52 = TextStyle(
       color: const Color(0xffb1b1b1),
@@ -401,10 +413,11 @@ class _myPageState extends State<myPage> {
                             110 / screenHeight, 1100 / screenWidth, 0),
                         child: onEdit
                             ? InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   setState(() {
                                     onEdit = false;
                                   });
+                                  await getMyInfo();
                                 },
                                 child: Row(
                                   children: [
@@ -765,7 +778,7 @@ class _myPageState extends State<myPage> {
                                               });
                                             },
                                             child: Image.asset(
-                                              "./assets/myPage/button1.png",
+                                              "./assets/myPage/button1_pink.png",
                                               width: 361 / screenWidth,
                                               height: 147 / screenHeight,
                                             ),
@@ -887,7 +900,7 @@ class _myPageState extends State<myPage> {
                                         hintStyle: TextStyle(
                                             color: const Color(0xffff7292),
                                             fontWeight: FontWeight.w500,
-                                            fontFamily: "NotoSansCJKkr",
+                                            fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
                                             fontSize: 66.0 / screenWidth),
                                       ),
@@ -1435,10 +1448,12 @@ class _myPageState extends State<myPage> {
                             110 / screenHeight, 1100 / screenWidth, 0),
                         child: onEdit
                             ? InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   setState(() {
                                     onEdit = false;
+                                    // yController.text = "";
                                   });
+                                  await getMyInfo();
                                 },
                                 child: Row(
                                   children: [
@@ -1596,11 +1611,13 @@ class _myPageState extends State<myPage> {
                                           children: [
                                             TextFormField(
                                               // controller: yController,
-
+                                              maxLength: 10,
                                               onChanged: (txt) {
-                                                setState(() {
-                                                  nickName = txt;
-                                                });
+                                                txt.length <= 10
+                                                    ? setState(() {
+                                                        nickName = txt;
+                                                      })
+                                                    : null;
                                               },
 
                                               textAlign: TextAlign.left,
@@ -1626,7 +1643,7 @@ class _myPageState extends State<myPage> {
                                                   borderSide: BorderSide(
                                                       color: Color(0xffff7292)),
                                                 ),
-                                                hintText: '닉네임 수정 칼라',
+                                                hintText: '닉네임을 입력하세요',
                                                 hintStyle: TextStyle(
                                                     color:
                                                         const Color(0xffcacaca),
@@ -1649,6 +1666,8 @@ class _myPageState extends State<myPage> {
                                                     loginOption != "login" &&
                                                             nickName != ""
                                                         ? () {
+                                                            currentFocus
+                                                                .unfocus();
                                                             showDialog(
                                                               context: context,
                                                               builder: (context) =>
@@ -1735,11 +1754,11 @@ class _myPageState extends State<myPage> {
                             )
                           : Container(
                               margin: EdgeInsets.only(top: 31 / screenHeight),
-                              child: Stack(
-                                alignment: Alignment.center,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    width: 320 / screenWidth,
+                                    // width: 320 / screenWidth,
                                     child: userId == ""
                                         ? nickNameShow("우아하게", screenWidth)
                                         : FutureBuilder(
@@ -1780,11 +1799,11 @@ class _myPageState extends State<myPage> {
                                           ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        992 / screenWidth,
-                                        0,
-                                        148 / screenWidth,
-                                        0),
+                                    // margin: EdgeInsets.fromLTRB(
+                                    //     992 / screenWidth,
+                                    //     0,
+                                    //     148 / screenWidth,
+                                    //     0),
                                     child: loginOption ==
                                             "login" // Change this on release to ==
                                         ? Image.asset(
@@ -1795,11 +1814,23 @@ class _myPageState extends State<myPage> {
                                         : InkWell(
                                             onTap: () {
                                               setState(() {
+                                                isIdValid = false;
+                                                nickName = "";
                                                 onEdit = true;
+                                                genderImage[0] = false;
+                                                genderImage[1] = false;
+                                                birthday = "";
+                                                yController.text = "";
+                                                changeimage[0] = false;
+                                                changeimage[1] = false;
+                                                changeimage[2] = false;
+                                                changeimage[3] = false;
+                                                changeimage[4] = false;
+                                                changeimage[5] = false;
                                               });
                                             },
                                             child: Image.asset(
-                                              "./assets/myPage/button1.png",
+                                              "./assets/myPage/button1_pink.png",
                                               width: 361 / screenWidth,
                                               height: 147 / screenHeight,
                                             ),
@@ -1829,13 +1860,15 @@ class _myPageState extends State<myPage> {
                                   textAlign: TextAlign.left),
                             ),
                             InkWell(
-                              onTap: () {
-                                setState(() {
-                                  gender = "boy";
-                                  genderImage[0] = !genderImage[0];
-                                  genderImage[1] = false;
-                                });
-                              },
+                              onTap: onEdit
+                                  ? () {
+                                      setState(() {
+                                        gender = "boy";
+                                        genderImage[0] = !genderImage[0];
+                                        genderImage[1] = false;
+                                      });
+                                    }
+                                  : null,
                               child: Image.asset(
                                 genderImage[0]
                                     ? "./assets/myPage/boy_pink.png"
@@ -1847,13 +1880,15 @@ class _myPageState extends State<myPage> {
                             Container(
                               margin: EdgeInsets.only(left: 98 / screenWidth),
                               child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    gender = "girl";
-                                    genderImage[1] = !genderImage[1];
-                                    genderImage[0] = false;
-                                  });
-                                },
+                                onTap: onEdit
+                                    ? () {
+                                        setState(() {
+                                          gender = "girl";
+                                          genderImage[1] = !genderImage[1];
+                                          genderImage[0] = false;
+                                        });
+                                      }
+                                    : null,
                                 child: Image.asset(
                                   genderImage[1]
                                       ? "./assets/myPage/girl_pink.png"
@@ -1892,11 +1927,12 @@ class _myPageState extends State<myPage> {
                                     TextFormField(
                                       readOnly: true,
                                       controller: yController,
-                                      onChanged: (txt) {
-                                        setState(() {
-                                          birthday = txt;
-                                        });
-                                      },
+
+                                      // onChanged: (txt) {
+                                      //   setState(() {
+                                      //     birthday = txt;
+                                      //   });
+                                      // },
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           color: Color(0xffff7292),
@@ -1919,9 +1955,12 @@ class _myPageState extends State<myPage> {
                                             ? '생년월일을 선택해주세요'
                                             : birthday,
                                         hintStyle: TextStyle(
-                                            color: const Color(0xffff7292),
+                                            color: Color(0xffd4d4d4),
+                                            // onEdit
+                                            //     ? Color(0xffd4d4d4)
+                                            //     : Color(0xffff7292),
                                             fontWeight: FontWeight.w500,
-                                            fontFamily: "NotoSansCJKkr",
+                                            fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
                                             fontSize: 66.0 / screenWidth),
                                       ),
@@ -1978,9 +2017,11 @@ class _myPageState extends State<myPage> {
                                             height: 196 / screenHeight,
                                             width: 251 / screenWidth,
                                           ),
-                                          onTap: () {
-                                            _change('10');
-                                          },
+                                          onTap: onEdit
+                                              ? () {
+                                                  _change('10');
+                                                }
+                                              : null,
                                         ),
                                       ),
                                       Padding(
@@ -1994,9 +2035,11 @@ class _myPageState extends State<myPage> {
                                             height: 196 / screenHeight,
                                             width: 251 / screenWidth,
                                           ),
-                                          onTap: () {
-                                            _change('20');
-                                          },
+                                          onTap: onEdit
+                                              ? () {
+                                                  _change('20');
+                                                }
+                                              : null,
                                         ),
                                       ),
                                       Padding(
@@ -2010,9 +2053,11 @@ class _myPageState extends State<myPage> {
                                             height: 196 / screenHeight,
                                             width: 251 / screenWidth,
                                           ),
-                                          onTap: () {
-                                            _change('30');
-                                          },
+                                          onTap: onEdit
+                                              ? () {
+                                                  _change('30');
+                                                }
+                                              : null,
                                         ),
                                       ),
                                     ],
@@ -2031,9 +2076,11 @@ class _myPageState extends State<myPage> {
                                             height: 196 / screenHeight,
                                             width: 251 / screenWidth,
                                           ),
-                                          onTap: () {
-                                            _change('40');
-                                          },
+                                          onTap: onEdit
+                                              ? () {
+                                                  _change('40');
+                                                }
+                                              : null,
                                         ),
                                       ),
                                       Padding(
@@ -2048,9 +2095,11 @@ class _myPageState extends State<myPage> {
                                             height: 196 / screenHeight,
                                             width: 251 / screenWidth,
                                           ),
-                                          onTap: () {
-                                            _change('50');
-                                          },
+                                          onTap: onEdit
+                                              ? () {
+                                                  _change('50');
+                                                }
+                                              : null,
                                         ),
                                       ),
                                       Padding(
@@ -2065,9 +2114,11 @@ class _myPageState extends State<myPage> {
                                             height: 196 / screenHeight,
                                             width: 251 / screenWidth,
                                           ),
-                                          onTap: () {
-                                            _change('60');
-                                          },
+                                          onTap: onEdit
+                                              ? () {
+                                                  _change('60');
+                                                }
+                                              : null,
                                         ),
                                       ),
                                     ],
@@ -2092,7 +2143,11 @@ class _myPageState extends State<myPage> {
                                   color: isIdValid
                                       ? Color(0xffff7292)
                                       : Color(0xffcacaca),
-                                  onPressed: isIdValid
+                                  onPressed: isIdValid &&
+                                          nickName != "" &&
+                                          yController.text != "" &&
+                                          gender != "" &&
+                                          userAge != ""
                                       ? () {
                                           showDialog(
                                             context: context,
@@ -2100,38 +2155,15 @@ class _myPageState extends State<myPage> {
                                               future: updateNickname(),
                                               builder: (context, snapshot) {
                                                 if (snapshot.hasData) {
-                                                  return AlertDialog(
-                                                    title: Text(snapshot.data),
-                                                    actions: [
-                                                      FlatButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                          setState(() {
-                                                            onEdit = false;
-                                                          });
-                                                        },
-                                                        child: // 확인
-                                                            Text("확인",
-                                                                style: TextStyle(
-                                                                    color: const Color(
-                                                                        0xffff7292),
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontFamily:
-                                                                        "NotoSansCJKkr_Medium",
-                                                                    fontStyle:
-                                                                        FontStyle
-                                                                            .normal,
-                                                                    fontSize:
-                                                                        _fontsize),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center),
-                                                      ),
-                                                    ],
-                                                  );
+                                                  WidgetsBinding.instance
+                                                      .addPostFrameCallback(
+                                                          (_) {
+                                                    setState(() {
+                                                      onEdit = false;
+                                                    });
+                                                    // Add Your Code here.
+                                                    Navigator.pop(context);
+                                                  });
                                                 } else if (snapshot.hasError) {
                                                   return AlertDialog(
                                                     title: Text(snapshot.error),
@@ -2170,38 +2202,13 @@ class _myPageState extends State<myPage> {
                                                       width: 200 / screenWidth,
                                                       child:
                                                           buildSpinKitThreeBounce(
-                                                              80, screenWidth)
-                                                      //     CircularProgressIndicator(
-                                                      //   strokeWidth: 5.0,
-                                                      //   valueColor:
-                                                      //       new AlwaysStoppedAnimation<
-                                                      //           Color>(
-                                                      //     Colors.pinkAccent,
-                                                      //   ),
-                                                      // ),
-                                                      ),
+                                                              80, screenWidth)),
                                                 );
                                               },
                                             ),
                                           );
                                         }
-                                      : () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              title:
-                                                  Text("Check your ID first"),
-                                              actions: [
-                                                FlatButton(
-                                                  child: Text("OK"),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
+                                      : () {},
                                   child: // 중복확인
                                       Text("OK",
                                           style: TextStyle(
@@ -2520,8 +2527,8 @@ class _myPageState extends State<myPage> {
 
   Text nickNameShow(String txt, double screenHeight) {
     return Text(txt,
-        maxLines: 3,
-        overflow: TextOverflow.clip,
+        // maxLines: 3,
+        // overflow: TextOverflow.clip,
         style: TextStyle(
             color: const Color(0xff3a3939),
             fontFamily: "NotoSansCJKkr_Bold",
@@ -2620,7 +2627,9 @@ class _myPageState extends State<myPage> {
               child: CupertinoDatePicker(
                 initialDateTime: DateTime.now(),
                 onDateTimeChanged: (DateTime newDate) async {
-                  yController.text = newDate.toString().substring(0, 10);
+                  var datee = newDate.toString().substring(0, 10).split('-');
+                  yController.text =
+                      datee[0] + "년 " + datee[1] + "월 " + datee[2] + "일";
                 },
                 minimumYear: 2000,
                 maximumYear: 2025,
@@ -2629,7 +2638,7 @@ class _myPageState extends State<myPage> {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                '네',
+                '확인',
                 style: TextStyle(
                   color: Color.fromRGBO(255, 114, 148, 1.0),
                   fontFamily: 'NotoSansCJKkr_Medium',
@@ -2645,7 +2654,7 @@ class _myPageState extends State<myPage> {
             ),
             FlatButton(
               child: Text(
-                '아니요',
+                '글씨바꾸기',
                 style: TextStyle(
                   color: Color.fromRGBO(255, 114, 148, 1.0),
                   fontFamily: 'NotoSansCJKkr_Medium',
