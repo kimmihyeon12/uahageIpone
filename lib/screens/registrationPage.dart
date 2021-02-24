@@ -241,7 +241,7 @@ class _registrationPageState extends State<registrationPage> {
                                                                 shape: RoundedRectangleBorder(
                                                                     borderRadius:
                                                                         BorderRadius.all(
-                                                                            Radius.circular(10.0))),
+                                                                            Radius.circular(20.0))),
                                                                 title: // 사용 가능한 닉네임입니다.
                                                                     Text(
                                                                         snapshot
@@ -277,7 +277,7 @@ class _registrationPageState extends State<registrationPage> {
                                                                 shape: RoundedRectangleBorder(
                                                                     borderRadius:
                                                                         BorderRadius.all(
-                                                                            Radius.circular(10.0))),
+                                                                            Radius.circular(20.0))),
                                                                 title:
                                                                     // id already exists.
                                                                     Text(
@@ -634,7 +634,7 @@ class _registrationPageState extends State<registrationPage> {
                                         return AlertDialog(
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
+                                                  Radius.circular(20.0))),
                                           title: // 사용 가능한 닉네임입니다.
                                               Text(snapshot.data,
                                                   style: TextStyle(
@@ -719,7 +719,7 @@ class _registrationPageState extends State<registrationPage> {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
+                                          Radius.circular(20.0))),
                                   title: // 사용 가능한 닉네임입니다.
                                       Text(snapshot.data,
                                           style: TextStyle(
@@ -893,7 +893,7 @@ class _registrationPageState extends State<registrationPage> {
                                                                   shape: RoundedRectangleBorder(
                                                                       borderRadius:
                                                                           BorderRadius.all(
-                                                                              Radius.circular(10.0))),
+                                                                              Radius.circular(20.0))),
                                                                   title: // 사용 가능한 닉네임입니다.
                                                                       Text(
                                                                           snapshot
@@ -922,7 +922,7 @@ class _registrationPageState extends State<registrationPage> {
                                                                   shape: RoundedRectangleBorder(
                                                                       borderRadius:
                                                                           BorderRadius.all(
-                                                                              Radius.circular(10.0))),
+                                                                              Radius.circular(20.0))),
                                                                   title:
                                                                       // id already exists.
                                                                       Text(
@@ -1280,7 +1280,7 @@ class _registrationPageState extends State<registrationPage> {
                                           return AlertDialog(
                                             shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
-                                                    Radius.circular(10.0))),
+                                                    Radius.circular(20.0))),
                                             title: // 사용 가능한 닉네임입니다.
                                                 Text(snapshot.data,
                                                     style: TextStyle(
@@ -1366,7 +1366,7 @@ class _registrationPageState extends State<registrationPage> {
                                   return AlertDialog(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
+                                            Radius.circular(20.0))),
                                     title: // 사용 가능한 닉네임입니다.
                                         Text(snapshot.data,
                                             style: TextStyle(
@@ -1538,7 +1538,9 @@ class _registrationPageState extends State<registrationPage> {
               child: CupertinoDatePicker(
                 initialDateTime: DateTime.now(),
                 onDateTimeChanged: (DateTime newDate) async {
-                  yController.text = newDate.toString().substring(0, 10);
+                  var datee = newDate.toString().substring(0, 10).split('-');
+                  yController.text =
+                      datee[0] + "년 " + datee[1] + "월 " + datee[2] + "일";
                 },
                 minimumYear: 2000,
                 maximumYear: 2025,

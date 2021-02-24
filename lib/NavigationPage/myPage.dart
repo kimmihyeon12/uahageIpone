@@ -1080,6 +1080,13 @@ class _myPageState extends State<myPage> {
                                               builder: (context, snapshot) {
                                                 if (snapshot.hasData) {
                                                   return AlertDialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.0)),
+                                                    ),
                                                     title: Text(snapshot.data),
                                                     actions: [
                                                       FlatButton(
@@ -1113,6 +1120,13 @@ class _myPageState extends State<myPage> {
                                                   );
                                                 } else if (snapshot.hasError) {
                                                   return AlertDialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.0)),
+                                                    ),
                                                     title: Text(snapshot.error),
                                                     actions: [
                                                       FlatButton(
@@ -1168,6 +1182,10 @@ class _myPageState extends State<myPage> {
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20.0)),
+                                              ),
                                               title:
                                                   Text("Check your ID first"),
                                               actions: [
@@ -1212,6 +1230,10 @@ class _myPageState extends State<myPage> {
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20.0)),
+                                    ),
                                     title: // 로그아웃 하시겠습니까?
                                         Text("로그아웃 하시겠습니까?",
                                             style: TextStyle(
@@ -1306,6 +1328,10 @@ class _myPageState extends State<myPage> {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0)),
+                                          ),
                                           title: Text(
                                               "탈퇴하시겠습니까? 탈퇴 시 기존 데이터를 복구할 수 없습니다.",
                                               style: TextStyle(
@@ -2166,6 +2192,13 @@ class _myPageState extends State<myPage> {
                                                   });
                                                 } else if (snapshot.hasError) {
                                                   return AlertDialog(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.0)),
+                                                    ),
                                                     title: Text(snapshot.error),
                                                     actions: [
                                                       FlatButton(
@@ -2243,6 +2276,10 @@ class _myPageState extends State<myPage> {
                                       showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0)),
+                                          ),
                                           title: // 로그아웃 하시겠습니까?
                                               Text("로그아웃 하시겠습니까?",
                                                   style: TextStyle(
@@ -2349,6 +2386,12 @@ class _myPageState extends State<myPage> {
                                             showDialog(
                                               context: context,
                                               builder: (context) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              20.0)),
+                                                ),
                                                 title: Text(
                                                     "탈퇴하시겠습니까? 탈퇴 시 기존 데이터를 복구할 수 없습니다.",
                                                     style: TextStyle(

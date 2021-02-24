@@ -633,29 +633,7 @@ class _searchPageState extends State<searchPage> {
                         child: FlatButton(
                           onPressed: () async {
                             await searchCategory();
-                            // FutureBuilder(
-                            //   future: searchCategory(),
-                            //   builder: (context, snapshot) {
-                            //     if (snapshot.connectionState ==
-                            //         ConnectionState.waiting) {
-                            //       return Container(
-                            //           child: CircularProgressIndicator());
-                            //     } else {
-                            //       if (snapshot.hasError) {
-                            //         showDialog(
-                            //             context: context,
-                            //             builder: (_) => AlertDialog(
-                            //                   title: snapshot.error,
-                            //                   actions: [
-                            //                     FlatButton(
-                            //                         onPressed: () {Navigator.pop(context);},
-                            //                         child: Text("OK"))
-                            //                   ],
-                            //                 ));
-                            //       }
-                            //     }
-                            //   },
-                            // );
+
                             Navigator.of(context).pop();
                             // print(isBirthdayFree);
                           },
@@ -708,6 +686,7 @@ class _searchPageState extends State<searchPage> {
                         right: 33 / screenWidth),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
+                      shadowColor: Colors.black54,
                       elevation: 1,
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
