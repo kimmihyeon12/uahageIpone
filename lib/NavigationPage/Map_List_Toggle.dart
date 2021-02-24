@@ -3,9 +3,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'dart:convert';
+import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
+import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
+import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
@@ -343,6 +346,9 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
+    setState(() => {
+          star_color = false,
+        });
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -361,11 +367,14 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                     child: Card(
                       elevation: 1,
                       color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
+                          Navigator.push(context, () {
+                            if (Message[14] == 'restaurant') {
+                              return PageTransition(
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
@@ -386,7 +395,55 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
-                              ));
+                              );
+                            } else if (Message[14] ==
+                                'Examination_institution') {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: examination_institution_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  examinationitem: Message[12],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 250),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            } else if (Message[14] == 'Experience_center') {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: experience_center_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  fare: Message[13],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 250),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            } else {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: kid_cafe_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  fare: Message[13],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 250),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            }
+                          }());
                         },
                         child: Row(
                           children: [
@@ -401,75 +458,71 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 40 /
+                              left: 53 /
                                   (1501 / MediaQuery.of(context).size.width),
                             )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Padding(
-                                //     padding: EdgeInsets.only(
-                                //   top: 20 / screenHeight,
-                                // )),
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: 680 / screenWidth,
-                                          // height: 100 / screenHeight,
-                                          child: Text(Message[0],
-                                              style: TextStyle(
-                                                  color:
-                                                      const Color(0xff010000),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Bold",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 56 / screenWidth),
-                                              textAlign: TextAlign.left),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      // padding: EdgeInsets.all(0),
-                                      icon: Image.asset(
-                                          star_color
-                                              ? "./assets/listPage/star_color.png"
-                                              : "./assets/listPage/star_grey.png",
-                                          height: 60 / screenHeight),
-                                      onPressed: () async {
-                                        if (loginOption != "login") {
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 40 / screenHeight),
+                                  width: 860 / screenWidth,
+                                  height: 80 / screenHeight,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 660 / screenWidth,
+                                        height: 100 / screenHeight,
+                                        child: Text(Message[0],
+                                            style: TextStyle(
+                                                color: const Color(0xff010000),
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily:
+                                                    "NotoSansCJKkr_Bold",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 56 / screenWidth),
+                                            textAlign: TextAlign.left),
+                                      ),
+                                      IconButton(
+                                        //  iconSize: 60 / screenHeight,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Image.asset(
+                                            star_color
+                                                ? "./assets/listPage/star_color.png"
+                                                : "./assets/listPage/star_grey.png",
+                                            height: 60 / screenHeight),
+                                        onPressed: () {
                                           setState(() {
                                             star_color = !star_color;
                                           });
-                                          print("printing $star_color");
-
-                                          await click_star();
-                                        }
-                                      },
-                                    ),
-                                  ],
+                                          loginOption != "login"
+                                              ? click_star()
+                                              : null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  top: 10 / screenHeight,
-                                )),
                                 Container(
-                                  // height: 150 / screenHeight,
-                                  width: 800 / screenWidth,
+                                  margin:
+                                      EdgeInsets.only(top: 35 / screenHeight),
+                                  width: 650 / screenWidth,
+                                  height: 145 / screenHeight,
                                   child: Text(Message[1],
                                       style: TextStyle(
-                                          color: const Color(0xffb0b0b0),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 45 / screenWidth),
+                                        color: const Color(0xffb0b0b0),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 55 / screenWidth,
+                                        height: 1.2,
+                                      ),
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
                                   height: 150 / screenHeight,
-                                  width: 800 / screenWidth,
+                                  width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     menu(Message[3]),
@@ -518,12 +571,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[0], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[0], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -534,12 +587,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[1], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[1], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -550,12 +603,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[2], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[2], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -566,12 +619,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[3], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[3], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -582,12 +635,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[4], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[4], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -598,12 +651,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[5], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[5], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -614,7 +667,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[6], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[6], width: 0, height: 0),
@@ -628,12 +681,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[7], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[7], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -644,12 +697,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[8], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[8], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 }

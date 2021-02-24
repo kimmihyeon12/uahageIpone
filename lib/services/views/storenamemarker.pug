@@ -5,46 +5,19 @@ head
 // 지도를 표시할 div 입니다
 
 style.
-  .customoverlay {
-    position:relative;
-    margin-left: 25%;
-    bottom:35px;
-    border-radius:15px;
-    border: 1px solid #ccc;
-    border-bottom:2px solid #ddd;
-    float:left;
+   h1{
+      
+      font-size:13px;
+      font-weight:bold;
+      color: white;
+     
     }
-  .customoverlay:nth-of-type(n) {
-    border:0;
-    box-shadow:0px 1px 2px #888;
-    }
-  .customoverlay  .round {
-    display:block;
-    text-decoration:none;
-    color:#000;
-    text-align:center;
-    border-radius:15px;
-    font-size:14px;
-    font-weight:bold;
-    overflow:hidden;
-    background: #f06292;
-
-    }
-  .customoverlay .title {
-    display:block;
-    text-align:center;
-    background:#f06292;
-    margin-right:0px;
-    padding:10px 15px;
-    font-size:14px;
-    font-weight:bold;
-    color: white;
-    }
-  .customoverlay:after {
+     
+ .test:after {
     content:'';
     position:absolute;
     left:15%;
-    bottom:-12px;
+    bottom:-13px;
     width:22px;
     height:12px;
     background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
@@ -63,7 +36,7 @@ script.
    // 지도를 생성합니다
   mapOption = {
   center: new kakao.maps.LatLng(35.161184, 126.893916), // 지도의 중심좌표
-  level: #{zoomInTo}// 지도의 확대 레벨
+  level: 1// 지도의 확대 레벨
   };
   var map = new kakao.maps.Map(mapContainer, mapOption);
   //- var imageSrc = 'http://hohoco.dothome.co.kr/img/path.png',//'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커이미지의 주소입니다
@@ -87,16 +60,15 @@ script.
   if (status === kakao.maps.services.Status.OK) {
   var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-  var content = '<div class="customoverlay">' +
-   '  <div class="round">' +
-  '    <span class="title">#{storename}</span>' +
-    '  </div>' +
-  '</div>';
+  var content =  
+   '<div style="padding: 1px 20px 1px 20px;  text-align: center;  border-radius:25px;  box-shadow:0px 3px 2px #888; background-color:#f06292;  background: #f06292     ;" >'+
+                    '<h1 class=test>#{storename}</h1>'+ '</div>';
   var customOverlay = new kakao.maps.CustomOverlay({
   map: map,
   position: coords,
   content: content,
-  yAnchor: 1
+   yAnchor: 2.0,
+   xAnchor: 0.3,
   });
   map.setCenter(coords);
   map.setDraggable(false);

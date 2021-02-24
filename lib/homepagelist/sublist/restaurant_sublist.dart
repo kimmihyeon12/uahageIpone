@@ -380,16 +380,16 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               children: [
                                 Image.asset(
                                   "./assets/sublistPage/copy.png",
-                                  width: 49 / (screenWidth),
+                                  width: 250 / (screenWidth),
                                   height: 56 / (screenHeight),
                                 ),
-                                Text(
-                                  "주소복사",
-                                  style: TextStyle(
-                                      color: Color(0xffff7292),
-                                      fontFamily: "NotoSansCJKkr_Medium",
-                                      fontSize: 48.0 / screenWidth),
-                                ),
+                                // Text(
+                                //   "주소복사",
+                                //   style: TextStyle(
+                                //       color: Color(0xffff7292),
+                                //       fontFamily: "NotoSansCJKkr_Medium",
+                                //       fontSize: 48.0 / screenWidth),
+                                // ),
                               ],
                             ),
                             onTap: () {
@@ -431,7 +431,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(
+                        margin: EdgeInsets.only(
                           left: 75 / screenWidth,
                           top: 50 / screenHeight,
                         ),
@@ -509,13 +509,13 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             diapers == "○"
                                 ? Image.asset(
                                     imagecolor[4],
-                                    width: 218 / (screenWidth),
-                                    height: 292 / (screenHeight),
+                                    width: 231 / (screenWidth),
+                                    height: 284 / (screenHeight),
                                   )
                                 : Image.asset(
                                     imagegrey[4],
-                                    width: 218 / (screenWidth),
-                                    height: 292 / (screenHeight),
+                                    width: 231 / (screenWidth),
+                                    height: 284 / (screenHeight),
                                   ),
                             Padding(
                                 padding:

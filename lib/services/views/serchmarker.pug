@@ -5,21 +5,55 @@ head
 // 지도를 표시할 div 입니다
 
 style.
-  
+  .customoverlay {
+    position:relative;
+    margin-left: 25%;
+    bottom:35px;
+    border-radius:15px;
+    border: 1px solid #ccc;
+    border-bottom:2px solid #ddd;
+    float:left;
+    }
+  .customoverlay:nth-of-type(n) {
+    border:0;
+    box-shadow:0px 1px 2px #888;
+    }
+  .customoverlay a {
+    display:block;
+    text-decoration:none;
+    color:#000;
+    text-align:center;
+    border-radius:15px;
+    font-size:5px;
+    font-weight:bold;
+    overflow:hidden;
+    background: #f06292;
+    background: #f06292  url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 10px center;
+    }
+  .customoverlay .title {
+    display:block;
+    text-align:center;
+    background:#f06292;
+    margin-right:30px;
+    padding:10px 15px;
+    font-size:11px;
+    font-weight:bold;
+    color: white;
+    }
 
     h1{
-      text-align: center;
-      font-size:13px;
-      font-weight:bold;
-      color: white;
-      margin: 7px 15px 20px auto;
+       //text-align: center;
+       font-size:12px;
+        font-weight:bold;
+        color: white;
+        margin: 7px 15px 20px auto;
 
     }
-    	div {       
-        text-align: center;
-        width: 125px;
-        height: 30px;
-        margin: -2px -4px auto;
+    	div {       text-align: center;
+    		
+    			 
+    				height: 30px;
+    				margin: -2px -1px auto;
 
 
 
@@ -36,6 +70,10 @@ script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a3235
 script.
 
     var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+    var clickedOverlay = null;
+      var data1 = "#{JSON.stringify(data)}"; //"#{data}".split(',');
+     var data = JSON.parse(data1.replace(/&quot;/g,'"'));
+        
      //flutter 화면과 통신
      function getResult(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
                  Print.postMessage(storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair);}
@@ -58,8 +96,7 @@ script.
      var markerPosition = new kakao.maps.LatLng(#{lat}, #{long});
    //db 값 받아오기
     //-  var positions = [ ];
- 	   var data1 = "#{JSON.stringify(data)}"; //"#{data}".split(',');
-     var data = JSON.parse(data1.replace(/&quot;/g,'"'));
+ 	 
      console.log(data.length);
           //- for(let i=0; i<data.length; i+=14){
           //-         var allpositions = new Object();
@@ -116,18 +153,34 @@ script.
                                                  image : markerImage1,
                                              });
 
-             // 마커에 클릭이벤트를 등록합니다
-            kakao.maps.event.addListener(marker, 'click', function() {
-              // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-                infowindow.setContent(
-                  '<div style="padding: 3px 28px 3px 15px; \
+     var content =  '<div style="padding: 3px 28px 3px 15px; \
                  		border-radius:20px;\
                     box-shadow:0px 3px 2px #888;\
                     background-color:#f06292;  \
                     background: #f06292  url(http://hohoco.dothome.co.kr/img/arrow.png) no-repeat right 4px center; ;\
                     background-size: 28px 28px\
-                    "onclick="getResult('+storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair+')" >'+
-                    '<h1>'  +store_name +'</h1>'+ '</div>');
-              infowindow.open(map, marker);
+                   "onclick="getResult('+storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair+')">'+
+                    '<h1>'  +store_name +'</h1>'+ '</div>';
+       
+              var CustomOverlay  = new kakao.maps.CustomOverlay({
+                  position: coords,
+                  content: content,  
+                   yAnchor:2.4 ,
+                   clickable :true
+              });
+
+            kakao.maps.event.addListener(marker, 'click', function() { 
+             if (clickedOverlay!=null) {
+                clickedOverlay.setMap(null);}
+                CustomOverlay.setMap(map);
+                clickedOverlay = CustomOverlay;
+            
+
           });
+          kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+           if(CustomOverlay!=null){
+              CustomOverlay.setMap(null);     
+           }
+    
+            });
          };

@@ -291,22 +291,22 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                               children: [
                                 Image.asset(
                                   "./assets/sublistPage/copy.png",
-                                  width: 49 / (screenWidth),
+                                  width: 250 / (screenWidth),
                                   height: 56 / (screenHeight),
                                 ),
-                                Text(
-                                  "주소복사",
-                                  style: TextStyle(
-                                      color: Color(0xffff7292),
-                                      fontFamily: "NotoSansCJKkr_Medium",
-                                      fontSize: 48.0 / screenWidth),
-                                ),
+                                // Text(
+                                //   "주소복사",
+                                //   style: TextStyle(
+                                //       color: Color(0xffff7292),
+                                //       fontFamily: "NotoSansCJKkr_Medium",
+                                //       fontSize: 48.0 / screenWidth),
+                                // ),
                               ],
                             ),
                             onTap: () {
                               FlutterClipboard.copy(address)
                                   .then((value) => print('copied'));
-                              _showToast(screenWidth);
+                              // _showToast(screenWidth);
                             },
                           )
                         ],

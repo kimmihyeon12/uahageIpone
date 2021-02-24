@@ -3,10 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
+import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
+import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
+import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
+import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 
 class map_list extends StatefulWidget {
-  map_list({Key key, this.latitude, this.longitude, this.list})
+  map_list(
+      {Key key,
+      this.latitude,
+      this.longitude,
+      this.list,
+      this.userId,
+      this.loginOption})
       : super(key: key);
+  String loginOption;
+  String userId;
   String latitude;
   String longitude;
   String list;
@@ -15,9 +30,55 @@ class map_list extends StatefulWidget {
 }
 
 class _map_listState extends State<map_list> {
+  String loginOption;
+  String userId;
   String latitude = "";
   String longitude = "";
   String searchKey = "";
+  var index = 1;
+  var star_color = false;
+  var Message;
+  var iconimage = [
+    "./assets/listPage/menu.png",
+    "./assets/listPage/bed.png",
+    "./assets/listPage/tableware.png",
+    "./assets/listPage/meetingroom.png",
+    "./assets/listPage/diapers.png",
+    "./assets/listPage/playroom.png",
+    "./assets/listPage/carriage.png",
+    "./assets/listPage/nursingroom.png",
+    "./assets/listPage/chair.png",
+  ];
+
+  Future click_star() async {
+    print("clicking start $star_color");
+    Map<String, dynamic> ss = {
+      "user_id": userId + loginOption,
+      "store_name": Message[0],
+      "address": Message[1],
+      "phone": Message[2],
+      "menu": Message[3],
+      "bed": Message[4],
+      "tableware": Message[5],
+      "meetingroom": Message[6],
+      "diapers": Message[7],
+      "playroom": Message[8],
+      "carriage": Message[9],
+      "nursingroom": Message[10],
+      "chair": Message[11],
+      "star_color": star_color,
+      "Examination_item": null
+    };
+    print(ss);
+    var response = await http.post(
+      "http://13.209.41.43/star",
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(ss),
+    );
+  }
+
   //
   getCurrentLocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
@@ -47,6 +108,8 @@ class _map_listState extends State<map_list> {
       getCurrentLocation();
     } else
       setState(() {
+        loginOption = widget.loginOption;
+        userId = widget.userId ?? "";
         latitude = widget.latitude;
         longitude = widget.longitude;
       });
@@ -101,9 +164,25 @@ class _map_listState extends State<map_list> {
                         //       latitude == '' ||
                         //       longitude == ''
                         //   ? 'http://13.209.41.43/test' :
-                        'http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
+                        'http://112.187.123.9:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
                   },
                   javascriptMode: JavascriptMode.unrestricted,
+                  javascriptChannels: Set.from([
+                    JavascriptChannel(
+                        name: 'Print',
+                        onMessageReceived: (JavascriptMessage message) {
+                          //This is where you receive message from
+                          //javascript code and handle in Flutter/Dart
+                          //like here, the message is just being printed
+                          //in Run/LogCat window of android studio
+                          var messages = message.message;
+                          print("messages:" + messages);
+                          Message = messages.split(",");
+                          print(Message[14]);
+                          showPopUpbottomMenu(
+                              context, screenHeight, screenWidth);
+                        }),
+                  ]),
                 ),
                 Container(
                   color: Colors.white,
@@ -125,7 +204,7 @@ class _map_listState extends State<map_list> {
                           longitude == '') await getCurrentLocation();
                       controller.loadUrl(
                           // 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude&address=$searchKey');
-                          'http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom');
+                          'http://112.187.123.9:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
                       print(listrequest);
                     },
                     child: Container(
@@ -185,5 +264,358 @@ class _map_listState extends State<map_list> {
         ),
       ),
     );
+  }
+
+  Future<Object> showPopUpbottomMenu(
+      BuildContext context, double screenHeight, double screenWidth) {
+    setState(() => {
+          star_color = false,
+        });
+    return showGeneralDialog(
+        context: context,
+        pageBuilder: (BuildContext buildContext, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Builder(builder: (context) {
+              return Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 2100 / (screenHeight),
+                        bottom: 50 / screenHeight,
+                        left: 33 / screenWidth,
+                        right: 33 / screenWidth),
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      elevation: 1,
+                      color: Colors.white,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context, () {
+                            if (Message[14] == 'restaurant') {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: restaurant_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  menu: Message[3],
+                                  bed: Message[4],
+                                  tableware: Message[5],
+                                  meetingroom: Message[6],
+                                  diapers: Message[7],
+                                  playroom: Message[8],
+                                  carriage: Message[9],
+                                  nursingroom: Message[10],
+                                  chair: Message[11],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 100),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            } else if (Message[14] ==
+                                'Examination_institution') {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: examination_institution_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  examinationitem: Message[12],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 250),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            } else if (Message[14] == 'Experience_center') {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: experience_center_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  fare: Message[13],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 250),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            } else {
+                              return PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: kid_cafe_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  fare: Message[13],
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                ),
+                                duration: Duration(milliseconds: 250),
+                                reverseDuration: Duration(milliseconds: 100),
+                              );
+                            }
+                          }());
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(
+                              left: 30 /
+                                  (1501 / MediaQuery.of(context).size.width),
+                            )),
+                            Image.asset(
+                              "./assets/listPage/clipGroup1.png",
+                              height: 414 / screenHeight,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(
+                              left: 40 /
+                                  (1501 / MediaQuery.of(context).size.width),
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                  top: 20 / screenHeight,
+                                )),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 680 / screenWidth,
+                                          height: 75 / screenHeight,
+                                          child: Text(Message[0],
+                                              style: TextStyle(
+                                                  color:
+                                                      const Color(0xff010000),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily:
+                                                      "NotoSansCJKkr_Bold",
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 56 / screenWidth),
+                                              textAlign: TextAlign.left),
+                                        ),
+                                      ],
+                                    ),
+                                    IconButton(
+                                      // padding: EdgeInsets.all(0),
+                                      icon: Image.asset(
+                                          star_color
+                                              ? "./assets/listPage/star_color.png"
+                                              : "./assets/listPage/star_grey.png",
+                                          height: 60 / screenHeight),
+                                      // onPressed: () {
+                                      //   setState(() {
+                                      //     star_color = !star_color;
+                                      //   });
+                                      //   loginOption != "login"
+                                      //       ? click_star()
+                                      //       : null;
+                                      // },
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  // height: 150 / screenHeight,
+                                  width: 800 / screenWidth,
+                                  height: 56 / screenHeight,
+                                  child: Text(Message[1],
+                                      style: TextStyle(
+                                          color: const Color(0xffb0b0b0),
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "NotoSansCJKkr_Medium",
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 45 / screenWidth),
+                                      textAlign: TextAlign.left),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                  top: 20 / screenHeight,
+                                )),
+                                Container(
+                                  height: 150 / screenHeight,
+                                  width: 800 / screenWidth,
+                                  alignment: Alignment.bottomRight,
+                                  child: Row(children: [
+                                    menu(Message[3]),
+                                    bed(Message[4]),
+                                    tableware(Message[5]),
+                                    meetingroom(Message[6]),
+                                    diapers(Message[7]),
+                                    playroom(Message[8]),
+                                    carriage(Message[9]),
+                                    nursingroom(Message[10]),
+                                    chair(Message[11]),
+                                  ]),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            });
+          });
+        },
+        barrierDismissible: true,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: null,
+        transitionDuration: const Duration(milliseconds: 150));
+  }
+
+  menu(String menu) {
+    var menus = menu.toString();
+
+    return menus == "○"
+        ? Container(
+            child: Image.asset(iconimage[0], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[0], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  bed(String bed) {
+    var beds = bed.toString();
+
+    return beds == "○"
+        ? Container(
+            child: Image.asset(iconimage[1], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[1], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  tableware(String tableware) {
+    var tablewares = tableware.toString();
+
+    return tablewares == "○"
+        ? Container(
+            child: Image.asset(iconimage[2], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[2], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  meetingroom(String meetingroom) {
+    var meetingrooms = meetingroom.toString();
+
+    return meetingrooms == "○"
+        ? Container(
+            child: Image.asset(iconimage[3], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[3], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  diapers(String diapers) {
+    var diaperss = diapers.toString();
+
+    return diaperss == "○"
+        ? Container(
+            child: Image.asset(iconimage[4], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[4], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  playroom(String playroom) {
+    var playrooms = playroom.toString();
+
+    return playrooms == "○"
+        ? Container(
+            child: Image.asset(iconimage[5], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[5], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  carriage(String carriage) {
+    var carriages = carriage.toString();
+
+    return carriages == "○"
+        ? Container(
+            child: Image.asset(iconimage[6], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[6], width: 0, height: 0),
+          );
+  }
+
+  nursingroom(String nursingroom) {
+    var nursingrooms = nursingroom.toString();
+
+    return nursingrooms == "○"
+        ? Container(
+            child: Image.asset(iconimage[7], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[7], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
+  }
+
+  chair(String chair) {
+    var chairs = chair.toString();
+
+    return chairs == "○"
+        ? Container(
+            child: Image.asset(iconimage[8], width: 30, height: 30),
+            padding: EdgeInsets.only(
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+          )
+        : Container(
+            child: Image.asset(iconimage[8], width: 0, height: 0),
+            padding: EdgeInsets.only(
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+          );
   }
 }
