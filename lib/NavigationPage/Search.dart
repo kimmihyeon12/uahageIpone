@@ -418,12 +418,20 @@ class _searchPageState extends State<searchPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 2,
+                        blurRadius: 3,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
                   ),
                   margin: EdgeInsets.fromLTRB(51 / screenWidth,
-                      161 / screenHeight, 35 / screenWidth, 0),
+                      161 / screenHeight, 51 / screenWidth, 0),
                   height: 196 / screenHeight,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         margin: EdgeInsets.only(left: 42 / screenWidth),
@@ -434,7 +442,7 @@ class _searchPageState extends State<searchPage> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 41 / screenWidth),
-                        width: MediaQuery.of(context).size.width - 80,
+                        width: MediaQuery.of(context).size.width - 70,
                         child: // 검색 조건을 설정해주세요
                             Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -509,39 +517,39 @@ class _searchPageState extends State<searchPage> {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(
-                            1060 / screenWidth, 0, 0, 47 / screenHeight),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          // crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            /* IconButton(
-                        onPressed: () {
-                          controller.loadUrl(
-                              "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
-                        },
-                        icon: Image.asset(
-                          "assets/searchPage/plus.png",
-                          width: 105 / screenWidth,
-                          height: 105 / screenHeight,
-                        )),
-                    IconButton(
-                        onPressed: () {
-                          controller.loadUrl(
-                              "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
-                        },
-                        icon: Image.asset(
-                          "assets/searchPage/minus.png",
-                          width: 105 / screenWidth,
-                          height: 105 / screenHeight,
-                        )),*/
-                          ],
-                        ),
-                      ),
-                    )
+                    // Align(
+                    //   alignment: Alignment.bottomRight,
+                    //   child: Container(
+                    //     margin: EdgeInsets.fromLTRB(
+                    //         1060 / screenWidth, 0, 0, 47 / screenHeight),
+                    //     child: Column(
+                    //       mainAxisAlignment: MainAxisAlignment.end,
+                    //       // crossAxisAlignment: CrossAxisAlignment.end,
+                    //       children: [
+                    //         /* IconButton(
+                    //     onPressed: () {
+                    //       controller.loadUrl(
+                    //           "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
+                    //     },
+                    //     icon: Image.asset(
+                    //       "assets/searchPage/plus.png",
+                    //       width: 105 / screenWidth,
+                    //       height: 105 / screenHeight,
+                    //     )),
+                    // IconButton(
+                    //     onPressed: () {
+                    //       controller.loadUrl(
+                    //           "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
+                    //     },
+                    //     icon: Image.asset(
+                    //       "assets/searchPage/minus.png",
+                    //       width: 105 / screenWidth,
+                    //       height: 105 / screenHeight,
+                    //     )),*/
+                    //       ],
+                    //     ),
+                    //   ),
+                    // )
                     //
                   ],
                 ),
@@ -681,6 +689,9 @@ class _searchPageState extends State<searchPage> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
+    setState(() => {
+          star_color = false,
+        });
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -699,6 +710,9 @@ class _searchPageState extends State<searchPage> {
                     child: Card(
                       elevation: 1,
                       color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -739,77 +753,71 @@ class _searchPageState extends State<searchPage> {
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 40 /
+                              left: 53 /
                                   (1501 / MediaQuery.of(context).size.width),
                             )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Padding(
-                                //     padding: EdgeInsets.only(
-                                //   top: 20 / screenHeight,
-                                // )),
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: 680 / screenWidth,
-                                          height: 75 / screenHeight,
-                                          // height: 100 / screenHeight,
-                                          child: Text(Message[0],
-                                              style: TextStyle(
-                                                  color:
-                                                      const Color(0xff010000),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Bold",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 56 / screenWidth),
-                                              textAlign: TextAlign.left),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      // padding: EdgeInsets.all(0),
-                                      icon: Image.asset(
-                                          star_color
-                                              ? "./assets/listPage/star_color.png"
-                                              : "./assets/listPage/star_grey.png",
-                                          height: 60 / screenHeight),
-                                      onPressed: () async {
-                                        if (loginOption != "login") {
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 40 / screenHeight),
+                                  width: 860 / screenWidth,
+                                  height: 80 / screenHeight,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 660 / screenWidth,
+                                        height: 100 / screenHeight,
+                                        child: Text(Message[0],
+                                            style: TextStyle(
+                                                color: const Color(0xff010000),
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily:
+                                                    "NotoSansCJKkr_Bold",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 56 / screenWidth),
+                                            textAlign: TextAlign.left),
+                                      ),
+                                      IconButton(
+                                        //  iconSize: 60 / screenHeight,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Image.asset(
+                                            star_color
+                                                ? "./assets/listPage/star_color.png"
+                                                : "./assets/listPage/star_grey.png",
+                                            height: 60 / screenHeight),
+                                        onPressed: () {
                                           setState(() {
                                             star_color = !star_color;
                                           });
-                                          print("printing $star_color");
-
-                                          await click_star();
-                                        }
-                                      },
-                                    ),
-                                  ],
+                                          loginOption != "login"
+                                              ? click_star()
+                                              : null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-
-                                Container(
-                                  // height: 150 / screenHeight,
-                                  width: 800 / screenWidth,
-                                  height: 56 / screenHeight,
-                                  child: Text(Message[1],
-                                      style: TextStyle(
-                                          color: const Color(0xffb0b0b0),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 45 / screenWidth),
-                                      textAlign: TextAlign.left),
-                                ),
-
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 20 / screenHeight),
+                                      EdgeInsets.only(top: 35 / screenHeight),
+                                  width: 650 / screenWidth,
+                                  height: 145 / screenHeight,
+                                  child: Text(Message[1],
+                                      style: TextStyle(
+                                        color: const Color(0xffb0b0b0),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 55 / screenWidth,
+                                        height: 1.2,
+                                      ),
+                                      textAlign: TextAlign.left),
+                                ),
+                                Container(
                                   height: 150 / screenHeight,
-                                  width: 800 / screenWidth,
+                                  width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     menu(Message[3]),

@@ -155,25 +155,33 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Image.asset(
-                        "./assets/listPage/backbutton.png",
-                        width: 44 / (screenWidth),
-                        height: 76 / (screenHeight),
+                    Stack(children: [
+                      Center(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Image.asset(
+                            "./assets/listPage/backbutton.png",
+                            width: 44 / (screenWidth),
+                            height: 76 / (screenHeight),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(left: 320 / screenWidth),
-                        child: // 약관동의
-                            Text("키즈카페 안내",
-                                style: TextStyle(
-                                    color: Color(0xffff7292),
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 67.0 / screenWidth),
-                                textAlign: TextAlign.left)),
+                      Container(
+                        height: 178 / screenHeight,
+                        width: 1501 / screenWidth,
+                        child: Center(
+                            child: // 약관동의
+                                Text(
+                          "키즈카페 안내",
+                          style: TextStyle(
+                              color: Color(0xffff7292),
+                              fontFamily: "NotoSansCJKkr_Medium",
+                              fontSize: 62.0 / screenWidth),
+                        )),
+                      ),
+                    ]),
                   ],
                 ),
               ),
@@ -268,14 +276,14 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 1050 / (screenWidth),
+                            width: 1065 / (screenWidth),
                             height: 150 / (screenHeight),
                             child: Text(
                               address == null ? "정보 없음" : address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 48.0 / screenWidth),
+                                  fontSize: 57.0 / screenWidth),
                             ),
                           ),
                           InkWell(
@@ -319,7 +327,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
-                            fontSize: 48.0 / screenWidth),
+                            fontSize: 57.0 / screenWidth),
                       ),
                     ],
                   ),
@@ -361,7 +369,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontFamily: "NotoSansCJKkr_Medium",
-                                fontSize: 48.0 / screenWidth),
+                                fontSize: 57.0 / screenWidth),
                           )
                         ],
                       ),

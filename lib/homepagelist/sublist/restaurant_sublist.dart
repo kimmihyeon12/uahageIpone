@@ -253,25 +253,33 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Image.asset(
-                        "./assets/listPage/backbutton.png",
-                        width: 44 / (screenWidth),
-                        height: 76 / (screenHeight),
+                    Stack(children: [
+                      Center(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Image.asset(
+                            "./assets/listPage/backbutton.png",
+                            width: 44 / (screenWidth),
+                            height: 76 / (screenHeight),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(left: 400 / screenWidth),
-                        child: // 약관동의
-                            Text("매장안내",
-                                style: TextStyle(
-                                    color: Color(0xffff7292),
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 62.0 / screenWidth),
-                                textAlign: TextAlign.left)),
+                      Container(
+                        height: 178 / screenHeight,
+                        width: 1501 / screenWidth,
+                        child: Center(
+                            child: // 약관동의
+                                Text(
+                          "매장안내",
+                          style: TextStyle(
+                              color: Color(0xffff7292),
+                              fontFamily: "NotoSansCJKkr_Medium",
+                              fontSize: 62.0 / screenWidth),
+                        )),
+                      ),
+                    ]),
                   ],
                 ),
               ),
@@ -357,14 +365,14 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 1050 / (screenWidth),
+                            width: 1065 / (screenWidth),
                             height: 150 / (screenHeight),
                             child: Text(
                               address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 48.0 / screenWidth),
+                                  fontSize: 57.0 / screenWidth),
                             ),
                           ),
                           InkWell(
@@ -408,7 +416,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
-                            fontSize: 48.0 / screenWidth),
+                            fontSize: 57.0 / screenWidth),
                       ),
                     ],
                   ),
@@ -432,7 +440,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                           style: TextStyle(
                               color: Color(0xff4d4d4d),
                               fontFamily: "NotoSansCJKkr_Medium",
-                              fontSize: 60.0 / screenWidth),
+                              fontSize: 58.0 / screenWidth),
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(top: 50 / screenHeight)),
@@ -501,8 +509,8 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             diapers == "○"
                                 ? Image.asset(
                                     imagecolor[4],
-                                    width: 292 / (screenWidth),
-                                    height: 218 / (screenHeight),
+                                    width: 218 / (screenWidth),
+                                    height: 292 / (screenHeight),
                                   )
                                 : Image.asset(
                                     imagegrey[4],

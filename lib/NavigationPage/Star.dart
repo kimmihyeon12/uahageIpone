@@ -268,78 +268,67 @@ class _starPageState extends State<starPage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      width: 750 / screenWidth,
-                                                      height:
-                                                          100 / screenHeight,
-                                                      child: Text(
-                                                        snapshot.data[index]
-                                                            .store_name,
-                                                        style: TextStyle(
-                                                          fontSize:
-                                                              56 / screenWidth,
-                                                          fontFamily:
-                                                              'NotoSansCJKkr_Medium',
+                                                Container(
+                                                  width: 860 / screenWidth,
+                                                  height: 80 / screenHeight,
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        width:
+                                                            750 / screenWidth,
+                                                        height:
+                                                            100 / screenHeight,
+                                                        child: Text(
+                                                          snapshot.data[index]
+                                                              .store_name,
+                                                          style: TextStyle(
+                                                            fontSize: 58 /
+                                                                screenWidth,
+                                                            fontFamily:
+                                                                'NotoSansCJKkr_Medium',
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      padding:
-                                                          EdgeInsets.all(0),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                        maxWidth:
-                                                            170 / screenWidth,
-                                                        maxHeight:
-                                                            170 / screenHeight,
-                                                      ),
-                                                      icon: Image.asset(
-                                                        // false
-                                                        //     ? "./assets/listPage/star_grey.png"
-                                                        //     :
-                                                        "./assets/listPage/star_color.png",
-                                                        height:
-                                                            60 / screenHeight,
-                                                      ),
-                                                      onPressed: () async {
-                                                        setState(() {
-                                                          address1 = snapshot
-                                                              .data[index]
-                                                              .address;
-                                                        });
-                                                        click_star();
-                                                        _showToast(screenWidth);
-                                                        //setState(() {
+                                                      IconButton(
+                                                        padding:
+                                                            EdgeInsets.all(0),
+                                                        constraints:
+                                                            BoxConstraints(
+                                                          maxWidth:
+                                                              170 / screenWidth,
+                                                          maxHeight: 170 /
+                                                              screenHeight,
+                                                        ),
+                                                        icon: Image.asset(
+                                                          // false
+                                                          //     ? "./assets/listPage/star_grey.png"
+                                                          //     :
+                                                          "./assets/listPage/star_color.png",
+                                                          height:
+                                                              60 / screenHeight,
+                                                        ),
+                                                        onPressed: () async {
+                                                          setState(() {
+                                                            address1 = snapshot
+                                                                .data[index]
+                                                                .address;
+                                                          });
+                                                          click_star();
+                                                          _showToast(
+                                                              screenWidth);
+                                                          //setState(() {
 
-                                                        // });
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                                Container(
-                                                  height: 80 / screenHeight,
-                                                  width: 800 / screenWidth,
-                                                  child: Text(
-                                                    snapshot.data[index].phone,
-                                                    style: TextStyle(
-                                                      // fontFamily: 'NatoSans',
-                                                      color: Colors.grey,
-                                                      fontSize:
-                                                          45 / screenWidth,
-                                                      fontFamily:
-                                                          'NotoSansCJKkr_Medium',
-                                                    ),
+                                                          // });
+                                                        },
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                    padding: EdgeInsets.only(
-                                                  top: 10 / screenHeight,
-                                                )),
                                                 Container(
-                                                  height: 70 / screenHeight,
-                                                  width: 800 / screenWidth,
+                                                  margin: EdgeInsets.only(
+                                                      top: 35 / screenHeight),
+                                                  width: 650 / screenWidth,
+                                                  height: 145 / screenHeight,
                                                   child: Text(
                                                     snapshot
                                                         .data[index].address,
@@ -347,15 +336,16 @@ class _starPageState extends State<starPage> {
                                                       // fontFamily: 'NatoSans',
                                                       color: Colors.grey,
                                                       fontSize:
-                                                          45 / screenWidth,
+                                                          55 / screenWidth,
                                                       fontFamily:
                                                           'NotoSansCJKkr_Medium',
+                                                      height: 1.2,
                                                     ),
                                                   ),
                                                 ),
                                                 Container(
                                                   height: 150 / screenHeight,
-                                                  width: 800 / screenWidth,
+                                                  width: 650 / screenWidth,
                                                   alignment:
                                                       Alignment.bottomRight,
                                                   child: Row(
@@ -652,81 +642,69 @@ class _starPageState extends State<starPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        width:
-                                                            750 / screenWidth,
-                                                        height:
-                                                            100 / screenHeight,
-                                                        child: Text(
-                                                          snapshot.data[index]
-                                                              .store_name,
-                                                          style: TextStyle(
-                                                            fontSize: 56 /
-                                                                screenWidth,
-                                                            fontFamily:
-                                                                'NotoSansCJKkr_Medium',
+                                                  Container(
+                                                    width: 860 / screenWidth,
+                                                    height: 80 / screenHeight,
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width:
+                                                              750 / screenWidth,
+                                                          height: 100 /
+                                                              screenHeight,
+                                                          child: Text(
+                                                            snapshot.data[index]
+                                                                .store_name,
+                                                            style: TextStyle(
+                                                              fontSize: 58 /
+                                                                  screenWidth,
+                                                              fontFamily:
+                                                                  'NotoSansCJKkr_Medium',
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      IconButton(
-                                                        padding:
-                                                            EdgeInsets.all(0),
-                                                        constraints:
-                                                            BoxConstraints(
-                                                          maxWidth:
-                                                              170 / screenWidth,
-                                                          maxHeight: 170 /
-                                                              screenHeight,
-                                                        ),
-                                                        icon: Image.asset(
-                                                          // false
-                                                          //     ? "./assets/listPage/star_grey.png"
-                                                          //     :
-                                                          "./assets/listPage/star_color.png",
-                                                          height:
-                                                              60 / screenHeight,
-                                                        ),
-                                                        onPressed: () async {
-                                                          setState(() {
-                                                            address1 = snapshot
-                                                                .data[index]
-                                                                .address;
-                                                          });
-                                                          click_star();
-                                                          _showToast(
-                                                              screenWidth);
-                                                          //setState(() {
+                                                        IconButton(
+                                                          padding:
+                                                              EdgeInsets.all(0),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            maxWidth: 170 /
+                                                                screenWidth,
+                                                            maxHeight: 170 /
+                                                                screenHeight,
+                                                          ),
+                                                          icon: Image.asset(
+                                                            // false
+                                                            //     ? "./assets/listPage/star_grey.png"
+                                                            //     :
+                                                            "./assets/listPage/star_color.png",
+                                                            height: 60 /
+                                                                screenHeight,
+                                                          ),
+                                                          onPressed: () async {
+                                                            setState(() {
+                                                              address1 =
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .address;
+                                                            });
+                                                            click_star();
+                                                            _showToast(
+                                                                screenWidth);
+                                                            //setState(() {
 
-                                                          // });
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    height: 80 / screenHeight,
-                                                    width: 800 / screenWidth,
-                                                    child: Text(
-                                                      snapshot
-                                                          .data[index].phone,
-                                                      style: TextStyle(
-                                                        // fontFamily: 'NatoSans',
-                                                        color: Colors.grey,
-                                                        fontSize:
-                                                            45 / screenWidth,
-                                                        fontFamily:
-                                                            'NotoSansCJKkr_Medium',
-                                                      ),
+                                                            // });
+                                                          },
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                  Padding(
-                                                      padding: EdgeInsets.only(
-                                                    top: 10 / screenHeight,
-                                                  )),
                                                   Container(
-                                                    height: 70 / screenHeight,
-                                                    width: 800 / screenWidth,
+                                                    margin: EdgeInsets.only(
+                                                        top: 35 / screenHeight),
+                                                    width: 650 / screenWidth,
+                                                    height: 145 / screenHeight,
                                                     child: Text(
                                                       snapshot
                                                           .data[index].address,
@@ -734,15 +712,16 @@ class _starPageState extends State<starPage> {
                                                         // fontFamily: 'NatoSans',
                                                         color: Colors.grey,
                                                         fontSize:
-                                                            45 / screenWidth,
+                                                            55 / screenWidth,
                                                         fontFamily:
                                                             'NotoSansCJKkr_Medium',
+                                                        height: 1.2,
                                                       ),
                                                     ),
                                                   ),
                                                   Container(
                                                     height: 150 / screenHeight,
-                                                    width: 800 / screenWidth,
+                                                    width: 650 / screenWidth,
                                                     alignment:
                                                         Alignment.bottomRight,
                                                     child: Row(

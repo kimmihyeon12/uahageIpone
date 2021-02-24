@@ -135,25 +135,33 @@ class _examination_institution_sublistState
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Image.asset(
-                        "./assets/listPage/backbutton.png",
-                        width: 44 / (screenWidth),
-                        height: 76 / (screenHeight),
+                    Stack(children: [
+                      Center(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Image.asset(
+                            "./assets/listPage/backbutton.png",
+                            width: 44 / (screenWidth),
+                            height: 76 / (screenHeight),
+                          ),
+                        ),
                       ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(left: 30 / screenWidth),
-                        child: // 약관동의
-                            Text("영유아 검진 및 구강검진 병원 안내",
-                                style: TextStyle(
-                                    color: Color(0xffff7292),
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 67.0 / screenWidth),
-                                textAlign: TextAlign.left)),
+                      Container(
+                        height: 178 / screenHeight,
+                        width: 1501 / screenWidth,
+                        child: Center(
+                            child: // 약관동의
+                                Text(
+                          "영유아 검진 및 구강검진 병원 안내",
+                          style: TextStyle(
+                              color: Color(0xffff7292),
+                              fontFamily: "NotoSansCJKkr_Medium",
+                              fontSize: 62.0 / screenWidth),
+                        )),
+                      ),
+                    ]),
                   ],
                 ),
               ),
@@ -232,14 +240,14 @@ class _examination_institution_sublistState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 1050 / (screenWidth),
+                            width: 1065 / (screenWidth),
                             height: 150 / (screenHeight),
                             child: Text(
                               address == null ? "정보 없음" : address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 48.0 / screenWidth),
+                                  fontSize: 57.0 / screenWidth),
                             ),
                           ),
                           InkWell(
@@ -283,7 +291,7 @@ class _examination_institution_sublistState
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
-                            fontSize: 48.0 / screenWidth),
+                            fontSize: 57.0 / screenWidth),
                       ),
                     ],
                   ),
@@ -325,7 +333,7 @@ class _examination_institution_sublistState
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontFamily: "NotoSansCJKkr_Medium",
-                                fontSize: 48.0 / screenWidth),
+                                fontSize: 57.0 / screenWidth),
                           ),
                         ],
                       ),
