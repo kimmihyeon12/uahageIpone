@@ -1454,7 +1454,7 @@ class _registrationPageState extends State<registrationPage> {
       BuildContext context, double _fontsize) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          borderRadius: BorderRadius.all(Radius.circular(20.0))),
       title:
           // id already exists.
           Text(snapshot.error,

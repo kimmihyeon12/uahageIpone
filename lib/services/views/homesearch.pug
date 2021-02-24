@@ -1,0 +1,178 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title &#xC8FC;&#xC18C;&#xB85C; &#xC7A5;&#xC18C; &#xD45C;&#xC2DC;&#xD558;&#xAE30;
+  style.
+    h1{
+      text-align: center;
+      font-size:13px;
+      font-weight:bold;
+      color: white;
+      margin: 7px 15px 20px auto;
+
+    }
+    	div {       
+        text-align: center;
+ 
+        height: 30px;
+        margin: -2px -4px auto;
+
+
+
+    			}
+
+#map(style='position: fixed;\
+width: 100%;\
+height: 100%;\
+left: 0;\
+top: 0;\
+background: rgba(51,51,51,0.7);\
+z-index: 10;')
+script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a323567d193d1f90625406988f60389&libraries=services')
+script.
+        function getResult(storename,address){
+           Print.postMessage(storename+","+address);
+          }
+        function getResult1(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
+           Print1.postMessage(storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair);}
+        //distance 정렬
+        function custonSort(a, b){ if(a.distance == b.distance){ return 0} return a.distance > b.distance ? 1 : -1; }
+       //
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+        var data1 = "#{JSON.stringify(data)}"; //"#{data}".split(',');
+        var data = JSON.parse(data1.replace(/&quot;/g,'"'));
+        var clickedOverlay = null;
+        
+         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+          mapOption = {
+          center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+          level: 4 // 지도의 확대 레벨
+          };
+          var map = new kakao.maps.Map(mapContainer, mapOption);
+          var lat1; var lon1; var distance; 
+          var array_distance = [];
+          
+          var geocoder = new kakao.maps.services.Geocoder();
+          // 주소로 좌표를 검색합니다
+                geocoder.addressSearch(#{address}, function(result, status) {
+                // 정상적으로 검색이 완료됐으면
+                if (status === kakao.maps.services.Status.OK) {
+                var coords =  new kakao.maps.LatLng(result[0].y, result[0].x);
+                lat1 =result[0].x; lon1=result[0].y;
+                var imageSrc = 'http://hohoco.dothome.co.kr/img/path.gif',  
+                              imageSize = new kakao.maps.Size(34 , 34), // 마커이미지의 크기입니다
+                              imageOption = {offset: new kakao.maps.Point(13, 34)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                              // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+                var marker = new kakao.maps.Marker({
+                map: map,
+                image:markerImage,
+                position: coords
+                });
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var destination = new kakao.maps.CustomOverlay({
+                      content: '<div style="padding: 3px 20px 3px 30px;   border-radius:25px;  box-shadow:0px 3px 2px #888; background-color:#f06292;  background: #f06292      center;" >'+
+                    '<h1>'  + "목적지" + '</h1>'+ '</div>',
+                       map:map ,
+                       position: coords,
+                       yAnchor:2.4 ,
+                      });
+                
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+                }
+
+            data.forEach(function(v,i){
+                      var coords = new kakao.maps.LatLng(data[i].lon,data[i].lat);
+                      var storename = "'"+ data[i].store_name+"'";
+                      var address =  "'"+ data[i].address+"'";
+                      var phone =  "'"+ data[i].phone+"'";
+                      var menu =  "'"+ data[i].menu+"'";
+                      var bed =  "'"+ data[i].bed+"'";
+                      var tableware =  "'"+ data[i].tableware+"'";
+                      var meetingroom =  "'"+ data[i].meetingroom+"'";
+                      var diapers =  "'"+ data[i].diapers+"'";
+                      var playroom =  "'"+ data[i].playroom+"'";
+                      var carriage =  "'"+ data[i].carriage+"'";
+                      var nursingroom =  "'"+ data[i].nursingroom+"'";
+                      var chair =  "'"+ data[i].chair+"'";
+                      var lat =  data[i].lat;
+                      var lon =  data[i].lon;
+                      
+                     distance = calcDist(lat1,lon1,lat,lon);
+                     if(distance<700){displayMarker(coords,data[i].store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair);
+                        var distance_object = new Object();
+                        distance_object.storename = data[i].store_name;
+                        distance_object.address =  data[i].address;
+                        distance_object.distance = distance;
+                        array_distance.push(distance_object);
+                     }
+                    });
+                    var array_list = array_distance.sort(custonSort);
+                    
+                    for(var i =0; i<array_list.length; i++){
+                     
+                    getResult(array_list[i].storename+","+array_list[i].address);
+                      }
+
+      
+  
+                });
+           
+      
+        
+        	function displayMarker(coords,store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair) {
+               // 마커를 생성하고 지도에 표시합니다
+            var imageSrc1 ='http://hohoco.dothome.co.kr/img/marker.png'; // 마커이미지의 주소입니다
+            var imageSize1 = new kakao.maps.Size(26, 34);
+             var markerImage1 = new kakao.maps.MarkerImage(imageSrc1, imageSize1);
+             var marker = new kakao.maps.Marker({
+                                                 map: map,
+                                                 position: coords,
+                                                 image : markerImage1,
+                                             });
+                  
+           var content =  '<div style="padding: 3px 28px 3px 15px; \
+                 		border-radius:20px;\
+                    box-shadow:0px 3px 2px #888;\
+                    background-color:#f06292;  \
+                    background: #f06292  url(http://hohoco.dothome.co.kr/img/arrow.png) no-repeat right 4px center; ;\
+                    background-size: 28px 28px\
+                   "onclick="getResult1('+storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair+')" >'+
+                    '<h1>'  +store_name +'</h1>'+ '</div>';
+       
+              var CustomOverlay  = new kakao.maps.CustomOverlay({
+                  position: coords,
+                  content: content,  
+                   yAnchor:2.4 ,
+                   clickable :true
+              });
+
+            kakao.maps.event.addListener(marker, 'click', function() { 
+             if (clickedOverlay!=null) {
+                clickedOverlay.setMap(null);}
+                CustomOverlay.setMap(map);
+                clickedOverlay = CustomOverlay;
+            
+
+          });
+          kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+           if(CustomOverlay!=null){
+              CustomOverlay.setMap(null);     
+           }
+    
+            });
+         };
+        
+     //거리구하기
+        function calcDist(lat1,lng1,lat2,lng2) {
+            var ret = 0;
+            var latA = 111;
+            var lngB = 88.8;
+            ret = Math.sqrt(
+                    Math.pow((Math.abs(lat1 - lat2) * latA),2)
+                    +
+                    Math.pow((Math.abs(lng1 - lng2) * lngB),2)
+                  ) *1000;//m
+            return ret.toFixed(2);
+          }

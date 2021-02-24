@@ -189,7 +189,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
               ),
 
               Container(
-                height: 939 / screenHeight,
+                //  height: 939 / screenHeight,
                 width: 1501 / screenWidth,
                 child: (() {
                   if (index % 4 == 0) {

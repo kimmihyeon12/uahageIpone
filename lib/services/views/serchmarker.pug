@@ -1,0 +1,133 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title &#xC9C0;&#xB3C4; &#xC0DD;&#xC131;&#xD558;&#xAE30;
+// 지도를 표시할 div 입니다
+
+style.
+  
+
+    h1{
+      text-align: center;
+      font-size:13px;
+      font-weight:bold;
+      color: white;
+      margin: 7px 15px 20px auto;
+
+    }
+    	div {       
+        text-align: center;
+        width: 125px;
+        height: 30px;
+        margin: -2px -4px auto;
+
+
+
+    			}
+
+#map(style='position: fixed;\
+width: 100%;\
+height: 100%;\
+left: 0;\
+top: 0;\
+background: rgba(51,51,51,0.7);\
+z-index: 10;')
+script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a323567d193d1f90625406988f60389&libraries=services')
+script.
+
+    var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+     //flutter 화면과 통신
+     function getResult(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
+                 Print.postMessage(storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair);}
+     // 지도를 표시
+     var mapContainer = document.getElementById('map'), 
+                        mapOption = {
+                        center: new kakao.maps.LatLng(#{lat}, #{long}), // 지도의 중심좌표
+                        level: #{zoomInTo}// 지도의 확대 레벨
+                        };
+     var map = new kakao.maps.Map(mapContainer, mapOption);
+    //marker 현재위치 이미지
+     var imageSrc = 'http://hohoco.dothome.co.kr/img/path.gif',//'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커이미지의 주소입니다
+         imageSize = new kakao.maps.Size(34 , 34), // 마커이미지의 크기입니다
+         imageOption = {offset: new kakao.maps.Point(13, 34)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+         
+     var imageSrc1 ='http://hohoco.dothome.co.kr/img/marker.png'; // 마커이미지의 주소입니다
+     var imageSize1 = new kakao.maps.Size(26, 34);
+     var markerImage1 = new kakao.maps.MarkerImage(imageSrc1, imageSize1);
+     var markerPosition = new kakao.maps.LatLng(#{lat}, #{long});
+   //db 값 받아오기
+    //-  var positions = [ ];
+ 	   var data1 = "#{JSON.stringify(data)}"; //"#{data}".split(',');
+     var data = JSON.parse(data1.replace(/&quot;/g,'"'));
+     console.log(data.length);
+          //- for(let i=0; i<data.length; i+=14){
+          //-         var allpositions = new Object();
+          //-         allpositions.number = i;
+          //-         allpositions.store_name = data[i];
+          //-         allpositions.address = data[i+1];
+          //-         allpositions.phone = data[i+2];
+          //-         allpositions.menu = data[i+3];
+          //-         allpositions.bed = data[i+4];
+          //-         allpositions.tableware = data[i+5];
+          //-         allpositions.meetingroom = data[i+6];
+          //-         allpositions.diapers = data[i+7];
+          //-         allpositions.playroom = data[i+8];
+          //-         allpositions.carriage = data[i+9];
+          //-         allpositions.nursingroom = data[i+10];
+          //-         allpositions.chair = data[i+11];
+          //-         allpositions.lat = data[i+12];
+          //-         allpositions.lon = data[i+13];
+          //-         positions.push(allpositions);
+          //-         console.log(allpositions);  }
+ 
+      // db에 저장된 마커 지도에 찍어주기(반복) 
+      //- console.log(data);
+      	data.forEach(function(v,i){
+ 						var coords = new kakao.maps.LatLng(data[i].lon,data[i].lat);
+            var storename = "'"+ data[i].store_name+"'";
+            var address =  "'"+ data[i].address+"'";
+            var phone =  "'"+ data[i].phone+"'";
+            var menu =  "'"+ data[i].menu+"'";
+            var bed =  "'"+ data[i].bed+"'";
+            var tableware =  "'"+ data[i].tableware+"'";
+            var meetingroom =  "'"+ data[i].meetingroom+"'";
+            var diapers =  "'"+ data[i].diapers+"'";
+            var playroom =  "'"+ data[i].playroom+"'";
+            var carriage =  "'"+ data[i].carriage+"'";
+            var nursingroom =  "'"+ data[i].nursingroom+"'";
+            var chair =  "'"+ data[i].chair+"'";
+            // 마커 찍어주는 함수 호출
+              displayMarker(coords,data[i].store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair);
+         	});
+          //-  console.log(data);
+                                            // 현재 위치 표시
+ 				 var marker = new kakao.maps.Marker({
+                                    position: markerPosition,
+                                    image: markerImage,
+                                    });
+             marker.setMap(map);
+       // 마커 찍어주는 함수
+ 				function displayMarker(coords,store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair) {
+               // 마커를 생성하고 지도에 표시합니다
+            var marker = new kakao.maps.Marker({
+                                                 map: map,
+                                                 position: coords,
+                                                 image : markerImage1,
+                                             });
+
+             // 마커에 클릭이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+              // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                infowindow.setContent(
+                  '<div style="padding: 3px 28px 3px 15px; \
+                 		border-radius:20px;\
+                    box-shadow:0px 3px 2px #888;\
+                    background-color:#f06292;  \
+                    background: #f06292  url(http://hohoco.dothome.co.kr/img/arrow.png) no-repeat right 4px center; ;\
+                    background-size: 28px 28px\
+                    "onclick="getResult('+storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair+')" >'+
+                    '<h1>'  +store_name +'</h1>'+ '</div>');
+              infowindow.open(map, marker);
+          });
+         };
