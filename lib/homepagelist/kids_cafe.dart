@@ -473,21 +473,21 @@ class _kids_cafeState extends State<kids_cafe> {
                                               ],
                                             ),
                                           ),
-
-                                          SafeArea(
-                                            child: Container(
-                                              height:
-                                                  150 / (1501 / ScreenWidth),
-                                              width: 650 / (1501 / ScreenWidth),
-                                              child: Text(
-                                                snapshot.data[index].address,
-                                                style: TextStyle(
-                                                  // fontFamily: 'NatoSans',
-                                                  color: Colors.grey,
-                                                  fontSize: 55 / screenWidth,
-                                                  fontFamily:
-                                                      'NotoSansCJKkr_Medium',
-                                                ),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10 / screenHeight)),
+                                          Container(
+                                            height: 150 / screenHeight,
+                                            width: 650 / screenWidth,
+                                            child: Text(
+                                              snapshot.data[index].address,
+                                              style: TextStyle(
+                                                // fontFamily: 'NatoSans',
+                                                color: Colors.grey,
+                                                fontSize: 55 / screenWidth,
+                                                fontFamily:
+                                                    'NotoSansCJKkr_Medium',
+                                                height: 1.2,
                                               ),
                                             ),
                                           ),

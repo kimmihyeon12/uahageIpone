@@ -526,8 +526,11 @@ class _restaurantState extends State<restaurant> {
                                             ],
                                           ),
 
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10 / screenHeight)),
                                           Container(
-                                            height: 153 / screenHeight,
+                                            height: 150 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
@@ -537,6 +540,7 @@ class _restaurantState extends State<restaurant> {
                                                 fontSize: 55 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
+                                                height: 1.2,
                                               ),
                                             ),
                                           ),
