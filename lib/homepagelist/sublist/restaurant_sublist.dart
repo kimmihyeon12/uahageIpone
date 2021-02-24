@@ -395,7 +395,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             onTap: () {
                               FlutterClipboard.copy(address)
                                   .then((value) => print('copied'));
-                              _showToast(screenWidth);
+                              // _showToast(screenWidth);
                             },
                           )
                         ],

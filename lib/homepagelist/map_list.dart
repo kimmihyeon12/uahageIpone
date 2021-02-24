@@ -164,7 +164,7 @@ class _map_listState extends State<map_list> {
                         //       latitude == '' ||
                         //       longitude == ''
                         //   ? 'http://13.209.41.43/test' :
-                        'http://112.187.123.9:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+                        'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
                   },
                   javascriptMode: JavascriptMode.unrestricted,
                   javascriptChannels: Set.from([
@@ -204,7 +204,7 @@ class _map_listState extends State<map_list> {
                           longitude == '') await getCurrentLocation();
                       controller.loadUrl(
                           // 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude&address=$searchKey');
-                          'http://112.187.123.9:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
                       print(listrequest);
                     },
                     child: Container(
@@ -377,74 +377,71 @@ class _map_listState extends State<map_list> {
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 40 /
+                              left: 53 /
                                   (1501 / MediaQuery.of(context).size.width),
                             )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  top: 20 / screenHeight,
-                                )),
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: 680 / screenWidth,
-                                          height: 75 / screenHeight,
-                                          child: Text(Message[0],
-                                              style: TextStyle(
-                                                  color:
-                                                      const Color(0xff010000),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Bold",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 56 / screenWidth),
-                                              textAlign: TextAlign.left),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                      // padding: EdgeInsets.all(0),
-                                      icon: Image.asset(
-                                          star_color
-                                              ? "./assets/listPage/star_color.png"
-                                              : "./assets/listPage/star_grey.png",
-                                          height: 60 / screenHeight),
-                                      // onPressed: () {
-                                      //   setState(() {
-                                      //     star_color = !star_color;
-                                      //   });
-                                      //   loginOption != "login"
-                                      //       ? click_star()
-                                      //       : null;
-                                      // },
-                                    ),
-                                  ],
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 40 / screenHeight),
+                                  width: 860 / screenWidth,
+                                  height: 80 / screenHeight,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 660 / screenWidth,
+                                        height: 100 / screenHeight,
+                                        child: Text(Message[0],
+                                            style: TextStyle(
+                                                color: const Color(0xff010000),
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily:
+                                                    "NotoSansCJKkr_Bold",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 56 / screenWidth),
+                                            textAlign: TextAlign.left),
+                                      ),
+                                      IconButton(
+                                        //  iconSize: 60 / screenHeight,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Image.asset(
+                                            star_color
+                                                ? "./assets/listPage/star_color.png"
+                                                : "./assets/listPage/star_grey.png",
+                                            height: 60 / screenHeight),
+                                        onPressed: () {
+                                          setState(() {
+                                            star_color = !star_color;
+                                          });
+                                          loginOption != "login"
+                                              ? click_star()
+                                              : null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Container(
-                                  // height: 150 / screenHeight,
-                                  width: 800 / screenWidth,
-                                  height: 56 / screenHeight,
+                                  margin:
+                                      EdgeInsets.only(top: 35 / screenHeight),
+                                  width: 650 / screenWidth,
+                                  height: 145 / screenHeight,
                                   child: Text(Message[1],
                                       style: TextStyle(
-                                          color: const Color(0xffb0b0b0),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 45 / screenWidth),
+                                        color: const Color(0xffb0b0b0),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 55 / screenWidth,
+                                        height: 1.2,
+                                      ),
                                       textAlign: TextAlign.left),
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  top: 20 / screenHeight,
-                                )),
                                 Container(
                                   height: 150 / screenHeight,
-                                  width: 800 / screenWidth,
+                                  width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     menu(Message[3]),

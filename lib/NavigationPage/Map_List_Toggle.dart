@@ -3,12 +3,9 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
-import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
-import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
+import 'dart:convert';
 
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
@@ -30,12 +27,6 @@ class Map_List_Toggle extends StatefulWidget {
 
 class _Map_List_ToggleState extends State<Map_List_Toggle> {
   @override
-  void initState() {
-    super.initState();
-    loginOption = widget.loginOption;
-    userId = widget.userId ?? "";
-  }
-
   var iconimage = [
     "./assets/listPage/menu.png",
     "./assets/listPage/bed.png",
@@ -59,33 +50,14 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   var index = 1;
   List<String> store_namelist = List(500);
   List<String> addresslist = List(500);
-
-  Future checkStar() async {
-    print("start checking");
-    var response;
-    try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
+  void initState() {
+    super.initState();
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
   }
 
   Future click_star() async {
-    print("clicking star Future $star_color");
-    print(userId);
-    print(loginOption);
-
+    print("clicking start $star_color");
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -101,8 +73,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       "nursingroom": Message[10],
       "chair": Message[11],
       "star_color": star_color,
-      "Examination_item": null,
-      "type": "restaurant"
+      "Examination_item": null
     };
     print(ss);
     var response = await http.post(
@@ -277,11 +248,9 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           }),
                       JavascriptChannel(
                           name: 'Print1',
-                          onMessageReceived: (JavascriptMessage message) async {
+                          onMessageReceived: (JavascriptMessage message) {
                             var messages = message.message;
-
                             Message = messages.split(",");
-                            await checkStar();
                             showPopUpbottomMenu(
                                 context, screenHeight, screenWidth);
                           })
@@ -365,6 +334,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         right: 33 / screenWidth),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
+                      shadowColor: Colors.black54,
                       elevation: 1,
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -372,9 +342,9 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(context, () {
-                            if (Message[14] == 'restaurant') {
-                              return PageTransition(
+                          Navigator.push(
+                              context,
+                              PageTransition(
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
@@ -395,55 +365,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
-                              );
-                            } else if (Message[14] ==
-                                'Examination_institution') {
-                              return PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: examination_institution_sublist(
-                                  index: index++,
-                                  storename: Message[0],
-                                  address: Message[1],
-                                  phone: Message[2],
-                                  examinationitem: Message[12],
-                                  userId: userId,
-                                  loginOption: loginOption,
-                                ),
-                                duration: Duration(milliseconds: 250),
-                                reverseDuration: Duration(milliseconds: 100),
-                              );
-                            } else if (Message[14] == 'Experience_center') {
-                              return PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: experience_center_sublist(
-                                  index: index++,
-                                  storename: Message[0],
-                                  address: Message[1],
-                                  phone: Message[2],
-                                  fare: Message[13],
-                                  userId: userId,
-                                  loginOption: loginOption,
-                                ),
-                                duration: Duration(milliseconds: 250),
-                                reverseDuration: Duration(milliseconds: 100),
-                              );
-                            } else {
-                              return PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: kid_cafe_sublist(
-                                  index: index++,
-                                  storename: Message[0],
-                                  address: Message[1],
-                                  phone: Message[2],
-                                  fare: Message[13],
-                                  userId: userId,
-                                  loginOption: loginOption,
-                                ),
-                                duration: Duration(milliseconds: 250),
-                                reverseDuration: Duration(milliseconds: 100),
-                              );
-                            }
-                          }());
+                              ));
                         },
                         child: Row(
                           children: [
@@ -571,12 +493,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[0], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[0], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -587,12 +509,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[1], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[1], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -603,12 +525,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[2], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[2], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -619,12 +541,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[3], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[3], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -635,12 +557,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[4], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[4], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -651,12 +573,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[5], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[5], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -667,7 +589,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[6], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[6], width: 0, height: 0),
@@ -681,12 +603,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[7], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[7], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -697,12 +619,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         ? Container(
             child: Image.asset(iconimage[8], width: 30, height: 30),
             padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
+                left: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[8], width: 0, height: 0),
             padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
+                left: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 }
