@@ -642,15 +642,18 @@ class _starPageState extends State<starPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
+                                                  Padding(
+                                                      padding: EdgeInsets.only(
+                                                        top: 10 / screenHeight,
+                                                      )),
                                                   Container(
-                                                    width: 860 / screenWidth,
                                                     height: 80 / screenHeight,
                                                     child: Row(
                                                       children: [
                                                         Container(
                                                           width:
-                                                              750 / screenWidth,
-                                                          height: 100 /
+                                                              800 / screenWidth,
+                                                          height: 80 /
                                                               screenHeight,
                                                           child: Text(
                                                             snapshot.data[index]
@@ -702,9 +705,9 @@ class _starPageState extends State<starPage> {
                                                   ),
                                                   Container(
                                                     margin: EdgeInsets.only(
-                                                        top: 35 / screenHeight),
+                                                        top: 30/ screenHeight),
                                                     width: 650 / screenWidth,
-                                                    height: 145 / screenHeight,
+                                                    height: 142 / screenHeight,
                                                     child: Text(
                                                       snapshot
                                                           .data[index].address,
@@ -720,14 +723,15 @@ class _starPageState extends State<starPage> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    height: 150 / screenHeight,
-                                                    width: 650 / screenWidth,
+                                                    height: 140 / screenHeight,
+                                                  //  width: 650 / screenWidth,
                                                     alignment:
                                                         Alignment.bottomRight,
                                                     child: Row(
                                                       children: [
                                                         chair(snapshot
                                                             .data[index].chair),
+
                                                         carriage(snapshot
                                                             .data[index]
                                                             .carriage),
@@ -945,12 +949,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[1], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[1], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -961,12 +965,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[2], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[2], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -977,12 +981,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[3], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[3], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -993,12 +997,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[4], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[4], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -1009,12 +1013,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[5], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[5], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -1025,7 +1029,7 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[6], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[6], width: 0, height: 0),
@@ -1039,12 +1043,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[7], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[7], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 
@@ -1055,12 +1059,12 @@ class _starPageState extends State<starPage> {
         ? Container(
             child: Image.asset(iconimage[8], width: 30, height: 30),
             padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
+                right: 20 / (1501 / MediaQuery.of(context).size.width)),
           )
         : Container(
             child: Image.asset(iconimage[8], width: 0, height: 0),
             padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
+                right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
 }

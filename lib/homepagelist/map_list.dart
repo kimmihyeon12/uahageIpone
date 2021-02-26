@@ -10,7 +10,7 @@ import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 class map_list extends StatefulWidget {
   map_list(
       {Key key,
@@ -35,9 +35,11 @@ class _map_listState extends State<map_list> {
   String latitude = "";
   String longitude = "";
   String searchKey = "";
+  String list;
   var index = 1;
-  var star_color = false;
   var Message;
+
+  var star_color = false;
   var iconimage = [
     "./assets/listPage/menu.png",
     "./assets/listPage/bed.png",
@@ -50,8 +52,8 @@ class _map_listState extends State<map_list> {
     "./assets/listPage/chair.png",
   ];
 
+
   Future click_star() async {
-    print("clicking start $star_color");
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -67,9 +69,8 @@ class _map_listState extends State<map_list> {
       "nursingroom": Message[10],
       "chair": Message[11],
       "star_color": star_color,
-      "Examination_item": null
+      "type": list
     };
-    print(ss);
     var response = await http.post(
       "http://13.209.41.43/star",
       headers: <String, String>{
@@ -79,7 +80,26 @@ class _map_listState extends State<map_list> {
     );
   }
 
-  //
+  Future checkStar() async {
+    print("start checking");
+    var response;
+    try {
+      response = await http.get(
+          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          star_color = true;
+        });
+      } else {
+        setState(() {
+          star_color = false;
+        });
+      }
+    } catch (err) {
+      print(err);
+    }
+  }
   getCurrentLocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
@@ -108,6 +128,7 @@ class _map_listState extends State<map_list> {
       getCurrentLocation();
     } else
       setState(() {
+        list = widget.list;
         loginOption = widget.loginOption;
         userId = widget.userId ?? "";
         latitude = widget.latitude;
@@ -170,15 +191,16 @@ class _map_listState extends State<map_list> {
                   javascriptChannels: Set.from([
                     JavascriptChannel(
                         name: 'Print',
-                        onMessageReceived: (JavascriptMessage message) {
+                        onMessageReceived: (JavascriptMessage message) async {
                           //This is where you receive message from
                           //javascript code and handle in Flutter/Dart
                           //like here, the message is just being printed
                           //in Run/LogCat window of android studio
                           var messages = message.message;
                           print("messages:" + messages);
+                          print('userId:'+userId);
                           Message = messages.split(",");
-                          print(Message[14]);
+                          await checkStar();
                           showPopUpbottomMenu(
                               context, screenHeight, screenWidth);
                         }),
@@ -268,9 +290,7 @@ class _map_listState extends State<map_list> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-    setState(() => {
-          star_color = false,
-        });
+
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -289,6 +309,9 @@ class _map_listState extends State<map_list> {
                     child: Card(
                       elevation: 1,
                       color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(context, () {
@@ -410,14 +433,32 @@ class _map_listState extends State<map_list> {
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
+
                                             height: 60 / screenHeight),
-                                        onPressed: () {
+                                        onPressed:  loginOption ==
+                                            "login"
+                                            ? () {
+                                          Fluttertoast.showToast(
+                                            msg: "  로그인 해주세요!  ",
+                                            toastLength: Toast
+                                                .LENGTH_SHORT,
+                                            gravity: ToastGravity
+                                                .BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor:
+                                            Colors.black45,
+                                            textColor:
+                                            Colors.white,
+                                            fontSize:
+                                            56 / screenWidth,
+                                          );
+                                        }
+                                            : () async {
                                           setState(() {
                                             star_color = !star_color;
                                           });
-                                          loginOption != "login"
-                                              ? click_star()
-                                              : null;
+                                          await click_star();
+
                                         },
                                       ),
                                     ],

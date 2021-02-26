@@ -345,7 +345,7 @@ class _loginPageState extends State<loginPage> {
                         builder: (BuildContext context) =>
                             agreementPage(loginOption: "kakao")));
                   },
-                  child: Image.asset("./assets/secondPage/kakao.png"),
+                  child: Image.asset("./assets/secondPage/kakao.png" , height: 195/screenHeight, width: 1311/screenWidth,),
                 ),
               ),
 

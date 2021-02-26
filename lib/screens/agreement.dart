@@ -684,7 +684,7 @@ class _agreementPageState extends State<agreementPage> {
                   width: 1296 / screenWidth,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(width: 0.1),
+                    border: Border.all(width: 0.3),
                   ),
                   child: // 모두 동의합니다.
                       Column(
@@ -1282,14 +1282,18 @@ class _agreementPageState extends State<agreementPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("[필수] 위치기반서비스 이용약관 동의",
-                                      style: TextStyle(
-                                          color: const Color(0xff666666),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
+                                  Container(
+                                    width:1000/screenWidth,
+                                    height: 100/screenHeight,
+                                    child: Text("[필수] 위치기반서비스 이용약관 ...",
+                                        style: TextStyle(
+                                            color: const Color(0xff666666),
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "NotoSansCJKkr_Medium",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 62.5 / screenWidth),
+                                        textAlign: TextAlign.left),
+                                  ),
                                   Container(
                                     height: 74 / screenHeight,
                                     margin: EdgeInsets.only(

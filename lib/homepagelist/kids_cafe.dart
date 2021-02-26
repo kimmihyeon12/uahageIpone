@@ -371,11 +371,14 @@ class _kids_cafeState extends State<kids_cafe> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
                                           SafeArea(
                                             child: Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  width: 750 /
+                                                  width: 830 /
                                                       (1501 / ScreenWidth),
                                                   height: 100 /
                                                       (2667 / ScreenHeight),
@@ -387,6 +390,7 @@ class _kids_cafeState extends State<kids_cafe> {
                                                           (2667 / ScreenHeight),
                                                       fontFamily:
                                                           'NotoSansCJKkr_Medium',
+
                                                     ),
                                                   ),
                                                 ),
@@ -473,11 +477,8 @@ class _kids_cafeState extends State<kids_cafe> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10 / screenHeight)),
                                           Container(
-                                            height: 150 / screenHeight,
+                                            height: 350 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
@@ -530,7 +531,7 @@ class _kids_cafeState extends State<kids_cafe> {
                 },
               )
             : map_list(
-                latitude: latitude, longitude: longitude, list: liststringdata),
+               userId: userId,loginOption: loginOption, latitude: latitude, longitude: longitude, list: liststringdata),
       ),
     );
   }

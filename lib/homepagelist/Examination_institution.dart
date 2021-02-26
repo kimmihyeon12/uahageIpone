@@ -321,11 +321,14 @@ class _examination_institutionState extends State<examination_institution> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
                                           SafeArea(
                                             child: Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  width: 750 /
+                                                  width: 830 /
                                                       (1501 / ScreenWidth),
                                                   height: 100 /
                                                       (2667 / ScreenHeight),
@@ -337,15 +340,16 @@ class _examination_institutionState extends State<examination_institution> {
                                                           56 / screenWidth,
                                                       fontFamily:
                                                           'NotoSansCJKkr_Medium',
+
                                                     ),
                                                   ),
                                                 ),
                                                 IconButton(
                                                   padding: EdgeInsets.all(0),
                                                   constraints: BoxConstraints(
-                                                    maxWidth: 170 /
+                                                    maxWidth: 70 /
                                                         (1501 / ScreenWidth),
-                                                    maxHeight: 170 /
+                                                    maxHeight: 70 /
                                                         (2667 / ScreenHeight),
                                                   ),
                                                   icon: Image.asset(
@@ -424,11 +428,9 @@ class _examination_institutionState extends State<examination_institution> {
                                             ),
                                           ),
 
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10 / screenHeight)),
+
                                           Container(
-                                            height: 150 / screenHeight,
+                                            height: 350 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
@@ -482,7 +484,7 @@ class _examination_institutionState extends State<examination_institution> {
                   }
                 },
               )
-            : map_list(
+            : map_list(userId: userId, loginOption: loginOption,
                 latitude: latitude, longitude: longitude, list: liststringdata),
       ),
     );

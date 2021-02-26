@@ -336,11 +336,14 @@ class _experience_centerState extends State<experience_center> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
                                           SafeArea(
                                             child: Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  width: 750 /
+                                                  width: 830 /
                                                       (1501 / ScreenWidth),
                                                   height: 100 /
                                                       (2667 / ScreenHeight),
@@ -437,11 +440,9 @@ class _experience_centerState extends State<experience_center> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10 / screenHeight)),
+
                                           Container(
-                                            height: 150 / screenHeight,
+                                            height: 350 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
@@ -492,7 +493,7 @@ class _experience_centerState extends State<experience_center> {
                   }
                 },
               )
-            : map_list(
+            : map_list(userId: userId, loginOption: loginOption,
                 latitude: latitude, longitude: longitude, list: liststringdata),
       ),
     );

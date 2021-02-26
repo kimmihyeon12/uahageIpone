@@ -9,7 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 class searchPage extends StatefulWidget {
   searchPage(
       {Key key, this.latitude, this.longitude, this.userId, this.loginOption})
@@ -32,6 +32,8 @@ class _searchPageState extends State<searchPage> {
   String loginOption = "";
   int index = 1;
   var Message;
+
+  List<String> star_color_list = List(2);
   List<bool> grey_image = [
     true,
     true,
@@ -83,7 +85,7 @@ class _searchPageState extends State<searchPage> {
   }
 
   Future click_star() async {
-    print("clicking start $star_color");
+  //  print("clicking start $star_color");
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -100,6 +102,7 @@ class _searchPageState extends State<searchPage> {
       "chair": Message[11],
       "star_color": star_color,
       "Examination_item": null,
+      "fare": null,
       "type": "restaurant"
     };
     print(ss);
@@ -111,7 +114,6 @@ class _searchPageState extends State<searchPage> {
       body: jsonEncode(ss),
     );
   }
-
   Future checkStar() async {
     print("start checking");
     var response;
@@ -223,8 +225,9 @@ class _searchPageState extends State<searchPage> {
                                 //like here, the message is just being printed
                                 //in Run/LogCat window of android studio
                                 var messages = message.message;
-                                Message = messages.split(",");
+                               Message = messages.split(",");
                                 await checkStar();
+                               // await checkStar();
                                 showPopUpbottomMenu(
                                     context, screenHeight, screenWidth);
                               })
@@ -256,10 +259,17 @@ class _searchPageState extends State<searchPage> {
                           ),
                         ),
                         Container(
+                          margin: EdgeInsets.only(left: 53 / screenWidth),
+                          child: Image.asset(
+                            "./assets/searchPage/arrow.png",
+                            height: 68 / screenHeight,
+                          ),
+                        ),
+                        Container(
                           margin: EdgeInsets.only(left: 41 / screenWidth),
-                          width: MediaQuery.of(context).size.width - 80,
+                          width:   1200 / screenWidth,
                           child: // 검색 조건을 설정해주세요
-                              Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("검색 조건을 설정해주세요",
@@ -434,7 +444,7 @@ class _searchPageState extends State<searchPage> {
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 42 / screenWidth),
+                        margin: EdgeInsets.only(left: 53 / screenWidth),
                         child: Image.asset(
                           "./assets/searchPage/arrow.png",
                           height: 68 / screenHeight,
@@ -442,7 +452,7 @@ class _searchPageState extends State<searchPage> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 41 / screenWidth),
-                        width: MediaQuery.of(context).size.width - 70,
+                        width:   1200 / screenWidth,
                         child: // 검색 조건을 설정해주세요
                             Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -569,58 +579,69 @@ class _searchPageState extends State<searchPage> {
               child: Builder(builder: (context) {
                 return Stack(
                   children: [
-                    Positioned(
-                      top: 600 / screenHeight,
-                      right: 10,
-                      left: 10,
-                      child: Image.asset(
-                        "./assets/searchPage/popUp.png",
-                        height: 1176 / screenHeight,
-                        width: 1067 / screenHeight,
+
+                    Container(
+                      height: 2300/screenHeight,
+                      child: Center(
+
+
+                          child: Image.asset(
+                            "./assets/searchPage/popUp.png",
+                            height: 1176 / screenHeight,
+                            width: 1067 / screenHeight,
+                          ),
+
                       ),
                     ),
-                    Positioned(
-                      top: 700 / screenHeight,
-                      left: 260 / screenWidth,
-                      right: 260 / screenWidth,
-                      bottom: 360 / screenHeight,
-                      child: SizedBox(
-                        width: 900 / screenWidth,
-                        height: 983 / screenHeight,
-                        child: GridView.count(
-                          // childAspectRatio: 3 / 2,
-                          crossAxisCount: 3,
-                          children: List.generate(9, (index) {
-                            return Scaffold(
-                              backgroundColor: Colors.white,
-                              body: Center(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      grey_image[index] = !grey_image[index];
-                                    });
-                                    print(grey_image);
-                                  },
-                                  child: grey_image[index]
-                                      ? Image.asset(
-                                          "./assets/searchPage/image" +
-                                              (index + 1).toString() +
-                                              "_grey.png",
-                                          height: 293 / screenHeight,
-                                          width: 218 / screenWidth,
-                                        )
-                                      : Image.asset(
-                                          "./assets/searchPage/image" +
-                                              (index + 1).toString() +
-                                              ".png",
-                                          height: 293 / screenHeight,
-                                          width: 218 / screenWidth,
+
+                    Container(
+                      height: 2300/screenHeight,
+                      child: Center(
+                     child: Container(
+                       height: 1176/screenHeight,
+                       child: Center(
+                         child: Positioned(
+                              child: SizedBox(
+                                width: 1000 /screenWidth,
+                                height: 1000 / screenHeight,
+                                 child: GridView.count(
+                                  // childAspectRatio: 3 / 2,
+                                  crossAxisCount: 3,
+                                  children: List.generate(9, (index) {
+                                    return Scaffold(
+                                      backgroundColor: Colors.white,
+                                      body: Center(
+                                        child: InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              grey_image[index] = !grey_image[index];
+                                            });
+                                            print(grey_image);
+                                          },
+                                          child: grey_image[index]
+                                              ? Image.asset(
+                                            "./assets/searchPage/image" +
+                                                (index + 1).toString() +
+                                                "_grey.png",
+                                            height: 293 / screenHeight,
+                                            width: 218 / screenWidth,
+                                          )
+                                              : Image.asset(
+                                            "./assets/searchPage/image" +
+                                                (index + 1).toString() +
+                                                ".png",
+                                            height: 293 / screenHeight,
+                                            width: 218 / screenWidth,
+                                          ),
                                         ),
+                                      ),
+                                    );
+                                  }),
                                 ),
                               ),
-                            );
-                          }),
-                        ),
+                            ),
+                       ),
+                     ),
                       ),
                     ),
                     Positioned(
@@ -667,9 +688,7 @@ class _searchPageState extends State<searchPage> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-    setState(() => {
-          star_color = false,
-        });
+
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -765,13 +784,33 @@ class _searchPageState extends State<searchPage> {
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
+
                                             height: 60 / screenHeight),
-                                        onPressed: () {
+                                        onPressed:  loginOption ==
+                                            "login"
+                                            ? () {
+                                          Fluttertoast.showToast(
+                                            msg: "  로그인 해주세요!  ",
+                                            toastLength: Toast
+                                                .LENGTH_SHORT,
+                                            gravity: ToastGravity
+                                                .BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor:
+                                            Colors.black45,
+                                            textColor:
+                                            Colors.white,
+                                            fontSize:
+                                            56 / screenWidth,
+                                          );
+                                        }
+                                            : () async {
                                           setState(() {
                                             star_color = !star_color;
                                           });
+
                                           loginOption != "login"
-                                              ? click_star()
+                                              ? await click_star()
                                               : null;
                                         },
                                       ),

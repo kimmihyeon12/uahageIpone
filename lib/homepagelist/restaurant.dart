@@ -413,10 +413,14 @@ class _restaurantState extends State<restaurant> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
                                           Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                             children: [
+
                                               Container(
-                                                width: 750 / screenWidth,
+                                                width: 830 / screenWidth,
                                                 height: 100 / screenHeight,
                                                 child: Text(
                                                   snapshot
@@ -425,14 +429,15 @@ class _restaurantState extends State<restaurant> {
                                                     fontSize: 56 / screenWidth,
                                                     fontFamily:
                                                         'NotoSansCJKkr_Medium',
+
                                                   ),
                                                 ),
                                               ),
                                               IconButton(
                                                 padding: EdgeInsets.all(0),
                                                 constraints: BoxConstraints(
-                                                  maxWidth: 170 / screenWidth,
-                                                  maxHeight: 170 / screenHeight,
+                                                  maxWidth: 70 / screenWidth,
+                                                  maxHeight: 70 / screenHeight,
                                                 ),
                                                 icon: Image.asset(
                                                   star_color_list[index] ==
@@ -526,11 +531,9 @@ class _restaurantState extends State<restaurant> {
                                             ],
                                           ),
 
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10 / screenHeight)),
+
                                           Container(
-                                            height: 150 / screenHeight,
+                                            height: 141 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
@@ -558,16 +561,16 @@ class _restaurantState extends State<restaurant> {
                                           //     ),
                                           //   ),
                                           // ),
-                                          SafeArea(
-                                            child: Container(
-                                              height: 150 / screenHeight,
-                                              width: 800 / screenWidth,
+
+                                             Container(
+                                              height: 140 / screenHeight,
+                                              //width: 800 / screenWidth,
                                               alignment: Alignment.bottomRight,
                                               child: Row(
                                                 children: [
                                                   chair(snapshot
                                                       .data[index].chair),
-                                                  carriage(snapshot
+                                                 carriage(snapshot
                                                       .data[index].carriage),
                                                   menu(snapshot
                                                       .data[index].menu),
@@ -585,7 +588,7 @@ class _restaurantState extends State<restaurant> {
                                                 ],
                                               ),
                                             ),
-                                          )
+
                                         ],
                                       ),
                                     ],
@@ -596,7 +599,7 @@ class _restaurantState extends State<restaurant> {
                   }
                 },
               )
-            : map_list(
+            : map_list( userId: userId, loginOption: loginOption,
                 latitude: latitude, longitude: longitude, list: liststringdata),
       ),
     );

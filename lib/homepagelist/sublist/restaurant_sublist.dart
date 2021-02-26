@@ -296,41 +296,41 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                 }()),
               ),
               Card(
+
                 elevation: 0.3,
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(
-                        left: 75 / (1501 / MediaQuery.of(context).size.width),
+                child: Container(
+                  padding:EdgeInsets.only(left:75/screenWidth, top:45/screenHeight , bottom: 45/screenHeight),
+
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+                      Container(
+                        width:1250/screenWidth,
+                        child: Text(storename,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "NotoSansCJKkr_Bold",
+                                fontSize: 77.0 / screenWidth),
+                            textAlign: TextAlign.left),
                       ),
-                      width: 1320 / (1501 / MediaQuery.of(context).size.width),
-                      alignment: Alignment.centerLeft,
-                      height: 207 / screenHeight,
-                      child: Text(storename,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "NotoSansCJKkr_Bold",
-                              fontSize: 77.0 / screenWidth),
-                          textAlign: TextAlign.left),
-                    ),
-                    IconButton(
-                      padding: EdgeInsets.all(0),
-                      constraints: BoxConstraints(
-                          maxWidth: 170 / screenWidth,
-                          maxHeight: 170 / screenHeight),
-                      icon: Image.asset(
-                          star_color
-                              ? "./assets/listPage/star_color.png"
-                              : "./assets/listPage/star_grey.png",
-                          height: 60 / screenHeight),
-                      onPressed: null
-                      // setState(() {
-                      //   star_color = !star_color;
-                      // });
-                      // await click_star();
-                      ,
-                    ),
-                  ],
+                      Padding( padding:EdgeInsets.only(left:20/screenWidth,  ),),
+                      IconButton(
+                        padding: EdgeInsets.all(0),
+                        constraints: BoxConstraints(
+                            maxWidth: 170 / screenWidth,
+                            maxHeight: 170 / screenHeight),
+                        icon: Image.asset(
+                            star_color
+                                ? "./assets/listPage/star_color.png"
+                                : "./assets/listPage/star_grey.png",
+                            height: 60 / screenHeight),
+                        onPressed: () async {},
+                      ),
+
+                    ],
+                  ),
+
                 ),
               ),
 
@@ -338,18 +338,18 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                 elevation: 0.3,
                 child: Container(
                   padding: EdgeInsets.only(
-                    left: 75 / screenWidth,
+                    left: 75 / (1501 / MediaQuery.of(context).size.width),
                   ),
                   width: MediaQuery.of(context).size.width,
                   // alignment: Alignment.center,
-                  height: 520 / screenHeight,
+                  //  height: 520 / screenHeight,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 40 / screenWidth,
-                      )),
+                            top: 40 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                       Text(
                         "주소",
                         style: TextStyle(
@@ -359,20 +359,20 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 15 / screenWidth,
-                      )),
+                            top: 10 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             width: 1065 / (screenWidth),
-                            height: 150 / (screenHeight),
                             child: Text(
-                              address,
+                              address == null ? "정보 없음" : address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 57.0 / screenWidth),
+                                  fontSize: 57.0 / screenWidth,
+                                  height: 1.2),
                             ),
                           ),
                           InkWell(
@@ -393,13 +393,17 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               ],
                             ),
                             onTap: () {
-                              FlutterClipboard.copy(address)
-                                  .then((value) => print('copied'));
+                              FlutterClipboard.copy(address);
+                              //     .then((value) => print('copied'));
                               // _showToast(screenWidth);
                             },
                           )
                         ],
                       ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                            top: 30 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                       Text(
                         "연락처",
                         style: TextStyle(
@@ -409,20 +413,24 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 15 / screenWidth,
-                      )),
+                            top: 10 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                       Text(
-                        phone == null ? "정보 없음" : phone,
+                        phone,
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
-                            fontSize: 57.0 / screenWidth),
+                            fontSize: 57.0 / screenWidth,
+                            height: 1.2),
                       ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                            top: 75 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                     ],
                   ),
                 ),
               ),
-
               Card(
                 elevation: 0.3,
                 child: Container(
@@ -440,7 +448,8 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                           style: TextStyle(
                               color: Color(0xff4d4d4d),
                               fontFamily: "NotoSansCJKkr_Medium",
-                              fontSize: 58.0 / screenWidth),
+                              fontSize: 58.0 / screenWidth,
+                              height:1.2),
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(top: 50 / screenHeight)),
@@ -585,7 +594,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
               Card(
                   elevation: 0.3,
                   child: Container(
-                    height: 1373 / screenHeight,
+                  //  height: 1300 / screenHeight,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -599,7 +608,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 60.0 / screenWidth),
+                                  fontSize: 58.0 / screenWidth),
                             ),
                           ),
                           Padding(

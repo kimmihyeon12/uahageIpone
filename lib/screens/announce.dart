@@ -102,33 +102,44 @@ class announce extends StatelessWidget {
                       width: 1501 / screenWidth,
                       color: Color(0xffff7292),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Container(
-                              height: 76 / screenHeight,
-                              width: 43 / screenWidth,
-                              margin: EdgeInsets.only(left: 31 / screenWidth),
-                              child: Image.asset(
-                                  "./assets/agreementPage/back.png"),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                         Stack(
+
+                          children: [
+
+                            Center(
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Container(
+                                  height: 76 / screenHeight,
+                                  width: 43 / screenWidth,
+                                  margin: EdgeInsets.only(left: 31 / screenWidth),
+                                  child: Image.asset(
+                                      "./assets/agreementPage/back.png"),
+                                ),
+                              ),
                             ),
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(left: 180 / screenWidth),
-                              child: // 약관동의
-                                  // 위치기반서비스 이용약관
-                                  Text("위치기반서비스 이용약관",
-                                      style: TextStyle(
-                                          color: const Color(0xffffffff),
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: "NotoSansCJKkr_Bold",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 79.0 / screenWidth),
-                                      textAlign: TextAlign.left)),
-                        ],
+                            Container(
+                                height: 178 / screenHeight,
+                                width: 1501 / screenWidth,
+                                child: // 약관동의
+                                    // 위치기반서비스 이용약관
+                                    Center(
+                                      child: Text("위치기반서비스 이용약관",
+                                          style: TextStyle(
+                                              color: const Color(0xffffffff),
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: "NotoSansCJKkr_Bold",
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 79.0 / screenWidth),
+                                          textAlign: TextAlign.left),
+                                    )),
+                          ],
+                        ),
+    ],
                       ),
                     ),
                     Container(

@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'dart:convert';
 
+import 'package:fluttertoast/fluttertoast.dart';
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
       {Key key,
@@ -46,6 +47,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   var searchbtn = false;
   var i = 0;
   var Message;
+
   var star_color = false;
   var index = 1;
   List<String> store_namelist = List(500);
@@ -54,10 +56,11 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     super.initState();
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
+    //_star_color();
   }
 
+
   Future click_star() async {
-    print("clicking start $star_color");
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -73,9 +76,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       "nursingroom": Message[10],
       "chair": Message[11],
       "star_color": star_color,
-      "Examination_item": null
+      "type": "restaurant"
     };
-    print(ss);
     var response = await http.post(
       "http://13.209.41.43/star",
       headers: <String, String>{
@@ -83,6 +85,27 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       },
       body: jsonEncode(ss),
     );
+  }
+
+  Future checkStar() async {
+    print("start checking");
+    var response;
+    try {
+      response = await http.get(
+          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          star_color = true;
+        });
+      } else {
+        setState(() {
+          star_color = false;
+        });
+      }
+    } catch (err) {
+      print(err);
+    }
   }
 
   Widget build(BuildContext context) {
@@ -128,7 +151,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                     ),
                     Padding(
                         padding: EdgeInsets.only(
-                      left: 900 / screenWidth,
+                      left: 870 / screenWidth,
                     )),
                     InkWell(
                       child: Image.asset(
@@ -184,10 +207,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                        padding: EdgeInsets.only(
-                                      top: 10 / screenHeight,
-                                    )),
+
                                     SafeArea(
                                       child: Container(
                                         height: 80 / screenHeight,
@@ -197,8 +217,9 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                           style: TextStyle(
                                             // fontFamily: 'NatoSans',
                                             color: Colors.grey,
-                                            fontSize: 45 / screenWidth,
+                                            fontSize: 56 / screenWidth,
                                             fontFamily: 'NotoSansCJKkr_Medium',
+                                            height: 1.2
                                           ),
                                         ),
                                       ),
@@ -228,10 +249,10 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                     javascriptChannels: Set.from([
                       JavascriptChannel(
                           name: 'Print',
-                          onMessageReceived: (JavascriptMessage message) {
+                          onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
                             var ex = messages.split(",");
-                            print(ex);
+
                             setState(() {
                               for (int j = 0; j < 2; j++) {
                                 store_namelist[i] = ex[0];
@@ -244,15 +265,21 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                     addresslist[i]);
                               }
                               i++;
+
                             });
+
+
                           }),
                       JavascriptChannel(
                           name: 'Print1',
-                          onMessageReceived: (JavascriptMessage message) {
+                          onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
                             Message = messages.split(",");
+                             await checkStar();
                             showPopUpbottomMenu(
                                 context, screenHeight, screenWidth);
+
+
                           })
                     ]),
                   ),
@@ -315,9 +342,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-    setState(() => {
-          star_color = false,
-        });
+
+
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -413,13 +439,33 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
+
                                             height: 60 / screenHeight),
-                                        onPressed: () {
+                                        onPressed:  loginOption ==
+                                            "login"
+                                            ? () {
+                                          Fluttertoast.showToast(
+                                            msg: "  로그인 해주세요!  ",
+                                            toastLength: Toast
+                                                .LENGTH_SHORT,
+                                            gravity: ToastGravity
+                                                .BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor:
+                                            Colors.black45,
+                                            textColor:
+                                            Colors.white,
+                                            fontSize:
+                                            56 / screenWidth,
+                                          );
+                                         }
+                                            : () async {
                                           setState(() {
                                             star_color = !star_color;
                                           });
+
                                           loginOption != "login"
-                                              ? click_star()
+                                              ? await click_star()
                                               : null;
                                         },
                                       ),

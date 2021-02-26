@@ -176,37 +176,42 @@ class _examination_institution_sublistState
               ),
 
               Card(
+
                 elevation: 0.3,
-                child: Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(
-                        left: 75 / (1501 / MediaQuery.of(context).size.width),
+                  child: Container(
+                    padding:EdgeInsets.only(left:75/screenWidth, top:45/screenHeight , bottom: 45/screenHeight),
+
+                     child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+
+                    children: [
+                         Container(
+                           width:1250/screenWidth,
+                           child: Text(storename,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "NotoSansCJKkr_Bold",
+                                  fontSize: 77.0 / screenWidth),
+                              textAlign: TextAlign.left),
+                         ),
+                      Padding( padding:EdgeInsets.only(left:20/screenWidth,  ),),
+                      IconButton(
+                        padding: EdgeInsets.all(0),
+                        constraints: BoxConstraints(
+                            maxWidth: 170 / screenWidth,
+                            maxHeight: 170 / screenHeight),
+                        icon: Image.asset(
+                            star_color
+                                ? "./assets/listPage/star_color.png"
+                                : "./assets/listPage/star_grey.png",
+                            height: 60 / screenHeight),
+                        onPressed: () async {},
                       ),
-                      width: 1320 / (1501 / MediaQuery.of(context).size.width),
-                      alignment: Alignment.centerLeft,
-                      height: 207 / screenHeight,
-                      child: Text(storename,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: "NotoSansCJKkr_Bold",
-                              fontSize: 77.0 / screenWidth),
-                          textAlign: TextAlign.left),
-                    ),
-                    IconButton(
-                      padding: EdgeInsets.all(0),
-                      constraints: BoxConstraints(
-                          maxWidth: 170 / screenWidth,
-                          maxHeight: 170 / screenHeight),
-                      icon: Image.asset(
-                          star_color
-                              ? "./assets/listPage/star_color.png"
-                              : "./assets/listPage/star_grey.png",
-                          height: 60 / screenHeight),
-                      onPressed: () async {},
-                    ),
-                  ],
+
+                    ],
                 ),
+
+                  ),
               ),
 
               Card(
@@ -217,7 +222,7 @@ class _examination_institution_sublistState
                   ),
                   width: MediaQuery.of(context).size.width,
                   // alignment: Alignment.center,
-                  height: 520 / screenHeight,
+                //  height: 520 / screenHeight,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -234,20 +239,20 @@ class _examination_institution_sublistState
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 15 / (1501 / MediaQuery.of(context).size.width),
+                        top: 10 / (1501 / MediaQuery.of(context).size.width),
                       )),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             width: 1065 / (screenWidth),
-                            height: 150 / (screenHeight),
                             child: Text(
                               address == null ? "정보 없음" : address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 57.0 / screenWidth),
+                                  fontSize: 57.0 / screenWidth,
+                              height: 1.2),
                             ),
                           ),
                           InkWell(
@@ -275,6 +280,10 @@ class _examination_institution_sublistState
                           )
                         ],
                       ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                            top: 30 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                       Text(
                         "연락처",
                         style: TextStyle(
@@ -284,15 +293,20 @@ class _examination_institution_sublistState
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 15 / (1501 / MediaQuery.of(context).size.width),
+                        top: 10 / (1501 / MediaQuery.of(context).size.width),
                       )),
                       Text(
                         phone,
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
-                            fontSize: 57.0 / screenWidth),
+                            fontSize: 57.0 / screenWidth,
+                          height: 1.2),
                       ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                            top: 75 / (1501 / MediaQuery.of(context).size.width),
+                          )),
                     ],
                   ),
                 ),
@@ -301,7 +315,7 @@ class _examination_institution_sublistState
               Card(
                 elevation: 0.3,
                 child: Container(
-                  height: 300 / screenHeight,
+                 // height: 300 / screenHeight,
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(
                     left: 75 / (1501 / MediaQuery.of(context).size.width),
@@ -326,15 +340,20 @@ class _examination_institution_sublistState
                           Padding(
                               padding: EdgeInsets.only(
                             top:
-                                15 / (1501 / MediaQuery.of(context).size.width),
+                                10 / (1501 / MediaQuery.of(context).size.width),
                           )),
                           Text(
                             examinationitem,
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontFamily: "NotoSansCJKkr_Medium",
-                                fontSize: 57.0 / screenWidth),
+                                fontSize: 57.0 / screenWidth,
+                            height: 1.2),
                           ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                top: 50 / (1501 / MediaQuery.of(context).size.width),
+                              )),
                         ],
                       ),
                     ],
@@ -344,7 +363,7 @@ class _examination_institution_sublistState
               Card(
                   elevation: 0.3,
                   child: Container(
-                    height: 1373 / screenHeight,
+                  //  height: 1373 / screenHeight,
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -352,14 +371,14 @@ class _examination_institution_sublistState
                             padding: EdgeInsets.only(
                               left: 75 /
                                   (1501 / MediaQuery.of(context).size.width),
-                              top: 40 / screenHeight,
+                              top: 30 / screenHeight,
                             ),
                             child: Text(
                               "위치",
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 60.0 / screenWidth),
+                                  fontSize: 58.0 / screenWidth),
                             ),
                           ),
                           Padding(
