@@ -367,6 +367,18 @@ class _myPageState extends State<myPage> {
     } catch (e) {}
   }
 
+  void showToast(String txt, double screenWidth) {
+    Fluttertoast.showToast(
+      msg: txt,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black45,
+      textColor: Colors.white,
+      fontSize: 48 / screenWidth,
+    );
+  }
+
   bool isIOS = Platform.isIOS;
   @override
   Widget build(BuildContext context) {
@@ -519,15 +531,7 @@ class _myPageState extends State<myPage> {
                                         _showPicker(context);
                                       }
                                     : () {
-                                        Fluttertoast.showToast(
-                                          msg: "로그인 해주세요!",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.black45,
-                                          textColor: Colors.white,
-                                          fontSize: 48 / screenWidth,
-                                        );
+                                        showToast("  로그인 해주세요!", screenWidth);
                                       },
                                 child: Image.asset(
                                   "./assets/myPage/camera.png",
@@ -1314,15 +1318,7 @@ class _myPageState extends State<myPage> {
                             InkWell(
                               onTap: loginOption == "login"
                                   ? () {
-                                      Fluttertoast.showToast(
-                                        msg: "  로그인 해주세요!",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.black45,
-                                        textColor: Colors.white,
-                                        fontSize: 48 / screenWidth,
-                                      );
+                                      showToast("  로그인 해주세요!", screenWidth);
                                     }
                                   : () {
                                       showDialog(
@@ -1477,7 +1473,17 @@ class _myPageState extends State<myPage> {
                                 onTap: () async {
                                   setState(() {
                                     onEdit = false;
-                                    // yController.text = "";
+                                    yController.text = "";
+                                    birthday = "";
+                                    changeimage.fillRange(0, 6, false);
+                                    // genderImage[0] = false;
+                                    // genderImage[1] = false;
+                                    // changeimage[0] = false;
+                                    // changeimage[1] = false;
+                                    // changeimage[2] = false;
+                                    // changeimage[3] = false;
+                                    // changeimage[4] = false;
+                                    // changeimage[5] = false;
                                   });
                                   await getMyInfo();
                                 },
@@ -1581,15 +1587,7 @@ class _myPageState extends State<myPage> {
                                         _showPicker(context);
                                       }
                                     : () {
-                                        Fluttertoast.showToast(
-                                          msg: "로그인 해주세요!",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.black45,
-                                          textColor: Colors.white,
-                                          fontSize: 48 / screenWidth,
-                                        );
+                                        showToast("로그인 해주세요!", screenWidth);
                                       },
                                 child: Image.asset(
                                   "./assets/myPage/camera.png",
@@ -1847,12 +1845,15 @@ class _myPageState extends State<myPage> {
                                                 genderImage[1] = false;
                                                 birthday = "";
                                                 yController.text = "";
-                                                changeimage[0] = false;
-                                                changeimage[1] = false;
-                                                changeimage[2] = false;
-                                                changeimage[3] = false;
-                                                changeimage[4] = false;
-                                                changeimage[5] = false;
+                                                changeimage.fillRange(
+                                                    0, 6, false);
+                                                userAge = "";
+                                                // changeimage[0] = false;
+                                                // changeimage[1] = false;
+                                                // changeimage[2] = false;
+                                                // changeimage[3] = false;
+                                                // changeimage[4] = false;
+                                                // changeimage[5] = false;
                                               });
                                             },
                                             child: Image.asset(
@@ -2182,6 +2183,7 @@ class _myPageState extends State<myPage> {
                                           gender != "" &&
                                           userAge != ""
                                       ? () {
+                                          print(userAge);
                                           showDialog(
                                             context: context,
                                             builder: (context) => FutureBuilder(
@@ -2248,7 +2250,10 @@ class _myPageState extends State<myPage> {
                                             ),
                                           );
                                         }
-                                      : () {},
+                                      : () {
+                                          showToast(
+                                              "모든 필드를 입력하십시오", screenWidth);
+                                        },
                                   child: // 중복확인
                                       Text("OK",
                                           style: TextStyle(
@@ -2379,15 +2384,8 @@ class _myPageState extends State<myPage> {
                                   InkWell(
                                     onTap: loginOption == "login"
                                         ? () {
-                                            Fluttertoast.showToast(
-                                              msg: "  로그인 해주세요!",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.BOTTOM,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.black45,
-                                              textColor: Colors.white,
-                                              fontSize: 48 / screenWidth,
-                                            );
+                                            showToast(
+                                                "  로그인 해주세요!", screenWidth);
                                           }
                                         : () {
                                             showDialog(
@@ -2655,6 +2653,7 @@ class _myPageState extends State<myPage> {
     final year = DateTime.now().year;
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
+
     showDialog(
       context: context,
       builder: (context) {
@@ -2682,7 +2681,7 @@ class _myPageState extends State<myPage> {
                       datee[0] + "년 " + datee[1] + "월 " + datee[2] + "일";
                 },
                 minimumYear: 2000,
-                maximumYear: 2025,
+                maximumYear: year,
                 mode: CupertinoDatePickerMode.date,
               )),
           actions: <Widget>[

@@ -1522,7 +1522,7 @@ class _registrationPageState extends State<registrationPage> {
                       datee[0] + "년 " + datee[1] + "월 " + datee[2] + "일";
                 },
                 minimumYear: 2000,
-                maximumYear: 2025,
+                maximumYear: year,
                 mode: CupertinoDatePickerMode.date,
               )),
           actions: <Widget>[
