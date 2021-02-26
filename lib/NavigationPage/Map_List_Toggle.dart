@@ -8,6 +8,7 @@ import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'dart:convert';
 
 import 'package:fluttertoast/fluttertoast.dart';
+
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
       {Key key,
@@ -58,7 +59,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     userId = widget.userId ?? "";
     //_star_color();
   }
-
 
   Future click_star() async {
     Map<String, dynamic> ss = {
@@ -207,7 +207,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                         ),
                                       ),
                                     ),
-
                                     SafeArea(
                                       child: Container(
                                         height: 80 / screenHeight,
@@ -215,12 +214,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                         child: Text(
                                           addresslist[index],
                                           style: TextStyle(
-                                            // fontFamily: 'NatoSans',
-                                            color: Colors.grey,
-                                            fontSize: 56 / screenWidth,
-                                            fontFamily: 'NotoSansCJKkr_Medium',
-                                            height: 1.2
-                                          ),
+                                              // fontFamily: 'NatoSans',
+                                              color: Colors.grey,
+                                              fontSize: 56 / screenWidth,
+                                              fontFamily:
+                                                  'NotoSansCJKkr_Medium',
+                                              height: 1.2),
                                         ),
                                       ),
                                     ),
@@ -265,21 +264,16 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                     addresslist[i]);
                               }
                               i++;
-
                             });
-
-
                           }),
                       JavascriptChannel(
                           name: 'Print1',
                           onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
                             Message = messages.split(",");
-                             await checkStar();
+                            await checkStar();
                             showPopUpbottomMenu(
                                 context, screenHeight, screenWidth);
-
-
                           })
                     ]),
                   ),
@@ -342,8 +336,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-
-
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -415,7 +407,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 Container(
                                   margin:
                                       EdgeInsets.only(top: 40 / screenHeight),
-                                  width: 860 / screenWidth,
+                                  // width: 860 / screenWidth,
                                   height: 80 / screenHeight,
                                   child: Row(
                                     children: [
@@ -439,35 +431,30 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
-
                                             height: 60 / screenHeight),
-                                        onPressed:  loginOption ==
-                                            "login"
+                                        onPressed: loginOption == "login"
                                             ? () {
-                                          Fluttertoast.showToast(
-                                            msg: "  로그인 해주세요!  ",
-                                            toastLength: Toast
-                                                .LENGTH_SHORT,
-                                            gravity: ToastGravity
-                                                .BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor:
-                                            Colors.black45,
-                                            textColor:
-                                            Colors.white,
-                                            fontSize:
-                                            56 / screenWidth,
-                                          );
-                                         }
+                                                Fluttertoast.showToast(
+                                                  msg: "  로그인 해주세요!  ",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black45,
+                                                  textColor: Colors.white,
+                                                  fontSize: 56 / screenWidth,
+                                                );
+                                              }
                                             : () async {
-                                          setState(() {
-                                            star_color = !star_color;
-                                          });
+                                                setState(() {
+                                                  star_color = !star_color;
+                                                });
 
-                                          loginOption != "login"
-                                              ? await click_star()
-                                              : null;
-                                        },
+                                                loginOption != "login"
+                                                    ? await click_star()
+                                                    : null;
+                                              },
                                       ),
                                     ],
                                   ),

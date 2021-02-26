@@ -135,6 +135,7 @@ class _registrationPageState extends State<registrationPage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    FocusScopeNode currentFocus = FocusScope.of(context);
 
     return isIOS
         ? Scaffold(
@@ -879,6 +880,7 @@ class _registrationPageState extends State<registrationPage> {
                                           ),
                                           onPressed: nickName != ""
                                               ? () {
+                                                  currentFocus.unfocus();
                                                   showDialog(
                                                     context: context,
                                                     builder: (context) =>
@@ -1070,11 +1072,11 @@ class _registrationPageState extends State<registrationPage> {
                                     child: AbsorbPointer(
                                       child: TextFormField(
                                         controller: yController,
-                                        onChanged: (txt) {
-                                          setState(() {
-                                            birthday = txt;
-                                          });
-                                        },
+                                        // onChanged: (txt) {
+                                        //   setState(() {
+                                        //     birthday = txt;
+                                        //   });
+                                        // },
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                             color: Color(0xffff7292),
@@ -1095,7 +1097,7 @@ class _registrationPageState extends State<registrationPage> {
                                           ),
                                           hintText: '생년월일을 선택해주세요',
                                           hintStyle: TextStyle(
-                                              color: const Color(0xffff7292),
+                                              color: Color(0xffd4d4d4),
                                               fontWeight: FontWeight.w500,
                                               fontFamily: "NotoSansCJKkr",
                                               fontStyle: FontStyle.normal,
@@ -1363,50 +1365,27 @@ class _registrationPageState extends State<registrationPage> {
                               future: saveToDatabase(""),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20.0))),
-                                    title: // 사용 가능한 닉네임입니다.
-                                        Text(snapshot.data,
-                                            style: TextStyle(
-                                                color: const Color(0xff4d4d4d),
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Medium",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 62.5 / screenWidth),
-                                            textAlign: TextAlign.left),
-                                    actions: [
-                                      FlatButton(
-                                          onPressed: () async {
-                                            Navigator.pop(context);
-                                            if (!saveError) {
-                                              SharedPreferences prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) async {
+                                    Navigator.pop(context);
+                                    if (!saveError) {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
 
-                                              await prefs.setString(
-                                                  'uahageUserId', userId);
-                                              await prefs.setString(
-                                                  "uahageLoginOption",
-                                                  loginOption);
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      navigationPage(
-                                                          userId: userId,
-                                                          loginOption:
-                                                              loginOption),
-                                                ),
-                                              );
-                                            }
-                                          },
-                                          child: // 확인
-                                              buildText(_fontsize))
-                                    ],
-                                  );
+                                      await prefs.setString(
+                                          'uahageUserId', userId);
+                                      await prefs.setString(
+                                          "uahageLoginOption", loginOption);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => navigationPage(
+                                              userId: userId,
+                                              loginOption: loginOption),
+                                        ),
+                                      );
+                                    }
+                                  });
                                 } else if (snapshot.hasError) {
                                   buildAlertDialog(snapshot, screenWidth,
                                       context, _fontsize);
@@ -1549,7 +1528,7 @@ class _registrationPageState extends State<registrationPage> {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                '네',
+                '확인',
                 style: TextStyle(
                   color: Color.fromRGBO(255, 114, 148, 1.0),
                   fontFamily: 'NotoSansCJKkr_Medium',
@@ -1563,19 +1542,19 @@ class _registrationPageState extends State<registrationPage> {
                 });
               },
             ),
-            FlatButton(
-              child: Text(
-                '아니요',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 114, 148, 1.0),
-                  fontFamily: 'NotoSansCJKkr_Medium',
-                  fontSize: 57 / screenHeight,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            // FlatButton(
+            //   child: Text(
+            //     '아니요',
+            //     style: TextStyle(
+            //       color: Color.fromRGBO(255, 114, 148, 1.0),
+            //       fontFamily: 'NotoSansCJKkr_Medium',
+            //       fontSize: 57 / screenHeight,
+            //     ),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
           ],
         );
       },

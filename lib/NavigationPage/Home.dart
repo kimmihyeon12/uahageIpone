@@ -323,7 +323,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                showToast(screenWidth);
+                                showToast("  서비스 준비 중이에요!  ", screenWidth);
                               },
                             ),
                             Padding(
@@ -338,7 +338,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                showToast(screenWidth);
+                                showToast("  서비스 준비 중이에요!  ", screenWidth);
                               },
                             ),
                           ],
@@ -408,7 +408,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                showToast(screenWidth);
+                                showToast("  서비스 준비 중이에요!  ", screenWidth);
                               },
                             ),
                             Padding(
@@ -423,7 +423,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                showToast(screenWidth);
+                                showToast("  서비스 준비 중이에요!  ", screenWidth);
                               },
                             ),
                           ],
@@ -447,7 +447,7 @@ class _homePageState extends State<homePage> {
                               ),
                               onTap: () {
                                 currentFocus.unfocus();
-                                showToast(screenWidth);
+                                showToast("  서비스 준비 중이에요!  ", screenWidth);
                               },
                             ),
                           ],
@@ -624,18 +624,24 @@ class _homePageState extends State<homePage> {
                               fontFamily: 'NotoSansCJKkr_Medium',
                               letterSpacing: -1.0),
                           suffixIcon: IconButton(
-                              onPressed: () {
-                                currentFocus.unfocus();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Keyword(
-                                            userId: userId,
-                                            loginOption: loginOption,
-                                            latitude: latitude,
-                                            longitude: longitude,
-                                            searchkey: searchkey)));
-                              },
+                              onPressed: searchkey != ""
+                                  ? () {
+                                      currentFocus.unfocus();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Keyword(
+                                                  userId: userId,
+                                                  loginOption: loginOption,
+                                                  latitude: latitude,
+                                                  longitude: longitude,
+                                                  searchkey: searchkey)));
+                                    }
+                                  : () {
+                                      currentFocus.unfocus();
+                                      showToast("Please enter address first",
+                                          screenWidth);
+                                    },
                               icon: Image.asset(
                                 "./assets/homePage/search.png",
                                 width: 88 / screenWidth,
@@ -713,7 +719,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              showToast(screenWidth);
+                              showToast("  서비스 준비 중이에요!  ", screenWidth);
                             },
                           ),
                           Padding(
@@ -728,7 +734,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              showToast(screenWidth);
+                              showToast("  서비스 준비 중이에요!  ", screenWidth);
                             },
                           ),
                         ],
@@ -798,7 +804,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              showToast(screenWidth);
+                              showToast("  서비스 준비 중이에요!  ", screenWidth);
                             },
                           ),
                           Padding(
@@ -813,7 +819,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              showToast(screenWidth);
+                              showToast("  서비스 준비 중이에요!  ", screenWidth);
                             },
                           ),
                         ],
@@ -837,7 +843,7 @@ class _homePageState extends State<homePage> {
                             ),
                             onTap: () {
                               currentFocus.unfocus();
-                              showToast(screenWidth);
+                              showToast("  서비스 준비 중이에요!  ", screenWidth);
                             },
                           ),
                         ],
@@ -886,9 +892,9 @@ class _homePageState extends State<homePage> {
           );
   }
 
-  void showToast(double screenWidth) {
+  void showToast(String txt, double screenWidth) {
     Fluttertoast.showToast(
-      msg: "  서비스 준비 중이에요!  ",
+      msg: txt,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,

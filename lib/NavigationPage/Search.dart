@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 class searchPage extends StatefulWidget {
   searchPage(
       {Key key, this.latitude, this.longitude, this.userId, this.loginOption})
@@ -85,7 +86,7 @@ class _searchPageState extends State<searchPage> {
   }
 
   Future click_star() async {
-  //  print("clicking start $star_color");
+    //  print("clicking start $star_color");
     Map<String, dynamic> ss = {
       "user_id": userId + loginOption,
       "store_name": Message[0],
@@ -114,6 +115,7 @@ class _searchPageState extends State<searchPage> {
       body: jsonEncode(ss),
     );
   }
+
   Future checkStar() async {
     print("start checking");
     var response;
@@ -225,9 +227,9 @@ class _searchPageState extends State<searchPage> {
                                 //like here, the message is just being printed
                                 //in Run/LogCat window of android studio
                                 var messages = message.message;
-                               Message = messages.split(",");
+                                Message = messages.split(",");
                                 await checkStar();
-                               // await checkStar();
+                                // await checkStar();
                                 showPopUpbottomMenu(
                                     context, screenHeight, screenWidth);
                               })
@@ -267,9 +269,9 @@ class _searchPageState extends State<searchPage> {
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 41 / screenWidth),
-                          width:   1200 / screenWidth,
+                          width: 1200 / screenWidth,
                           child: // 검색 조건을 설정해주세요
-                          Row(
+                              Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("검색 조건을 설정해주세요",
@@ -452,7 +454,7 @@ class _searchPageState extends State<searchPage> {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 41 / screenWidth),
-                        width:   1200 / screenWidth,
+                        width: 1200 / screenWidth,
                         child: // 검색 조건을 설정해주세요
                             Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -579,32 +581,27 @@ class _searchPageState extends State<searchPage> {
               child: Builder(builder: (context) {
                 return Stack(
                   children: [
-
                     Container(
-                      height: 2300/screenHeight,
+                      height: 2300 / screenHeight,
                       child: Center(
-
-
-                          child: Image.asset(
-                            "./assets/searchPage/popUp.png",
-                            height: 1176 / screenHeight,
-                            width: 1067 / screenHeight,
-                          ),
-
+                        child: Image.asset(
+                          "./assets/searchPage/popUp.png",
+                          height: 1176 / screenHeight,
+                          width: 1067 / screenHeight,
+                        ),
                       ),
                     ),
-
                     Container(
-                      height: 2300/screenHeight,
+                      height: 2300 / screenHeight,
                       child: Center(
-                     child: Container(
-                       height: 1176/screenHeight,
-                       child: Center(
-                         child: Positioned(
+                        child: Container(
+                          height: 1176 / screenHeight,
+                          child: Center(
+                            child: Positioned(
                               child: SizedBox(
-                                width: 1000 /screenWidth,
+                                width: 1000 / screenWidth,
                                 height: 1000 / screenHeight,
-                                 child: GridView.count(
+                                child: GridView.count(
                                   // childAspectRatio: 3 / 2,
                                   crossAxisCount: 3,
                                   children: List.generate(9, (index) {
@@ -614,25 +611,26 @@ class _searchPageState extends State<searchPage> {
                                         child: InkWell(
                                           onTap: () {
                                             setState(() {
-                                              grey_image[index] = !grey_image[index];
+                                              grey_image[index] =
+                                                  !grey_image[index];
                                             });
                                             print(grey_image);
                                           },
                                           child: grey_image[index]
                                               ? Image.asset(
-                                            "./assets/searchPage/image" +
-                                                (index + 1).toString() +
-                                                "_grey.png",
-                                            height: 293 / screenHeight,
-                                            width: 218 / screenWidth,
-                                          )
+                                                  "./assets/searchPage/image" +
+                                                      (index + 1).toString() +
+                                                      "_grey.png",
+                                                  height: 293 / screenHeight,
+                                                  width: 218 / screenWidth,
+                                                )
                                               : Image.asset(
-                                            "./assets/searchPage/image" +
-                                                (index + 1).toString() +
-                                                ".png",
-                                            height: 293 / screenHeight,
-                                            width: 218 / screenWidth,
-                                          ),
+                                                  "./assets/searchPage/image" +
+                                                      (index + 1).toString() +
+                                                      ".png",
+                                                  height: 293 / screenHeight,
+                                                  width: 218 / screenWidth,
+                                                ),
                                         ),
                                       ),
                                     );
@@ -640,8 +638,8 @@ class _searchPageState extends State<searchPage> {
                                 ),
                               ),
                             ),
-                       ),
-                     ),
+                          ),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -688,7 +686,6 @@ class _searchPageState extends State<searchPage> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -742,8 +739,7 @@ class _searchPageState extends State<searchPage> {
                           children: [
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 30 /
-                                  (1501 / MediaQuery.of(context).size.width),
+                              left: 30 / screenWidth,
                             )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
@@ -751,8 +747,7 @@ class _searchPageState extends State<searchPage> {
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 53 /
-                                  (1501 / MediaQuery.of(context).size.width),
+                              left: 53 / screenWidth,
                             )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -760,7 +755,7 @@ class _searchPageState extends State<searchPage> {
                                 Container(
                                   margin:
                                       EdgeInsets.only(top: 40 / screenHeight),
-                                  width: 860 / screenWidth,
+                                  // width: 860 / screenWidth,
                                   height: 80 / screenHeight,
                                   child: Row(
                                     children: [
@@ -784,35 +779,30 @@ class _searchPageState extends State<searchPage> {
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
-
                                             height: 60 / screenHeight),
-                                        onPressed:  loginOption ==
-                                            "login"
+                                        onPressed: loginOption == "login"
                                             ? () {
-                                          Fluttertoast.showToast(
-                                            msg: "  로그인 해주세요!  ",
-                                            toastLength: Toast
-                                                .LENGTH_SHORT,
-                                            gravity: ToastGravity
-                                                .BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor:
-                                            Colors.black45,
-                                            textColor:
-                                            Colors.white,
-                                            fontSize:
-                                            56 / screenWidth,
-                                          );
-                                        }
+                                                Fluttertoast.showToast(
+                                                  msg: "  로그인 해주세요!  ",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black45,
+                                                  textColor: Colors.white,
+                                                  fontSize: 56 / screenWidth,
+                                                );
+                                              }
                                             : () async {
-                                          setState(() {
-                                            star_color = !star_color;
-                                          });
+                                                setState(() {
+                                                  star_color = !star_color;
+                                                });
 
-                                          loginOption != "login"
-                                              ? await click_star()
-                                              : null;
-                                        },
+                                                loginOption != "login"
+                                                    ? await click_star()
+                                                    : null;
+                                              },
                                       ),
                                     ],
                                   ),

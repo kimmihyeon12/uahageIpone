@@ -11,6 +11,7 @@ import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 class map_list extends StatefulWidget {
   map_list(
       {Key key,
@@ -51,7 +52,6 @@ class _map_listState extends State<map_list> {
     "./assets/listPage/nursingroom.png",
     "./assets/listPage/chair.png",
   ];
-
 
   Future click_star() async {
     Map<String, dynamic> ss = {
@@ -100,6 +100,7 @@ class _map_listState extends State<map_list> {
       print(err);
     }
   }
+
   getCurrentLocation() async {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
@@ -198,7 +199,7 @@ class _map_listState extends State<map_list> {
                           //in Run/LogCat window of android studio
                           var messages = message.message;
                           print("messages:" + messages);
-                          print('userId:'+userId);
+                          print('userId:' + userId);
                           Message = messages.split(",");
                           await checkStar();
                           showPopUpbottomMenu(
@@ -290,7 +291,6 @@ class _map_listState extends State<map_list> {
 
   Future<Object> showPopUpbottomMenu(
       BuildContext context, double screenHeight, double screenWidth) {
-
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -409,7 +409,7 @@ class _map_listState extends State<map_list> {
                                 Container(
                                   margin:
                                       EdgeInsets.only(top: 40 / screenHeight),
-                                  width: 860 / screenWidth,
+                                  // width: 860 / screenWidth,
                                   height: 80 / screenHeight,
                                   child: Row(
                                     children: [
@@ -433,33 +433,27 @@ class _map_listState extends State<map_list> {
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
-
                                             height: 60 / screenHeight),
-                                        onPressed:  loginOption ==
-                                            "login"
+                                        onPressed: loginOption == "login"
                                             ? () {
-                                          Fluttertoast.showToast(
-                                            msg: "  로그인 해주세요!  ",
-                                            toastLength: Toast
-                                                .LENGTH_SHORT,
-                                            gravity: ToastGravity
-                                                .BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor:
-                                            Colors.black45,
-                                            textColor:
-                                            Colors.white,
-                                            fontSize:
-                                            56 / screenWidth,
-                                          );
-                                        }
+                                                Fluttertoast.showToast(
+                                                  msg: "  로그인 해주세요!  ",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black45,
+                                                  textColor: Colors.white,
+                                                  fontSize: 56 / screenWidth,
+                                                );
+                                              }
                                             : () async {
-                                          setState(() {
-                                            star_color = !star_color;
-                                          });
-                                          await click_star();
-
-                                        },
+                                                setState(() {
+                                                  star_color = !star_color;
+                                                });
+                                                await click_star();
+                                              },
                                       ),
                                     ],
                                   ),

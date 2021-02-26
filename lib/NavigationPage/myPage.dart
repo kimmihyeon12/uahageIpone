@@ -208,7 +208,7 @@ class _myPageState extends State<myPage> {
 
   Future _imgFromCamera() async {
     var image = await ImagePicker()
-        .getImage(source: ImageSource.camera, imageQuality: 50);
+        .getImage(source: ImageSource.camera, imageQuality: 20);
 
     setState(() {
       _image = File(image.path);
@@ -218,7 +218,7 @@ class _myPageState extends State<myPage> {
 
   Future _imgFromGallery() async {
     var image = await ImagePicker()
-        .getImage(source: ImageSource.gallery, imageQuality: 50);
+        .getImage(source: ImageSource.gallery, imageQuality: 20);
 
     setState(() {
       _image = File(image.path);
@@ -1950,45 +1950,52 @@ class _myPageState extends State<myPage> {
                                     82 / screenWidth, 0, 121 / screenWidth, 0),
                                 child: Stack(
                                   children: [
-                                    TextFormField(
-                                      readOnly: true,
-                                      controller: yController,
+                                    GestureDetector(
+                                      onTap: onEdit ? yearPicker : null,
+                                      child: AbsorbPointer(
+                                        child: TextFormField(
+                                          readOnly: true,
+                                          controller: yController,
 
-                                      // onChanged: (txt) {
-                                      //   setState(() {
-                                      //     birthday = txt;
-                                      //   });
-                                      // },
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          color: Color(0xffff7292),
-                                          fontSize: 73 / screenWidth,
-                                          fontFamily: 'NotoSansCJKkr_Medium',
-                                          fontStyle: FontStyle.normal,
-                                          letterSpacing: -1.0),
-                                      decoration: InputDecoration(
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: const Color(0xffff7292),
+                                          // onChanged: (txt) {
+                                          //   setState(() {
+                                          //     birthday = txt;
+                                          //   });
+                                          // },
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Color(0xffff7292),
+                                              fontSize: 73 / screenWidth,
+                                              fontFamily:
+                                                  'NotoSansCJKkr_Medium',
+                                              fontStyle: FontStyle.normal,
+                                              letterSpacing: -1.0),
+                                          decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: const Color(0xffff7292),
+                                              ),
+                                              //Color.fromRGBO(255, 114, 148, 1.0)
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Color(0xffff7292)),
+                                            ),
+                                            hintText: birthday == ""
+                                                ? '생년월일을 선택해주세요'
+                                                : birthday,
+                                            hintStyle: TextStyle(
+                                                color: Color(0xffd4d4d4),
+                                                // onEdit
+                                                //     ? Color(0xffd4d4d4)
+                                                //     : Color(0xffff7292),
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily:
+                                                    "NotoSansCJKkr_Medium",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 66.0 / screenWidth),
                                           ),
-                                          //Color.fromRGBO(255, 114, 148, 1.0)
                                         ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Color(0xffff7292)),
-                                        ),
-                                        hintText: birthday == ""
-                                            ? '생년월일을 선택해주세요'
-                                            : birthday,
-                                        hintStyle: TextStyle(
-                                            color: Color(0xffd4d4d4),
-                                            // onEdit
-                                            //     ? Color(0xffd4d4d4)
-                                            //     : Color(0xffff7292),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 66.0 / screenWidth),
                                       ),
                                     ),
                                     onEdit
@@ -2695,19 +2702,19 @@ class _myPageState extends State<myPage> {
                 });
               },
             ),
-            FlatButton(
-              child: Text(
-                '글씨바꾸기',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 114, 148, 1.0),
-                  fontFamily: 'NotoSansCJKkr_Medium',
-                  fontSize: 57 / screenWidth,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            // FlatButton(
+            //   child: Text(
+            //     '글씨바꾸기',
+            //     style: TextStyle(
+            //       color: Color.fromRGBO(255, 114, 148, 1.0),
+            //       fontFamily: 'NotoSansCJKkr_Medium',
+            //       fontSize: 57 / screenWidth,
+            //     ),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
           ],
         );
       },
