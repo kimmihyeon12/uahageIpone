@@ -11,16 +11,27 @@ class announce extends StatelessWidget {
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return isIOS
         ? Scaffold(
-            appBar: AppBar(
-              title: Text("위치기반서비스 이용약관",
-                  style: TextStyle(
-                      color: const Color(0xffffffff),
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "NotoSansCJKkr_Bold",
-                      fontStyle: FontStyle.normal,
-                      fontSize: 79.0 / screenWidth),
-                  textAlign: TextAlign.left),
-              backgroundColor: Color(0xffff7292),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(180 / screenHeight),
+              child: AppBar(
+                backgroundColor: Color(0xffff7292),
+                centerTitle: true,
+                // iconTheme: IconThemeData(
+                //   color: Color(0xffff7292), //change your color here
+                // ),
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back_ios, color: Color(0xffffffff)),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                title: Text("위치기반서비스 이용약관",
+                    style: TextStyle(
+                        color: Color(0xffffffff),
+                        // fontWeight: FontWeight.w700,
+                        fontFamily: "NotoSansCJKkr_Bold",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 73 / screenWidth),
+                    textAlign: TextAlign.left),
+              ),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -102,44 +113,43 @@ class announce extends StatelessWidget {
                       width: 1501 / screenWidth,
                       color: Color(0xffff7292),
                       child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                         Stack(
-
-                          children: [
-
-                            Center(
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Container(
-                                  height: 76 / screenHeight,
-                                  width: 43 / screenWidth,
-                                  margin: EdgeInsets.only(left: 31 / screenWidth),
-                                  child: Image.asset(
-                                      "./assets/agreementPage/back.png"),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Stack(
+                            children: [
+                              Center(
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Container(
+                                    height: 76 / screenHeight,
+                                    width: 43 / screenWidth,
+                                    margin:
+                                        EdgeInsets.only(left: 31 / screenWidth),
+                                    child: Image.asset(
+                                        "./assets/agreementPage/back.png"),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                                height: 178 / screenHeight,
-                                width: 1501 / screenWidth,
-                                child: // 약관동의
-                                    // 위치기반서비스 이용약관
-                                    Center(
-                                      child: Text("위치기반서비스 이용약관",
-                                          style: TextStyle(
-                                              color: const Color(0xffffffff),
-                                              fontWeight: FontWeight.w700,
-                                              fontFamily: "NotoSansCJKkr_Bold",
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 79.0 / screenWidth),
-                                          textAlign: TextAlign.left),
-                                    )),
-                          ],
-                        ),
-    ],
+                              Container(
+                                  height: 178 / screenHeight,
+                                  width: 1501 / screenWidth,
+                                  child: // 약관동의
+                                      // 위치기반서비스 이용약관
+                                      Center(
+                                    child: Text("위치기반서비스 이용약관",
+                                        style: TextStyle(
+                                            color: const Color(0xffffffff),
+                                            fontWeight: FontWeight.w700,
+                                            fontFamily: "NotoSansCJKkr_Bold",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 79.0 / screenWidth),
+                                        textAlign: TextAlign.left),
+                                  )),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                     Container(

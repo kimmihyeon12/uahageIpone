@@ -147,7 +147,8 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(180 / screenHeight),
           child: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
             centerTitle: true,
             // iconTheme: IconThemeData(
             //   color: Color(0xffff7292), //change your color here

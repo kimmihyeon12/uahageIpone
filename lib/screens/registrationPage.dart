@@ -787,23 +787,41 @@ class _registrationPageState extends State<registrationPage> {
           )
         : SafeArea(
             child: Scaffold(
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(180 / screenHeight),
+                child: AppBar(
+                  automaticallyImplyLeading: false,
+                  backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
+                  centerTitle: true,
+                  title: Text(
+                    "회원가입",
+                    style: TextStyle(
+                      fontSize: 73 / screenWidth,
+                      fontFamily: 'NotoSansCJKkr_Bold',
+                      letterSpacing: 0,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
               body: SingleChildScrollView(
                 child: Column(
                   children: [
                     //custom appbar
-                    Container(
-                        alignment: Alignment(0.0, 0.0),
-                        color: Color.fromARGB(255, 255, 114, 148),
-                        width: MediaQuery.of(context).size.width,
-                        height: 178 / screenHeight,
-                        child: Text(
-                          "회원가입",
-                          style: TextStyle(
-                            fontSize: 73 / screenWidth,
-                            color: Colors.white,
-                            fontFamily: 'NotoSansCJKkr_Bold',
-                          ),
-                        )),
+                    // Container(
+                    //     alignment: Alignment(0.0, 0.0),
+                    //     color: Color.fromARGB(255, 255, 114, 148),
+                    //     width: MediaQuery.of(context).size.width,
+                    //     height: 178 / screenHeight,
+                    //     child: Text(
+                    //       "회원가입",
+                    //       style: TextStyle(
+                    //         fontSize: 73 / screenWidth,
+                    //         color: Colors.white,
+                    //         fontFamily: 'NotoSansCJKkr_Bold',
+                    //       ),
+                    //     )),
+
                     Padding(padding: EdgeInsets.only(top: 250 / screenHeight)),
 
                     //membership_Nickname
@@ -1279,47 +1297,23 @@ class _registrationPageState extends State<registrationPage> {
                                       future: saveToDatabase("withNickname"),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          return AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20.0))),
-                                            title: // 사용 가능한 닉네임입니다.
-                                                Text(snapshot.data,
-                                                    style: TextStyle(
-                                                        color: const Color(
-                                                            0xff4d4d4d),
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontFamily:
-                                                            "NotoSansCJKkr_Medium",
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize:
-                                                            62.5 / screenWidth),
-                                                    textAlign: TextAlign.left),
-                                            actions: [
-                                              FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                    saveError
-                                                        ? null
-                                                        : Navigator
-                                                            .pushReplacement(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => navigationPage(
-                                                                      oldNickname:
-                                                                          nickName,
-                                                                      userId:
-                                                                          userId,
-                                                                      loginOption:
-                                                                          loginOption),
-                                                                ));
-                                                  },
-                                                  child: // 확인
-                                                      buildText(_fontsize))
-                                            ],
-                                          );
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) async {
+                                            Navigator.pop(context);
+                                            saveError
+                                                ? null
+                                                : Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          navigationPage(
+                                                              oldNickname:
+                                                                  nickName,
+                                                              userId: userId,
+                                                              loginOption:
+                                                                  loginOption),
+                                                    ));
+                                          });
                                         } else if (snapshot.hasError)
                                           return buildAlertDialog(snapshot,
                                               screenWidth, context, _fontsize);
@@ -1506,6 +1500,7 @@ class _registrationPageState extends State<registrationPage> {
             '생년월일을 입력하세요',
             style: TextStyle(
               fontWeight: FontWeight.w500,
+              color: Color.fromRGBO(255, 114, 148, 1.0),
               fontSize: 56 / screenHeight,
             ),
             textAlign: TextAlign.center,

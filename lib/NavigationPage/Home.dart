@@ -72,6 +72,18 @@ class _homePageState extends State<homePage> {
     );
   }
 
+  var homeimage = [
+    "./assets/homePage/restaurant.png",
+    "./assets/homePage/hospital.png",
+    "./assets/homePage/careCenter.png",
+    "./assets/homePage/kindergarten.png",
+    "./assets/homePage/kidsCafe.png",
+    "./assets/homePage/experiencecenter.png",
+    "./assets/homePage/amusementpark.png",
+    "./assets/homePage/toylibrary.png",
+    "./assets/homePage/childcareCenter.png"
+  ];
+
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
@@ -102,17 +114,6 @@ class _homePageState extends State<homePage> {
       );
     }
 
-    var homeimage = [
-      "./assets/homePage/restaurant.png",
-      "./assets/homePage/hospital.png",
-      "./assets/homePage/careCenter.png",
-      "./assets/homePage/kindergarten.png",
-      "./assets/homePage/kidsCafe.png",
-      "./assets/homePage/experiencecenter.png",
-      "./assets/homePage/amusementpark.png",
-      "./assets/homePage/toylibrary.png",
-      "./assets/homePage/childcareCenter.png"
-    ];
     return isIOS
         ? Scaffold(
             backgroundColor: Colors.white,

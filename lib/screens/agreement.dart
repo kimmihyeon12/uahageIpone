@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
@@ -225,6 +226,17 @@ class _agreementPageState extends State<agreementPage> {
   Widget build(BuildContext context) {
     KakaoContext.clientId = "581f27a7aed8a99e5b0a78b33c855dab";
 
+    isIOS
+        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+            .copyWith(
+                statusBarBrightness:
+                    Brightness.dark // Dark == white status bar -- for IOS.
+                ))
+        : SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            systemNavigationBarColor: Color(0xffd9d4d5), // navigation bar color
+            statusBarColor: Color(0xffd9d4d5), // status bar color
+          ));
+
     if (isIphoneX) {
       screenHeight = 5076 / MediaQuery.of(context).size.height;
       screenWidth = 2345 / MediaQuery.of(context).size.width;
@@ -245,6 +257,7 @@ class _agreementPageState extends State<agreementPage> {
         check1 = false;
       });
     }
+
     return (() {
       if (isIphoneX) {
         return Scaffold(
@@ -1021,43 +1034,66 @@ class _agreementPageState extends State<agreementPage> {
       } else {
         return SafeArea(
           child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(180 / screenHeight),
+              child: AppBar(
+                backgroundColor: Color(0xffff7292),
+                centerTitle: true,
+                // iconTheme: IconThemeData(
+                //   color: Color(0xffff7292), //change your color here
+                // ),
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back_ios, color: Color(0xffffffff)),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                title: Text("약관동의",
+                    style: TextStyle(
+                        color: Color(0xffffffff),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "NotoSansCJKkr_Bold",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 73 / screenWidth),
+                    textAlign: TextAlign.left),
+              ),
+            ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Container(),
                 // head
-                Container(
-                  height: 178 / screenHeight,
-                  width: 1501 / screenWidth,
-                  color: Color(0xffff7292),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Container(
-                          height: 76 / screenHeight,
-                          width: 43 / screenWidth,
-                          margin: EdgeInsets.only(left: 31 / screenWidth),
-                          child: Image.asset("./assets/agreementPage/back.png"),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 424 / screenWidth),
-                        child: // 약관동의
-                            Text("약관동의",
-                                style: TextStyle(
-                                    color: const Color(0xffffffff),
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "NotoSansCJKkr_Bold",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 75 / screenWidth),
-                                textAlign: TextAlign.left),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   height: 178 / screenHeight,
+                //   width: 1501 / screenWidth,
+                //   color: Color(0xffff7292),
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       IconButton(
+                //         onPressed: () {
+                //           Navigator.pop(context);
+                //         },
+                //         icon: Container(
+                //           height: 76 / screenHeight,
+                //           width: 43 / screenWidth,
+                //           margin: EdgeInsets.only(left: 31 / screenWidth),
+                //           child: Image.asset("./assets/agreementPage/back.png"),
+                //         ),
+                //       ),
+                //       Container(
+                //         margin: EdgeInsets.only(left: 424 / screenWidth),
+                //         child: // 약관동의
+                //             Text("약관동의",
+                //                 style: TextStyle(
+                //                     color: const Color(0xffffffff),
+                //                     fontWeight: FontWeight.w700,
+                //                     fontFamily: "NotoSansCJKkr_Bold",
+                //                     fontStyle: FontStyle.normal,
+                //                     fontSize: 75 / screenWidth),
+                //                 textAlign: TextAlign.left),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 // Title
 
@@ -1283,8 +1319,8 @@ class _agreementPageState extends State<agreementPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    width:1000/screenWidth,
-                                    height: 100/screenHeight,
+                                    width: 1000 / screenWidth,
+                                    height: 100 / screenHeight,
                                     child: Text("[필수] 위치기반서비스 이용약관 ...",
                                         style: TextStyle(
                                             color: const Color(0xff666666),

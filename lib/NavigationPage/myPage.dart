@@ -2664,6 +2664,7 @@ class _myPageState extends State<myPage> {
           title: Text(
             '생년월일을 입력하세요',
             style: TextStyle(
+              color: Color.fromRGBO(255, 114, 148, 1.0),
               fontWeight: FontWeight.w500,
               fontSize: 56 / screenWidth,
             ),

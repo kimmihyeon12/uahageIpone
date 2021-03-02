@@ -413,12 +413,13 @@ class _restaurantState extends State<restaurant> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10 / screenHeight)),
                                           Row(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
-
                                               Container(
                                                 width: 830 / screenWidth,
                                                 height: 100 / screenHeight,
@@ -429,7 +430,6 @@ class _restaurantState extends State<restaurant> {
                                                     fontSize: 56 / screenWidth,
                                                     fontFamily:
                                                         'NotoSansCJKkr_Medium',
-
                                                   ),
                                                 ),
                                               ),
@@ -531,7 +531,6 @@ class _restaurantState extends State<restaurant> {
                                             ],
                                           ),
 
-
                                           Container(
                                             height: 141 / screenHeight,
                                             width: 650 / screenWidth,
@@ -562,33 +561,31 @@ class _restaurantState extends State<restaurant> {
                                           //   ),
                                           // ),
 
-                                             Container(
-                                              height: 140 / screenHeight,
-                                              //width: 800 / screenWidth,
-                                              alignment: Alignment.bottomRight,
-                                              child: Row(
-                                                children: [
-                                                  chair(snapshot
-                                                      .data[index].chair),
-                                                 carriage(snapshot
-                                                      .data[index].carriage),
-                                                  menu(snapshot
-                                                      .data[index].menu),
-                                                  bed(snapshot.data[index].bed),
-                                                  tableware(snapshot
-                                                      .data[index].tableware),
-                                                  meetingroom(snapshot
-                                                      .data[index].meetingroom),
-                                                  diapers(snapshot
-                                                      .data[index].diapers),
-                                                  playroom(snapshot
-                                                      .data[index].playroom),
-                                                  nursingroom(snapshot
-                                                      .data[index].nursingroom),
-                                                ],
-                                              ),
+                                          Container(
+                                            height: 140 / screenHeight,
+                                            //width: 800 / screenWidth,
+                                            alignment: Alignment.bottomRight,
+                                            child: Row(
+                                              children: [
+                                                chair(
+                                                    snapshot.data[index].chair),
+                                                carriage(snapshot
+                                                    .data[index].carriage),
+                                                menu(snapshot.data[index].menu),
+                                                bed(snapshot.data[index].bed),
+                                                tableware(snapshot
+                                                    .data[index].tableware),
+                                                meetingroom(snapshot
+                                                    .data[index].meetingroom),
+                                                diapers(snapshot
+                                                    .data[index].diapers),
+                                                playroom(snapshot
+                                                    .data[index].playroom),
+                                                nursingroom(snapshot
+                                                    .data[index].nursingroom),
+                                              ],
                                             ),
-
+                                          ),
                                         ],
                                       ),
                                     ],
@@ -599,8 +596,12 @@ class _restaurantState extends State<restaurant> {
                   }
                 },
               )
-            : map_list( userId: userId, loginOption: loginOption,
-                latitude: latitude, longitude: longitude, list: liststringdata),
+            : map_list(
+                userId: userId,
+                loginOption: loginOption,
+                latitude: latitude,
+                longitude: longitude,
+                list: liststringdata),
       ),
     );
   }
