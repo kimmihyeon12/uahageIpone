@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:uahage/homepagelist/map_list.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:page_transition/page_transition.dart';
@@ -321,11 +320,13 @@ class _examination_institutionState extends State<examination_institution> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10 / screenHeight)),
                                           SafeArea(
                                             child: Row(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                   width: 830 /
@@ -340,7 +341,6 @@ class _examination_institutionState extends State<examination_institution> {
                                                           56 / screenWidth,
                                                       fontFamily:
                                                           'NotoSansCJKkr_Medium',
-
                                                     ),
                                                   ),
                                                 ),
@@ -418,7 +418,6 @@ class _examination_institutionState extends State<examination_institution> {
                                                                       index] =
                                                                   'null';
                                                             }
-                                                            ;
 
                                                             click_star();
                                                           });
@@ -427,7 +426,6 @@ class _examination_institutionState extends State<examination_institution> {
                                               ],
                                             ),
                                           ),
-
 
                                           Container(
                                             height: 350 / screenHeight,
@@ -484,8 +482,12 @@ class _examination_institutionState extends State<examination_institution> {
                   }
                 },
               )
-            : map_list(userId: userId, loginOption: loginOption,
-                latitude: latitude, longitude: longitude, list: liststringdata),
+            : map_list(
+                userId: userId,
+                loginOption: loginOption,
+                latitude: latitude,
+                longitude: longitude,
+                list: liststringdata),
       ),
     );
   }

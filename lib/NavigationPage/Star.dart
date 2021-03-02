@@ -505,26 +505,43 @@ class _starPageState extends State<starPage> {
             ))
         : Scaffold(
             backgroundColor: Colors.white,
-            body: Column(
-              children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  height: 180 / screenHeight,
-                  width: double.infinity,
-                  color: Color.fromRGBO(255, 114, 148, 1.0),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "즐겨찾기",
-                      style: TextStyle(
-                        fontSize: 73 / screenWidth,
-                        fontFamily: 'NotoSansCJKkr_Bold',
-                        letterSpacing: 0,
-                        color: Colors.white,
-                      ),
-                    ),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(180 / screenHeight),
+              child: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
+                centerTitle: true,
+                title: Text(
+                  "즐겨찾기",
+                  style: TextStyle(
+                    fontSize: 73 / screenWidth,
+                    fontFamily: 'NotoSansCJKkr_Bold',
+                    letterSpacing: 0,
+                    color: Colors.white,
                   ),
                 ),
+              ),
+            ),
+            body: Column(
+              children: [
+                // Container(
+                //   alignment: Alignment.topCenter,
+                //   height: 180 / screenHeight,
+                //   width: double.infinity,
+                //   color: Color.fromRGBO(255, 114, 148, 1.0),
+                //   child: Align(
+                //     alignment: Alignment.center,
+                //     child: Text(
+                //       "즐겨찾기",
+                //       style: TextStyle(
+                //         fontSize: 73 / screenWidth,
+                //         fontFamily: 'NotoSansCJKkr_Bold',
+                //         letterSpacing: 0,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   flex: 1,
                   child: FutureBuilder(
@@ -644,8 +661,8 @@ class _starPageState extends State<starPage> {
                                                 children: [
                                                   Padding(
                                                       padding: EdgeInsets.only(
-                                                        top: 10 / screenHeight,
-                                                      )),
+                                                    top: 10 / screenHeight,
+                                                  )),
                                                   Container(
                                                     height: 80 / screenHeight,
                                                     child: Row(
@@ -653,8 +670,8 @@ class _starPageState extends State<starPage> {
                                                         Container(
                                                           width:
                                                               800 / screenWidth,
-                                                          height: 80 /
-                                                              screenHeight,
+                                                          height:
+                                                              80 / screenHeight,
                                                           child: Text(
                                                             snapshot.data[index]
                                                                 .store_name,
@@ -705,7 +722,7 @@ class _starPageState extends State<starPage> {
                                                   ),
                                                   Container(
                                                     margin: EdgeInsets.only(
-                                                        top: 30/ screenHeight),
+                                                        top: 30 / screenHeight),
                                                     width: 650 / screenWidth,
                                                     height: 142 / screenHeight,
                                                     child: Text(
@@ -724,14 +741,13 @@ class _starPageState extends State<starPage> {
                                                   ),
                                                   Container(
                                                     height: 140 / screenHeight,
-                                                  //  width: 650 / screenWidth,
+                                                    //  width: 650 / screenWidth,
                                                     alignment:
                                                         Alignment.bottomRight,
                                                     child: Row(
                                                       children: [
                                                         chair(snapshot
                                                             .data[index].chair),
-
                                                         carriage(snapshot
                                                             .data[index]
                                                             .carriage),

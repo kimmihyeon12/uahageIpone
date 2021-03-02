@@ -394,7 +394,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                             )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
-                              height: 414 / screenHeight,
+                              height: 409 / screenHeight,
+                              width: 413 / screenWidth,
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -406,22 +407,23 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                               children: [
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 40 / screenHeight),
-                                  // width: 860 / screenWidth,
+                                      EdgeInsets.only(top: 72 / screenHeight),
+                                  width: 880 / screenWidth,
                                   height: 80 / screenHeight,
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: 660 / screenWidth,
-                                        height: 100 / screenHeight,
                                         child: Text(Message[0],
                                             style: TextStyle(
-                                                color: const Color(0xff010000),
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Bold",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 56 / screenWidth),
+                                              color: const Color(0xff010000),
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: "NotoSansCJKkr_Bold",
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 58 / screenWidth,
+                                              height: 1.2,
+                                            ),
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(

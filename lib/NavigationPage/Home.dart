@@ -497,30 +497,47 @@ class _homePageState extends State<homePage> {
           )
         : Scaffold(
             backgroundColor: Colors.white,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(180 / screenHeight),
+              child: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
+                centerTitle: true,
+                title: Text(
+                  "우아하게",
+                  style: TextStyle(
+                    fontSize: 73 / screenWidth,
+                    fontFamily: 'NotoSansCJKkr_Bold',
+                    letterSpacing: 0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
                   //appbar
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      height: 180 / screenHeight,
-                      width: double.infinity,
-                      color: Color.fromRGBO(255, 114, 148, 1.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "우아하게",
-                          style: TextStyle(
-                            fontSize: 73 / screenWidth,
-                            fontFamily: 'NotoSansCJKkr_Bold',
-                            letterSpacing: 0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.topCenter,
+                  //   child: Container(
+                  //     height: 180 / screenHeight,
+                  //     width: double.infinity,
+                  //     color: Color.fromRGBO(255, 114, 148, 1.0),
+                  //     child: Align(
+                  //       alignment: Alignment.center,
+                  //       child: Text(
+                  //         "우아하게",
+                  //         style: TextStyle(
+                  //           fontSize: 73 / screenWidth,
+                  //           fontFamily: 'NotoSansCJKkr_Bold',
+                  //           letterSpacing: 0,
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
 
                   //image
                   Container(
@@ -639,8 +656,7 @@ class _homePageState extends State<homePage> {
                                     }
                                   : () {
                                       currentFocus.unfocus();
-                                      showToast("Please enter address first",
-                                          screenWidth);
+                                      showToast("주소를 입력해주세요!", screenWidth);
                                     },
                               icon: Image.asset(
                                 "./assets/homePage/search.png",
