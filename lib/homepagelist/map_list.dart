@@ -408,16 +408,16 @@ class _map_listState extends State<map_list> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(
-                                    top: 72 / screenHeight,
-                                  ),
+                                  margin:
+                                      EdgeInsets.only(top: 60 / screenHeight),
                                   width: 880 / screenWidth,
-                                  height: 80 / screenHeight,
+                                  height: 82 / screenHeight,
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    //  crossAxisAlignment: CrossAxisAlignment.center,
+                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
+                                        width: 680 / screenWidth,
                                         child: Text(Message[0],
                                             style: TextStyle(
                                               color: const Color(0xff010000),
@@ -425,7 +425,7 @@ class _map_listState extends State<map_list> {
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
                                               fontSize: 58 / screenWidth,
-                                              height: 1.2,
+                                              // height: 1.0,
                                             ),
                                             textAlign: TextAlign.left),
                                       ),
@@ -465,7 +465,7 @@ class _map_listState extends State<map_list> {
                                   margin:
                                       EdgeInsets.only(top: 35 / screenHeight),
                                   width: 650 / screenWidth,
-                                  height: 145 / screenHeight,
+                                  height: 138 / screenHeight,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                         color: const Color(0xffb0b0b0),
@@ -478,7 +478,7 @@ class _map_listState extends State<map_list> {
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
-                                  height: 150 / screenHeight,
+                                  height: 120 / screenHeight,
                                   width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [

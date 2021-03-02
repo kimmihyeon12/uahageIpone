@@ -754,16 +754,16 @@ class _searchPageState extends State<searchPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(
-                                    top: 72 / screenHeight,
-                                  ),
+                                  margin:
+                                      EdgeInsets.only(top: 60 / screenHeight),
                                   width: 880 / screenWidth,
-                                  height: 80 / screenHeight,
+                                  height: 82 / screenHeight,
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    //  crossAxisAlignment: CrossAxisAlignment.center,
+                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
+                                        width: 680 / screenWidth,
                                         child: Text(Message[0],
                                             style: TextStyle(
                                               color: const Color(0xff010000),
@@ -771,7 +771,7 @@ class _searchPageState extends State<searchPage> {
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
                                               fontSize: 58 / screenWidth,
-                                              height: 1.2,
+                                              // height: 1.0,
                                             ),
                                             textAlign: TextAlign.left),
                                       ),
@@ -814,7 +814,7 @@ class _searchPageState extends State<searchPage> {
                                   margin:
                                       EdgeInsets.only(top: 35 / screenHeight),
                                   width: 650 / screenWidth,
-                                  height: 145 / screenHeight,
+                                  height: 138 / screenHeight,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                         color: const Color(0xffb0b0b0),
@@ -827,20 +827,22 @@ class _searchPageState extends State<searchPage> {
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
-                                  height: 150 / screenHeight,
+                                  height: 120 / screenHeight,
                                   width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
-                                  child: Row(children: [
-                                    menu(Message[3]),
-                                    bed(Message[4]),
-                                    tableware(Message[5]),
-                                    meetingroom(Message[6]),
-                                    diapers(Message[7]),
-                                    playroom(Message[8]),
-                                    carriage(Message[9]),
-                                    nursingroom(Message[10]),
-                                    chair(Message[11]),
-                                  ]),
+                                  child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children: [
+                                        menu(Message[3]),
+                                        bed(Message[4]),
+                                        tableware(Message[5]),
+                                        meetingroom(Message[6]),
+                                        diapers(Message[7]),
+                                        playroom(Message[8]),
+                                        carriage(Message[9]),
+                                        nursingroom(Message[10]),
+                                        chair(Message[11]),
+                                      ]),
                                 ),
                               ],
                             ),

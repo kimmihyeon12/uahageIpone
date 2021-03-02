@@ -25,9 +25,8 @@ class _agreementPageState extends State<agreementPage> {
   //kakao login----------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------
   bool _isKakaoTalkInstalled = false;
-  String _accountEmail;
-  String _ageRange;
-  String _gender;
+  String _accountEmail = "";
+
   bool isAlreadyRegistered = false;
 
   _initKakaoTalkInstalled() async {
@@ -114,13 +113,6 @@ class _agreementPageState extends State<agreementPage> {
     }
   }
 
-  //kakao 자동 login
-  // _create() async {
-  //   String id = jsonEncode(_accountEmail);
-  //   print(id);
-  //   // To save database HERE
-  // }
-
   _initTexts() async {
     final User user = await UserApi.instance.me();
 
@@ -131,9 +123,7 @@ class _agreementPageState extends State<agreementPage> {
         "=========================[kakao account]=================================");
 
     setState(() {
-      _accountEmail = user.kakaoAccount.email;
-      _ageRange = user.kakaoAccount.ageRange.toString();
-      _gender = user.kakaoAccount.gender.toString();
+      _accountEmail = user.kakaoAccount.email ?? "";
     });
   }
 
@@ -800,7 +790,7 @@ class _agreementPageState extends State<agreementPage> {
                         ],
                       ),
                       Divider(
-                          thickness: 0.2, height: 0, color: Color(0xff000000)),
+                          thickness: 0.1, height: 0, color: Color(0xff000000)),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -1219,7 +1209,7 @@ class _agreementPageState extends State<agreementPage> {
                         ],
                       ),
                       Divider(
-                          thickness: 0.2, height: 0, color: Color(0xff000000)),
+                          thickness: 0.1, height: 0, color: Color(0xff000000)),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
