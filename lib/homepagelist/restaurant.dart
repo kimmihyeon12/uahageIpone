@@ -338,19 +338,21 @@ class _restaurantState extends State<restaurant> {
                                         decoration: BoxDecoration(
                                             // border: Border.all(width: 3.0),
                                             image: DecorationImage(
-                                                image: NetworkImage(
-                                                  (() {
-                                                    if (index % 3 == 1)
-                                                      return listimage[0];
-                                                    else if (index % 3 == 2)
-                                                      return listimage[1];
-                                                    else
-                                                      return listimage[2];
-                                                  }()),
-                                                ),
-                                                fit: BoxFit.fitHeight),
+                                              image: NetworkImage(
+                                                (() {
+                                                  if (index % 3 == 1)
+                                                    return listimage[0];
+                                                  else if (index % 3 == 2)
+                                                    return listimage[1];
+                                                  else
+                                                    return listimage[2];
+                                                }()),
+                                              ),
+                                              fit: BoxFit.fitWidth,
+                                            ),
                                             borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
+                                              Radius.circular(10.0),
+                                            )),
                                         height: 414 / screenWidth,
                                         width: 413 / screenWidth,
                                         // child: (() {
