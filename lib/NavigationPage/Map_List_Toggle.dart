@@ -520,7 +520,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       //  searchbtn = false;
       //  switchbtn = false;
       return Navigator.pop(context, 'Yep!');
-      i = 0;
     });
   }
 
