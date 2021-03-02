@@ -298,7 +298,7 @@ class _experience_centerState extends State<experience_center> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenHeight,
+                                        height: 414 / screenWidth,
                                         width: 413 / screenWidth,
                                       ),
                                       // (() {
@@ -336,11 +336,13 @@ class _experience_centerState extends State<experience_center> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10 / screenHeight)),
                                           SafeArea(
                                             child: Row(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                   width: 830 /
@@ -493,8 +495,12 @@ class _experience_centerState extends State<experience_center> {
                   }
                 },
               )
-            : map_list(userId: userId, loginOption: loginOption,
-                latitude: latitude, longitude: longitude, list: liststringdata),
+            : map_list(
+                userId: userId,
+                loginOption: loginOption,
+                latitude: latitude,
+                longitude: longitude,
+                list: liststringdata),
       ),
     );
   }

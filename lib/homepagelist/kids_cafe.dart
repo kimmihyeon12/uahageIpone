@@ -321,7 +321,7 @@ class _kids_cafeState extends State<kids_cafe> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenHeight,
+                                        height: 414 / screenWidth,
                                         width: 413 / screenWidth,
                                         // child: (() {
                                         //   if (index % 2 == 0) {
@@ -371,11 +371,13 @@ class _kids_cafeState extends State<kids_cafe> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Padding(padding:EdgeInsets.only(top: 10/screenHeight)),
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 10 / screenHeight)),
                                           SafeArea(
                                             child: Row(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                   width: 830 /
@@ -390,7 +392,6 @@ class _kids_cafeState extends State<kids_cafe> {
                                                           (2667 / ScreenHeight),
                                                       fontFamily:
                                                           'NotoSansCJKkr_Medium',
-
                                                     ),
                                                   ),
                                                 ),
@@ -531,7 +532,11 @@ class _kids_cafeState extends State<kids_cafe> {
                 },
               )
             : map_list(
-               userId: userId,loginOption: loginOption, latitude: latitude, longitude: longitude, list: liststringdata),
+                userId: userId,
+                loginOption: loginOption,
+                latitude: latitude,
+                longitude: longitude,
+                list: liststringdata),
       ),
     );
   }

@@ -351,7 +351,7 @@ class _restaurantState extends State<restaurant> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenHeight,
+                                        height: 414 / screenWidth,
                                         width: 413 / screenWidth,
                                         // child: (() {
                                         //   if (index % 3 == 1) {

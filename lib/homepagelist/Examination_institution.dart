@@ -292,7 +292,7 @@ class _examination_institutionState extends State<examination_institution> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenHeight,
+                                        height: 414 / screenWidth,
                                         width: 413 / screenWidth,
                                       ),
                                       // (() {
