@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -101,15 +102,21 @@ class _homePageState extends State<homePage> {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     imageView(fileName) {
-      return Image.network(
-        // 'http://hohoco.dothome.co.kr/img/$fileName.png',
-        "https://uahage.s3.ap-northeast-2.amazonaws.com/homepage/$fileName.png",
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return Center(
-            child: buildSpinKitThreeBounce(50, screenWidth),
-          );
-        },
+      // return Image.network(
+      //   // 'http://hohoco.dothome.co.kr/img/$fileName.png',
+      //   "https://uahage.s3.ap-northeast-2.amazonaws.com/homepage/$fileName.png",
+      //   loadingBuilder: (context, child, loadingProgress) {
+      //     if (loadingProgress == null) return child;
+      //     return Center(
+      //       child: buildSpinKitThreeBounce(50, screenWidth),
+      //     );
+      //   },
+      //   fit: BoxFit.fill,
+      // );
+      return CachedNetworkImage(
+        imageUrl:
+            "https://uahage.s3.ap-northeast-2.amazonaws.com/homepage/$fileName.png",
+        // placeholder: (context, url) => buildSpinKitThreeBounce(50, screenWidth),
         fit: BoxFit.fill,
       );
     }
@@ -630,9 +637,18 @@ class _homePageState extends State<homePage> {
                             fontSize: 55 / screenWidth,
                             letterSpacing: -1.0),
                         decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Color(0xffff7292),
+                              )),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(width: 0)),
+                              borderSide: BorderSide(
+                                width: 0,
+                                color: Color(0xffff7292),
+                              )),
                           contentPadding:
                               EdgeInsets.fromLTRB(76 / screenWidth, 0, 0, 0),
                           hintText: "장소, 주소, 상호명을 검색해주세요",
