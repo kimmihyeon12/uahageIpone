@@ -423,7 +423,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
                                               fontSize: 58 / screenWidth,
-                                              // height: 1.0,
+                                              height: 0.8,
                                             ),
                                             textAlign: TextAlign.left),
                                       ),
@@ -464,7 +464,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 ),
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 35 / screenHeight),
+                                      EdgeInsets.only(top: 10 / screenHeight),
                                   width: 650 / screenWidth,
                                   height: 138 / screenHeight,
                                   child: Text(Message[1],
@@ -479,22 +479,22 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
+                                  margin:
+                                      EdgeInsets.only(top: 10 / screenHeight),
                                   height: 120 / screenHeight,
                                   width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
-                                  child: ListView(
-                                      scrollDirection: Axis.horizontal,
-                                      children: [
-                                        menu(Message[3]),
-                                        bed(Message[4]),
-                                        tableware(Message[5]),
-                                        meetingroom(Message[6]),
-                                        diapers(Message[7]),
-                                        playroom(Message[8]),
-                                        carriage(Message[9]),
-                                        nursingroom(Message[10]),
-                                        chair(Message[11]),
-                                      ]),
+                                  child: Row(children: [
+                                    menu(Message[3]),
+                                    bed(Message[4]),
+                                    tableware(Message[5]),
+                                    meetingroom(Message[6]),
+                                    diapers(Message[7]),
+                                    playroom(Message[8]),
+                                    carriage(Message[9]),
+                                    nursingroom(Message[10]),
+                                    chair(Message[11]),
+                                  ]),
                                 ),
                               ],
                             ),

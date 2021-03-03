@@ -385,7 +385,16 @@ class _myPageState extends State<myPage> {
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     FocusScopeNode currentFocus = FocusScope.of(context);
-
+    isIOS
+        ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+            .copyWith(
+                statusBarBrightness:
+                    Brightness.dark // Dark == white status bar -- for IOS.
+                ))
+        : SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            systemNavigationBarColor: Color(0xffd9d4d5), // navigation bar color
+            statusBarColor: Color(0xffd9d4d5), // status bar color
+          ));
     var _fontsize = 52.5 / screenWidth;
     var textStyle52 = TextStyle(
       color: const Color(0xffb1b1b1),

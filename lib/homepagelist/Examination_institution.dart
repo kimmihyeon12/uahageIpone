@@ -31,7 +31,7 @@ class _examination_institutionState extends State<examination_institution> {
   String liststringdata = 'Examination_institution';
   String store_name1, address1, phone1, Examination_item1;
   var star_color = false;
-  List<String> star_color_list = List(1000);
+  List<String> star_color_list = [];
   var list = true;
   int _currentMax = 0;
   // ScrollController _scrollController = ScrollController();
@@ -53,6 +53,8 @@ class _examination_institutionState extends State<examination_institution> {
     });
   }
 
+  Future<List<Examination_institution>> myFuture;
+
   @override
   void initState() {
     setState(() {
@@ -63,6 +65,7 @@ class _examination_institutionState extends State<examination_institution> {
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
+    myFuture = _getrestaurant();
     // getCurrentLocation();
     super.initState();
   }
@@ -92,7 +95,7 @@ class _examination_institutionState extends State<examination_institution> {
     var dec = jsonDecode(data.body);
     // print(dec);
     for (int i = 0; i < dec.length; i++) {
-      star_color_list[i] = dec[i]["store_name"].toString();
+      star_color_list.add(dec[i]["store_name"].toString());
     }
     setState(() {});
   }
@@ -157,8 +160,8 @@ class _examination_institutionState extends State<examination_institution> {
                   children: [
                     Image.asset(
                       "./assets/listPage/backbutton.png",
-                      width: 44 / (1501 / ScreenWidth),
-                      height: 76 / (2667 / ScreenHeight),
+                      width: 44 / screenWidth,
+                      height: 76 / screenHeight,
                     ),
                     Padding(
                       padding: EdgeInsets.only(
@@ -222,7 +225,7 @@ class _examination_institutionState extends State<examination_institution> {
         ),
         body: list
             ? FutureBuilder(
-                future: _getrestaurant(),
+                future: myFuture,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
                     return Center(
@@ -268,10 +271,11 @@ class _examination_institutionState extends State<examination_institution> {
                                     ));
                               },
                               child: Container(
-                                  height: 500 / (2667 / ScreenHeight),
+                                  // height: 500 / screenHeight,
                                   padding: EdgeInsets.only(
-                                    top: 30 / (2667 / ScreenHeight),
-                                    left: 26 / (1501 / ScreenWidth),
+                                    top: 30 / screenHeight,
+                                    left: 26 / screenWidth,
+                                    bottom: 40 / screenHeight,
                                   ),
                                   child: Row(
                                     crossAxisAlignment:
@@ -292,29 +296,25 @@ class _examination_institutionState extends State<examination_institution> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenWidth,
-                                        width: 413 / screenWidth,
+                                        height: 414 / screenHeight,
+                                        width: 414 / screenHeight,
                                       ),
                                       // (() {
                                       //   if (index % 2 == 0) {
                                       //     return Image.asset(
                                       //       listimage[0],
-                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //       height: 414 / screenHeight,
                                       //     );
                                       //   } else {
                                       //     return Image.asset(
                                       //       listimage[1],
-                                      //       height: 414 / (2667 / ScreenHeight),
+                                      //       height: 414 / screenHeight,
                                       //     );
                                       //   }
                                       // }()),
                                       Padding(
                                           padding: EdgeInsets.only(
-                                        left: 53 /
-                                            (1501 /
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .width),
+                                        left: 53 / screenWidth,
                                       )),
                                       Column(
                                         crossAxisAlignment:
@@ -323,155 +323,108 @@ class _examination_institutionState extends State<examination_institution> {
                                           Padding(
                                               padding: EdgeInsets.only(
                                                   top: 10 / screenHeight)),
-                                          SafeArea(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 830 /
-                                                      (1501 / ScreenWidth),
-                                                  height: 100 /
-                                                      (2667 / ScreenHeight),
-                                                  child: Text(
-                                                    snapshot
-                                                        .data[index].store_name,
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          56 / screenWidth,
-                                                      fontFamily:
-                                                          'NotoSansCJKkr_Medium',
-                                                    ),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: 800 / screenWidth,
+                                                height: 100 / screenHeight,
+                                                child: Text(
+                                                  snapshot
+                                                      .data[index].store_name,
+                                                  style: TextStyle(
+                                                    fontSize: 56 / screenWidth,
+                                                    fontFamily:
+                                                        'NotoSansCJKkr_Medium',
                                                   ),
                                                 ),
-                                                IconButton(
-                                                  padding: EdgeInsets.all(0),
-                                                  constraints: BoxConstraints(
-                                                    maxWidth: 70 /
-                                                        (1501 / ScreenWidth),
-                                                    maxHeight: 70 /
-                                                        (2667 / ScreenHeight),
-                                                  ),
-                                                  icon: Image.asset(
-                                                    star_color_list[index] ==
-                                                            'null'
-                                                        ? "./assets/listPage/star_grey.png"
-                                                        : "./assets/listPage/star_color.png",
-                                                    height: 60 /
-                                                        (2667 / ScreenHeight),
-                                                  ),
-                                                  onPressed: loginOption ==
-                                                          "login"
-                                                      ? () {
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg:
-                                                                "  로그인 해주세요!  ",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .BOTTOM,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                            backgroundColor:
-                                                                Colors.black45,
-                                                            textColor:
-                                                                Colors.white,
-                                                            fontSize: 48 /
-                                                                screenWidth,
-                                                          );
-                                                        }
-                                                      : () async {
-                                                          setState(() {
-                                                            store_name1 =
-                                                                snapshot
-                                                                    .data[index]
-                                                                    .store_name;
-                                                            address1 = snapshot
-                                                                .data[index]
-                                                                .address;
-                                                            phone1 = snapshot
-                                                                .data[index]
-                                                                .phone;
-                                                            Examination_item1 =
-                                                                snapshot
-                                                                    .data[index]
-                                                                    .Examination_item;
-
-                                                            if (star_color_list[
-                                                                    index] ==
-                                                                'null') {
-                                                              star_color = true;
-                                                              star_color_list[
-                                                                      index] =
-                                                                  "test";
-                                                              print(
-                                                                  ' star_color_list[index]');
-                                                              print(
-                                                                  star_color_list[
-                                                                      index]);
-                                                            } else {
-                                                              star_color =
-                                                                  false;
-                                                              star_color_list[
-                                                                      index] =
-                                                                  'null';
-                                                            }
-
-                                                            click_star();
-                                                          });
-                                                        },
+                                              ),
+                                              IconButton(
+                                                padding: EdgeInsets.all(0),
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 70 / screenWidth,
+                                                  maxHeight: 70 / screenHeight,
                                                 ),
-                                              ],
-                                            ),
+                                                icon: Image.asset(
+                                                  star_color_list[index] ==
+                                                          'null'
+                                                      ? "./assets/listPage/star_grey.png"
+                                                      : "./assets/listPage/star_color.png",
+                                                  height: 60 / screenHeight,
+                                                ),
+                                                onPressed: loginOption ==
+                                                        "login"
+                                                    ? () {
+                                                        Fluttertoast.showToast(
+                                                          msg: "  로그인 해주세요!  ",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .BOTTOM,
+                                                          timeInSecForIosWeb: 1,
+                                                          backgroundColor:
+                                                              Colors.black45,
+                                                          textColor:
+                                                              Colors.white,
+                                                          fontSize:
+                                                              48 / screenWidth,
+                                                        );
+                                                      }
+                                                    : () async {
+                                                        setState(() {
+                                                          store_name1 = snapshot
+                                                              .data[index]
+                                                              .store_name;
+                                                          address1 = snapshot
+                                                              .data[index]
+                                                              .address;
+                                                          phone1 = snapshot
+                                                              .data[index]
+                                                              .phone;
+                                                          Examination_item1 =
+                                                              snapshot
+                                                                  .data[index]
+                                                                  .Examination_item;
+
+                                                          if (star_color_list[
+                                                                  index] ==
+                                                              'null') {
+                                                            star_color = true;
+                                                            star_color_list[
+                                                                index] = "test";
+                                                            print(
+                                                                ' star_color_list[index]');
+                                                            print(
+                                                                star_color_list[
+                                                                    index]);
+                                                          } else {
+                                                            star_color = false;
+                                                            star_color_list[
+                                                                index] = 'null';
+                                                          }
+
+                                                          click_star();
+                                                        });
+                                                      },
+                                              ),
+                                            ],
                                           ),
-
                                           Container(
-                                            height: 350 / screenHeight,
+                                            // height: 350 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize: 55 / screenWidth,
+                                                fontSize: 50 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                                 height: 1.2,
                                               ),
                                             ),
                                           ),
-                                          // SafeArea(
-                                          //   child: Container(
-                                          //     height:
-                                          //         150 / (1501 / ScreenWidth),
-                                          //     width: 800 / (1501 / ScreenWidth),
-                                          //     child: Text(
-                                          //       snapshot.data[index].phone,
-                                          //       style: TextStyle(
-                                          //         // fontFamily: 'NatoSans',
-                                          //         color: Colors.grey,
-                                          //         fontSize: 45 / screenWidth,
-                                          //         fontFamily:
-                                          //             'NotoSansCJKkr_Medium',
-                                          //       ),
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                          // Container(
-                                          //   width: 800 / (1501 / ScreenWidth),
-                                          //   child: Text(
-                                          //     snapshot.data[index].Examination_item,
-                                          //     style: TextStyle(
-                                          //       // fontFamily: 'NatoSans',
-                                          //       color: Colors.black,
-                                          //       fontSize:
-                                          //           45 / (2667 / ScreenHeight),
-                                          //       fontFamily: 'NotoSansCJKkr_Medium',
-                                          //     ),
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                     ],

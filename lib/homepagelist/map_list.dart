@@ -425,7 +425,7 @@ class _map_listState extends State<map_list> {
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
                                               fontSize: 58 / screenWidth,
-                                              // height: 1.0,
+                                              height: 0.8,
                                             ),
                                             textAlign: TextAlign.left),
                                       ),
@@ -463,7 +463,7 @@ class _map_listState extends State<map_list> {
                                 ),
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 35 / screenHeight),
+                                      EdgeInsets.only(top: 10 / screenHeight),
                                   width: 650 / screenWidth,
                                   height: 138 / screenHeight,
                                   child: Text(Message[1],
@@ -478,6 +478,8 @@ class _map_listState extends State<map_list> {
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
+                                  margin:
+                                      EdgeInsets.only(top: 10 / screenHeight),
                                   height: 120 / screenHeight,
                                   width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,

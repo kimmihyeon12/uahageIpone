@@ -34,7 +34,7 @@ class _kids_cafeState extends State<kids_cafe> {
   String liststringdata = 'Kids_cafe';
   String store_name1, address1, phone1, fare1;
   var star_color = false;
-  List<String> star_color_list = List(1000);
+  List<String> star_color_list = [];
   var list = true;
 
   // getCurrentLocation() async {
@@ -61,8 +61,10 @@ class _kids_cafeState extends State<kids_cafe> {
   bool _isLoading = false;
   String userId = "";
   String loginOption = "";
-  @override
+
+  Future<List<Kids_cafe>> myFuture;
   void initState() {
+    myFuture = _getrestaurant();
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
@@ -101,7 +103,7 @@ class _kids_cafeState extends State<kids_cafe> {
     // print(dec);
     for (int i = 0; i < dec.length; i++) {
       //  print(dec[i]["store_name"].toString());
-      star_color_list[i] = dec[i]["store_name"].toString();
+      star_color_list.add(dec[i]["store_name"].toString());
     }
     setState(() {});
   }
@@ -114,6 +116,7 @@ class _kids_cafeState extends State<kids_cafe> {
     //?maxCount=$_currentMax
 
     var jsonData = json.decode(data.body);
+
     for (var r in jsonData) {
       Kids_cafe kids_cafe = Kids_cafe(
         r["id"],
@@ -251,7 +254,7 @@ class _kids_cafeState extends State<kids_cafe> {
         ),
         body: list
             ? FutureBuilder(
-                future: _getrestaurant(),
+                future: myFuture,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
                     return Center(
@@ -297,10 +300,11 @@ class _kids_cafeState extends State<kids_cafe> {
                                     ));
                               },
                               child: Container(
-                                  height: 500 / (2667 / ScreenHeight),
+                                  // height: 500 / (2667 / ScreenHeight),
                                   padding: EdgeInsets.only(
-                                    top: 30 / (2667 / ScreenHeight),
-                                    left: 26 / (1501 / ScreenWidth),
+                                    top: 30 / screenHeight,
+                                    left: 26 / screenWidth,
+                                    bottom: 40 / screenHeight,
                                   ),
                                   child: Row(
                                     crossAxisAlignment:
@@ -321,8 +325,8 @@ class _kids_cafeState extends State<kids_cafe> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenWidth,
-                                        width: 413 / screenWidth,
+                                        height: 414 / screenHeight,
+                                        width: 414 / screenHeight,
                                         // child: (() {
                                         //   if (index % 2 == 0) {
                                         //     return Image.network(
@@ -361,11 +365,7 @@ class _kids_cafeState extends State<kids_cafe> {
                                       ),
                                       Padding(
                                           padding: EdgeInsets.only(
-                                        left: 53 /
-                                            (1501 /
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .width),
+                                        left: 53 / screenWidth,
                                       )),
                                       Column(
                                         crossAxisAlignment:
@@ -374,119 +374,107 @@ class _kids_cafeState extends State<kids_cafe> {
                                           Padding(
                                               padding: EdgeInsets.only(
                                                   top: 10 / screenHeight)),
-                                          SafeArea(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 830 /
-                                                      (1501 / ScreenWidth),
-                                                  height: 100 /
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width:
+                                                    800 / (1501 / ScreenWidth),
+                                                height:
+                                                    100 / (2667 / ScreenHeight),
+                                                child: Text(
+                                                  snapshot
+                                                      .data[index].store_name,
+                                                  style: TextStyle(
+                                                    fontSize: 56 / screenWidth,
+                                                    fontFamily:
+                                                        'NotoSansCJKkr_Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                              IconButton(
+                                                padding: EdgeInsets.all(0),
+                                                constraints: BoxConstraints(
+                                                  maxWidth:
+                                                      70 / (1501 / ScreenWidth),
+                                                  maxHeight: 70 /
                                                       (2667 / ScreenHeight),
-                                                  child: Text(
-                                                    snapshot
-                                                        .data[index].store_name,
-                                                    style: TextStyle(
-                                                      fontSize: 56 /
-                                                          (2667 / ScreenHeight),
-                                                      fontFamily:
-                                                          'NotoSansCJKkr_Medium',
-                                                    ),
-                                                  ),
                                                 ),
-                                                IconButton(
-                                                  padding: EdgeInsets.all(0),
-                                                  constraints: BoxConstraints(
-                                                    maxWidth: 170 /
-                                                        (1501 / ScreenWidth),
-                                                    maxHeight: 170 /
-                                                        (2667 / ScreenHeight),
-                                                  ),
-                                                  icon: Image.asset(
-                                                    star_color_list[index] ==
-                                                            'null'
-                                                        ? "./assets/listPage/star_grey.png"
-                                                        : "./assets/listPage/star_color.png",
-                                                    height: 60 /
-                                                        (2667 / ScreenHeight),
-                                                  ),
-                                                  onPressed: loginOption ==
-                                                          "login"
-                                                      ? () {
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg:
-                                                                "  로그인 해주세요!  ",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .BOTTOM,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                            backgroundColor:
-                                                                Colors.black45,
-                                                            textColor:
-                                                                Colors.white,
-                                                            fontSize: 48 /
-                                                                (2667 /
-                                                                    ScreenHeight),
-                                                          );
-                                                        }
-                                                      : () async {
-                                                          setState(() {
-                                                            store_name1 =
-                                                                snapshot
-                                                                    .data[index]
-                                                                    .store_name;
-                                                            address1 = snapshot
-                                                                .data[index]
-                                                                .address;
-                                                            phone1 = snapshot
-                                                                .data[index]
-                                                                .phone;
-                                                            fare1 = snapshot
-                                                                .data[index]
-                                                                .fare;
-
-                                                            if (star_color_list[
-                                                                    index] ==
-                                                                'null') {
-                                                              star_color = true;
-                                                              star_color_list[
-                                                                      index] =
-                                                                  "test";
-                                                              print(
-                                                                  ' star_color_list[index]');
-                                                              print(
-                                                                  star_color_list[
-                                                                      index]);
-                                                            } else {
-                                                              star_color =
-                                                                  false;
-                                                              star_color_list[
-                                                                      index] =
-                                                                  'null';
-                                                            }
-                                                            ;
-
-                                                            click_star();
-                                                          });
-                                                        },
+                                                icon: Image.asset(
+                                                  star_color_list[index] ==
+                                                          'null'
+                                                      ? "./assets/listPage/star_grey.png"
+                                                      : "./assets/listPage/star_color.png",
+                                                  height: 60 /
+                                                      (2667 / ScreenHeight),
                                                 ),
-                                              ],
-                                            ),
+                                                onPressed: loginOption ==
+                                                        "login"
+                                                    ? () {
+                                                        Fluttertoast.showToast(
+                                                          msg: "  로그인 해주세요!  ",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .BOTTOM,
+                                                          timeInSecForIosWeb: 1,
+                                                          backgroundColor:
+                                                              Colors.black45,
+                                                          textColor:
+                                                              Colors.white,
+                                                          fontSize: 48 /
+                                                              (2667 /
+                                                                  ScreenHeight),
+                                                        );
+                                                      }
+                                                    : () async {
+                                                        setState(() {
+                                                          store_name1 = snapshot
+                                                              .data[index]
+                                                              .store_name;
+                                                          address1 = snapshot
+                                                              .data[index]
+                                                              .address;
+                                                          phone1 = snapshot
+                                                              .data[index]
+                                                              .phone;
+                                                          fare1 = snapshot
+                                                              .data[index].fare;
+
+                                                          if (star_color_list[
+                                                                  index] ==
+                                                              'null') {
+                                                            star_color = true;
+                                                            star_color_list[
+                                                                index] = "test";
+                                                            print(
+                                                                ' star_color_list[index]');
+                                                            print(
+                                                                star_color_list[
+                                                                    index]);
+                                                          } else {
+                                                            star_color = false;
+                                                            star_color_list[
+                                                                index] = 'null';
+                                                          }
+                                                          ;
+
+                                                          click_star();
+                                                        });
+                                                      },
+                                              ),
+                                            ],
                                           ),
                                           Container(
-                                            height: 350 / screenHeight,
+                                            // height: 350 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize: 55 / screenWidth,
+                                                fontSize: 50 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                                 height: 1.2,

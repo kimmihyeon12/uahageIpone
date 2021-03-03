@@ -38,7 +38,7 @@ class _experience_centerState extends State<experience_center> {
   String loginOption = "";
   String store_name1, address1, phone1, fare1;
   var star_color = false;
-  List<String> star_color_list = List(1000);
+  List<String> star_color_list = [];
   var list = true;
 
   getCurrentLocation() async {
@@ -64,6 +64,9 @@ class _experience_centerState extends State<experience_center> {
   // ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
+  Future<List<Experience_center>> myFuture;
+
+  @override
   void initState() {
     setState(() {
       loginOption = widget.loginOption;
@@ -73,6 +76,7 @@ class _experience_centerState extends State<experience_center> {
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
+    myFuture = _getrestaurant();
     // getCurrentLocation();
     super.initState();
   }
@@ -103,7 +107,7 @@ class _experience_centerState extends State<experience_center> {
     // print(dec);
     for (int i = 0; i < dec.length; i++) {
       //  print(dec[i]["store_name"].toString());
-      star_color_list[i] = dec[i]["store_name"].toString();
+      star_color_list.add(dec[i]["store_name"].toString());
     }
     setState(() {});
   }
@@ -225,7 +229,7 @@ class _experience_centerState extends State<experience_center> {
         ),
         body: list
             ? FutureBuilder(
-                future: _getrestaurant(),
+                future: myFuture,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
                     return Center(
@@ -270,11 +274,11 @@ class _experience_centerState extends State<experience_center> {
                                     ));
                               },
                               child: Container(
-                                  height: 500 / (2667 / ScreenHeight),
+                                  // height: 500 / screenHeight,
                                   padding: EdgeInsets.only(
-                                    top: 30 / (2667 / ScreenHeight),
-                                    left: 26 / (1501 / ScreenWidth),
-                                  ),
+                                      top: 30 / screenHeight,
+                                      left: 26 / (1501 / ScreenWidth),
+                                      bottom: 40 / screenHeight),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -298,8 +302,8 @@ class _experience_centerState extends State<experience_center> {
                                                 fit: BoxFit.fitHeight),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10.0))),
-                                        height: 414 / screenWidth,
-                                        width: 413 / screenWidth,
+                                        height: 414 / screenHeight,
+                                        width: 414 / screenHeight,
                                       ),
                                       // (() {
                                       //   if (index % 4 == 1) {
@@ -339,119 +343,107 @@ class _experience_centerState extends State<experience_center> {
                                           Padding(
                                               padding: EdgeInsets.only(
                                                   top: 10 / screenHeight)),
-                                          SafeArea(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: 830 /
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width:
+                                                    800 / (1501 / ScreenWidth),
+                                                height:
+                                                    100 / (2667 / ScreenHeight),
+                                                child: Text(
+                                                  snapshot
+                                                      .data[index].store_name,
+                                                  style: TextStyle(
+                                                    fontSize: 50 / screenWidth,
+                                                    fontFamily:
+                                                        'NotoSansCJKkr_Medium',
+                                                  ),
+                                                ),
+                                              ),
+                                              IconButton(
+                                                padding: EdgeInsets.all(0),
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 170 /
                                                       (1501 / ScreenWidth),
-                                                  height: 100 /
+                                                  maxHeight: 170 /
                                                       (2667 / ScreenHeight),
-                                                  child: Text(
-                                                    snapshot
-                                                        .data[index].store_name,
-                                                    style: TextStyle(
-                                                      fontSize:
-                                                          56 / screenWidth,
-                                                      fontFamily:
-                                                          'NotoSansCJKkr_Medium',
-                                                    ),
-                                                  ),
                                                 ),
-                                                IconButton(
-                                                  padding: EdgeInsets.all(0),
-                                                  constraints: BoxConstraints(
-                                                    maxWidth: 170 /
-                                                        (1501 / ScreenWidth),
-                                                    maxHeight: 170 /
-                                                        (2667 / ScreenHeight),
-                                                  ),
-                                                  icon: Image.asset(
-                                                    star_color_list[index] ==
-                                                            'null'
-                                                        ? "./assets/listPage/star_grey.png"
-                                                        : "./assets/listPage/star_color.png",
-                                                    height: 60 /
-                                                        (2667 / ScreenHeight),
-                                                  ),
-                                                  onPressed: loginOption ==
-                                                          "login"
-                                                      ? () {
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg:
-                                                                "  로그인 해주세요!  ",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            gravity:
-                                                                ToastGravity
-                                                                    .BOTTOM,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                            backgroundColor:
-                                                                Colors.black45,
-                                                            textColor:
-                                                                Colors.white,
-                                                            fontSize: 48 /
-                                                                screenWidth,
-                                                          );
-                                                        }
-                                                      : () async {
-                                                          setState(() {
-                                                            store_name1 =
-                                                                snapshot
-                                                                    .data[index]
-                                                                    .store_name;
-                                                            address1 = snapshot
-                                                                .data[index]
-                                                                .address;
-                                                            phone1 = snapshot
-                                                                .data[index]
-                                                                .phone;
-                                                            fare1 = snapshot
-                                                                .data[index]
-                                                                .fare;
-
-                                                            if (star_color_list[
-                                                                    index] ==
-                                                                'null') {
-                                                              star_color = true;
-                                                              star_color_list[
-                                                                      index] =
-                                                                  "test";
-                                                              print(
-                                                                  ' star_color_list[index]');
-                                                              print(
-                                                                  star_color_list[
-                                                                      index]);
-                                                            } else {
-                                                              star_color =
-                                                                  false;
-                                                              star_color_list[
-                                                                      index] =
-                                                                  'null';
-                                                            }
-                                                            ;
-
-                                                            click_star();
-                                                          });
-                                                        },
+                                                icon: Image.asset(
+                                                  star_color_list[index] ==
+                                                          'null'
+                                                      ? "./assets/listPage/star_grey.png"
+                                                      : "./assets/listPage/star_color.png",
+                                                  height: 60 /
+                                                      (2667 / ScreenHeight),
                                                 ),
-                                              ],
-                                            ),
+                                                onPressed: loginOption ==
+                                                        "login"
+                                                    ? () {
+                                                        Fluttertoast.showToast(
+                                                          msg: "  로그인 해주세요!  ",
+                                                          toastLength: Toast
+                                                              .LENGTH_SHORT,
+                                                          gravity: ToastGravity
+                                                              .BOTTOM,
+                                                          timeInSecForIosWeb: 1,
+                                                          backgroundColor:
+                                                              Colors.black45,
+                                                          textColor:
+                                                              Colors.white,
+                                                          fontSize:
+                                                              48 / screenWidth,
+                                                        );
+                                                      }
+                                                    : () async {
+                                                        setState(() {
+                                                          store_name1 = snapshot
+                                                              .data[index]
+                                                              .store_name;
+                                                          address1 = snapshot
+                                                              .data[index]
+                                                              .address;
+                                                          phone1 = snapshot
+                                                              .data[index]
+                                                              .phone;
+                                                          fare1 = snapshot
+                                                              .data[index].fare;
+
+                                                          if (star_color_list[
+                                                                  index] ==
+                                                              'null') {
+                                                            star_color = true;
+                                                            star_color_list[
+                                                                index] = "test";
+                                                            print(
+                                                                ' star_color_list[index]');
+                                                            print(
+                                                                star_color_list[
+                                                                    index]);
+                                                          } else {
+                                                            star_color = false;
+                                                            star_color_list[
+                                                                index] = 'null';
+                                                          }
+                                                          ;
+
+                                                          click_star();
+                                                        });
+                                                      },
+                                              ),
+                                            ],
                                           ),
 
                                           Container(
-                                            height: 350 / screenHeight,
+                                            // height: 350 / screenHeight,
                                             width: 650 / screenWidth,
                                             child: Text(
                                               snapshot.data[index].address,
                                               style: TextStyle(
                                                 // fontFamily: 'NatoSans',
                                                 color: Colors.grey,
-                                                fontSize: 55 / screenWidth,
+                                                fontSize: 50 / screenWidth,
                                                 fontFamily:
                                                     'NotoSansCJKkr_Medium',
                                                 height: 1.2,

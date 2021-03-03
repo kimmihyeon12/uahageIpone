@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+// import 'package:uahage/homepagelist/Restaurant_helper.dart';
 import 'map_list.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:geolocator/geolocator.dart';
@@ -45,7 +45,7 @@ class _restaurantState extends State<restaurant> {
   var list = true;
   int _currentMax = 0;
   // ScrollController _scrollController = ScrollController();
-  List<String> star_color_list = List(1000);
+  List<String> star_color_list = [];
   var star_color = false;
   bool toggle = false;
 
@@ -67,12 +67,12 @@ class _restaurantState extends State<restaurant> {
     "./assets/listPage/chair.png",
   ];
 
-  // Future myFuture;
+  Future<List<Restaurant>> myFuture;
 
   @override
   void initState() {
     super.initState();
-
+    myFuture = _getrestaurant();
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
@@ -131,19 +131,23 @@ class _restaurantState extends State<restaurant> {
     // print(dec);
     for (int i = 0; i < dec.length; i++) {
       //  print(dec[i]["store_name"].toString());
-      star_color_list[i] = dec[i]["store_name"].toString();
-      print(star_color_list[i]);
+      star_color_list.add(dec[i]["store_name"].toString());
+      // print(star_color_list[i]);
     }
     setState(() {});
   }
 
   Future<List<Restaurant>> _getrestaurant() async {
     List<Restaurant> restaurants = [];
-    var data = await http.get(
+    http.Response data = await http.get(
         // 'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
         'http://13.209.41.43/getList/$liststringdata');
 
-    var jsonData = json.decode(data.body);
+    List jsonData = json.decode(data.body);
+
+    // jsonData.map((json) =>
+    //     print("Calling: $json")); //Restaurant.fromJson(json)  .toList()
+
     for (var r in jsonData) {
       Restaurant restaurant = Restaurant(
           r["id"],
@@ -266,7 +270,7 @@ class _restaurantState extends State<restaurant> {
         ),
         body: list
             ? FutureBuilder(
-                future: _getrestaurant(),
+                future: myFuture,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
                     return Center(
@@ -338,23 +342,21 @@ class _restaurantState extends State<restaurant> {
                                         decoration: BoxDecoration(
                                             // border: Border.all(width: 3.0),
                                             image: DecorationImage(
-                                              image: NetworkImage(
-                                                (() {
-                                                  if (index % 3 == 1)
-                                                    return listimage[0];
-                                                  else if (index % 3 == 2)
-                                                    return listimage[1];
-                                                  else
-                                                    return listimage[2];
-                                                }()),
-                                              ),
-                                              fit: BoxFit.fitWidth,
-                                            ),
+                                                image: NetworkImage(
+                                                  (() {
+                                                    if (index % 3 == 1)
+                                                      return listimage[0];
+                                                    else if (index % 3 == 2)
+                                                      return listimage[1];
+                                                    else
+                                                      return listimage[2];
+                                                  }()),
+                                                ),
+                                                fit: BoxFit.fill),
                                             borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0),
-                                            )),
-                                        height: 414 / screenWidth,
-                                        width: 413 / screenWidth,
+                                                Radius.circular(10.0))),
+                                        height: 414 / screenHeight,
+                                        width: 414 / screenHeight,
                                         // child: (() {
                                         //   if (index % 3 == 1) {
                                         //     return Image.network(
@@ -400,7 +402,7 @@ class _restaurantState extends State<restaurant> {
                                         //               buildSpinKitThreeBounce(
                                         //                   50, screenWidth),
                                         //         );
-                                        //       },
+                                        //       },광주 피자
                                         //       fit: BoxFit.fill,
                                         //       // height: 414 / screenHeight,
                                         //     );
@@ -423,7 +425,7 @@ class _restaurantState extends State<restaurant> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                width: 830 / screenWidth,
+                                                width: 800 / screenWidth,
                                                 height: 100 / screenHeight,
                                                 child: Text(
                                                   snapshot
