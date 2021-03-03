@@ -403,22 +403,22 @@ class _searchPageState extends State<searchPage> {
                             : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
                       },
                       javascriptMode: JavascriptMode.unrestricted,
-                      // javascriptChannels: Set.from([
-                      //   JavascriptChannel(
-                      //       name: 'Print',
-                      //       onMessageReceived:
-                      //           (JavascriptMessage message) async {
-                      //         //This is where you receive message from
-                      //         //javascript code and handle in Flutter/Dart
-                      //         //like here, the message is just being printed
-                      //         //in Run/LogCat window of android studio
-                      //         var messages = message.message;
-                      //         Message = messages.split(",");
-                      //         await checkStar();
-                      //         showPopUpbottomMenu(
-                      //             context, screenHeight, screenWidth);
-                      //       })
-                      // ]),
+                      javascriptChannels: Set.from([
+                        JavascriptChannel(
+                            name: 'Print',
+                            onMessageReceived:
+                                (JavascriptMessage message) async {
+                              //This is where you receive message from
+                              //javascript code and handle in Flutter/Dart
+                              //like here, the message is just being printed
+                              //in Run/LogCat window of android studio
+                              var messages = message.message;
+                              Message = messages.split(",");
+                              await checkStar();
+                              showPopUpbottomMenu(
+                                  context, screenHeight, screenWidth);
+                            })
+                      ]),
                     ),
                     Container(
                       color: Colors.white,
