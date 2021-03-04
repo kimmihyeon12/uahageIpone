@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class restaurant_sublist extends StatefulWidget {
   restaurant_sublist(
@@ -218,18 +219,23 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
     );
   }
 
-  Image mainImage(image, screenWidth) {
-    return Image.network(
-      image,
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: buildSpinKitThreeBounce(50, screenWidth),
-        );
-      },
-      // width: MediaQuery.of(context).size.width,
+  mainImage(image, screenWidth) {
+    return CachedNetworkImage(
+      imageUrl: image,
+      // placeholder: (context, url) => buildSpinKitThreeBounce(50, screenWidth),
       fit: BoxFit.fitWidth,
     );
+    // Image.network(
+    //   image,
+    //   loadingBuilder: (context, child, loadingProgress) {
+    //     if (loadingProgress == null) return child;
+    //     return Center(
+    //       child: buildSpinKitThreeBounce(50, screenWidth),
+    //     );
+    //   },
+    //   // width: MediaQuery.of(context).size.width,
+    //   fit: BoxFit.fitWidth,
+    // );
   }
 
   @override

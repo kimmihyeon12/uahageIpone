@@ -47,9 +47,9 @@ class _navigationPageState extends State<navigationPage> {
       oldNickname = widget.oldNickname ?? "";
       loginOption = widget.loginOption;
     });
-    print("userID " + userId);
-    print("loginOption " + loginOption);
-    print("oldnick " + oldNickname);
+    // print("userID " + userId);
+    // print("loginOption " + loginOption);
+    // print("oldnick " + oldNickname);
   }
 
   int _selectedTabIndex = 0;

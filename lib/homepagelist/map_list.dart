@@ -418,7 +418,10 @@ class _map_listState extends State<map_list> {
                                     children: [
                                       Container(
                                         width: 680 / screenWidth,
-                                        child: Text(Message[0],
+                                        child: Text(
+                                            Message[0].length <= 10
+                                                ? Message[0]
+                                                : Message[0].substring(0, 11),
                                             style: TextStyle(
                                               color: const Color(0xff010000),
                                               fontWeight: FontWeight.w500,
@@ -427,6 +430,7 @@ class _map_listState extends State<map_list> {
                                               fontSize: 58 / screenWidth,
                                               height: 0.8,
                                             ),
+                                            // overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(

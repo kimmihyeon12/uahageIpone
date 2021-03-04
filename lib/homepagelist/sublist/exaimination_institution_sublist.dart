@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class examination_institution_sublist extends StatefulWidget {
   examination_institution_sublist(
@@ -438,16 +439,23 @@ class _examination_institution_sublistState
     );
   }
 
-  Image mainImage(image, screenWidth) {
-    return Image.network(
-      image,
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: buildSpinKitThreeBounce(50, screenWidth),
-        );
-      },
-      // width: MediaQuery.of(context).size.width,
+  // Image mainImage(image, screenWidth) {
+  //   return Image.network(
+  //     image,
+  //     loadingBuilder: (context, child, loadingProgress) {
+  //       if (loadingProgress == null) return child;
+  //       return Center(
+  //         child: buildSpinKitThreeBounce(50, screenWidth),
+  //       );
+  //     },
+  //     // width: MediaQuery.of(context).size.width,
+  //     fit: BoxFit.fitWidth,
+  //   );
+  // }
+  mainImage(image, screenWidth) {
+    return CachedNetworkImage(
+      imageUrl: image,
+      // placeholder: (context, url) => buildSpinKitThreeBounce(50, screenWidth),
       fit: BoxFit.fitWidth,
     );
   }

@@ -156,6 +156,8 @@ class _searchPageState extends State<searchPage> {
         userId = widget.userId ?? "";
       });
     // getCurrentLocation();
+    print("latitude: $latitude");
+    print("longitude: $longitude");
   }
 
   int position = 1;
@@ -326,10 +328,11 @@ class _searchPageState extends State<searchPage> {
                                 longitude == 'NaN' ||
                                 latitude == '' ||
                                 longitude == '') await getCurrentLocation();
-                            controller.loadUrl(
-                                "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                                // "http://13.209.41.43/getPos?lat=$latitude&long=$longitude"
-                                );
+                            // controller.loadUrl(
+                            //     "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
+                            //     // "http://13.209.41.43/getPos?lat=$latitude&long=$longitude"
+                            //     );
+                            controller.reload();
                           },
                           child: Container(
                             margin: EdgeInsets.only(
@@ -583,61 +586,62 @@ class _searchPageState extends State<searchPage> {
                 return Stack(
                   children: [
                     Container(
-                      height: 2300 / screenHeight,
-                      child: Center(
-                        child: Image.asset(
-                          "./assets/searchPage/popUp.png",
-                          height: 1176 / screenHeight,
-                          width: 1067 / screenHeight,
+                      margin: EdgeInsets.only(
+                          top: 600 / (screenHeight),
+                          bottom: 0 / screenHeight,
+                          left: 190 / screenWidth,
+                          right: 0 / screenWidth),
+                      width: 1100 / screenWidth,
+                      height: 1100 / screenHeight,
+                      child: Card(
+                        shadowColor: Colors.black54,
+                        elevation: 1,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
                         ),
-                      ),
-                    ),
-                    Container(
-                      height: 2300 / screenHeight,
-                      child: Center(
                         child: Container(
-                          height: 1176 / screenHeight,
-                          child: Center(
-                            child: Positioned(
-                              child: SizedBox(
-                                width: 1000 / screenWidth,
-                                height: 1000 / screenHeight,
-                                child: GridView.count(
-                                  // childAspectRatio: 3 / 2,
-                                  crossAxisCount: 3,
-                                  children: List.generate(9, (index) {
-                                    return Scaffold(
-                                      backgroundColor: Colors.white,
-                                      body: Center(
-                                        child: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              grey_image[index] =
-                                                  !grey_image[index];
-                                            });
-                                            print(grey_image);
-                                          },
-                                          child: grey_image[index]
-                                              ? Image.asset(
-                                                  "./assets/searchPage/image" +
-                                                      (index + 1).toString() +
-                                                      "_grey.png",
-                                                  height: 293 / screenHeight,
-                                                  width: 218 / screenWidth,
-                                                )
-                                              : Image.asset(
-                                                  "./assets/searchPage/image" +
-                                                      (index + 1).toString() +
-                                                      ".png",
-                                                  height: 293 / screenHeight,
-                                                  width: 218 / screenWidth,
-                                                ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                                ),
-                              ),
+                          margin: EdgeInsets.only(
+                              top: 110 / (screenHeight),
+                              left: 50 / screenWidth,
+                              right: 50 / screenWidth),
+                          child: SizedBox(
+                            //       width: 888 / screenWidth,
+                            //     height: 800 / screenHeight,
+                            child: GridView.count(
+                              // childAspectRatio: 3 / 2,
+                              crossAxisCount: 3,
+                              children: List.generate(9, (index) {
+                                return Scaffold(
+                                  backgroundColor: Colors.white,
+                                  body: Center(
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          grey_image[index] =
+                                              !grey_image[index];
+                                        });
+                                        print(grey_image);
+                                      },
+                                      child: grey_image[index]
+                                          ? Image.asset(
+                                              "./assets/searchPage/image" +
+                                                  (index + 1).toString() +
+                                                  "_grey.png",
+                                              height: 293 / screenHeight,
+                                              width: 218 / screenWidth,
+                                            )
+                                          : Image.asset(
+                                              "./assets/searchPage/image" +
+                                                  (index + 1).toString() +
+                                                  ".png",
+                                              height: 293 / screenHeight,
+                                              width: 218 / screenWidth,
+                                            ),
+                                    ),
+                                  ),
+                                );
+                              }),
                             ),
                           ),
                         ),
@@ -765,7 +769,10 @@ class _searchPageState extends State<searchPage> {
                                     children: [
                                       Container(
                                         width: 680 / screenWidth,
-                                        child: Text(Message[0],
+                                        child: Text(
+                                            Message[0].length <= 10
+                                                ? Message[0]
+                                                : Message[0].substring(0, 11),
                                             style: TextStyle(
                                               color: const Color(0xff010000),
                                               fontWeight: FontWeight.w500,
