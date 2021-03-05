@@ -59,36 +59,6 @@ class _navigationPageState extends State<navigationPage> {
 
   int _selectedTabIndex = 0;
 
-  bool currentTab0 = false;
-  bool currentTab1 = false;
-  bool currentTab2 = false;
-  bool currentTab3 = false;
-  Widget CallPage(int currentIndex) {
-    switch (currentIndex) {
-      case 0:
-        return homePage(
-          userId: userId,
-          loginOption: loginOption,
-          latitude: latitude,
-          longitude: longitude,
-        );
-        break;
-      case 1:
-        return searchPage(
-            latitude: latitude,
-            longitude: longitude,
-            userId: userId,
-            loginOption: loginOption);
-        break;
-      case 2:
-        return starPage(userId: userId, loginOption: loginOption);
-        break;
-      case 3:
-        return myPage(userId: userId, loginOption: loginOption);
-        break;
-    }
-  }
-
   bool isIOS = Platform.isIOS;
   ListQueue<int> _navigationQueue = ListQueue();
   @override
@@ -114,7 +84,24 @@ class _navigationPageState extends State<navigationPage> {
           ));
     return isIOS
         ? Scaffold(
-            body: CallPage(_selectedTabIndex),
+            body: IndexedStack(
+              index: _selectedTabIndex,
+              children: <Widget>[
+                homePage(
+                  userId: userId,
+                  loginOption: loginOption,
+                  latitude: latitude,
+                  longitude: longitude,
+                ),
+                searchPage(
+                    latitude: latitude,
+                    longitude: longitude,
+                    userId: userId,
+                    loginOption: loginOption),
+                starPage(userId: userId, loginOption: loginOption),
+                myPage(userId: userId, loginOption: loginOption),
+              ],
+            ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: _selectedTabIndex,
               showSelectedLabels: false, // <-- HERE
@@ -122,7 +109,7 @@ class _navigationPageState extends State<navigationPage> {
               elevation: 15,
               onTap: (value) {
                 _selectedTabIndex = value;
-                _changeAge(value);
+
                 setState(() {});
               },
               type: BottomNavigationBarType.fixed,
@@ -190,7 +177,24 @@ class _navigationPageState extends State<navigationPage> {
           )
         : SafeArea(
             child: Scaffold(
-              body: CallPage(_selectedTabIndex),
+              body: IndexedStack(
+                index: _selectedTabIndex,
+                children: <Widget>[
+                  homePage(
+                    userId: userId,
+                    loginOption: loginOption,
+                    latitude: latitude,
+                    longitude: longitude,
+                  ),
+                  searchPage(
+                      latitude: latitude,
+                      longitude: longitude,
+                      userId: userId,
+                      loginOption: loginOption),
+                  starPage(userId: userId, loginOption: loginOption),
+                  myPage(userId: userId, loginOption: loginOption),
+                ],
+              ),
               bottomNavigationBar: BottomNavigationBar(
                 currentIndex: _selectedTabIndex,
                 showSelectedLabels: false, // <-- HERE
@@ -198,7 +202,7 @@ class _navigationPageState extends State<navigationPage> {
                 elevation: 15,
                 onTap: (value) {
                   _selectedTabIndex = value;
-                  _changeAge(value);
+
                   setState(() {});
                 },
                 type: BottomNavigationBarType.fixed,
@@ -265,32 +269,5 @@ class _navigationPageState extends State<navigationPage> {
               ),
             ),
           );
-  }
-
-  void _changeAge(int value) {
-    if (value == 0) {
-      currentTab0 = true;
-      currentTab1 = false;
-      currentTab2 = false;
-      currentTab3 = false;
-    }
-    if (value == 1) {
-      currentTab1 = true;
-      currentTab0 = false;
-      currentTab2 = false;
-      currentTab3 = false;
-    }
-    if (value == 2) {
-      currentTab2 = true;
-      currentTab0 = false;
-      currentTab1 = false;
-      currentTab3 = false;
-    }
-    if (value == 3) {
-      currentTab3 = true;
-      currentTab1 = false;
-      currentTab2 = false;
-      currentTab0 = false;
-    }
   }
 }
