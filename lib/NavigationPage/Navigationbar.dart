@@ -8,6 +8,7 @@ import 'package:uahage/NavigationPage/MyPage.dart';
 import 'package:uahage/NavigationPage/Search.dart';
 import 'package:uahage/NavigationPage/Star.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class navigationPage extends StatefulWidget {
   String userId;
@@ -33,20 +34,24 @@ class _navigationPageState extends State<navigationPage> {
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     setState(() {
-      latitude = '${geoposition.latitude}';
-      longitude = '${geoposition.longitude}';
+      latitude = geoposition.latitude.toString();
+      longitude = geoposition.longitude.toString();
     });
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("uahageLat", latitude);
+    sharedPreferences.setString("uahageLong", longitude);
   }
 
   @override
   void initState() {
-    super.initState();
     getCurrentLocation();
     setState(() {
       userId = widget.userId ?? "";
       oldNickname = widget.oldNickname ?? "";
       loginOption = widget.loginOption;
     });
+    super.initState();
+
     // print("userID " + userId);
     // print("loginOption " + loginOption);
     // print("oldnick " + oldNickname);
@@ -61,7 +66,12 @@ class _navigationPageState extends State<navigationPage> {
   Widget CallPage(int currentIndex) {
     switch (currentIndex) {
       case 0:
-        return homePage(userId: userId, loginOption: loginOption);
+        return homePage(
+          userId: userId,
+          loginOption: loginOption,
+          latitude: latitude,
+          longitude: longitude,
+        );
         break;
       case 1:
         return searchPage(

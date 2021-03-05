@@ -57,7 +57,7 @@ class _kids_cafeState extends State<kids_cafe> {
   }
 
   int _currentMax = 0;
-  // ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
   String userId = "";
   String loginOption = "";

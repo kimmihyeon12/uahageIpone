@@ -7,7 +7,7 @@ import 'dart:async';
 import 'map_list.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -71,30 +71,18 @@ class _restaurantState extends State<restaurant> {
 
   @override
   void initState() {
-    super.initState();
     myFuture = _getrestaurant();
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
-      latitude = widget.latitude;
-      longitude = widget.longitude;
+      latitude = widget.latitude ?? "";
+      longitude = widget.longitude ?? "";
     });
 
-    print("login opt in res " + loginOption);
-    print("id in res " + userId);
+    print("latt in restaurant : $latitude");
+    print("long in restaurant : $longitude");
     _star_color();
-  }
-
-  getCurrentLocation() async {
-    print("Geolocation started");
-    // LocationPermission permission = await Geolocator.requestPermission();
-
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    setState(() {
-      latitude = '${geoposition.latitude}';
-      longitude = '${geoposition.longitude}';
-    });
+    super.initState();
   }
 
   Future click_star() async {

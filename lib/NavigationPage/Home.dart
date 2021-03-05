@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Keyword.dart';
 import 'package:uahage/homepagelist/experience_center.dart';
 import 'package:uahage/homepagelist/restaurant.dart';
@@ -17,8 +18,16 @@ import 'package:geolocator/geolocator.dart';
 class homePage extends StatefulWidget {
   String loginOption;
   String userId;
+  String latitude = "";
+  String longitude = "";
   // String oldNickname;
-  homePage({Key key, this.userId, this.loginOption}) : super(key: key);
+  homePage({
+    Key key,
+    this.userId,
+    this.loginOption,
+    this.latitude,
+    this.longitude,
+  }) : super(key: key);
   @override
   _homePageState createState() => _homePageState();
 }
@@ -39,15 +48,27 @@ class _homePageState extends State<homePage> {
   List<String> addresslist = List(500);
   @override
   void initState() {
-    super.initState();
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
+      latitude = widget.latitude ?? "";
+      longitude = widget.longitude ?? "";
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
 
-    getCurrentLocation();
-    i = 0;
+    // getCurrentLocation();
+    getLatLong();
+    super.initState();
+  }
+
+  getLatLong() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String lat = sharedPreferences.getString("uahageLat");
+    String long = sharedPreferences.getString("uahageLong");
+    setState(() {
+      latitude = lat;
+      longitude = long;
+    });
   }
 
   // @override

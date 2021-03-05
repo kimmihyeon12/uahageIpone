@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
@@ -101,15 +102,6 @@ class _map_listState extends State<map_list> {
     }
   }
 
-  getCurrentLocation() async {
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    setState(() {
-      latitude = geoposition.latitude.toString();
-      longitude = geoposition.longitude.toString();
-    });
-  }
-
   searchAddress(searchKey) async {
     // ignore: unnecessary_statements
     print(searchKey);
@@ -124,18 +116,30 @@ class _map_listState extends State<map_list> {
 
   @override
   void initState() {
-    super.initState();
     if (widget.latitude == 'NaN' || widget.longitude == 'NaN') {
-      getCurrentLocation();
+      getLatLong();
     } else
       setState(() {
         list = widget.list;
         loginOption = widget.loginOption;
         userId = widget.userId ?? "";
-        latitude = widget.latitude;
-        longitude = widget.longitude;
+        latitude = widget.latitude ?? "";
+        longitude = widget.longitude ?? "";
       });
+    super.initState();
+    print("latt in restaurant_sub : $latitude");
+    print("long in restaurant_sub : $longitude");
     // getCurrentLocation();
+  }
+
+  getLatLong() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String lat = sharedPreferences.getString("uahageLat");
+    String long = sharedPreferences.getString("uahageLong");
+    setState(() {
+      latitude = lat;
+      longitude = long;
+    });
   }
 
   int zoom = 4;
@@ -180,13 +184,17 @@ class _map_listState extends State<map_list> {
                   onPageStarted: startLoading,
                   onWebViewCreated: (WebViewController webViewController) {
                     controller = webViewController;
-                    controller.loadUrl(
-                        // latitude == 'NaN' ||
-                        //       longitude == 'NaN' ||
-                        //       latitude == '' ||
-                        //       longitude == ''
-                        //   ? 'http://13.209.41.43/test' :
+                    print(
                         'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+                    if (latitude == 'NaN' ||
+                        longitude == 'NaN' ||
+                        latitude == '' ||
+                        longitude == '') {
+                      getLatLong();
+                    } else {
+                      controller.loadUrl(
+                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+                    }
                   },
                   javascriptMode: JavascriptMode.unrestricted,
                   javascriptChannels: Set.from([
@@ -224,7 +232,7 @@ class _map_listState extends State<map_list> {
                       if (latitude == 'NaN' ||
                           longitude == 'NaN' ||
                           latitude == '' ||
-                          longitude == '') await getCurrentLocation();
+                          longitude == '') await getLatLong();
                       controller.loadUrl(
                           // 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude&address=$searchKey');
                           'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');

@@ -97,7 +97,7 @@ script.
       var markerImage1 = new kakao.maps.MarkerImage(imageSrc1, imageSize1, imageOption1);
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       var markerPosition1 = new kakao.maps.LatLng(#{lat1}, #{lon1});
-      console.log(#{lat1}+","+ #{lon1});
+      //- console.log(#{lat1}+","+ #{lon1});
    
       //db 값 받아오기
      data.forEach(function(v,i){
@@ -119,7 +119,7 @@ script.
                         }
                         
                       else if(liststringdata=='Examination_institution'){
-                        console.log('Examination_institution');
+                        //- console.log('Examination_institution');
                         var Examination_item =  "'"+ data[i].Examination_item+"'";
                           
                       }
@@ -128,7 +128,7 @@ script.
                       }
                       // 데이터 장소 위치
                       distance = calcDist(lat,lon,data[i].lon,data[i].lat);
-                      console.log(distance);
+                      //- console.log(distance);
                        
                       if(distance<500){
                      displayMarker(coords,data[i].store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair,Examination_item,fare);
@@ -189,7 +189,7 @@ script.
 
             kakao.maps.event.addListener(marker, 'click', function() { 
              
-               console.log(mapdraable);
+              //-  console.log(mapdraable);
              if (clickedOverlay!=null) {
                 clickedOverlay.setMap(null);}
                 CustomOverlay.setMap(map);
@@ -200,14 +200,14 @@ script.
           });
           kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
               mapdraable = false; 
-              console.log(mapdraable);
+              //- console.log(mapdraable);
            if(CustomOverlay!=null){
               CustomOverlay.setMap(null);     
            }
             
     
             });
-           console.log(  map.getDraggable());
+          //-  console.log(  map.getDraggable());
        
       
        

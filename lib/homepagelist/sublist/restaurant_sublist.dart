@@ -645,6 +645,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                           Container(
                             height: 1100 / screenHeight,
                             child: WebView(
+                              // gestureNavigationEnabled: true,
                               onWebViewCreated:
                                   (WebViewController webViewController) {
                                 controller = webViewController;
