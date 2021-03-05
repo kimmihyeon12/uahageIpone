@@ -31,13 +31,9 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    // bool data = widget.data;
-
     // final user = Provider.of<User>(context);
     print("userID = " + userId);
     if (userId == "") {
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => loginPage()));
       return loginPage();
     } else {
       return navigationPage(
@@ -45,14 +41,6 @@ class _WrapperState extends State<Wrapper> {
         loginOption: loginOption,
         oldNickname: "",
       );
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => navigationPage(
-      //               userId: userId,
-      //               loginOption: loginOption,
-      //               oldNickname: "",
-      //             )));
     }
   }
 }

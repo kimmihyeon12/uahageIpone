@@ -55,35 +55,42 @@ class _homePageState extends State<homePage> {
       longitude = widget.longitude ?? "";
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
-
-    // getCurrentLocation();
-    getLatLong();
+    if (latitude == "" || longitude == "") getLatLong();
     super.initState();
   }
 
-  getLatLong() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String lat = sharedPreferences.getString("uahageLat");
-    String long = sharedPreferences.getString("uahageLong");
-    setState(() {
-      latitude = lat;
-      longitude = long;
-    });
-  }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
-
   getCurrentLocation() async {
+    // print("Geolocation started");
+    // LocationPermission permission = await Geolocator.requestPermission();
+
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     setState(() {
       latitude = geoposition.latitude.toString();
       longitude = geoposition.longitude.toString();
     });
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("uahageLat", latitude);
+    sharedPreferences.setString("uahageLong", longitude);
   }
+
+  getLatLong() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String lat = sharedPreferences.getString("uahageLat") ?? "";
+    String long = sharedPreferences.getString("uahageLong") ?? "";
+    if (lat == "" || long == "") {
+      await getCurrentLocation();
+    } else
+      setState(() {
+        latitude = lat;
+        longitude = long;
+      });
+  }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
   int index = 1;
 

@@ -33,32 +33,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // _loadUserId();
   }
 
-// _loadUserId() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     setState(() {
-//       userId = prefs.getString('uahageUserId') ?? "";
-//       loginOption = prefs.getString("uahageLoginOption") ?? "";
-//     });
-//   }
   Future startTime() async => Future.delayed(
         Duration(seconds: 3),
-        () =>
-            // userId == "" ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()  ):Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => navigatorPage()
-
-            Navigator.pushReplacement(
+        () => Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Wrapper()),
         ),
       );
-// Image(
-//           image: AssetImage('./assets/firstPage/backgroundimage.png'),
-//           width: MediaQuery.of(context).size.width,
-//           fit: BoxFit.fitWidth,
-//           // height: 50,
-//         ),
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
   @override
@@ -171,8 +154,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ))
         : Scaffold(
             backgroundColor: Color(0xfffff1f0),
-
-            // resizeToAvoidBottomPadding: false,
             body: Stack(
               children: [
                 Container(
@@ -204,7 +185,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Center(
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
@@ -235,8 +215,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               "와 함께하는",
                               style: TextStyle(
                                   fontFamily: "S_CoreDream_4",
-                                  //  height: 1.0,
-                                  //   letterSpacing: -1.0,
                                   fontSize: 71 / screenHeight,
                                   color: Color.fromRGBO(255, 114, 148, 1.0)),
                             ),
@@ -248,7 +226,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Image(
                           image: AssetImage('./assets/firstPage/uahage.png'),
                           height: 113 / screenHeight,
-                          // height: 50,
                         ),
                       ),
                     ],

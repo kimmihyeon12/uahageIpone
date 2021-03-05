@@ -36,6 +36,7 @@ class _kids_cafeState extends State<kids_cafe> {
   var star_color = false;
   List<String> star_color_list = [];
   var list = true;
+  var indexcount = 0;
 
   // getCurrentLocation() async {
   //   print("Geolocation started");
@@ -141,391 +142,262 @@ class _kids_cafeState extends State<kids_cafe> {
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  children: [
-                    Image.asset(
-                      "./assets/listPage/backbutton.png",
-                      width: 44 / (1501 / ScreenWidth),
-                      height: 76 / (2667 / ScreenHeight),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                      left: 45 / screenWidth,
-                    )),
-                    Container(
-                      // width: 310 / screenWidth,
-                      child: Text(
-                        '키즈·카페',
-                        style: TextStyle(
-                            fontSize: 62 / screenWidth,
-                            fontFamily: 'NotoSansCJKkr_Medium',
-                            color: Color.fromRGBO(255, 114, 148, 1.0)),
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset("./assets/listPage/backbutton.png",
+                          width: 44 / screenWidth, height: 76 / screenHeight),
+                      Padding(
+                          padding: EdgeInsets.only(
+                        left: 45 / screenWidth,
+                      )),
+                      Container(
+                        // width: 310 / screenWidth,
+                        child: Text(
+                          '키즈·카페',
+                          style: TextStyle(
+                              fontSize: 62 / screenWidth,
+                              fontFamily: 'NotoSansCJKkr_Medium',
+                              color: Color.fromRGBO(255, 114, 148, 1.0)),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(right: 30 / screenWidth),
-                child: toggle
-                    ? InkWell(
-                        onTap: () {
-                          setState(() {
-                            toggle = !toggle;
-                            if (list) {
-                              list = false;
-                            } else {
-                              list = true;
-                            }
-                          });
-                        },
-                        child: Image.asset(
-                          './assets/on.png',
-                          width: 284 / screenWidth,
-                          height: 133 / screenHeight,
-                        ),
-                      )
-                    : InkWell(
-                        onTap: () {
-                          setState(() {
-                            toggle = !toggle;
-                            if (list) {
-                              list = false;
-                            } else {
-                              list = true;
-                            }
-                          });
-                        },
-                        child: Image.asset(
-                          './assets/off.png',
-                          width: 284 / screenWidth,
-                          height: 133 / screenHeight,
-                        ),
-                      ),
-              )
-              // Container(
-              //   margin: EdgeInsets.only(left: 590 / screenWidth),
-              //   child: LiteRollingSwitch(
-              //     value: false,
-              //     textOn: '목록',
-              //     textOff: '지도',
-              //     colorOn: Color.fromRGBO(255, 114, 148, 1.0),
-              //     colorOff: Color.fromRGBO(255, 114, 148, 1.0),
-
-              //     //    iconOn:  , iconOff: , textSize:
-              //     onChanged: (bool state) {},
-              //     onTap: () {
-              //       /*     Navigator.pushReplacement(
-              //             context,
-              //             MaterialPageRoute(
-              //               builder: (context) => map_list(),
-              //             ));*/
-              //       setState(() {
-              //         if (list) {
-              //           list = false;
-              //         } else {
-              //           list = true;
-              //         }
-              //       });
-              //     },
-              //   ),
-              // ),
-            ],
-          ),
-        ),
-        body: list
-            ? FutureBuilder(
-                future: myFuture,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
-                    return Center(
-                      child: SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: buildSpinKitThreeBounce(80, screenWidth)
-                          // CircularProgressIndicator(
-                          //   strokeWidth: 5.0,
-                          //   valueColor: new AlwaysStoppedAnimation<Color>(
-                          //     Colors.pinkAccent,
-                          //   ),
-                          // ),
+                Container(
+                  margin: EdgeInsets.only(right: 30 / screenWidth),
+                  child: toggle
+                      ? InkWell(
+                          onTap: () {
+                            setState(() {
+                              toggle = !toggle;
+                              if (indexcount == 1)
+                                indexcount = 0;
+                              else
+                                indexcount = 1;
+                            });
+                          },
+                          child: Image.asset(
+                            './assets/on.png',
+                            width: 284 / screenWidth,
+                            height: 133 / screenHeight,
                           ),
-                    );
-                  } else {
-                    print("length " + snapshot.data.length.toString());
-                    return ListView.builder(
-                        // controller: _scrollController,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 0.3,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      child: kid_cafe_sublist(
-                                        index: index,
-                                        storename:
-                                            snapshot.data[index].store_name,
-                                        address: snapshot.data[index].address,
-                                        phone: snapshot.data[index].phone,
-                                        fare: snapshot.data[index].fare,
-                                        userId: userId,
-                                        loginOption: loginOption,
-                                      ),
-                                      duration: Duration(milliseconds: 250),
-                                      reverseDuration:
-                                          Duration(milliseconds: 100),
-                                    ));
-                              },
-                              child: Container(
-                                  // height: 500 / (2667 / ScreenHeight),
-                                  padding: EdgeInsets.only(
-                                    top: 30 / screenHeight,
-                                    left: 26 / screenWidth,
-                                    bottom: 40 / screenHeight,
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            // border: Border.all(width: 3.0),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                  (() {
-                                                    if (index % 2 == 0)
-                                                      return listimage[0];
-                                                    else
-                                                      return listimage[1];
-                                                  }()),
-                                                ),
-                                                fit: BoxFit.fitHeight),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
-                                        height: 414 / screenHeight,
-                                        width: 414 / screenHeight,
-                                        // child: (() {
-                                        //   if (index % 2 == 0) {
-                                        //     return Image.network(
-                                        //       listimage[0],
-                                        //       loadingBuilder: (context, child,
-                                        //           loadingProgress) {
-                                        //         if (loadingProgress == null)
-                                        //           return child;
-                                        //         return Center(
-                                        //           child:
-                                        //               buildSpinKitThreeBounce(
-                                        //                   50, screenWidth),
-                                        //         );
-                                        //       },
-                                        //       fit: BoxFit.fitHeight,
-                                        //       // height: 414 / screenHeight,
-                                        //     );
-                                        //   } else {
-                                        //     return Image.network(
-                                        //       listimage[1],
-                                        //       loadingBuilder: (context, child,
-                                        //           loadingProgress) {
-                                        //         if (loadingProgress == null)
-                                        //           return child;
-                                        //         return Center(
-                                        //           child:
-                                        //               buildSpinKitThreeBounce(
-                                        //                   50, screenWidth),
-                                        //         );
-                                        //       },
-                                        //       fit: BoxFit.fitHeight,
-                                        //       // height: 414 / screenHeight,
-                                        //     );
-                                        //   }
-                                        // }()),
-                                      ),
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                        left: 53 / screenWidth,
-                                      )),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10 / screenHeight)),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width:
-                                                    800 / (1501 / ScreenWidth),
-                                                height:
-                                                    100 / (2667 / ScreenHeight),
-                                                child: Text(
-                                                  snapshot
-                                                      .data[index].store_name,
-                                                  style: TextStyle(
-                                                    fontSize: 56 / screenWidth,
-                                                    fontFamily:
-                                                        'NotoSansCJKkr_Medium',
-                                                  ),
-                                                ),
-                                              ),
-                                              IconButton(
-                                                padding: EdgeInsets.all(0),
-                                                constraints: BoxConstraints(
-                                                  maxWidth:
-                                                      70 / (1501 / ScreenWidth),
-                                                  maxHeight: 70 /
-                                                      (2667 / ScreenHeight),
-                                                ),
-                                                icon: Image.asset(
-                                                  star_color_list[index] ==
-                                                          'null'
-                                                      ? "./assets/listPage/star_grey.png"
-                                                      : "./assets/listPage/star_color.png",
-                                                  height: 60 /
-                                                      (2667 / ScreenHeight),
-                                                ),
-                                                onPressed: loginOption ==
-                                                        "login"
-                                                    ? () {
-                                                        Fluttertoast.showToast(
-                                                          msg: "  로그인 해주세요!  ",
-                                                          toastLength: Toast
-                                                              .LENGTH_SHORT,
-                                                          gravity: ToastGravity
-                                                              .BOTTOM,
-                                                          timeInSecForIosWeb: 1,
-                                                          backgroundColor:
-                                                              Colors.black45,
-                                                          textColor:
-                                                              Colors.white,
-                                                          fontSize: 48 /
-                                                              (2667 /
-                                                                  ScreenHeight),
-                                                        );
-                                                      }
-                                                    : () async {
-                                                        setState(() {
-                                                          store_name1 = snapshot
-                                                              .data[index]
-                                                              .store_name;
-                                                          address1 = snapshot
-                                                              .data[index]
-                                                              .address;
-                                                          phone1 = snapshot
-                                                              .data[index]
-                                                              .phone;
-                                                          fare1 = snapshot
-                                                              .data[index].fare;
-
-                                                          if (star_color_list[
-                                                                  index] ==
-                                                              'null') {
-                                                            star_color = true;
-                                                            star_color_list[
-                                                                index] = "test";
-                                                            print(
-                                                                ' star_color_list[index]');
-                                                            print(
-                                                                star_color_list[
-                                                                    index]);
-                                                          } else {
-                                                            star_color = false;
-                                                            star_color_list[
-                                                                index] = 'null';
-                                                          }
-                                                          ;
-
-                                                          click_star();
-                                                        });
-                                                      },
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            // height: 350 / screenHeight,
-                                            width: 650 / screenWidth,
-                                            child: Text(
-                                              snapshot.data[index].address,
-                                              style: TextStyle(
-                                                // fontFamily: 'NatoSans',
-                                                color: Colors.grey,
-                                                fontSize: 50 / screenWidth,
-                                                fontFamily:
-                                                    'NotoSansCJKkr_Medium',
-                                                height: 1.2,
-                                              ),
-                                            ),
-                                          ),
-                                          // Padding(
-                                          //     padding: EdgeInsets.only(
-                                          //   top: 20 / (2667 / ScreenHeight),
-                                          // )),
-                                          // SafeArea(
-                                          //   child: Container(
-                                          //     height:
-                                          //         100 / (1501 / ScreenWidth),
-                                          //     width: 800 / (1501 / ScreenWidth),
-                                          //     child:
-                                          //         snapshot.data[index].fare ==
-                                          //                 null
-                                          //             ? Text(" ")
-                                          //             : Text(
-                                          //                 snapshot.data[index]
-                                          //                     .phone,
-                                          //                 style: TextStyle(
-                                          //                   // fontFamily: 'NatoSans',
-                                          //                   color: Colors.grey,
-                                          //                   fontSize: 45 /
-                                          //                       (2667 /
-                                          //                           ScreenHeight),
-                                          //                   fontFamily:
-                                          //                       'NotoSansCJKkr_Medium',
-                                          //                 ),
-                                          //               ),
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                          );
-                        });
-                  }
-                },
-              )
-            : map_list(
+                        )
+                      : InkWell(
+                          onTap: () {
+                            setState(() {
+                              toggle = !toggle;
+                              if (indexcount == 1)
+                                indexcount = 0;
+                              else
+                                indexcount = 1;
+                            });
+                          },
+                          child: Image.asset(
+                            './assets/off.png',
+                            width: 284 / screenWidth,
+                            height: 133 / screenHeight,
+                          ),
+                        ),
+                )
+              ],
+            ),
+          ),
+          body: IndexedStack(index: indexcount, children: <Widget>[
+            kids_cafe_view(context, screenWidth, screenHeight),
+            map_list(
                 userId: userId,
                 loginOption: loginOption,
                 latitude: latitude,
                 longitude: longitude,
                 list: liststringdata),
-      ),
+          ])),
+    );
+  }
+
+  Widget kids_cafe_view(context, screenWidth, screenHeight) {
+    return FutureBuilder(
+      future: myFuture,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.data == null) {
+          return Center(
+            child: SizedBox(
+                width: 60,
+                height: 60,
+                child: buildSpinKitThreeBounce(80, screenWidth)),
+          );
+        } else {
+          print("length " + snapshot.data.length.toString());
+          return ListView.builder(
+              // controller: _scrollController,
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  elevation: 0.3,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: kid_cafe_sublist(
+                              index: index,
+                              storename: snapshot.data[index].store_name,
+                              address: snapshot.data[index].address,
+                              phone: snapshot.data[index].phone,
+                              fare: snapshot.data[index].fare,
+                              userId: userId,
+                              loginOption: loginOption,
+                            ),
+                            duration: Duration(milliseconds: 250),
+                            reverseDuration: Duration(milliseconds: 100),
+                          ));
+                    },
+                    child: Container(
+                        padding: EdgeInsets.only(
+                          top: 30 / screenHeight,
+                          left: 26 / screenWidth,
+                          bottom: 40 / screenHeight,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        (() {
+                                          if (index % 2 == 0)
+                                            return listimage[0];
+                                          else
+                                            return listimage[1];
+                                        }()),
+                                      ),
+                                      fit: BoxFit.fitHeight),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              height: 414 / screenHeight,
+                              width: 414 / screenHeight,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(
+                              left: 53 / screenWidth,
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 10 / screenHeight)),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 800 / screenWidth,
+                                      height: 100 / screenHeight,
+                                      child: Text(
+                                        snapshot.data[index].store_name,
+                                        style: TextStyle(
+                                          fontSize: 56 / screenWidth,
+                                          fontFamily: 'NotoSansCJKkr_Medium',
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      padding: EdgeInsets.all(0),
+                                      constraints: BoxConstraints(
+                                        maxWidth: 70 / screenWidth,
+                                        maxHeight: 70 / screenHeight,
+                                      ),
+                                      icon: Image.asset(
+                                        star_color_list[index] == 'null'
+                                            ? "./assets/listPage/star_grey.png"
+                                            : "./assets/listPage/star_color.png",
+                                        height: 60 / screenHeight,
+                                      ),
+                                      onPressed: loginOption == "login"
+                                          ? () {
+                                              Fluttertoast.showToast(
+                                                msg: "  로그인 해주세요!  ",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.black45,
+                                                textColor: Colors.white,
+                                                fontSize: 48 / screenHeight,
+                                              );
+                                            }
+                                          : () async {
+                                              setState(() {
+                                                store_name1 = snapshot
+                                                    .data[index].store_name;
+                                                address1 = snapshot
+                                                    .data[index].address;
+                                                phone1 =
+                                                    snapshot.data[index].phone;
+                                                fare1 =
+                                                    snapshot.data[index].fare;
+
+                                                if (star_color_list[index] ==
+                                                    'null') {
+                                                  star_color = true;
+                                                  star_color_list[index] =
+                                                      "test";
+                                                  print(
+                                                      ' star_color_list[index]');
+                                                  print(star_color_list[index]);
+                                                } else {
+                                                  star_color = false;
+                                                  star_color_list[index] =
+                                                      'null';
+                                                }
+                                                ;
+
+                                                click_star();
+                                              });
+                                            },
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  // height: 350 / screenHeight,
+                                  width: 650 / screenWidth,
+                                  child: Text(
+                                    snapshot.data[index].address,
+                                    style: TextStyle(
+                                      // fontFamily: 'NatoSans',
+                                      color: Colors.grey,
+                                      fontSize: 50 / screenWidth,
+                                      fontFamily: 'NotoSansCJKkr_Medium',
+                                      height: 1.2,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
+                );
+              });
+        }
+      },
     );
   }
 }

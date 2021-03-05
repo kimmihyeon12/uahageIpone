@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
@@ -60,14 +61,32 @@ class _searchPageState extends State<searchPage> {
 
   //
   getCurrentLocation() async {
+    // print("Geolocation started");
+    // LocationPermission permission = await Geolocator.requestPermission();
+
     final geoposition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     setState(() {
       latitude = geoposition.latitude.toString();
       longitude = geoposition.longitude.toString();
-      loginOption = widget.loginOption;
-      userId = widget.userId ?? "";
     });
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("uahageLat", latitude);
+    sharedPreferences.setString("uahageLong", longitude);
+  }
+
+  getLatLong() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String lat = sharedPreferences.getString("uahageLat") ?? "";
+    String long = sharedPreferences.getString("uahageLong") ?? "";
+    print("search lat: $lat");
+    if (lat == "" || long == "") {
+      await getCurrentLocation();
+    } else
+      setState(() {
+        latitude = lat;
+        longitude = long;
+      });
   }
 
   searchAddress(searchKey) async {
@@ -142,19 +161,14 @@ class _searchPageState extends State<searchPage> {
 
   @override
   void initState() {
+    setState(() {
+      loginOption = widget.loginOption;
+      userId = widget.userId ?? "";
+      latitude = widget.latitude ?? "";
+      longitude = widget.longitude ?? "";
+    });
+    if (latitude == "" || longitude == "") getLatLong();
     super.initState();
-    if (widget.latitude == 'NaN' ||
-        widget.longitude == 'NaN' ||
-        widget.latitude == '' ||
-        widget.longitude == '') {
-      getCurrentLocation();
-    } else
-      setState(() {
-        latitude = widget.latitude;
-        longitude = widget.longitude;
-        loginOption = widget.loginOption;
-        userId = widget.userId ?? "";
-      });
     // getCurrentLocation();
     print("latitude: $latitude");
     print("longitude: $longitude");

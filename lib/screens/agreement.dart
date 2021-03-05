@@ -1381,7 +1381,6 @@ class _agreementPageState extends State<agreementPage> {
                             ),
                           );
                         } else {
-                          print(loginOption);
                           switch (loginOption) {
                             case "kakao":
                               _initKakaoTalkInstalled();
