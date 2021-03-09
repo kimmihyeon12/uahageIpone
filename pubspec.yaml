@@ -27,7 +27,8 @@ dependencies:
   kakao_flutter_sdk: ^0.5.2
   # flutter_kakao_map: ^0.0.4
   flutter_naver_login: ^1.2.0
-  geolocator: ^6.1.13
+  geolocator: ^5.1.1
+  geocoder: ^0.2.1
   webview_flutter: ^0.3.19+9
   # location: ^3.0.0
   lite_rolling_switch: ^0.1.1

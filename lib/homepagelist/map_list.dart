@@ -20,13 +20,17 @@ class map_list extends StatefulWidget {
       this.longitude,
       this.list,
       this.userId,
-      this.loginOption})
+      this.loginOption,
+      this.Area,
+      this.Locality})
       : super(key: key);
   String loginOption;
   String userId;
   String latitude;
   String longitude;
   String list;
+  String Area = "";
+  String Locality = "";
   @override
   _map_listState createState() => _map_listState();
 }
@@ -37,6 +41,8 @@ class _map_listState extends State<map_list> {
   String latitude = "";
   String longitude = "";
   String searchKey = "";
+  String Area = "";
+  String Locality = "";
   String list;
   var index = 1;
   var Message;
@@ -116,16 +122,15 @@ class _map_listState extends State<map_list> {
 
   @override
   void initState() {
-    if (widget.latitude == 'NaN' || widget.longitude == 'NaN') {
-      getLatLong();
-    } else
-      setState(() {
-        list = widget.list;
-        loginOption = widget.loginOption;
-        userId = widget.userId ?? "";
-        latitude = widget.latitude ?? "";
-        longitude = widget.longitude ?? "";
-      });
+    setState(() {
+      list = widget.list;
+      loginOption = widget.loginOption;
+      userId = widget.userId ?? "";
+      latitude = widget.latitude;
+      longitude = widget.longitude;
+      Area = widget.Area;
+      Locality = widget.Locality;
+    });
     super.initState();
     print("latt in restaurant_sub : $latitude");
     print("long in restaurant_sub : $longitude");
@@ -184,8 +189,7 @@ class _map_listState extends State<map_list> {
                   onPageStarted: startLoading,
                   onWebViewCreated: (WebViewController webViewController) {
                     controller = webViewController;
-                    print(
-                        'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+
                     if (latitude == 'NaN' ||
                         longitude == 'NaN' ||
                         latitude == '' ||
@@ -193,7 +197,7 @@ class _map_listState extends State<map_list> {
                       getLatLong();
                     } else {
                       controller.loadUrl(
-                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
                     }
                   },
                   javascriptMode: JavascriptMode.unrestricted,
@@ -234,8 +238,7 @@ class _map_listState extends State<map_list> {
                           latitude == '' ||
                           longitude == '') await getLatLong();
                       controller.loadUrl(
-                          // 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude&address=$searchKey');
-                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude');
+                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
                       print(listrequest);
                     },
                     child: Container(

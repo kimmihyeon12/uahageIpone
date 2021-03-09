@@ -16,10 +16,18 @@ class restaurant extends StatefulWidget {
   String userId;
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
 
   // String oldNickname;
   restaurant(
-      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      {Key key,
+      this.userId,
+      this.loginOption,
+      this.latitude,
+      this.longitude,
+      this.Area,
+      this.Locality})
       : super(key: key);
   @override
   _restaurantState createState() => _restaurantState();
@@ -32,6 +40,8 @@ class _restaurantState extends State<restaurant> {
   String longitude = "";
   String userId = "";
   String loginOption = "";
+  String Area = "";
+  String Locality = "";
   String store_name1,
       address1,
       phone1,
@@ -79,6 +89,8 @@ class _restaurantState extends State<restaurant> {
       userId = widget.userId ?? "";
       latitude = widget.latitude ?? "";
       longitude = widget.longitude ?? "";
+      Area = widget.Area ?? "";
+      Locality = widget.Locality ?? "";
     });
 
     print("latt in restaurant : $latitude");
@@ -263,7 +275,9 @@ class _restaurantState extends State<restaurant> {
                 loginOption: loginOption,
                 latitude: latitude,
                 longitude: longitude,
-                list: liststringdata),
+                list: liststringdata,
+                Area: Area,
+                Locality: Locality),
           ])),
     );
   }

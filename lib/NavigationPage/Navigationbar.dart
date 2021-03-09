@@ -9,6 +9,9 @@ import 'package:uahage/NavigationPage/Search.dart';
 import 'package:uahage/NavigationPage/Star.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:uahage/Location.dart';
+import 'package:uahage/Location.dart';
 
 class navigationPage extends StatefulWidget {
   String userId;
@@ -26,35 +29,41 @@ class _navigationPageState extends State<navigationPage> {
   String userId = "";
   String loginOption = "";
   String oldNickname = "";
+  var Area;
+  var Locality;
+  Location location = new Location();
+  Future lacations() async {
+    await location.getCurrentLocation();
+  }
 
-  getCurrentLocation() async {
-    // print("Geolocation started");
-    // LocationPermission permission = await Geolocator.requestPermission();
-
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    setState(() {
-      latitude = geoposition.latitude.toString();
-      longitude = geoposition.longitude.toString();
-    });
+  getLatLong() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("uahageLat", latitude);
-    sharedPreferences.setString("uahageLong", longitude);
+    String lat = sharedPreferences.getString("uahageLat") ?? "";
+    String long = sharedPreferences.getString("uahageLong") ?? "";
+    String area = sharedPreferences.getString("uahageArea") ?? "";
+    String locality = sharedPreferences.getString("uahageLocality") ?? "";
+    print("lat: ${lat} long: ${long}");
+
+    if (lat == "" || long == "") {
+      await lacations();
+    } else
+      setState(() {
+        latitude = lat;
+        longitude = long;
+        Area = area;
+        Locality = locality;
+      });
   }
 
   @override
   void initState() {
-    getCurrentLocation();
+    getLatLong();
     setState(() {
       userId = widget.userId ?? "";
       oldNickname = widget.oldNickname ?? "";
       loginOption = widget.loginOption;
     });
     super.initState();
-
-    // print("userID " + userId);
-    // print("loginOption " + loginOption);
-    // print("oldnick " + oldNickname);
   }
 
   @override
@@ -67,7 +76,7 @@ class _navigationPageState extends State<navigationPage> {
   bool isIOS = Platform.isIOS;
   @override
   Widget build(BuildContext context) {
-    // print("nav " + latitude);
+    print("navigation 빌드중입니다");
     // print("nav " + longitude);
 //    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     var ScreenWidth = MediaQuery.of(context).size.width;
@@ -108,7 +117,9 @@ class _navigationPageState extends State<navigationPage> {
                       latitude: latitude,
                       longitude: longitude,
                       userId: userId,
-                      loginOption: loginOption),
+                      loginOption: loginOption,
+                      Area: Area,
+                      Locality: Locality),
                   starPage(userId: userId, loginOption: loginOption),
                   myPage(userId: userId, loginOption: loginOption),
                 ],
@@ -209,7 +220,9 @@ class _navigationPageState extends State<navigationPage> {
                         latitude: latitude,
                         longitude: longitude,
                         userId: userId,
-                        loginOption: loginOption),
+                        loginOption: loginOption,
+                        Area: Area,
+                        Locality: Locality),
                     starPage(userId: userId, loginOption: loginOption),
                     myPage(userId: userId, loginOption: loginOption),
                   ],

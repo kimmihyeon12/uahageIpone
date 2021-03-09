@@ -15,9 +15,17 @@ class kids_cafe extends StatefulWidget {
   String userId;
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   // String oldNickname;
   kids_cafe(
-      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      {Key key,
+      this.userId,
+      this.loginOption,
+      this.latitude,
+      this.longitude,
+      this.Area,
+      this.Locality})
       : super(key: key);
   @override
   _kids_cafeState createState() => _kids_cafeState();
@@ -31,6 +39,8 @@ class _kids_cafeState extends State<kids_cafe> {
 
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   String liststringdata = 'Kids_cafe';
   String store_name1, address1, phone1, fare1;
   var star_color = false;
@@ -71,6 +81,8 @@ class _kids_cafeState extends State<kids_cafe> {
       userId = widget.userId ?? "";
       latitude = widget.latitude;
       longitude = widget.longitude;
+      Area = widget.Area ?? "";
+      Locality = widget.Locality ?? "";
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
@@ -226,7 +238,9 @@ class _kids_cafeState extends State<kids_cafe> {
                 loginOption: loginOption,
                 latitude: latitude,
                 longitude: longitude,
-                list: liststringdata),
+                list: liststringdata,
+                Area: Area,
+                Locality: Locality),
           ])),
     );
   }

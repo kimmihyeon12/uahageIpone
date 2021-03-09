@@ -14,9 +14,17 @@ class examination_institution extends StatefulWidget {
   String userId;
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   // String oldNickname;
   examination_institution(
-      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      {Key key,
+      this.userId,
+      this.loginOption,
+      this.latitude,
+      this.longitude,
+      this.Area,
+      this.Locality})
       : super(key: key);
   @override
   _examination_institutionState createState() =>
@@ -26,6 +34,8 @@ class examination_institution extends StatefulWidget {
 class _examination_institutionState extends State<examination_institution> {
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   String userId = "";
   String loginOption = "";
   String liststringdata = 'Examination_institution';
@@ -44,10 +54,10 @@ class _examination_institutionState extends State<examination_institution> {
 
   getCurrentLocation() async {
     print("Geolocation started");
-    LocationPermission permission = await Geolocator.requestPermission();
+    // LocationPermission permission = await Geolocator.requestPermission();
 
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+    final geoposition = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       latitude = '${geoposition.latitude}';
       longitude = '${geoposition.longitude}';
@@ -63,6 +73,8 @@ class _examination_institutionState extends State<examination_institution> {
       userId = widget.userId ?? "";
       latitude = widget.latitude;
       longitude = widget.longitude;
+      Area = widget.Area ?? "";
+      Locality = widget.Locality ?? "";
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
@@ -227,7 +239,9 @@ class _examination_institutionState extends State<examination_institution> {
                 loginOption: loginOption,
                 latitude: latitude,
                 longitude: longitude,
-                list: liststringdata),
+                list: liststringdata,
+                Area: Area,
+                Locality: Locality),
           ])),
     );
   }

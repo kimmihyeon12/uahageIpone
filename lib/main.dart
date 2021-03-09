@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:uahage/Location.dart';
 import 'package:uahage/screens/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Navigationbar.dart';
@@ -30,9 +31,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String userId = "";
   String loginOption = "";
+  var Area;
+  var Locality;
+  String latitude = "";
+  String longitude = "";
+
   @override
   void initState() {
+    lacations();
     super.initState();
+  }
+
+  Future lacations() async {
+    Location location = new Location();
+    await location.getCurrentLocation();
   }
 
   Future startTime() async => Future.delayed(

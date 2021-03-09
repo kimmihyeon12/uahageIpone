@@ -11,15 +11,24 @@ import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/Location.dart';
 
 class searchPage extends StatefulWidget {
   searchPage(
-      {Key key, this.latitude, this.longitude, this.userId, this.loginOption})
+      {Key key,
+      this.latitude,
+      this.longitude,
+      this.userId,
+      this.loginOption,
+      this.Area,
+      this.Locality})
       : super(key: key);
   String latitude;
   String longitude;
   String loginOption;
   String userId;
+  String Locality;
+  String Area;
   @override
   _searchPageState createState() => _searchPageState();
 }
@@ -28,6 +37,8 @@ class _searchPageState extends State<searchPage> {
   // getting current location
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   String searchKey = "";
   var star_color = false;
   String userId = "";
@@ -59,33 +70,27 @@ class _searchPageState extends State<searchPage> {
     "./assets/listPage/chair.png",
   ];
 
-  //
-  getCurrentLocation() async {
-    // print("Geolocation started");
-    // LocationPermission permission = await Geolocator.requestPermission();
+  Location location = new Location();
 
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    setState(() {
-      latitude = geoposition.latitude.toString();
-      longitude = geoposition.longitude.toString();
-    });
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("uahageLat", latitude);
-    sharedPreferences.setString("uahageLong", longitude);
+  Future lacations() async {
+    await location.getCurrentLocation();
   }
 
   getLatLong() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String lat = sharedPreferences.getString("uahageLat") ?? "";
     String long = sharedPreferences.getString("uahageLong") ?? "";
+    String area = sharedPreferences.getString("uahageArea") ?? "";
+    String locality = sharedPreferences.getString("uahageLocality") ?? "";
     print("search lat: $lat");
     if (lat == "" || long == "") {
-      await getCurrentLocation();
+      await lacations();
     } else
       setState(() {
         latitude = lat;
         longitude = long;
+        Area = area;
+        Locality = locality;
       });
   }
 
@@ -101,7 +106,7 @@ class _searchPageState extends State<searchPage> {
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}");
+        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   Future click_star() async {
@@ -166,12 +171,21 @@ class _searchPageState extends State<searchPage> {
       userId = widget.userId ?? "";
       latitude = widget.latitude ?? "";
       longitude = widget.longitude ?? "";
+      Area = widget.Area ?? "";
+      Locality = widget.Locality ?? "";
     });
-    if (latitude == "" || longitude == "") getLatLong();
+    if (latitude == "" || longitude == "" || Locality == "" || Area == "")
+      getLatLong();
     super.initState();
     // getCurrentLocation();
     print("latitude: $latitude");
     print("longitude: $longitude");
+  }
+
+  @override
+  void didChangeDependencies() {
+    getLatLong();
+    super.didChangeDependencies();
   }
 
   int position = 1;
@@ -200,15 +214,10 @@ class _searchPageState extends State<searchPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("searchpage 빌드중입니다");
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
-    // isIOS
-    //     ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
-    //         .copyWith(
-    //             statusBarBrightness:
-    //                 Brightness.dark // Dark == white status bar -- for IOS.
-    //             ))
-    //     : null;
+
     return Scaffold(
       body: isIOS
           ? AnnotatedRegion<SystemUiOverlayStyle>(
@@ -230,7 +239,7 @@ class _searchPageState extends State<searchPage> {
                                   latitude == '' ||
                                   longitude == ''
                               ? 'http://13.209.41.43/map'
-                              : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                              : 'http://112.187.123.9:3000/getPos?lat=$latitude&long=$longitude');
                         },
                         javascriptMode: JavascriptMode.unrestricted,
                         javascriptChannels: Set.from([
@@ -341,11 +350,10 @@ class _searchPageState extends State<searchPage> {
                             if (latitude == 'NaN' ||
                                 longitude == 'NaN' ||
                                 latitude == '' ||
-                                longitude == '') await getCurrentLocation();
-                            // controller.loadUrl(
-                            //     "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                            //     // "http://13.209.41.43/getPos?lat=$latitude&long=$longitude"
-                            //     );
+                                longitude == '') await lacations();
+                            controller.loadUrl(
+                                //     "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
+                                "http://13.209.41.43/getPos?lat=$latitude&long=$longitude");
                             controller.reload();
                           },
                           child: Container(
@@ -528,11 +536,9 @@ class _searchPageState extends State<searchPage> {
                           if (latitude == 'NaN' ||
                               longitude == 'NaN' ||
                               latitude == '' ||
-                              longitude == '') await getCurrentLocation();
+                              longitude == '') await lacations();
                           controller.loadUrl(
-                              "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                              // "http://13.209.41.43/getPos?lat=$latitude&long=$longitude"
-                              );
+                              "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
                         },
                         child: Container(
                           margin: EdgeInsets.only(

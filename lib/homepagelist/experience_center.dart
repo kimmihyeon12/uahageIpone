@@ -15,9 +15,17 @@ class experience_center extends StatefulWidget {
   String userId;
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   // String oldNickname;
   experience_center(
-      {Key key, this.userId, this.loginOption, this.latitude, this.longitude})
+      {Key key,
+      this.userId,
+      this.loginOption,
+      this.latitude,
+      this.longitude,
+      this.Area,
+      this.Locality})
       : super(key: key);
   @override
   _experience_centerState createState() => _experience_centerState();
@@ -33,6 +41,8 @@ class _experience_centerState extends State<experience_center> {
 
   String latitude = "";
   String longitude = "";
+  String Area = "";
+  String Locality = "";
   String liststringdata = "Experience_center";
   String userId = "";
   String loginOption = "";
@@ -44,10 +54,10 @@ class _experience_centerState extends State<experience_center> {
 
   getCurrentLocation() async {
     print("Geolocation started");
-    LocationPermission permission = await Geolocator.requestPermission();
+    // LocationPermission permission = await Geolocator.requestPermission();
 
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+    final geoposition = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       latitude = '${geoposition.latitude}';
       longitude = '${geoposition.longitude}';
@@ -74,6 +84,8 @@ class _experience_centerState extends State<experience_center> {
       userId = widget.userId ?? "";
       latitude = widget.latitude;
       longitude = widget.longitude;
+      Area = widget.Area ?? "";
+      Locality = widget.Locality ?? "";
       // oldNickname = userId != "" ? getMyNickname().toString() : "";
     });
     _star_color();
@@ -228,7 +240,9 @@ class _experience_centerState extends State<experience_center> {
                 loginOption: loginOption,
                 latitude: latitude,
                 longitude: longitude,
-                list: liststringdata),
+                list: liststringdata,
+                Area: Area,
+                Locality: Locality),
           ])),
     );
   }

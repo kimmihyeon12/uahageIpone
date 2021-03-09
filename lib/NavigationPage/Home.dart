@@ -14,6 +14,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:uahage/Location.dart';
 
 class homePage extends StatefulWidget {
   String loginOption;
@@ -36,7 +37,8 @@ class _homePageState extends State<homePage> {
   //FToast fToast;
   String loginOption = "";
   String userId = "";
-
+  String Area = "";
+  String Locality = "";
   var searchkey = "";
 
   String latitude = "";
@@ -59,38 +61,28 @@ class _homePageState extends State<homePage> {
     super.initState();
   }
 
-  getCurrentLocation() async {
-    // print("Geolocation started");
-    // LocationPermission permission = await Geolocator.requestPermission();
-
-    final geoposition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    setState(() {
-      latitude = geoposition.latitude.toString();
-      longitude = geoposition.longitude.toString();
-    });
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("uahageLat", latitude);
-    sharedPreferences.setString("uahageLong", longitude);
+  Location location = new Location();
+  Future lacations() async {
+    await location.getCurrentLocation();
   }
 
   getLatLong() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String lat = sharedPreferences.getString("uahageLat") ?? "";
     String long = sharedPreferences.getString("uahageLong") ?? "";
+    String area = sharedPreferences.getString("uahageArea") ?? "";
+    String locality = sharedPreferences.getString("uahageLocality") ?? "";
+    print("search lat: $lat");
     if (lat == "" || long == "") {
-      await getCurrentLocation();
+      await lacations();
     } else
       setState(() {
         latitude = lat;
         longitude = long;
+        Area = area;
+        Locality = locality;
       });
   }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
 
   int index = 1;
 
@@ -320,6 +312,8 @@ class _homePageState extends State<homePage> {
                                               loginOption: loginOption,
                                               latitude: latitude,
                                               longitude: longitude,
+                                              Area: Area,
+                                              Locality: Locality,
                                             )));
                               },
                             ),
@@ -344,6 +338,8 @@ class _homePageState extends State<homePage> {
                                               loginOption: loginOption,
                                               latitude: latitude,
                                               longitude: longitude,
+                                              Area: Area,
+                                              Locality: Locality,
                                             )));
                               },
                             ),
@@ -406,6 +402,8 @@ class _homePageState extends State<homePage> {
                                               loginOption: loginOption,
                                               latitude: latitude,
                                               longitude: longitude,
+                                              Area: Area,
+                                              Locality: Locality,
                                             )));
                               },
                             ),
@@ -429,6 +427,8 @@ class _homePageState extends State<homePage> {
                                               loginOption: loginOption,
                                               latitude: latitude,
                                               longitude: longitude,
+                                              Area: Area,
+                                              Locality: Locality,
                                             )));
                               },
                             ),
@@ -741,6 +741,8 @@ class _homePageState extends State<homePage> {
                                             loginOption: loginOption,
                                             latitude: latitude,
                                             longitude: longitude,
+                                            Area: Area,
+                                            Locality: Locality,
                                           )));
                             },
                           ),
