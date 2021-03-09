@@ -239,7 +239,7 @@ class _searchPageState extends State<searchPage> {
                                   latitude == '' ||
                                   longitude == ''
                               ? 'http://13.209.41.43/map'
-                              : 'http://112.187.123.9:3000/getPos?lat=$latitude&long=$longitude');
+                              : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
                         },
                         javascriptMode: JavascriptMode.unrestricted,
                         javascriptChannels: Set.from([

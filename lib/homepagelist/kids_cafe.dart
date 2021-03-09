@@ -48,18 +48,6 @@ class _kids_cafeState extends State<kids_cafe> {
   var list = true;
   var indexcount = 0;
 
-  // getCurrentLocation() async {
-  //   print("Geolocation started");
-  //   LocationPermission permission = await Geolocator.requestPermission();
-
-  //   final geoposition = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.best);
-  //   setState(() {
-  //     latitude = '${geoposition.latitude}';
-  //     longitude = '${geoposition.longitude}';
-  //   });
-  // }
-
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),

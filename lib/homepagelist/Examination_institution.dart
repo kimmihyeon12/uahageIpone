@@ -52,18 +52,6 @@ class _examination_institutionState extends State<examination_institution> {
     "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image2.png",
   ];
 
-  getCurrentLocation() async {
-    print("Geolocation started");
-    // LocationPermission permission = await Geolocator.requestPermission();
-
-    final geoposition = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      latitude = '${geoposition.latitude}';
-      longitude = '${geoposition.longitude}';
-    });
-  }
-
   Future<List<Examination_institution>> myFuture;
 
   @override
