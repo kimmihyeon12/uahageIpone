@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/StarManage.dart';
 
 class restaurant extends StatefulWidget {
   String loginOption;
@@ -55,7 +56,6 @@ class _restaurantState extends State<restaurant> {
       nursingroom1,
       chair1;
   var list = true;
-  int _currentMax = 0;
   // ScrollController _scrollController = ScrollController();
   List<String> star_color_list = [];
   var star_color = false;
@@ -80,50 +80,61 @@ class _restaurantState extends State<restaurant> {
   ];
 
   Future<List<Restaurant>> myFuture;
+  int _currentMax = 0;
+  ScrollController _scrollController = ScrollController();
+  bool _isLoading;
+  List<Restaurant> restaurants;
 
   @override
   void initState() {
-    myFuture = _getrestaurant();
-    setState(() {
-      loginOption = widget.loginOption;
-      userId = widget.userId ?? "";
-      latitude = widget.latitude ?? "";
-      longitude = widget.longitude ?? "";
-      Area = widget.Area ?? "";
-      Locality = widget.Locality ?? "";
-    });
-
-    print("latt in restaurant : $latitude");
-    print("long in restaurant : $longitude");
+    // setState(() {
+    restaurants = [];
+    _isLoading = false;
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
+    latitude = widget.latitude ?? "";
+    longitude = widget.longitude ?? "";
+    Area = widget.Area ?? "";
+    Locality = widget.Locality ?? "";
+    // });
     _star_color();
+    myFuture = _getrestaurant();
+    _scrollController.addListener(() {
+      double maxScroll = _scrollController.position.maxScrollExtent;
+      double currentScroll = _scrollController.position.pixels;
+      double delta =
+          100.0; // or something else..maxScroll - currentScroll <= delta
+      if (currentScroll == maxScroll && !_isLoading) {
+        print("scrolling");
+        _currentMax += 10;
+        _isLoading = true;
+        _getrestaurant();
+      }
+    });
     super.initState();
   }
 
+  StarManage starInsertDelete = new StarManage();
+
   Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": store_name1,
-      "address": address1,
-      "phone": phone1,
-      "menu": menu1,
-      "bed": bed1,
-      "tableware": tableware1,
-      "meetingroom": meetingroom1,
-      "diapers": diapers1,
-      "playroom": playroom1,
-      "carriage": carriage1,
-      "nursingroom": nursingroom1,
-      "chair": chair1,
-      "star_color": star_color,
-      "type": "restaurant"
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        store_name1,
+        address1,
+        phone1,
+        menu1,
+        bed1,
+        tableware1,
+        meetingroom1,
+        diapers1,
+        playroom1,
+        carriage1,
+        nursingroom1,
+        chair1,
+        null,
+        null,
+        star_color,
+        liststringdata);
   }
 
   Future _star_color() async {
@@ -140,10 +151,9 @@ class _restaurantState extends State<restaurant> {
   }
 
   Future<List<Restaurant>> _getrestaurant() async {
-    List<Restaurant> restaurants = [];
     http.Response data = await http.get(
         // 'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
-        'http://13.209.41.43/getList/$liststringdata');
+        'http://121.147.203.82:3000/getList/$liststringdata?maxCount=$_currentMax');
 
     List jsonData = json.decode(data.body);
 
@@ -168,13 +178,16 @@ class _restaurantState extends State<restaurant> {
 
       restaurants.add(restaurant);
     }
+    setState(() {
+      _isLoading = false;
+    });
 
     return restaurants;
   }
 
   @override
   void dispose() {
-    // _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -284,29 +297,32 @@ class _restaurantState extends State<restaurant> {
 
   Widget restaruant_view(context, screenWidth, screenHeight) {
     return FutureBuilder(
-      future: _getrestaurant(),
+      future: myFuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.data == null) {
+        if (snapshot.hasError) {
           return Center(
-            child: SizedBox(
-                width: 60,
-                height: 60,
-                child: buildSpinKitThreeBounce(80, screenWidth)
-                // CircularProgressIndicator(
-                //   strokeWidth: 5.0,
-                //   valueColor: new AlwaysStoppedAnimation<Color>(
-                //     Colors.pinkAccent,
-                //   ),
-                // ),
-                ),
+            child: Text("${snapshot.error}"),
           );
-        } else {
-          print('snapshot.data.length : ${snapshot.data.length}');
+        } else if (snapshot.hasData && snapshot.data.length >= 1) {
+          print("length " + snapshot.data.length.toString());
+
           return ListView.builder(
-              // controller: _scrollController,
+              controller: _scrollController,
               itemCount: snapshot.data.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 // print(snapshot.data.id[index]);
+                if (_isLoading) {
+                  //index == snapshot.data.length
+                  print("show circular");
+                  return Center(
+                    child: SizedBox(
+                      width: 15,
+                      height: 15,
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
                 return Card(
                   elevation: 0.3,
                   child: InkWell(
@@ -519,6 +535,12 @@ class _restaurantState extends State<restaurant> {
                 );
               });
         }
+        return Center(
+          child: SizedBox(
+              width: 60,
+              height: 60,
+              child: buildSpinKitThreeBounce(80, screenWidth)),
+        );
       },
     );
   }

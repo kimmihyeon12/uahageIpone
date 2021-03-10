@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'dart:convert';
-
+import 'package:uahage/StarManage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Map_List_Toggle extends StatefulWidget {
@@ -60,31 +60,26 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     //_star_color();
   }
 
+  StarManage starInsertDelete = new StarManage();
   Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": Message[0],
-      "address": Message[1],
-      "phone": Message[2],
-      "menu": Message[3],
-      "bed": Message[4],
-      "tableware": Message[5],
-      "meetingroom": Message[6],
-      "diapers": Message[7],
-      "playroom": Message[8],
-      "carriage": Message[9],
-      "nursingroom": Message[10],
-      "chair": Message[11],
-      "star_color": star_color,
-      "type": "restaurant"
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        Message[0],
+        Message[1],
+        Message[2],
+        Message[3],
+        Message[4],
+        Message[5],
+        Message[6],
+        Message[7],
+        Message[8],
+        Message[9],
+        Message[10],
+        Message[11],
+        null,
+        null,
+        star_color,
+        "restaurant");
   }
 
   Future checkStar() async {

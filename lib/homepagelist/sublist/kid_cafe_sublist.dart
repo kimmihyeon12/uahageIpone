@@ -216,7 +216,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
               // ),
 
               Container(
-                //  height: 939 / screenHeight,
+                height: 939 / screenHeight,
                 width: 1501 / screenWidth,
                 child: (() {
                   if (index % 2 == 0) {

@@ -9,6 +9,7 @@ import 'package:uahage/homepagelist/map_list.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/StarManage.dart';
 
 class kids_cafe extends StatefulWidget {
   String loginOption;
@@ -57,44 +58,62 @@ class _kids_cafeState extends State<kids_cafe> {
 
   int _currentMax = 0;
   ScrollController _scrollController = ScrollController();
-  bool _isLoading = false;
+  bool _isLoading;
   String userId = "";
   String loginOption = "";
 
   Future<List<Kids_cafe>> myFuture;
+  List<Kids_cafe> kids_cafes;
   void initState() {
-    myFuture = _getrestaurant();
-    setState(() {
-      loginOption = widget.loginOption;
-      userId = widget.userId ?? "";
-      latitude = widget.latitude;
-      longitude = widget.longitude;
-      Area = widget.Area ?? "";
-      Locality = widget.Locality ?? "";
-      // oldNickname = userId != "" ? getMyNickname().toString() : "";
-    });
+    // setState(() {
+    kids_cafes = [];
+    _isLoading = false;
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
+    latitude = widget.latitude;
+    longitude = widget.longitude;
+    Area = widget.Area ?? "";
+    Locality = widget.Locality ?? "";
     _star_color();
-    // getCurrentLocation();
+
+    myFuture = _getrestaurant();
+    _scrollController.addListener(() {
+      double maxScroll = _scrollController.position.maxScrollExtent;
+      double currentScroll = _scrollController.position.pixels;
+      double delta =
+          100.0; // or something else..maxScroll - currentScroll <= delta
+      if (currentScroll == maxScroll && !_isLoading) {
+        print("scrolling");
+        _currentMax += 10;
+        _isLoading = true;
+        _getrestaurant();
+      }
+    });
+
     super.initState();
   }
 
+  StarManage starInsertDelete = new StarManage();
+
   Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": store_name1,
-      "address": address1,
-      "phone": phone1,
-      "Examination_item": fare1,
-      "star_color": star_color,
-      "type": "kids_cafe"
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        store_name1,
+        address1,
+        phone1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        fare1,
+        null,
+        star_color,
+        liststringdata);
   }
 
   Future _star_color() async {
@@ -110,10 +129,9 @@ class _kids_cafeState extends State<kids_cafe> {
   }
 
   Future<List<Kids_cafe>> _getrestaurant() async {
-    List<Kids_cafe> kids_cafes = [];
     String liststringdata = "Kids_cafe";
     var data = await http.get(
-        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+        'http://121.147.203.82:3000/getList/$liststringdata?maxCount=$_currentMax');
     //?maxCount=$_currentMax
 
     var jsonData = json.decode(data.body);
@@ -126,17 +144,18 @@ class _kids_cafeState extends State<kids_cafe> {
         r["phone"],
         r["fare"],
       );
-
       kids_cafes.add(kids_cafe);
     }
-
+    setState(() {
+      _isLoading = false;
+    });
     return kids_cafes;
   }
 
   @override
   void dispose() {
     super.dispose();
-    // _scrollController.dispose();
+    _scrollController.dispose();
   }
 
   bool toggle = false;
@@ -237,19 +256,28 @@ class _kids_cafeState extends State<kids_cafe> {
     return FutureBuilder(
       future: myFuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.data == null) {
+        if (snapshot.hasError) {
           return Center(
-            child: SizedBox(
-                width: 60,
-                height: 60,
-                child: buildSpinKitThreeBounce(80, screenWidth)),
+            child: Text("${snapshot.error}"),
           );
-        } else {
+        } else if (snapshot.hasData && snapshot.data.length >= 1) {
           print("length " + snapshot.data.length.toString());
           return ListView.builder(
-              // controller: _scrollController,
+              controller: _scrollController,
               itemCount: snapshot.data.length,
+              // shrinkWrap: true,
               itemBuilder: (context, index) {
+                // if (_isLoading) {
+                //   //index == snapshot.data.length
+                //   print("show circular");
+                //   return Center(
+                //     child: SizedBox(
+                //       width: 15,
+                //       height: 15,
+                //       child: CircularProgressIndicator(),
+                //     ),
+                //   );
+                // }
                 return Card(
                   elevation: 0.3,
                   child: InkWell(
@@ -314,7 +342,8 @@ class _kids_cafeState extends State<kids_cafe> {
                                       width: 800 / screenWidth,
                                       height: 100 / screenHeight,
                                       child: Text(
-                                        snapshot.data[index].store_name,
+                                        snapshot.data[index].store_name +
+                                            index.toString(),
                                         style: TextStyle(
                                           fontSize: 56 / screenWidth,
                                           fontFamily: 'NotoSansCJKkr_Medium',
@@ -399,6 +428,12 @@ class _kids_cafeState extends State<kids_cafe> {
                 );
               });
         }
+        return Center(
+          child: SizedBox(
+              width: 60,
+              height: 60,
+              child: buildSpinKitThreeBounce(80, screenWidth)),
+        );
       },
     );
   }

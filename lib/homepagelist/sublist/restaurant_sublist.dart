@@ -130,22 +130,22 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
   void initState() {
     fToast = FToast();
     fToast.init(context);
-    setState(() {
-      storename = widget.storename;
-      address = widget.address;
-      phone = widget.phone;
-      menu = widget.menu;
-      bed = widget.bed;
-      tableware = widget.tableware;
-      meetingroom = widget.meetingroom;
-      diapers = widget.diapers;
-      playroom = widget.playroom;
-      carriage = widget.carriage;
-      nursingroom = widget.nursingroom;
-      chair = widget.chair;
-      userId = widget.userId;
-      loginOption = widget.loginOption;
-    });
+    //setState(() {
+    storename = widget.storename;
+    address = widget.address;
+    phone = widget.phone;
+    menu = widget.menu;
+    bed = widget.bed;
+    tableware = widget.tableware;
+    meetingroom = widget.meetingroom;
+    diapers = widget.diapers;
+    playroom = widget.playroom;
+    carriage = widget.carriage;
+    nursingroom = widget.nursingroom;
+    chair = widget.chair;
+    userId = widget.userId;
+    loginOption = widget.loginOption;
+    //});
     print(storename);
     // _star_color();
     checkStar();
@@ -311,7 +311,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
               //   ),
               // ),
               Container(
-                //  height: 939 / screenHeight,
+                height: 939 / screenHeight,
                 width: 1501 / screenWidth,
                 child: (() {
                   if (index % 3 == 1) {

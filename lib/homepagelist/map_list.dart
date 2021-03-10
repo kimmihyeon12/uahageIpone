@@ -12,6 +12,8 @@ import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/Location.dart';
+import 'package:uahage/StarManage.dart';
 
 class map_list extends StatefulWidget {
   map_list(
@@ -44,9 +46,20 @@ class _map_listState extends State<map_list> {
   String Area = "";
   String Locality = "";
   String list;
+  var listrequest;
   var index = 1;
   var Message;
-
+  List<bool> grey_image = [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ];
   var star_color = false;
   var iconimage = [
     "./assets/listPage/menu.png",
@@ -59,32 +72,32 @@ class _map_listState extends State<map_list> {
     "./assets/listPage/nursingroom.png",
     "./assets/listPage/chair.png",
   ];
-
+  StarManage starInsertDelete = new StarManage();
   Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": Message[0],
-      "address": Message[1],
-      "phone": Message[2],
-      "menu": Message[3],
-      "bed": Message[4],
-      "tableware": Message[5],
-      "meetingroom": Message[6],
-      "diapers": Message[7],
-      "playroom": Message[8],
-      "carriage": Message[9],
-      "nursingroom": Message[10],
-      "chair": Message[11],
-      "star_color": star_color,
-      "type": list
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        Message[0],
+        Message[1],
+        Message[2],
+        Message[3],
+        Message[4],
+        Message[5],
+        Message[6],
+        Message[7],
+        Message[8],
+        Message[9],
+        Message[10],
+        Message[11],
+        null,
+        null,
+        star_color,
+        list);
+  }
+
+  Future searchCategory() async {
+    print(grey_image);
+    controller.loadUrl(
+        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   Future checkStar() async {
@@ -130,6 +143,7 @@ class _map_listState extends State<map_list> {
       longitude = widget.longitude;
       Area = widget.Area;
       Locality = widget.Locality;
+      listrequest = widget.list;
     });
     super.initState();
     print("latt in restaurant_sub : $latitude");
@@ -170,10 +184,21 @@ class _map_listState extends State<map_list> {
     );
   }
 
+  Location location = new Location();
+
+  Future lacations() async {
+    await location.getCurrentLocation();
+  }
+
+  // uadate_location() async{
+  //   String url = 'http://13.209.41.43/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
+  //   var response = await http.get(url);
+  //   setState(() {
+  //     print('reload');
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
-    var listrequest = widget.list;
-
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     return Scaffold(
@@ -226,20 +251,44 @@ class _map_listState extends State<map_list> {
                 ),
               ],
             ),
+            listrequest == "restaurant"
+                ? InkWell(
+                    onTap: () async {
+                      setState(() {
+                        grey_image = [
+                          true,
+                          true,
+                          true,
+                          true,
+                          true,
+                          true,
+                          true,
+                          true,
+                          true,
+                        ];
+                      });
+                      await showPopUpMenu(context, screenHeight, screenWidth);
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: 1250 / screenWidth, top: 30 / screenHeight),
+                      child: Image.asset(
+                        "./assets/searchPage/cat_btn.png",
+                        height: 158 / screenHeight,
+                      ),
+                    ),
+                  )
+                : Container(),
             Row(
               children: [
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: InkWell(
                     onTap: () async {
-                      //var response = await getMap(latitude, longitude);
-                      if (latitude == 'NaN' ||
-                          longitude == 'NaN' ||
-                          latitude == '' ||
-                          longitude == '') await getLatLong();
+                      //     uadate_location();
+                      lacations();
                       controller.loadUrl(
                           'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
-                      print(listrequest);
                     },
                     child: Container(
                       margin: EdgeInsets.only(
@@ -520,6 +569,121 @@ class _map_listState extends State<map_list> {
                 ],
               );
             });
+          });
+        },
+        barrierDismissible: true,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: null,
+        transitionDuration: const Duration(milliseconds: 150));
+  }
+
+  Future<Object> showPopUpMenu(
+      BuildContext context, double screenHeight, double screenWidth) {
+    return showGeneralDialog(
+        context: context,
+        pageBuilder: (BuildContext buildContext, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return StatefulBuilder(builder: (context, setState) {
+            return SafeArea(
+              child: Builder(builder: (context) {
+                return Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: 600 / (screenHeight),
+                          bottom: 0 / screenHeight,
+                          left: 190 / screenWidth,
+                          right: 0 / screenWidth),
+                      width: 1100 / screenWidth,
+                      height: 1100 / screenHeight,
+                      child: Card(
+                        shadowColor: Colors.black54,
+                        elevation: 1,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              top: 110 / (screenHeight),
+                              left: 50 / screenWidth,
+                              right: 50 / screenWidth),
+                          child: SizedBox(
+                            //       width: 888 / screenWidth,
+                            //     height: 800 / screenHeight,
+                            child: GridView.count(
+                              // childAspectRatio: 3 / 2,
+                              crossAxisCount: 3,
+                              children: List.generate(9, (index) {
+                                return Scaffold(
+                                  backgroundColor: Colors.white,
+                                  body: Center(
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          grey_image[index] =
+                                              !grey_image[index];
+                                        });
+                                        print(grey_image);
+                                      },
+                                      child: grey_image[index]
+                                          ? Image.asset(
+                                              "./assets/searchPage/image" +
+                                                  (index + 1).toString() +
+                                                  "_grey.png",
+                                              height: 293 / screenHeight,
+                                              width: 218 / screenWidth,
+                                            )
+                                          : Image.asset(
+                                              "./assets/searchPage/image" +
+                                                  (index + 1).toString() +
+                                                  ".png",
+                                              height: 293 / screenHeight,
+                                              width: 218 / screenWidth,
+                                            ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 1850 / screenHeight,
+                      left: 400 / screenWidth,
+                      right: 400 / screenWidth,
+                      child: SizedBox(
+                        width: 611 / screenWidth,
+                        height: 195 / screenHeight,
+                        child: FlatButton(
+                          onPressed: () async {
+                            await searchCategory();
+
+                            Navigator.of(context).pop();
+                            // print(isBirthdayFree);
+                          },
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(8.0),
+                          ),
+                          color: Color.fromRGBO(255, 114, 148, 1.0),
+                          child: Text(
+                            "OK",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'NotoSansCJKkr_Medium',
+                              fontSize: 62 / screenWidth,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            );
           });
         },
         barrierDismissible: true,

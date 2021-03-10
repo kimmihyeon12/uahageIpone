@@ -189,7 +189,7 @@ class _examination_institution_sublistState
               //   ),
               // ),
               Container(
-                //  height: 939 / screenHeight,
+                height: 939 / screenHeight,
                 width: 1501 / screenWidth,
                 child: index % 2 == 0
                     ? mainImage(mainimage[0], screenWidth)

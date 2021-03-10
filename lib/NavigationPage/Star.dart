@@ -13,6 +13,7 @@ import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
+import 'package:uahage/StarManage.dart';
 
 class starPage extends StatefulWidget {
   String loginOption;
@@ -63,24 +64,34 @@ class _starPageState extends State<starPage> {
   void initState() {
     fToast = FToast();
     fToast.init(context);
-    loginOption = widget.loginOption;
-    userId = widget.userId ?? "";
+    setState(() {
+      loginOption = widget.loginOption;
+      userId = widget.userId ?? "";
+    });
+
     super.initState();
   }
 
+  StarManage starInsertDelete = new StarManage();
   Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "address": address1,
-      "star_color": false,
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        null,
+        address1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        false,
+        null);
   }
 
   _showToast(screenWidth) {
@@ -313,7 +324,7 @@ class _starPageState extends State<starPage> {
                                                                 .data[index]
                                                                 .address;
                                                           });
-                                                          click_star();
+                                                          await click_star();
                                                           _showToast(
                                                               screenWidth);
                                                           //setState(() {
@@ -709,7 +720,7 @@ class _starPageState extends State<starPage> {
                                                                           index]
                                                                       .address;
                                                             });
-                                                            click_star();
+                                                            await click_star();
                                                             _showToast(
                                                                 screenWidth);
                                                             //setState(() {

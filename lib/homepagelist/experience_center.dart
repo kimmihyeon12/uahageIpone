@@ -9,6 +9,7 @@ import 'package:uahage/homepagelist/map_list.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/StarManage.dart';
 
 class experience_center extends StatefulWidget {
   String loginOption;
@@ -82,23 +83,27 @@ class _experience_centerState extends State<experience_center> {
     super.initState();
   }
 
+  StarManage starInsertDelete = new StarManage();
+
   Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": store_name1,
-      "address": address1,
-      "phone": phone1,
-      "Examination_item": fare1,
-      "star_color": star_color,
-      "type": "experience_center"
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        store_name1,
+        address1,
+        phone1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        fare1,
+        null,
+        star_color,
+        liststringdata);
   }
 
   Future _star_color() async {

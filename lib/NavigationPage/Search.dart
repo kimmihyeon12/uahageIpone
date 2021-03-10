@@ -12,6 +12,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/Location.dart';
+import 'package:uahage/StarManage.dart';
 
 class searchPage extends StatefulWidget {
   searchPage(
@@ -109,35 +110,26 @@ class _searchPageState extends State<searchPage> {
         "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
+  StarManage starInsertDelete = new StarManage();
   Future click_star() async {
-    //  print("clicking start $star_color");
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": Message[0],
-      "address": Message[1],
-      "phone": Message[2],
-      "menu": Message[3],
-      "bed": Message[4],
-      "tableware": Message[5],
-      "meetingroom": Message[6],
-      "diapers": Message[7],
-      "playroom": Message[8],
-      "carriage": Message[9],
-      "nursingroom": Message[10],
-      "chair": Message[11],
-      "star_color": star_color,
-      "Examination_item": null,
-      "fare": null,
-      "type": "restaurant"
-    };
-    print(ss);
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        Message[0],
+        Message[1],
+        Message[2],
+        Message[3],
+        Message[4],
+        Message[5],
+        Message[6],
+        Message[7],
+        Message[8],
+        Message[9],
+        Message[10],
+        Message[11],
+        null,
+        null,
+        star_color,
+        "restaurant");
   }
 
   Future checkStar() async {
