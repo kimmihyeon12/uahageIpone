@@ -65,20 +65,37 @@ class _experience_centerState extends State<experience_center> {
   bool _isLoading = false;
 
   Future<List<Experience_center>> myFuture;
+  ScrollController _scrollController = ScrollController();
+  List<Experience_center> experience_centers = [];
 
   @override
   void initState() {
-    setState(() {
-      loginOption = widget.loginOption;
-      userId = widget.userId ?? "";
-      latitude = widget.latitude;
-      longitude = widget.longitude;
-      Area = widget.Area ?? "";
-      Locality = widget.Locality ?? "";
-      // oldNickname = userId != "" ? getMyNickname().toString() : "";
-    });
+    // setState(() {
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
+    latitude = widget.latitude;
+    longitude = widget.longitude;
+    Area = widget.Area ?? "";
+    Locality = widget.Locality ?? "";
+    // oldNickname = userId != "" ? getMyNickname().toString() : "";
+    // });
     _star_color();
+    _isLoading = false;
+
     myFuture = _getrestaurant();
+    _scrollController.addListener(() {
+      double maxScroll = _scrollController.position.maxScrollExtent;
+      double currentScroll = _scrollController.position.pixels;
+      // double delta =
+      //     100.0; // or something else..maxScroll - currentScroll <= delta
+      if (currentScroll == maxScroll && !_isLoading) {
+        print("scrolling");
+        print("isloading: $_isLoading");
+        _currentMax += 10;
+        _isLoading = true;
+        _getrestaurant();
+      }
+    });
     // getCurrentLocation();
     super.initState();
   }
@@ -119,8 +136,6 @@ class _experience_centerState extends State<experience_center> {
   }
 
   Future<List<Experience_center>> _getrestaurant() async {
-    List<Experience_center> experience_centers = [];
-
     var data = await http.get(
         'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
     //?maxCount=$_currentMax
@@ -137,6 +152,9 @@ class _experience_centerState extends State<experience_center> {
 
       experience_centers.add(experience_center);
     }
+    setState(() {
+      _isLoading = false;
+    });
 
     return experience_centers;
   }
@@ -144,8 +162,8 @@ class _experience_centerState extends State<experience_center> {
   bool toggle = false;
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
-    // _scrollController.dispose();
   }
 
   @override
@@ -244,25 +262,16 @@ class _experience_centerState extends State<experience_center> {
     return FutureBuilder(
       future: myFuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.data == null) {
+        if (snapshot.hasError) {
           return Center(
-            child: SizedBox(
-                width: 60,
-                height: 60,
-                child: buildSpinKitThreeBounce(80, screenWidth)
-                // CircularProgressIndicator(
-                //   strokeWidth: 5.0,
-                //   valueColor: new AlwaysStoppedAnimation<Color>(
-                //     Colors.pinkAccent,
-                //   ),
-                // ),
-                ),
+            child: Text("${snapshot.error}"),
           );
-        } else {
+        } else if (snapshot.hasData && snapshot.data != null) {
           return ListView.builder(
-              // controller: _scrollController,
-              itemCount: snapshot.data.length,
+              controller: _scrollController,
+              itemCount: experience_centers?.length,
               itemBuilder: (context, index) {
+                print("List index: $index");
                 return Card(
                   elevation: 0.3,
                   child: InkWell(
@@ -315,29 +324,6 @@ class _experience_centerState extends State<experience_center> {
                               height: 414 / screenHeight,
                               width: 414 / screenHeight,
                             ),
-                            // (() {
-                            //   if (index % 4 == 1) {
-                            //     return Image.asset(
-                            //       listimage[0],
-                            //       height: 414 / (2667 / ScreenHeight),
-                            //     );
-                            //   } else if (index % 4 == 2) {
-                            //     return Image.asset(
-                            //       listimage[1],
-                            //       height: 414 / (2667 / ScreenHeight),
-                            //     );
-                            //   } else if (index % 4 == 3) {
-                            //     return Image.asset(
-                            //       listimage[2],
-                            //       height: 414 / (2667 / ScreenHeight),
-                            //     );
-                            //   } else {
-                            //     return Image.asset(
-                            //       listimage[3],
-                            //       height: 414 / (2667 / ScreenHeight),
-                            //     );
-                            //   }
-                            // }()),
                             Padding(
                                 padding: EdgeInsets.only(
                               left: 53 /
@@ -419,7 +405,6 @@ class _experience_centerState extends State<experience_center> {
                                     ),
                                   ],
                                 ),
-
                                 Container(
                                   // height: 350 / screenHeight,
                                   width: 650 / screenWidth,
@@ -434,33 +419,6 @@ class _experience_centerState extends State<experience_center> {
                                     ),
                                   ),
                                 ),
-                                // Padding(
-                                //     padding: EdgeInsets.only(
-                                //   top: 20 / (2667 / ScreenHeight),
-                                // )),
-                                // SafeArea(
-                                //   child: Container(
-                                //     height:
-                                //         100 / (1501 / ScreenWidth),
-                                //     width: 800 / (1501 / ScreenWidth),
-                                //     child: snapshot
-                                //                 .data[index].fare ==
-                                //             null
-                                //         ? Text("정보 없음")
-                                //         : Text(
-                                //             snapshot
-                                //                 .data[index].phone,
-                                //             style: TextStyle(
-                                //               // fontFamily: 'NatoSans',
-                                //               color: Colors.grey,
-                                //               fontSize:
-                                //                   45 / screenWidth,
-                                //               fontFamily:
-                                //                   'NotoSansCJKkr_Medium',
-                                //             ),
-                                //           ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ],
@@ -468,6 +426,13 @@ class _experience_centerState extends State<experience_center> {
                   ),
                 );
               });
+        } else {
+          return Center(
+            child: SizedBox(
+                width: 60,
+                height: 60,
+                child: buildSpinKitThreeBounce(80, screenWidth)),
+          );
         }
       },
     );

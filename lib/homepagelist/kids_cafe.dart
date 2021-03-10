@@ -131,7 +131,7 @@ class _kids_cafeState extends State<kids_cafe> {
   Future<List<Kids_cafe>> _getrestaurant() async {
     String liststringdata = "Kids_cafe";
     var data = await http.get(
-        'http://121.147.203.82:3000/getList/$liststringdata?maxCount=$_currentMax');
+        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
     //?maxCount=$_currentMax
 
     var jsonData = json.decode(data.body);
@@ -260,180 +260,185 @@ class _kids_cafeState extends State<kids_cafe> {
           return Center(
             child: Text("${snapshot.error}"),
           );
-        } else if (snapshot.hasData && snapshot.data.length >= 1) {
+        } else if (snapshot.hasData && snapshot.data != null) {
           print("length " + snapshot.data.length.toString());
-          return ListView.builder(
-              controller: _scrollController,
-              itemCount: snapshot.data.length,
-              // shrinkWrap: true,
-              itemBuilder: (context, index) {
-                // if (_isLoading) {
-                //   //index == snapshot.data.length
-                //   print("show circular");
-                //   return Center(
-                //     child: SizedBox(
-                //       width: 15,
-                //       height: 15,
-                //       child: CircularProgressIndicator(),
-                //     ),
-                //   );
-                // }
-                return Card(
-                  elevation: 0.3,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: kid_cafe_sublist(
-                              index: index,
-                              storename: snapshot.data[index].store_name,
-                              address: snapshot.data[index].address,
-                              phone: snapshot.data[index].phone,
-                              fare: snapshot.data[index].fare,
-                              userId: userId,
-                              loginOption: loginOption,
-                            ),
-                            duration: Duration(milliseconds: 250),
-                            reverseDuration: Duration(milliseconds: 100),
-                          ));
-                    },
-                    child: Container(
-                        padding: EdgeInsets.only(
-                          top: 30 / screenHeight,
-                          left: 26 / screenWidth,
-                          bottom: 40 / screenHeight,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        (() {
-                                          if (index % 2 == 0)
-                                            return listimage[0];
-                                          else
-                                            return listimage[1];
-                                        }()),
-                                      ),
-                                      fit: BoxFit.fitHeight),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              height: 414 / screenHeight,
-                              width: 414 / screenHeight,
-                            ),
-                            Padding(
-                                padding: EdgeInsets.only(
-                              left: 53 / screenWidth,
-                            )),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 10 / screenHeight)),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 800 / screenWidth,
-                                      height: 100 / screenHeight,
-                                      child: Text(
-                                        snapshot.data[index].store_name +
-                                            index.toString(),
-                                        style: TextStyle(
-                                          fontSize: 56 / screenWidth,
-                                          fontFamily: 'NotoSansCJKkr_Medium',
+          return Scrollbar(
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: kids_cafes?.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  if (_isLoading) {
+                    //index == snapshot.data.length
+                    print("show circular");
+                    return Center(
+                      child: SizedBox(
+                        width: 15,
+                        height: 15,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  return Card(
+                    elevation: 0.3,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: kid_cafe_sublist(
+                                index: index,
+                                storename: snapshot.data[index].store_name,
+                                address: snapshot.data[index].address,
+                                phone: snapshot.data[index].phone,
+                                fare: snapshot.data[index].fare,
+                                userId: userId,
+                                loginOption: loginOption,
+                              ),
+                              duration: Duration(milliseconds: 250),
+                              reverseDuration: Duration(milliseconds: 100),
+                            ));
+                      },
+                      child: Container(
+                          padding: EdgeInsets.only(
+                            top: 30 / screenHeight,
+                            left: 26 / screenWidth,
+                            bottom: 40 / screenHeight,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          (() {
+                                            if (index % 2 == 0)
+                                              return listimage[0];
+                                            else
+                                              return listimage[1];
+                                          }()),
+                                        ),
+                                        fit: BoxFit.fitHeight),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                height: 414 / screenHeight,
+                                width: 414 / screenHeight,
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                left: 53 / screenWidth,
+                              )),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 10 / screenHeight)),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: 800 / screenWidth,
+                                        height: 100 / screenHeight,
+                                        child: Text(
+                                          snapshot.data[index].store_name,
+                                          style: TextStyle(
+                                            fontSize: 56 / screenWidth,
+                                            fontFamily: 'NotoSansCJKkr_Medium',
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    IconButton(
-                                      padding: EdgeInsets.all(0),
-                                      constraints: BoxConstraints(
-                                        maxWidth: 70 / screenWidth,
-                                        maxHeight: 70 / screenHeight,
-                                      ),
-                                      icon: Image.asset(
-                                        star_color_list[index] == 'null'
-                                            ? "./assets/listPage/star_grey.png"
-                                            : "./assets/listPage/star_color.png",
-                                        height: 60 / screenHeight,
-                                      ),
-                                      onPressed: loginOption == "login"
-                                          ? () {
-                                              Fluttertoast.showToast(
-                                                msg: "  로그인 해주세요!  ",
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                timeInSecForIosWeb: 1,
-                                                backgroundColor: Colors.black45,
-                                                textColor: Colors.white,
-                                                fontSize: 48 / screenHeight,
-                                              );
-                                            }
-                                          : () async {
-                                              setState(() {
-                                                store_name1 = snapshot
-                                                    .data[index].store_name;
-                                                address1 = snapshot
-                                                    .data[index].address;
-                                                phone1 =
-                                                    snapshot.data[index].phone;
-                                                fare1 =
-                                                    snapshot.data[index].fare;
+                                      IconButton(
+                                        padding: EdgeInsets.all(0),
+                                        constraints: BoxConstraints(
+                                          maxWidth: 70 / screenWidth,
+                                          maxHeight: 70 / screenHeight,
+                                        ),
+                                        icon: Image.asset(
+                                          star_color_list[index] == 'null'
+                                              ? "./assets/listPage/star_grey.png"
+                                              : "./assets/listPage/star_color.png",
+                                          height: 60 / screenHeight,
+                                        ),
+                                        onPressed: loginOption == "login"
+                                            ? () {
+                                                Fluttertoast.showToast(
+                                                  msg: "  로그인 해주세요!  ",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black45,
+                                                  textColor: Colors.white,
+                                                  fontSize: 48 / screenHeight,
+                                                );
+                                              }
+                                            : () async {
+                                                setState(() {
+                                                  store_name1 = snapshot
+                                                      .data[index].store_name;
+                                                  address1 = snapshot
+                                                      .data[index].address;
+                                                  phone1 = snapshot
+                                                      .data[index].phone;
+                                                  fare1 =
+                                                      snapshot.data[index].fare;
 
-                                                if (star_color_list[index] ==
-                                                    'null') {
-                                                  star_color = true;
-                                                  star_color_list[index] =
-                                                      "test";
-                                                  print(
-                                                      ' star_color_list[index]');
-                                                  print(star_color_list[index]);
-                                                } else {
-                                                  star_color = false;
-                                                  star_color_list[index] =
-                                                      'null';
-                                                }
-                                                ;
+                                                  if (star_color_list[index] ==
+                                                      'null') {
+                                                    star_color = true;
+                                                    star_color_list[index] =
+                                                        "test";
+                                                    print(
+                                                        ' star_color_list[index]');
+                                                    print(
+                                                        star_color_list[index]);
+                                                  } else {
+                                                    star_color = false;
+                                                    star_color_list[index] =
+                                                        'null';
+                                                  }
+                                                  ;
 
-                                                click_star();
-                                              });
-                                            },
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  // height: 350 / screenHeight,
-                                  width: 650 / screenWidth,
-                                  child: Text(
-                                    snapshot.data[index].address,
-                                    style: TextStyle(
-                                      // fontFamily: 'NatoSans',
-                                      color: Colors.grey,
-                                      fontSize: 50 / screenWidth,
-                                      fontFamily: 'NotoSansCJKkr_Medium',
-                                      height: 1.2,
+                                                  click_star();
+                                                });
+                                              },
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    // height: 350 / screenHeight,
+                                    width: 650 / screenWidth,
+                                    child: Text(
+                                      snapshot.data[index].address,
+                                      style: TextStyle(
+                                        // fontFamily: 'NatoSans',
+                                        color: Colors.grey,
+                                        fontSize: 50 / screenWidth,
+                                        fontFamily: 'NotoSansCJKkr_Medium',
+                                        height: 1.2,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                  ),
-                );
-              });
-        }
-        return Center(
-          child: SizedBox(
-              width: 60,
-              height: 60,
-              child: buildSpinKitThreeBounce(80, screenWidth)),
-        );
+                                ],
+                              ),
+                            ],
+                          )),
+                    ),
+                  );
+                }),
+          );
+        } else
+          return Center(
+            child: SizedBox(
+                width: 60,
+                height: 60,
+                child: buildSpinKitThreeBounce(80, screenWidth)),
+          );
       },
     );
   }

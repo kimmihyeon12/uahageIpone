@@ -54,20 +54,37 @@ class _examination_institutionState extends State<examination_institution> {
   ];
 
   Future<List<Examination_institution>> myFuture;
-
+  List<Examination_institution> examination_institutions = [];
+  ScrollController _scrollController = ScrollController();
+  bool _isLoading;
   @override
   void initState() {
-    setState(() {
-      loginOption = widget.loginOption;
-      userId = widget.userId ?? "";
-      latitude = widget.latitude;
-      longitude = widget.longitude;
-      Area = widget.Area ?? "";
-      Locality = widget.Locality ?? "";
-      // oldNickname = userId != "" ? getMyNickname().toString() : "";
-    });
+    // setState(() {
+    _isLoading = false;
+    loginOption = widget.loginOption;
+    userId = widget.userId ?? "";
+    latitude = widget.latitude;
+    longitude = widget.longitude;
+    Area = widget.Area ?? "";
+    Locality = widget.Locality ?? "";
+    // oldNickname = userId != "" ? getMyNickname().toString() : "";
+    // });
     _star_color();
     myFuture = _getrestaurant();
+
+    _scrollController.addListener(() {
+      double maxScroll = _scrollController.position.maxScrollExtent;
+      double currentScroll = _scrollController.position.pixels;
+      // double delta =
+      //     100.0; // or something else..maxScroll - currentScroll <= delta
+      if (currentScroll == maxScroll && !_isLoading) {
+        print("scrolling");
+        print("isloading: $_isLoading");
+        _currentMax += 10;
+        _isLoading = true;
+        _getrestaurant();
+      }
+    });
     // getCurrentLocation();
     super.initState();
   }
@@ -106,9 +123,8 @@ class _examination_institutionState extends State<examination_institution> {
   }
 
   Future<List<Examination_institution>> _getrestaurant() async {
-    List<Examination_institution> examination_institutions = [];
-
-    var data = await http.get('http://13.209.41.43/getList/$liststringdata');
+    var data = await http.get(
+        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
     //?maxCount=$_currentMax
 
     var jsonData = json.decode(data.body);
@@ -123,6 +139,9 @@ class _examination_institutionState extends State<examination_institution> {
 
       examination_institutions.add(examination_institution);
     }
+    setState(() {
+      _isLoading = false;
+    });
 
     return examination_institutions;
   }
@@ -136,8 +155,8 @@ class _examination_institutionState extends State<examination_institution> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     super.dispose();
-    // _scrollController.dispose();
   }
 
   bool toggle = false;
@@ -242,17 +261,14 @@ class _examination_institutionState extends State<examination_institution> {
     return FutureBuilder(
       future: myFuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.data == null) {
+        if (snapshot.hasError) {
           return Center(
-            child: SizedBox(
-                width: 60,
-                height: 60,
-                child: buildSpinKitThreeBounce(80, screenWidth)),
+            child: Text("${snapshot.error}"),
           );
-        } else {
+        } else if (snapshot.hasData && snapshot.data != null) {
           return ListView.builder(
-              // controller: _scrollController,
-              itemCount: snapshot.data.length,
+              controller: _scrollController,
+              itemCount: examination_institutions?.length,
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 0.3,
@@ -418,6 +434,13 @@ class _examination_institutionState extends State<examination_institution> {
                   ),
                 );
               });
+        } else {
+          return Center(
+            child: SizedBox(
+                width: 60,
+                height: 60,
+                child: buildSpinKitThreeBounce(80, screenWidth)),
+          );
         }
       },
     );
