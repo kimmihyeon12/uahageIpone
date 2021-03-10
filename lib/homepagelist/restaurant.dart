@@ -400,8 +400,7 @@ class _restaurantState extends State<restaurant> {
                                         width: 800 / screenWidth,
                                         height: 100 / screenHeight,
                                         child: Text(
-                                          snapshot.data[index].store_name +
-                                              index.toString(),
+                                          snapshot.data[index].store_name,
                                           style: TextStyle(
                                             fontSize: 56 / screenWidth,
                                             fontFamily: 'NotoSansCJKkr_Medium',

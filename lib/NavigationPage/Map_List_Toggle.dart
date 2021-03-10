@@ -8,6 +8,7 @@ import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'dart:convert';
 import 'package:uahage/StarManage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
@@ -42,7 +43,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   ];
   String userId = "";
   String loginOption = "";
-
+  int position;
   var switchbtn = false;
   WebViewController controller;
   var searchbtn = false;
@@ -101,6 +102,25 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     } catch (err) {
       print(err);
     }
+  }
+
+  doneLoading(String A) {
+    setState(() {
+      position = 0;
+    });
+  }
+
+  Widget startLoading(String A) {
+    setState(() {
+      position = 1;
+    });
+  }
+
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
   }
 
   Widget build(BuildContext context) {
@@ -233,6 +253,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
               body: SafeArea(
                 child: Stack(children: [
                   WebView(
+                    onPageFinished: doneLoading,
+                    onPageStarted: startLoading,
                     onWebViewCreated:
                         (WebViewController webViewController) async {
                       controller = webViewController;
@@ -272,6 +294,13 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           })
                     ]),
                   ),
+                  position == 1
+                      ? Container(
+                          color: Colors.white,
+                          child: Center(
+                              child: buildSpinKitThreeBounce(80, screenWidth)),
+                        )
+                      : Container(),
                   Row(
                     children: [
                       Padding(

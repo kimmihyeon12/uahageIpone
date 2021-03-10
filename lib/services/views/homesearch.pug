@@ -28,8 +28,9 @@ left: 0;\
 top: 0;\
 background: rgba(51,51,51,0.7);\
 z-index: 10;')
-script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a323567d193d1f90625406988f60389&libraries=services')
+script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a323567d193d1f90625406988f60389&libraries=services&libraries=services,clusterer,drawing')
 script.
+  
         function getResult(storename,address){
            Print.postMessage(storename+","+address);
           }
@@ -42,13 +43,36 @@ script.
         var data1 = "#{JSON.stringify(data)}"; //"#{data}".split(',');
         var data = JSON.parse(data1.replace(/&quot;/g,'"'));
         var clickedOverlay = null;
-        
+        var markers = [];
          var mapContainer = document.getElementById('map'), // 지도를 표시할 div
           mapOption = {
           center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 4 // 지도의 확대 레벨
+          level: 5 // 지도의 확대 레벨
           };
           var map = new kakao.maps.Map(mapContainer, mapOption);
+             // 클러스터 
+          var clusterer = new kakao.maps.MarkerClusterer({map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+          averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+          minLevel: 5, // 클러스터 할 최소 지도 레벨
+          calculator: [10, 30, 50], 
+          disableClickZoom: true ,// 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+          styles: [{ // calculator 각 사이 값 마다 적용될 스타일을 지정한다
+                      width : '50px', height : '50px',
+                  background:' #ff6e7f', /* fallback for old browsers */
+                background: '-webkit-linear-gradient(to right,#ff6e7f, #f06292)',  /* Chrome 10-25, Safari 5.1-6 */
+                background:' linear-gradient(to right, #ff6e7f, #f06292)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                opacity: '0.7',
+                borderRadius: '25px',
+                color: 'white',
+                textAlign: 'center',
+                fontWeight: 'bold',
+                lineHeight: '51px'
+
+                 
+                        },
+                      
+                        ]
+          });
           var lat1; var lon1; var distance; 
           var array_distance = [];
           
@@ -108,6 +132,7 @@ script.
                         array_distance.push(distance_object);
                      }
                     });
+                     clusterer.addMarkers(markers);
                     var array_list = array_distance.sort(custonSort);
                     
                     for(var i =0; i<array_list.length; i++){
@@ -131,7 +156,7 @@ script.
                                                  position: coords,
                                                  image : markerImage1,
                                              });
-                  
+                   markers.push(marker);
            var content =  '<div style="padding: 3px 28px 3px 15px; \
                  		border-radius:20px;\
                     box-shadow:0px 3px 2px #888;\

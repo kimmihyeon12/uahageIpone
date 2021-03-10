@@ -27,12 +27,18 @@ class _KeywordState extends State<Keyword> {
   var messages;
   String userId = "";
   String loginOption = "";
+  String searchkey;
+  String latitude;
+  String longitude;
   WebViewController controller;
   @override
   void initState() {
     super.initState();
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
+    latitude = widget.latitude;
+    longitude = widget.longitude;
+    searchkey = widget.searchkey;
   }
 
   @override
@@ -40,21 +46,22 @@ class _KeywordState extends State<Keyword> {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     FocusScopeNode currentFocus = FocusScope.of(context);
-    var latitude = widget.latitude;
-    var longitude = widget.longitude;
-    var searchkey = widget.searchkey;
+
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
           WebView(
-            onWebViewCreated: (WebViewController webViewController) async {
-              controller = webViewController;
-              print('latitude:' + latitude);
-              print('longitude:' + longitude);
-              await controller.loadUrl(
-                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
-              // showToggle = true;
-            },
+            initialUrl:
+                'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27',
+            // onWebViewCreated: (WebViewController webViewController) async {
+            //   controller = webViewController;
+            //   print(searchkey);
+            //   print(
+            //       'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=$searchkey');
+            //   await controller.loadUrl(
+            //       'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
+            //   // showToggle = true;
+            // },
             javascriptMode: JavascriptMode.unrestricted,
             javascriptChannels: Set.from([
               JavascriptChannel(
