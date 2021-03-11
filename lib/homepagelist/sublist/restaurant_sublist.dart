@@ -311,7 +311,6 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
               //   ),
               // ),
               Container(
-                height: 939 / screenHeight,
                 width: 1501 / screenWidth,
                 child: (() {
                   if (index % 3 == 1) {

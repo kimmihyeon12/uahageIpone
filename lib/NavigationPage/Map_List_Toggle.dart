@@ -212,7 +212,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 750 / screenWidth,
+                                      width: 1300 / screenWidth,
                                       height: 100 / screenHeight,
                                       child: Text(
                                         store_namelist[index],
@@ -224,7 +224,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                     ),
                                     SafeArea(
                                       child: Container(
-                                        height: 80 / screenHeight,
+                                        height: 200 / screenHeight,
                                         width: 800 / screenWidth,
                                         child: Text(
                                           addresslist[index],

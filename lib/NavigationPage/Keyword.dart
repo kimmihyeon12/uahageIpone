@@ -3,6 +3,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Keyword extends StatefulWidget {
   Keyword(
@@ -41,6 +42,13 @@ class _KeywordState extends State<Keyword> {
     searchkey = widget.searchkey;
   }
 
+  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
+    return SpinKitThreeBounce(
+      color: Color(0xffFF728E),
+      size: size / screenWidth,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -49,19 +57,20 @@ class _KeywordState extends State<Keyword> {
 
     return Scaffold(
       body: SafeArea(
-        child: Stack(children: [
-          WebView(
-            initialUrl:
-                'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27',
-            // onWebViewCreated: (WebViewController webViewController) async {
-            //   controller = webViewController;
-            //   print(searchkey);
-            //   print(
-            //       'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=$searchkey');
-            //   await controller.loadUrl(
-            //       'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
-            //   // showToggle = true;
-            // },
+        child: Container(
+          color: Colors.white,
+          child: WebView(
+            // initialUrl:
+            //     'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27',
+            onWebViewCreated: (WebViewController webViewController) async {
+              controller = webViewController;
+              print(searchkey);
+              print(
+                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=$searchkey');
+              await controller.loadUrl(
+                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
+              // showToggle = true;
+            },
             javascriptMode: JavascriptMode.unrestricted,
             javascriptChannels: Set.from([
               JavascriptChannel(
@@ -101,7 +110,7 @@ class _KeywordState extends State<Keyword> {
                   }),
             ]),
           ),
-        ]),
+        ),
       ),
     );
   }
