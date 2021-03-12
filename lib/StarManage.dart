@@ -40,6 +40,7 @@ class StarManage {
       "star_color": star_color,
       "type": liststringdata
     };
+    print("keldi: $ss");
     var response = await http.post(
       "http://211.223.46.144:3000/star",
       headers: <String, String>{

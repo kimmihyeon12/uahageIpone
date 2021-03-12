@@ -301,126 +301,7 @@ class _starPageState extends State<starPage> {
                                     ),
                                     child: InkWell(
                                       onTap: () {
-                                        String type1 =
-                                            snapshot.data[index].type;
-                                        if (type1 == "restaurant") {
-                                          Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child: restaurant_sublist(
-                                                    index: index,
-                                                    storename: snapshot
-                                                        .data[index].store_name,
-                                                    address: snapshot
-                                                        .data[index].address,
-                                                    bed: snapshot
-                                                        .data[index].bed,
-                                                    phone: snapshot
-                                                        .data[index].phone,
-                                                    menu: snapshot
-                                                        .data[index].menu,
-                                                    tableware: snapshot
-                                                        .data[index].tableware,
-                                                    meetingroom: snapshot
-                                                        .data[index]
-                                                        .meetingroom,
-                                                    diapers: snapshot
-                                                        .data[index].diapers,
-                                                    playroom: snapshot
-                                                        .data[index].playroom,
-                                                    carriage: snapshot
-                                                        .data[index].carriage,
-                                                    nursingroom: snapshot
-                                                        .data[index]
-                                                        .nursingroom,
-                                                    chair: snapshot
-                                                        .data[index].chair,
-                                                    userId: userId,
-                                                    loginOption: loginOption),
-                                                duration:
-                                                    Duration(milliseconds: 250),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 100),
-                                              ));
-                                        } else if (type1 == "kids_cafe") {
-                                          Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child: kid_cafe_sublist(
-                                                  index: index,
-                                                  storename: snapshot
-                                                      .data[index].store_name,
-                                                  address: snapshot
-                                                      .data[index].address,
-                                                  phone: snapshot
-                                                      .data[index].phone,
-                                                  fare:
-                                                      snapshot.data[index].fare,
-                                                  userId: userId,
-                                                  loginOption: loginOption,
-                                                ),
-                                                duration:
-                                                    Duration(milliseconds: 250),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 100),
-                                              ));
-                                        } else if (type1 ==
-                                            "examination_institution") {
-                                          Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child:
-                                                    examination_institution_sublist(
-                                                  index: index,
-                                                  storename: snapshot
-                                                      .data[index].store_name,
-                                                  address: snapshot
-                                                      .data[index].address,
-                                                  phone: snapshot
-                                                      .data[index].phone,
-                                                  examinationitem: snapshot
-                                                      .data[index]
-                                                      .Examination_item,
-                                                  userId: userId,
-                                                  loginOption: loginOption,
-                                                ),
-                                                duration:
-                                                    Duration(milliseconds: 250),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 100),
-                                              ));
-                                        } else {
-                                          Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child:
-                                                    experience_center_sublist(
-                                                  index: index,
-                                                  storename: snapshot
-                                                      .data[index].store_name,
-                                                  address: snapshot
-                                                      .data[index].address,
-                                                  phone: snapshot
-                                                      .data[index].phone,
-                                                  fare:
-                                                      snapshot.data[index].fare,
-                                                  userId: userId,
-                                                  loginOption: loginOption,
-                                                ),
-                                                duration:
-                                                    Duration(milliseconds: 250),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 100),
-                                              ));
-                                        }
+                                        listClicked(snapshot, index, context);
                                       },
                                       child: Row(
                                         crossAxisAlignment:
@@ -480,6 +361,8 @@ class _starPageState extends State<starPage> {
                                                       ),
                                                     ),
                                                     IconButton(
+                                                      alignment:
+                                                          Alignment.centerRight,
                                                       padding:
                                                           EdgeInsets.all(0),
                                                       constraints:
@@ -510,8 +393,8 @@ class _starPageState extends State<starPage> {
                                                             data.phone,
                                                             data.menu,
                                                             data.bed,
-                                                            data.Tableware,
-                                                            meetingroom,
+                                                            data.tableware,
+                                                            data.meetingroom,
                                                             data.diapers,
                                                             data.playroom,
                                                             data.carriage,
@@ -586,6 +469,86 @@ class _starPageState extends State<starPage> {
             ),
           ],
         ));
+  }
+
+  void listClicked(AsyncSnapshot snapshot, int index, BuildContext context) {
+    String type1 = snapshot.data[index].type;
+    if (type1 == "restaurant") {
+      Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: restaurant_sublist(
+                index: index,
+                storename: snapshot.data[index].store_name,
+                address: snapshot.data[index].address,
+                bed: snapshot.data[index].bed,
+                phone: snapshot.data[index].phone,
+                menu: snapshot.data[index].menu,
+                tableware: snapshot.data[index].tableware,
+                meetingroom: snapshot.data[index].meetingroom,
+                diapers: snapshot.data[index].diapers,
+                playroom: snapshot.data[index].playroom,
+                carriage: snapshot.data[index].carriage,
+                nursingroom: snapshot.data[index].nursingroom,
+                chair: snapshot.data[index].chair,
+                userId: userId,
+                loginOption: loginOption),
+            duration: Duration(milliseconds: 250),
+            reverseDuration: Duration(milliseconds: 100),
+          ));
+    } else if (type1 == "kids_cafe") {
+      Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: kid_cafe_sublist(
+              index: index,
+              storename: snapshot.data[index].store_name,
+              address: snapshot.data[index].address,
+              phone: snapshot.data[index].phone,
+              fare: snapshot.data[index].fare,
+              userId: userId,
+              loginOption: loginOption,
+            ),
+            duration: Duration(milliseconds: 250),
+            reverseDuration: Duration(milliseconds: 100),
+          ));
+    } else if (type1 == "examination_institution") {
+      Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: examination_institution_sublist(
+              index: index,
+              storename: snapshot.data[index].store_name,
+              address: snapshot.data[index].address,
+              phone: snapshot.data[index].phone,
+              examinationitem: snapshot.data[index].Examination_item,
+              userId: userId,
+              loginOption: loginOption,
+            ),
+            duration: Duration(milliseconds: 250),
+            reverseDuration: Duration(milliseconds: 100),
+          ));
+    } else {
+      Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: experience_center_sublist(
+              index: index,
+              storename: snapshot.data[index].store_name,
+              address: snapshot.data[index].address,
+              phone: snapshot.data[index].phone,
+              fare: snapshot.data[index].fare,
+              userId: userId,
+              loginOption: loginOption,
+            ),
+            duration: Duration(milliseconds: 250),
+            reverseDuration: Duration(milliseconds: 100),
+          ));
+    }
   }
 
   Future _getstar() async {

@@ -304,7 +304,9 @@ class _restaurantState extends State<restaurant> {
           return Center(
             child: Text("${snapshot.error}"),
           );
-        } else if (snapshot.hasData && snapshot.data != null) {
+        } else if (snapshot.hasData &&
+            snapshot.data != null &&
+            star_color_list.length != 0) {
           print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
           return ListView.builder(
               controller: _scrollController,
@@ -312,235 +314,218 @@ class _restaurantState extends State<restaurant> {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 // print(snapshot.data.id[index]);
-                if (_isLoading) {
-                  //index == snapshot.data.length
-                  print("show circular");
-                  return Align(
-                    alignment: Alignment.topCenter,
-                    child: SizedBox(
-                      width: 15,
-                      height: 15,
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                } else {
-                  print("List index: $index");
-                  return Card(
-                    elevation: 0.3,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: restaurant_sublist(
-                                  index: index,
-                                  storename: snapshot.data[index].store_name,
-                                  address: snapshot.data[index].address,
-                                  bed: snapshot.data[index].bed,
-                                  phone: snapshot.data[index].phone,
-                                  menu: snapshot.data[index].menu,
-                                  tableware: snapshot.data[index].tableware,
-                                  meetingroom: snapshot.data[index].meetingroom,
-                                  diapers: snapshot.data[index].diapers,
-                                  playroom: snapshot.data[index].playroom,
-                                  carriage: snapshot.data[index].carriage,
-                                  nursingroom: snapshot.data[index].nursingroom,
-                                  chair: snapshot.data[index].chair,
-                                  userId: userId,
-                                  loginOption: loginOption),
-                              duration: Duration(milliseconds: 250),
-                              reverseDuration: Duration(milliseconds: 100),
-                            ));
-                      },
-                      child: Container(
-                          height: 500 / screenHeight,
-                          padding: EdgeInsets.only(
-                            top: 30 / screenHeight,
-                            left: 26 / screenWidth,
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    // border: Border.all(width: 3.0),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                          (() {
-                                            if (index % 3 == 1)
-                                              return listimage[0];
-                                            else if (index % 3 == 2)
-                                              return listimage[1];
-                                            else
-                                              return listimage[2];
-                                          }()),
+
+                print("List index: $index");
+                return Card(
+                  elevation: 0.3,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: restaurant_sublist(
+                                index: index,
+                                storename: snapshot.data[index].store_name,
+                                address: snapshot.data[index].address,
+                                bed: snapshot.data[index].bed,
+                                phone: snapshot.data[index].phone,
+                                menu: snapshot.data[index].menu,
+                                tableware: snapshot.data[index].tableware,
+                                meetingroom: snapshot.data[index].meetingroom,
+                                diapers: snapshot.data[index].diapers,
+                                playroom: snapshot.data[index].playroom,
+                                carriage: snapshot.data[index].carriage,
+                                nursingroom: snapshot.data[index].nursingroom,
+                                chair: snapshot.data[index].chair,
+                                userId: userId,
+                                loginOption: loginOption),
+                            duration: Duration(milliseconds: 250),
+                            reverseDuration: Duration(milliseconds: 100),
+                          ));
+                    },
+                    child: Container(
+                        height: 500 / screenHeight,
+                        padding: EdgeInsets.only(
+                          top: 30 / screenHeight,
+                          left: 26 / screenWidth,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  // border: Border.all(width: 3.0),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        (() {
+                                          if (index % 3 == 1)
+                                            return listimage[0];
+                                          else if (index % 3 == 2)
+                                            return listimage[1];
+                                          else
+                                            return listimage[2];
+                                        }()),
+                                      ),
+                                      fit: BoxFit.fill),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              height: 414 / screenHeight,
+                              width: 414 / screenHeight,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(
+                              left: 53 / screenWidth,
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 10 / screenHeight)),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 800 / screenWidth,
+                                      height: 100 / screenHeight,
+                                      child: Text(
+                                        snapshot.data[index].store_name,
+                                        style: TextStyle(
+                                          fontSize: 56 / screenWidth,
+                                          fontFamily: 'NotoSansCJKkr_Medium',
                                         ),
-                                        fit: BoxFit.fill),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                height: 414 / screenHeight,
-                                width: 414 / screenHeight,
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(
-                                left: 53 / screenWidth,
-                              )),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10 / screenHeight)),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      padding: EdgeInsets.all(0),
+                                      constraints: BoxConstraints(
+                                        maxWidth: 70 / screenWidth,
+                                        maxHeight: 70 / screenHeight,
+                                      ),
+                                      icon: Image.asset(
+                                        star_color_list[index] == 'null'
+                                            ? "./assets/listPage/star_grey.png"
+                                            : "./assets/listPage/star_color.png",
+                                        height: 60 / screenHeight,
+                                      ),
+                                      onPressed: loginOption == "login"
+                                          ? () {
+                                              Fluttertoast.showToast(
+                                                msg: "  로그인 해주세요!  ",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.black45,
+                                                textColor: Colors.white,
+                                                fontSize: 56 / screenWidth,
+                                              );
+                                            }
+                                          : () async {
+                                              setState(() {
+                                                store_name1 = snapshot
+                                                    .data[index].store_name;
+                                                address1 = snapshot
+                                                    .data[index].address;
+                                                bed1 = snapshot.data[index].bed;
+                                                phone1 =
+                                                    snapshot.data[index].phone;
+                                                menu1 =
+                                                    snapshot.data[index].menu;
+                                                tableware1 = snapshot
+                                                    .data[index].tableware;
+                                                meetingroom1 = snapshot
+                                                    .data[index].meetingroom;
+                                                diapers1 = snapshot
+                                                    .data[index].diapers;
+                                                playroom1 = snapshot
+                                                    .data[index].playroom;
+                                                carriage1 = snapshot
+                                                    .data[index].carriage;
+                                                nursingroom1 = snapshot
+                                                    .data[index].nursingroom;
+                                                chair1 =
+                                                    snapshot.data[index].chair;
+
+                                                if (star_color_list[index] ==
+                                                    'null') {
+                                                  setState(() {
+                                                    star_color = true;
+                                                    star_color_list[index] =
+                                                        "test";
+                                                  });
+                                                } else {
+                                                  setState(() {
+                                                    star_color = false;
+                                                    star_color_list[index] =
+                                                        'null';
+                                                  });
+                                                }
+
+                                                click_star();
+
+                                                //    _star_color();
+                                              });
+                                            },
+                                    ),
+                                  ],
+                                ),
+
+                                Container(
+                                  height: 141 / screenHeight,
+                                  width: 650 / screenWidth,
+                                  child: Text(
+                                    snapshot.data[index].address,
+                                    style: TextStyle(
+                                      // fontFamily: 'NatoSans',
+                                      color: Colors.grey,
+                                      fontSize: 55 / screenWidth,
+                                      fontFamily: 'NotoSansCJKkr_Medium',
+                                      height: 1.2,
+                                    ),
+                                  ),
+                                ),
+                                // Container(
+                                //   height: 80 / screenHeight,
+                                //   width: 800 / screenWidth,
+                                //   child: Text(
+                                //     snapshot.data[index].phone,
+                                //     style: TextStyle(
+                                //       // fontFamily: 'NatoSans',
+                                //       color: Colors.grey,
+                                //       fontSize: 45 / 60 / screenWidth,
+                                //       fontFamily:
+                                //           'NotoSansCJKkr_Medium',
+                                //     ),
+                                //   ),
+                                // ),
+
+                                Container(
+                                  height: 140 / screenHeight,
+                                  //width: 800 / screenWidth,
+                                  alignment: Alignment.bottomRight,
+                                  child: Row(
                                     children: [
-                                      Container(
-                                        width: 800 / screenWidth,
-                                        height: 100 / screenHeight,
-                                        child: Text(
-                                          snapshot.data[index].store_name,
-                                          style: TextStyle(
-                                            fontSize: 56 / screenWidth,
-                                            fontFamily: 'NotoSansCJKkr_Medium',
-                                          ),
-                                        ),
-                                      ),
-                                      IconButton(
-                                        padding: EdgeInsets.all(0),
-                                        constraints: BoxConstraints(
-                                          maxWidth: 70 / screenWidth,
-                                          maxHeight: 70 / screenHeight,
-                                        ),
-                                        icon: Image.asset(
-                                          star_color_list[index] == 'null'
-                                              ? "./assets/listPage/star_grey.png"
-                                              : "./assets/listPage/star_color.png",
-                                          height: 60 / screenHeight,
-                                        ),
-                                        onPressed: loginOption == "login"
-                                            ? () {
-                                                Fluttertoast.showToast(
-                                                  msg: "  로그인 해주세요!  ",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      Colors.black45,
-                                                  textColor: Colors.white,
-                                                  fontSize: 56 / screenWidth,
-                                                );
-                                              }
-                                            : () async {
-                                                setState(() {
-                                                  store_name1 = snapshot
-                                                      .data[index].store_name;
-                                                  address1 = snapshot
-                                                      .data[index].address;
-                                                  bed1 =
-                                                      snapshot.data[index].bed;
-                                                  phone1 = snapshot
-                                                      .data[index].phone;
-                                                  menu1 =
-                                                      snapshot.data[index].menu;
-                                                  tableware1 = snapshot
-                                                      .data[index].tableware;
-                                                  meetingroom1 = snapshot
-                                                      .data[index].meetingroom;
-                                                  diapers1 = snapshot
-                                                      .data[index].diapers;
-                                                  playroom1 = snapshot
-                                                      .data[index].playroom;
-                                                  carriage1 = snapshot
-                                                      .data[index].carriage;
-                                                  nursingroom1 = snapshot
-                                                      .data[index].nursingroom;
-                                                  chair1 = snapshot
-                                                      .data[index].chair;
-
-                                                  if (star_color_list[index] ==
-                                                      'null') {
-                                                    setState(() {
-                                                      star_color = true;
-                                                      star_color_list[index] =
-                                                          "test";
-                                                    });
-                                                  } else {
-                                                    setState(() {
-                                                      star_color = false;
-                                                      star_color_list[index] =
-                                                          'null';
-                                                    });
-                                                  }
-
-                                                  click_star();
-
-                                                  //    _star_color();
-                                                });
-                                              },
-                                      ),
+                                      chair(snapshot.data[index].chair),
+                                      carriage(snapshot.data[index].carriage),
+                                      menu(snapshot.data[index].menu),
+                                      bed(snapshot.data[index].bed),
+                                      tableware(snapshot.data[index].tableware),
+                                      meetingroom(
+                                          snapshot.data[index].meetingroom),
+                                      diapers(snapshot.data[index].diapers),
+                                      playroom(snapshot.data[index].playroom),
+                                      nursingroom(
+                                          snapshot.data[index].nursingroom),
                                     ],
                                   ),
-
-                                  Container(
-                                    height: 141 / screenHeight,
-                                    width: 650 / screenWidth,
-                                    child: Text(
-                                      snapshot.data[index].address,
-                                      style: TextStyle(
-                                        // fontFamily: 'NatoSans',
-                                        color: Colors.grey,
-                                        fontSize: 55 / screenWidth,
-                                        fontFamily: 'NotoSansCJKkr_Medium',
-                                        height: 1.2,
-                                      ),
-                                    ),
-                                  ),
-                                  // Container(
-                                  //   height: 80 / screenHeight,
-                                  //   width: 800 / screenWidth,
-                                  //   child: Text(
-                                  //     snapshot.data[index].phone,
-                                  //     style: TextStyle(
-                                  //       // fontFamily: 'NatoSans',
-                                  //       color: Colors.grey,
-                                  //       fontSize: 45 / 60 / screenWidth,
-                                  //       fontFamily:
-                                  //           'NotoSansCJKkr_Medium',
-                                  //     ),
-                                  //   ),
-                                  // ),
-
-                                  Container(
-                                    height: 140 / screenHeight,
-                                    //width: 800 / screenWidth,
-                                    alignment: Alignment.bottomRight,
-                                    child: Row(
-                                      children: [
-                                        chair(snapshot.data[index].chair),
-                                        carriage(snapshot.data[index].carriage),
-                                        menu(snapshot.data[index].menu),
-                                        bed(snapshot.data[index].bed),
-                                        tableware(
-                                            snapshot.data[index].tableware),
-                                        meetingroom(
-                                            snapshot.data[index].meetingroom),
-                                        diapers(snapshot.data[index].diapers),
-                                        playroom(snapshot.data[index].playroom),
-                                        nursingroom(
-                                            snapshot.data[index].nursingroom),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                    ),
-                  );
-                }
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
+                );
               });
         } else {
           return Center(

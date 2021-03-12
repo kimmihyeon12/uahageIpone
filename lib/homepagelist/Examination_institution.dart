@@ -265,7 +265,9 @@ class _examination_institutionState extends State<examination_institution> {
           return Center(
             child: Text("${snapshot.error}"),
           );
-        } else if (snapshot.hasData && snapshot.data != null) {
+        } else if (snapshot.hasData &&
+            snapshot.data != null &&
+            star_color_list.length != 0) {
           return ListView.builder(
               controller: _scrollController,
               itemCount: examination_institutions?.length,

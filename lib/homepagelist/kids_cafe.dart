@@ -260,7 +260,9 @@ class _kids_cafeState extends State<kids_cafe> {
           return Center(
             child: Text("${snapshot.error}"),
           );
-        } else if (snapshot.hasData && snapshot.data != null) {
+        } else if (snapshot.hasData &&
+            snapshot.data != null &&
+            star_color_list.length != 0) {
           print("length " + snapshot.data.length.toString());
           return Scrollbar(
             child: ListView.builder(

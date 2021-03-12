@@ -266,7 +266,9 @@ class _experience_centerState extends State<experience_center> {
           return Center(
             child: Text("${snapshot.error}"),
           );
-        } else if (snapshot.hasData && snapshot.data != null) {
+        } else if (snapshot.hasData &&
+            snapshot.data != null &&
+            star_color_list.length != 0) {
           return ListView.builder(
               controller: _scrollController,
               itemCount: experience_centers?.length,
