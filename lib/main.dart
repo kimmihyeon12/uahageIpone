@@ -2,12 +2,16 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/screens/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'package:uahage/screens/loginPage.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+
+import 'ConnectivityService.dart';
+import 'connectivity_status.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,8 +21,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
+    return StreamProvider<ConnectivityStatus>(
+      builder: (context) => ConnectivityService().connectionStatusController,
+      child: MaterialApp(
+        home: MyHomePage(),
+      ),
     );
   }
 }

@@ -211,378 +211,184 @@ class _searchPageState extends State<searchPage> {
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: isIOS
-          ? AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle.dark,
-              child: Stack(
-                children: [
-                  IndexedStack(
-                    index: position,
-                    children: [
-                      WebView(
-                        key: key,
-                        onPageFinished: doneLoading,
-                        onPageStarted: startLoading,
-                        onWebViewCreated:
-                            (WebViewController webViewController) {
-                          controller = webViewController;
-                          controller.loadUrl(latitude == 'NaN' ||
-                                  longitude == 'NaN' ||
-                                  latitude == '' ||
-                                  longitude == ''
-                              ? 'http://13.209.41.43/map'
-                              : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
-                        },
-                        javascriptMode: JavascriptMode.unrestricted,
-                        javascriptChannels: Set.from([
-                          JavascriptChannel(
-                              name: 'Print',
-                              onMessageReceived:
-                                  (JavascriptMessage message) async {
-                                //This is where you receive message from
-                                //javascript code and handle in Flutter/Dart
-                                //like here, the message is just being printed
-                                //in Run/LogCat window of android studio
-                                var messages = message.message;
-                                Message = messages.split(",");
-                                await checkStar();
-                                // await checkStar();
-                                showPopUpbottomMenu(
-                                    context, screenHeight, screenWidth);
-                              })
-                        ]),
-                      ),
-                      Container(
-                        color: Colors.white,
-                        child: Center(
-                            child: buildSpinKitThreeBounce(80, screenWidth)),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.white,
-                    ),
-                    margin: EdgeInsets.fromLTRB(51 / screenWidth,
-                        161 / screenHeight, 35 / screenWidth, 0),
-                    height: 196 / screenHeight,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 42 / screenWidth),
-                          child: Image.asset(
-                            "./assets/searchPage/arrow.png",
-                            height: 68 / screenHeight,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 53 / screenWidth),
-                          child: Image.asset(
-                            "./assets/searchPage/arrow.png",
-                            height: 68 / screenHeight,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 41 / screenWidth),
-                          width: 1200 / screenWidth,
-                          child: // 검색 조건을 설정해주세요
-                              Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("검색 조건을 설정해주세요",
-                                  style: TextStyle(
-                                      color: const Color(0xffed7191),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSansCJKkr_Medium",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 58 / screenWidth),
-                                  textAlign: TextAlign.left),
-                              InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    grey_image = [
-                                      true,
-                                      true,
-                                      true,
-                                      true,
-                                      true,
-                                      true,
-                                      true,
-                                      true,
-                                      true,
-                                    ];
-                                  });
-                                  await showPopUpMenu(
-                                      context, screenHeight, screenWidth);
-                                },
-                                child: Image.asset(
-                                  "./assets/searchPage/cat_btn.png",
-                                  height: 158 / screenHeight,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // bottom Buttons
-                  Row(
-                    // crossAxisAlignment: CrossAxisAlignment.end,
-                    // mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: InkWell(
-                          onTap: () async {
-                            //var response = await getMap(latitude, longitude);
-                            if (latitude == 'NaN' ||
-                                longitude == 'NaN' ||
-                                latitude == '' ||
-                                longitude == '') await lacations();
-                            controller.loadUrl(
-                                //     "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}"
-                                "http://13.209.41.43/getPos?lat=$latitude&long=$longitude");
-                            controller.reload();
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                left: 48 / screenWidth,
-                                bottom: 76 / screenHeight),
-                            child: SizedBox(
-                              height: 159 / screenHeight,
-                              width: 161 / screenWidth,
-                              child:
-                                  Image.asset("assets/searchPage/location.png"),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(
-                              1060 / screenWidth, 0, 0, 47 / screenHeight),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            // crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              /* IconButton(
-                              onPressed: () {
-                                controller.loadUrl(
-                                    "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
-                              },
-                              icon: Image.asset(
-                                "assets/searchPage/plus.png",
-                                width: 105 / screenWidth,
-                                height: 105 / screenHeight,
-                              )),
-                          IconButton(
-                              onPressed: () {
-                                controller.loadUrl(
-                                    "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
-                              },
-                              icon: Image.asset(
-                                "assets/searchPage/minus.png",
-                                width: 105 / screenWidth,
-                                height: 105 / screenHeight,
-                              )),*/
-                            ],
-                          ),
-                        ),
-                      )
-                      //
-                    ],
-                  ),
-                ],
+      body: Stack(
+        children: [
+          IndexedStack(
+            index: position,
+            children: [
+              WebView(
+                key: key,
+                onPageFinished: doneLoading,
+                onPageStarted: startLoading,
+                // initialUrl: 'http://13.209.41.43/map',
+                onWebViewCreated: (WebViewController webViewController) {
+                  controller = webViewController;
+                  controller.loadUrl(latitude == 'NaN' ||
+                          longitude == 'NaN' ||
+                          latitude == '' ||
+                          longitude == ''
+                      ? 'http://13.209.41.43/map'
+                      : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                javascriptChannels: Set.from([
+                  JavascriptChannel(
+                      name: 'Print',
+                      onMessageReceived: (JavascriptMessage message) async {
+                        //This is where you receive message from
+                        //javascript code and handle in Flutter/Dart
+                        //like here, the message is just being printed
+                        //in Run/LogCat window of android studio
+                        var messages = message.message;
+                        Message = messages.split(",");
+                        await checkStar();
+                        showPopUpbottomMenu(context, screenHeight, screenWidth);
+                      })
+                ]),
               ),
-            )
-          : Stack(
-              children: [
-                IndexedStack(
-                  index: position,
-                  children: [
-                    WebView(
-                      key: key,
-                      onPageFinished: doneLoading,
-                      onPageStarted: startLoading,
-                      // initialUrl: 'http://13.209.41.43/map',
-                      onWebViewCreated: (WebViewController webViewController) {
-                        controller = webViewController;
-                        controller.loadUrl(latitude == 'NaN' ||
-                                longitude == 'NaN' ||
-                                latitude == '' ||
-                                longitude == ''
-                            ? 'http://13.209.41.43/map'
-                            : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
-                      },
-                      javascriptMode: JavascriptMode.unrestricted,
-                      javascriptChannels: Set.from([
-                        JavascriptChannel(
-                            name: 'Print',
-                            onMessageReceived:
-                                (JavascriptMessage message) async {
-                              //This is where you receive message from
-                              //javascript code and handle in Flutter/Dart
-                              //like here, the message is just being printed
-                              //in Run/LogCat window of android studio
-                              var messages = message.message;
-                              Message = messages.split(",");
-                              await checkStar();
-                              showPopUpbottomMenu(
-                                  context, screenHeight, screenWidth);
-                            })
-                      ]),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      child: Center(
-                          child: buildSpinKitThreeBounce(80, screenWidth)),
-                    ),
-                  ],
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 3,
-                        offset: Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.fromLTRB(51 / screenWidth,
-                      161 / screenHeight, 51 / screenWidth, 0),
-                  height: 196 / screenHeight,
-                  child: Row(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 53 / screenWidth),
-                        child: Image.asset(
-                          "./assets/searchPage/arrow.png",
-                          height: 68 / screenHeight,
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 41 / screenWidth),
-                        width: 1200 / screenWidth,
-                        child: // 검색 조건을 설정해주세요
-                            Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("검색 조건을 설정해주세요",
-                                style: TextStyle(
-                                    color: const Color(0xffed7191),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 58 / screenWidth),
-                                textAlign: TextAlign.left),
-                            InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  grey_image = [
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                    true,
-                                  ];
-                                });
-                                await showPopUpMenu(
-                                    context, screenHeight, screenWidth);
-                              },
-                              child: Image.asset(
-                                "./assets/searchPage/cat_btn.png",
-                                height: 158 / screenHeight,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // bottom Buttons
-                Row(
-                  // crossAxisAlignment: CrossAxisAlignment.end,
-                  // mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: InkWell(
-                        onTap: () async {
-                          //var response = await getMap(latitude, longitude);
-                          if (latitude == 'NaN' ||
-                              longitude == 'NaN' ||
-                              latitude == '' ||
-                              longitude == '') await lacations();
-                          controller.loadUrl(
-                              "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              left: 48 / screenWidth,
-                              bottom: 76 / screenHeight),
-                          child: SizedBox(
-                            height: 159 / screenHeight,
-                            width: 161 / screenWidth,
-                            child:
-                                Image.asset("assets/searchPage/location.png"),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Align(
-                    //   alignment: Alignment.bottomRight,
-                    //   child: Container(
-                    //     margin: EdgeInsets.fromLTRB(
-                    //         1060 / screenWidth, 0, 0, 47 / screenHeight),
-                    //     child: Column(
-                    //       mainAxisAlignment: MainAxisAlignment.end,
-                    //       // crossAxisAlignment: CrossAxisAlignment.end,
-                    //       children: [
-                    //         /* IconButton(
-                    //     onPressed: () {
-                    //       controller.loadUrl(
-                    //           "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
-                    //     },
-                    //     icon: Image.asset(
-                    //       "assets/searchPage/plus.png",
-                    //       width: 105 / screenWidth,
-                    //       height: 105 / screenHeight,
-                    //     )),
-                    // IconButton(
-                    //     onPressed: () {
-                    //       controller.loadUrl(
-                    //           "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
-                    //     },
-                    //     icon: Image.asset(
-                    //       "assets/searchPage/minus.png",
-                    //       width: 105 / screenWidth,
-                    //       height: 105 / screenHeight,
-                    //     )),*/
-                    //       ],
-                    //     ),
-                    //   ),
-                    // )
-                    //
-                  ],
+              Container(
+                color: Colors.white,
+                child: Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+              ),
+            ],
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12.withOpacity(0.3),
+                  spreadRadius: 2,
+                  blurRadius: 3,
+                  offset: Offset(0, 3), // changes position of shadow
                 ),
               ],
             ),
+            margin: EdgeInsets.fromLTRB(
+                51 / screenWidth, 161 / screenHeight, 51 / screenWidth, 0),
+            height: 196 / screenHeight,
+            child: Row(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 53 / screenWidth),
+                  child: Image.asset(
+                    "./assets/searchPage/arrow.png",
+                    height: 68 / screenHeight,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 41 / screenWidth),
+                  width: 1200 / screenWidth,
+                  child: // 검색 조건을 설정해주세요
+                      Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("검색 조건을 설정해주세요",
+                          style: TextStyle(
+                              color: const Color(0xffed7191),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "NotoSansCJKkr_Medium",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 58 / screenWidth),
+                          textAlign: TextAlign.left),
+                      InkWell(
+                        onTap: () async {
+                          setState(() {
+                            grey_image = [
+                              true,
+                              true,
+                              true,
+                              true,
+                              true,
+                              true,
+                              true,
+                              true,
+                              true,
+                            ];
+                          });
+                          await showPopUpMenu(
+                              context, screenHeight, screenWidth);
+                        },
+                        child: Image.asset(
+                          "./assets/searchPage/cat_btn.png",
+                          height: 158 / screenHeight,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // bottom Buttons
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.end,
+            // mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: InkWell(
+                  onTap: () async {
+                    //var response = await getMap(latitude, longitude);
+                    if (latitude == 'NaN' ||
+                        longitude == 'NaN' ||
+                        latitude == '' ||
+                        longitude == '') await lacations();
+                    controller.loadUrl(
+                        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: 48 / screenWidth, bottom: 76 / screenHeight),
+                    child: SizedBox(
+                      height: 159 / screenHeight,
+                      width: 161 / screenWidth,
+                      child: Image.asset("assets/searchPage/location.png"),
+                    ),
+                  ),
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.bottomRight,
+              //   child: Container(
+              //     margin: EdgeInsets.fromLTRB(
+              //         1060 / screenWidth, 0, 0, 47 / screenHeight),
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.end,
+              //       // crossAxisAlignment: CrossAxisAlignment.end,
+              //       children: [
+              //         /* IconButton(
+              //     onPressed: () {
+              //       controller.loadUrl(
+              //           "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
+              //     },
+              //     icon: Image.asset(
+              //       "assets/searchPage/plus.png",
+              //       width: 105 / screenWidth,
+              //       height: 105 / screenHeight,
+              //     )),
+              // IconButton(
+              //     onPressed: () {
+              //       controller.loadUrl(
+              //           "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
+              //     },
+              //     icon: Image.asset(
+              //       "assets/searchPage/minus.png",
+              //       width: 105 / screenWidth,
+              //       height: 105 / screenHeight,
+              //     )),*/
+              //       ],
+              //     ),
+              //   ),
+              // )
+              //
+            ],
+          ),
+        ],
+      ),
     );
   }
 

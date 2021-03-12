@@ -423,811 +423,798 @@ class _myPageState extends State<myPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: isIOS
-            ? SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //back button
-                    Container(
-                      margin: EdgeInsets.fromLTRB(81 / screenWidth,
-                          110 / screenHeight, 1100 / screenWidth, 0),
-                      child: onEdit
-                          ? InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  onEdit = false;
-                                });
-                                await getMyInfo();
-                              },
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "./assets/myPage/back.png",
-                                    width: 43 / screenWidth,
-                                    height: 76 / screenHeight,
-                                  ),
-                                  // 내 정보
-                                  Container(
-                                    margin:
-                                        EdgeInsets.only(left: 33 / screenWidth),
-                                    child: Text("내 정보",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(
-                                              255, 114, 148, 1.0),
-                                          fontFamily: 'NotoSansCJKkr_Medium',
-                                          fontSize: 57 / screenWidth,
-                                        ),
-                                        textAlign: TextAlign.left),
-                                  )
-                                ],
-                              ),
-                            )
-                          : Container(),
-                    ),
-
-                    //Center avatar
-                    Center(
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                            height: 439 / screenHeight,
-                            width: 439 / screenWidth,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("./assets/myPage/avatar.png"),
-                              // backgroundImage: (() {
-                              //   if (_image != null) {
-                              //     print("1");
-                              //     return FileImage(_image);
-                              //   } else if (imageLink != "" && imageLink != null) {
-                              //     print("2");
-                              //     // print("here " + imageLink);
-                              //     return NetworkImage(imageLink); //imageURL
-
-                              //   } else {
-                              //     print("3");
-                              //     return AssetImage("./assets/myPage/avatar.png");
-                              //   }
-                              // }()),
-                              // child: Image.network(imageLink),
-                              child: (() {
-                                // your code here
-
-                                if (_image != null) {
-                                  print("1");
-                                  print("here " + imageLink);
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: FileImage(_image), //imageURL
-                                          fit: BoxFit.fill),
-                                    ),
-                                  );
-                                } else if (imageLink != "" &&
-                                    imageLink != null) {
-                                  print("2");
-                                  // return Container(
-                                  //     decoration: BoxDecoration(
-                                  //       shape: BoxShape.circle,
-                                  //     ),
-                                  //     child: CachedNetworkImage(
-                                  //         imageUrl: imageLink,
-                                  //         fit: BoxFit.fitWidth));
-
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                            imageLink,
-                                          ),
-                                          fit: BoxFit.fitWidth),
-                                    ),
-                                  );
-                                } else {
-                                  print("3");
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "./assets/myPage/avatar.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                  );
-                                }
-                              }()),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              //back button
+              Container(
+                margin: EdgeInsets.fromLTRB(81 / screenWidth,
+                    110 / screenHeight, 1100 / screenWidth, 0),
+                child: onEdit
+                    ? InkWell(
+                        onTap: () async {
+                          setState(() {
+                            onEdit = false;
+                            yController.text = "";
+                            birthday = "";
+                            changeimage.fillRange(0, 6, false);
+                          });
+                          await getMyInfo();
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "./assets/myPage/back.png",
+                              width: 43 / screenWidth,
+                              height: 76 / screenHeight,
                             ),
+                            // 내 정보
+                            Container(
+                              margin: EdgeInsets.only(left: 33 / screenWidth),
+                              child: Text("내 정보",
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(255, 114, 148, 1.0),
+                                    fontFamily: 'NotoSansCJKkr_Medium',
+                                    fontSize: 57 / screenWidth,
+                                  ),
+                                  textAlign: TextAlign.left),
+                            )
+                          ],
+                        ),
+                      )
+                    : Container(),
+              ),
+
+              //Center avatar
+              Center(
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 439 / screenHeight,
+                      width: 439 / screenWidth,
+                      child: CircleAvatar(
+                        backgroundImage:
+                            AssetImage("./assets/myPage/avatar.png"),
+                        // backgroundImage: (() {
+                        //   if (_image != null) {
+                        //     print("1");
+                        //     return FileImage(_image);
+                        //   } else if (imageLink != "" && imageLink != null) {
+                        //     print("2");
+                        //     // print("here " + imageLink);
+                        //     return NetworkImage(imageLink); //imageURL
+
+                        //   } else {
+                        //     print("3");
+                        //     return AssetImage("./assets/myPage/avatar.png");
+                        //   }
+                        // }()),
+                        // child: Image.network(imageLink),
+                        child: (() {
+                          // your code here
+
+                          if (_image != null) {
+                            print("1");
+                            print("here " + imageLink);
+                            return Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: FileImage(_image), //imageURL
+                                    fit: BoxFit.fill),
+                              ),
+                            );
+                          } else if (imageLink != "" && imageLink != null) {
+                            print("2");
+                            return Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: NetworkImage(imageLink),
+                                    fit: BoxFit.fill),
+                              ),
+                            );
+                          } else {
+                            print("3");
+                            return Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "./assets/myPage/avatar.png"),
+                                    fit: BoxFit.fill),
+                              ),
+                            );
+                          }
+                        }()),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(
+                          330 / screenWidth, 341 / screenHeight, 0, 0),
+                      child: InkWell(
+                        onTap: loginOption != "login"
+                            ? () {
+                                _showPicker(context);
+                              }
+                            : () {
+                                showToast("로그인 해주세요!", screenWidth);
+                              },
+                        child: Image.asset(
+                          "./assets/myPage/camera.png",
+                          height: 109 / screenHeight,
+                          width: 110 / screenWidth,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Nickname
+              onEdit
+                  ? Container(
+                      margin: EdgeInsets.only(
+                        top: 85 / screenHeight,
+                      ),
+                      child: Container(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // 닉네임
+                            Container(
+                              margin: EdgeInsets.fromLTRB(157 / screenWidth,
+                                  45 / screenHeight, 88 / screenWidth, 0),
+                              child: Text("닉네임",
+                                  style: TextStyle(
+                                      color: const Color(0xffff7292),
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontSize: 58 / screenWidth),
+                                  textAlign: TextAlign.left),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  right: 121 / screenWidth,
+                                ),
+                                child: Stack(
+                                  children: [
+                                    TextFormField(
+                                      // controller: yController,
+                                      maxLength: 10,
+                                      onChanged: (txt) {
+                                        txt.length <= 10
+                                            ? setState(() {
+                                                nickName = txt;
+                                              })
+                                            : null;
+                                      },
+
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          color: Color(0xff3a3939),
+                                          fontFamily: "NotoSansCJKkr_Bold",
+                                          fontSize: 58 / screenWidth),
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.only(
+                                            right: 410 / screenWidth),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: const Color(0xffff7292),
+                                          ),
+
+                                          //Color.fromRGBO(255, 114, 148, 1.0)
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xffff7292)),
+                                        ),
+                                        hintText: '닉네임을 입력하세요',
+                                        hintStyle: TextStyle(
+                                            color: const Color(0xffcacaca),
+                                            fontFamily: "NotoSansCJKkr_Medium",
+                                            fontSize: 58 / screenWidth),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                        color: nickName == ""
+                                            ? Color(0xffcacaca)
+                                            : Color(0xffff7292),
+                                        onPressed:
+                                            loginOption != "login" &&
+                                                    nickName != ""
+                                                ? () {
+                                                    currentFocus.unfocus();
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          FutureBuilder(
+                                                              future:
+                                                                  checkNickname(),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                if (snapshot
+                                                                    .hasData) {
+                                                                  // print(snapshot.data);
+                                                                  return AlertDialog(
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.all(Radius.circular(20.0))),
+                                                                    title: // 사용 가능한 닉네임입니다.
+                                                                        Text(
+                                                                            snapshot
+                                                                                .data,
+                                                                            style: TextStyle(
+                                                                                color: const Color(0xff4d4d4d),
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontFamily: "NotoSansCJKkr_Medium",
+                                                                                fontStyle: FontStyle.normal,
+                                                                                fontSize: 62.5 / screenWidth),
+                                                                            textAlign: TextAlign.left),
+                                                                    actions: [
+                                                                      FlatButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          child: // 확인
+                                                                              Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
+                                                                    ],
+                                                                  );
+                                                                } else if (snapshot
+                                                                    .hasError)
+                                                                  return AlertDialog(
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.all(Radius.circular(20.0))),
+                                                                    title:
+                                                                        // id already exists.
+                                                                        Text(
+                                                                            snapshot
+                                                                                .error,
+                                                                            style: TextStyle(
+                                                                                color: Color(0xff4d4d4d),
+                                                                                fontWeight: FontWeight.w500,
+                                                                                fontFamily: "NotoSansCJKkr_Medium",
+                                                                                fontStyle: FontStyle.normal,
+                                                                                fontSize: 62.5 / screenWidth),
+                                                                            textAlign: TextAlign.left),
+                                                                    actions: [
+                                                                      FlatButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            Navigator.pop(context);
+                                                                          },
+                                                                          child: // 확인
+                                                                              Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
+                                                                    ],
+                                                                  );
+
+                                                                return Center(
+                                                                  child: SizedBox(
+                                                                      height: 200 /
+                                                                          screenHeight,
+                                                                      width: 200 /
+                                                                          screenWidth,
+                                                                      child: buildSpinKitThreeBounce(
+                                                                          80,
+                                                                          screenWidth)
+                                                                      // CircularProgressIndicator(
+                                                                      //   strokeWidth:
+                                                                      //       5.0,
+                                                                      //   valueColor:
+                                                                      //       new AlwaysStoppedAnimation<Color>(
+                                                                      //     Colors.pinkAccent,
+                                                                      //   ),
+                                                                      // )
+                                                                      ),
+                                                                );
+                                                              }),
+                                                    );
+                                                  }
+                                                : () {},
+                                        child: // 중복확인
+                                            Text("중복확인",
+                                                style: TextStyle(
+                                                    color:
+                                                        const Color(0xffffffff),
+                                                    fontFamily:
+                                                        "NotoSansCJKkr_Medium",
+                                                    fontSize: 50 / screenWidth),
+                                                textAlign: TextAlign.left),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : Container(
+                      margin: EdgeInsets.only(top: 31 / screenHeight),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            // width: 320 / screenWidth,
+                            child: userId == ""
+                                ? nickNameShow("우아하게", screenWidth)
+                                : FutureBuilder(
+                                    future: getMyNickname(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        // print("hasdata " + snapshot.data);
+                                        return snapshot.data != ""
+                                            ? nickNameShow(
+                                                snapshot.data, screenWidth)
+                                            : nickNameShow("우아하게", screenWidth);
+                                      } else if (snapshot.hasError) {
+                                        // print("haserror " + snapshot.error);
+                                        return nickNameShow(
+                                            snapshot.error, screenWidth);
+                                      }
+                                      return Center(
+                                        child: SizedBox(
+                                          height: 50 / screenHeight,
+                                          width: 50 / screenWidth,
+                                          child: buildSpinKitThreeBounce(
+                                              30, screenWidth),
+                                          // CircularProgressIndicator(
+                                          //   strokeWidth: 5.0,
+                                          //   valueColor:
+                                          //       new AlwaysStoppedAnimation<
+                                          //           Color>(
+                                          //     Colors.pinkAccent,
+                                          //   ),
+                                          // ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(
-                                330 / screenWidth, 341 / screenHeight, 0, 0),
-                            child: InkWell(
-                              onTap: loginOption != "login"
-                                  ? () {
-                                      _showPicker(context);
-                                    }
-                                  : () {
-                                      showToast("  로그인 해주세요!", screenWidth);
+                            // margin: EdgeInsets.fromLTRB(
+                            //     992 / screenWidth,
+                            //     0,
+                            //     148 / screenWidth,
+                            //     0),
+                            child: loginOption ==
+                                    "login" // Change this on release to ==
+                                ? Image.asset(
+                                    "./assets/myPage/button1_grey.png",
+                                    width: 361 / screenWidth,
+                                    height: 147 / screenHeight,
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isIdValid = false;
+                                        nickName = "";
+                                        onEdit = true;
+                                        genderImage[0] = false;
+                                        genderImage[1] = false;
+                                        birthday = "";
+                                        yController.text = "";
+                                        changeimage.fillRange(0, 6, false);
+                                        userAge = "";
+                                        // changeimage[0] = false;
+                                        // changeimage[1] = false;
+                                        // changeimage[2] = false;
+                                        // changeimage[3] = false;
+                                        // changeimage[4] = false;
+                                        // changeimage[5] = false;
+                                      });
                                     },
-                              child: Image.asset(
-                                "./assets/myPage/camera.png",
-                                height: 109 / screenHeight,
-                                width: 110 / screenWidth,
-                              ),
-                            ),
-                          ),
+                                    child: Image.asset(
+                                      "./assets/myPage/button1_pink.png",
+                                      width: 361 / screenWidth,
+                                      height: 147 / screenHeight,
+                                    ),
+                                  ),
+                          )
                         ],
                       ),
                     ),
 
-                    // Nickname
-                    onEdit
-                        ? Container(
-                            margin: EdgeInsets.only(
-                              top: 85 / screenHeight,
-                            ),
-                            child: Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // 닉네임
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        157 / screenWidth,
-                                        45 / screenHeight,
-                                        88 / screenWidth,
-                                        0),
-                                    child: Text("닉네임",
-                                        style: TextStyle(
-                                            color: const Color(0xffff7292),
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontSize: 58 / screenWidth),
-                                        textAlign: TextAlign.left),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        right: 121 / screenWidth,
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          TextFormField(
-                                            // controller: yController,
-
-                                            onChanged: (txt) {
-                                              setState(() {
-                                                nickName = txt;
-                                              });
-                                            },
-
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                                color: Color(0xff3a3939),
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Bold",
-                                                fontSize: 58 / screenWidth),
-                                            decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.only(
-                                                  right: 410 / screenWidth),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color:
-                                                      const Color(0xffff7292),
-                                                ),
-
-                                                //Color.fromRGBO(255, 114, 148, 1.0)
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xffff7292)),
-                                              ),
-                                              hintText: '닉네임 수정 칼라',
-                                              hintStyle: TextStyle(
-                                                  color:
-                                                      const Color(0xffcacaca),
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Medium",
-                                                  fontSize: 58 / screenWidth),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: FlatButton(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
-                                              color: nickName == ""
-                                                  ? Color(0xffcacaca)
-                                                  : Color(0xffff7292),
-                                              onPressed:
-                                                  loginOption != "login" &&
-                                                          nickName != ""
-                                                      ? () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                FutureBuilder(
-                                                                    future:
-                                                                        checkNickname(),
-                                                                    builder:
-                                                                        (context,
-                                                                            snapshot) {
-                                                                      if (snapshot
-                                                                          .hasData) {
-                                                                        // print(snapshot.data);
-                                                                        return AlertDialog(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                                                                          title: // 사용 가능한 닉네임입니다.
-                                                                              Text(snapshot.data, style: TextStyle(color: const Color(0xff4d4d4d), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: 62.5 / screenWidth), textAlign: TextAlign.left),
-                                                                          actions: [
-                                                                            FlatButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: // 확인
-                                                                                    Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
-                                                                          ],
-                                                                        );
-                                                                      } else if (snapshot
-                                                                          .hasError)
-                                                                        return AlertDialog(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                                                                          title:
-                                                                              // id already exists.
-                                                                              Text(snapshot.error, style: TextStyle(color: Color(0xff4d4d4d), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: 62.5 / screenWidth), textAlign: TextAlign.left),
-                                                                          actions: [
-                                                                            FlatButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: // 확인
-                                                                                    Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
-                                                                          ],
-                                                                        );
-
-                                                                      return Center(
-                                                                        child: SizedBox(
-                                                                            height: 200 /
-                                                                                screenHeight,
-                                                                            width: 200 /
-                                                                                screenWidth,
-                                                                            child:
-                                                                                buildSpinKitThreeBounce(80, screenWidth)
-                                                                            // CircularProgressIndicator(
-                                                                            //   strokeWidth:
-                                                                            //       5.0,
-                                                                            //   valueColor:
-                                                                            //       new AlwaysStoppedAnimation<Color>(
-                                                                            //     Colors.pinkAccent,
-                                                                            //   ),
-                                                                            // )
-                                                                            ),
-                                                                      );
-                                                                    }),
-                                                          );
-                                                        }
-                                                      : () {},
-                                              child: // 중복확인
-                                                  Text("중복확인",
-                                                      style: TextStyle(
-                                                          color: const Color(
-                                                              0xffffffff),
-                                                          fontFamily:
-                                                              "NotoSansCJKkr_Medium",
-                                                          fontSize:
-                                                              50 / screenWidth),
-                                                      textAlign:
-                                                          TextAlign.left),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        : Container(
-                            margin: EdgeInsets.only(top: 31 / screenHeight),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  width: 320 / screenWidth,
-                                  child: userId == ""
-                                      ? nickNameShow("우아하게", screenWidth)
-                                      : FutureBuilder(
-                                          future: getMyNickname(),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.hasData) {
-                                              // print("hasdata " + snapshot.data);
-                                              return snapshot.data != ""
-                                                  ? nickNameShow(snapshot.data,
-                                                      screenWidth)
-                                                  : nickNameShow(
-                                                      "우아하게", screenWidth);
-                                            } else if (snapshot.hasError) {
-                                              // print("haserror " + snapshot.error);
-                                              return nickNameShow(
-                                                  snapshot.error, screenWidth);
-                                            }
-                                            return Center(
-                                              child: SizedBox(
-                                                height: 50 / screenHeight,
-                                                width: 50 / screenWidth,
-                                                child: buildSpinKitThreeBounce(
-                                                    30, screenWidth),
-                                                // CircularProgressIndicator(
-                                                //   strokeWidth: 5.0,
-                                                //   valueColor:
-                                                //       new AlwaysStoppedAnimation<
-                                                //           Color>(
-                                                //     Colors.pinkAccent,
-                                                //   ),
-                                                // ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(992 / screenWidth,
-                                      0, 148 / screenWidth, 0),
-                                  child: loginOption ==
-                                          "login" // Change this on release to ==
-                                      ? Image.asset(
-                                          "./assets/myPage/button1_grey.png",
-                                          width: 361 / screenWidth,
-                                          height: 147 / screenHeight,
-                                        )
-                                      : InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              onEdit = true;
-                                            });
-                                          },
-                                          child: Image.asset(
-                                            "./assets/myPage/button1_pink.png",
-                                            width: 361 / screenWidth,
-                                            height: 147 / screenHeight,
-                                          ),
-                                        ),
-                                )
-                              ],
-                            ),
-                          ),
-
-                    //Gender
+              //Gender
+              Container(
+                margin: EdgeInsets.fromLTRB(
+                    99 / screenWidth, 100 / screenHeight, 0, 0),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // 아이성별
                     Container(
                       margin: EdgeInsets.fromLTRB(
-                          99 / screenWidth, 100 / screenHeight, 0, 0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // 아이성별
-                          Container(
-                            margin: EdgeInsets.fromLTRB(
-                                0, 24 / screenHeight, 56 / screenWidth, 0),
-                            child: Text("아이성별",
-                                style: TextStyle(
-                                    color: const Color(0xffff7292),
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 57 / screenWidth),
-                                textAlign: TextAlign.left),
-                          ),
-                          InkWell(
-                            onTap: () {
+                          0, 24 / screenHeight, 56 / screenWidth, 0),
+                      child: Text("아이성별",
+                          style: TextStyle(
+                              color: const Color(0xffff7292),
+                              fontFamily: "NotoSansCJKkr_Medium",
+                              fontSize: 57 / screenWidth),
+                          textAlign: TextAlign.left),
+                    ),
+                    InkWell(
+                      onTap: onEdit
+                          ? () {
                               setState(() {
                                 gender = "boy";
                                 genderImage[0] = !genderImage[0];
                                 genderImage[1] = false;
                               });
-                            },
-                            child: Image.asset(
-                              genderImage[0]
-                                  ? "./assets/myPage/boy_pink.png"
-                                  : "./assets/myPage/boy_grey.png",
-                              height: 363 / screenHeight,
-                              width: 262 / screenWidth,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 98 / screenWidth),
-                            child: InkWell(
-                              onTap: () {
+                            }
+                          : null,
+                      child: Image.asset(
+                        genderImage[0]
+                            ? "./assets/myPage/boy_pink.png"
+                            : "./assets/myPage/boy_grey.png",
+                        height: 363 / screenHeight,
+                        width: 262 / screenWidth,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 98 / screenWidth),
+                      child: InkWell(
+                        onTap: onEdit
+                            ? () {
                                 setState(() {
                                   gender = "girl";
                                   genderImage[1] = !genderImage[1];
                                   genderImage[0] = false;
                                 });
-                              },
-                              child: Image.asset(
-                                genderImage[1]
-                                    ? "./assets/myPage/girl_pink.png"
-                                    : "./assets/myPage/girl_grey.png",
-                                height: 363 / screenHeight,
-                                width: 262 / screenWidth,
-                              ),
-                            ),
-                          ),
-                        ],
+                              }
+                            : null,
+                        child: Image.asset(
+                          genderImage[1]
+                              ? "./assets/myPage/girl_pink.png"
+                              : "./assets/myPage/girl_grey.png",
+                          height: 363 / screenHeight,
+                          width: 262 / screenWidth,
+                        ),
                       ),
                     ),
+                  ],
+                ),
+              ),
 
-                    // Birthday
+              // Birthday
 
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          99 / screenWidth, 40 / screenHeight, 0, 0),
-                      child: Row(
-                        children: [
-                          // 아이생일
-                          Text("아이생일",
-                              style: TextStyle(
-                                fontSize: 56 / screenWidth,
-                                color: const Color(0xffff7292),
-                                fontFamily: "NotoSansCJKkr_Medium",
-                              ),
-                              textAlign: TextAlign.left),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(
-                                  82 / screenWidth, 0, 121 / screenWidth, 0),
-                              child: Stack(
-                                children: [
-                                  TextFormField(
-                                    readOnly: true,
-                                    controller: yController,
-                                    onChanged: (txt) {
-                                      setState(() {
-                                        birthday = txt;
-                                      });
-                                    },
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        color: Color(0xffff7292),
-                                        fontSize: 73 / screenWidth,
-                                        fontFamily: 'NotoSansCJKkr_Medium',
+              Container(
+                margin: EdgeInsets.fromLTRB(
+                    99 / screenWidth, 40 / screenHeight, 0, 0),
+                child: Row(
+                  children: [
+                    // 아이생일
+                    Text("아이생일",
+                        style: TextStyle(
+                          fontSize: 56 / screenWidth,
+                          color: const Color(0xffff7292),
+                          fontFamily: "NotoSansCJKkr_Medium",
+                        ),
+                        textAlign: TextAlign.left),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(
+                            82 / screenWidth, 0, 121 / screenWidth, 0),
+                        child: Stack(
+                          children: [
+                            GestureDetector(
+                              onTap: onEdit ? yearPicker : null,
+                              child: AbsorbPointer(
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: yController,
+
+                                  // onChanged: (txt) {
+                                  //   setState(() {
+                                  //     birthday = txt;
+                                  //   });
+                                  // },
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Color(0xffff7292),
+                                      fontSize: 73 / screenWidth,
+                                      fontFamily: 'NotoSansCJKkr_Medium',
+                                      fontStyle: FontStyle.normal,
+                                      letterSpacing: -1.0),
+                                  decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: const Color(0xffff7292),
+                                      ),
+                                      //Color.fromRGBO(255, 114, 148, 1.0)
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffff7292)),
+                                    ),
+                                    hintText: birthday == ""
+                                        ? '생년월일을 선택해주세요'
+                                        : birthday,
+                                    hintStyle: TextStyle(
+                                        color: Color(0xffd4d4d4),
+                                        // onEdit
+                                        //     ? Color(0xffd4d4d4)
+                                        //     : Color(0xffff7292),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        letterSpacing: -1.0),
-                                    decoration: InputDecoration(
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: const Color(0xffff7292),
-                                        ),
-                                        //Color.fromRGBO(255, 114, 148, 1.0)
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xffff7292)),
-                                      ),
-                                      hintText: birthday == ""
-                                          ? '생년월일을 선택해주세요'
-                                          : birthday,
-                                      hintStyle: TextStyle(
-                                          color: const Color(0xffff7292),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 66.0 / screenWidth),
-                                    ),
+                                        fontSize: 66.0 / screenWidth),
                                   ),
-                                  onEdit
-                                      ? Align(
-                                          alignment: Alignment.centerRight,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              yearPicker();
-                                            },
-                                            icon: Image.asset(
-                                                "./assets/myPage/calendar.png"),
-                                          ),
-                                        )
-                                      : Container(),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            onEdit
+                                ? Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        yearPicker();
+                                      },
+                                      icon: Image.asset(
+                                          "./assets/myPage/calendar.png"),
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
                       ),
                     ),
-                    // Ages
+                  ],
+                ),
+              ),
+              // Ages
+              Container(
+                margin: EdgeInsets.fromLTRB(
+                    155 / screenWidth, 98 / screenHeight, 0, 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // 보호자 연령대
+                    Text("보호자\n연령대",
+                        style: TextStyle(
+                          color: const Color(0xffff7292),
+                          fontWeight: FontWeight.w500,
+                          fontFamily: "NotoSansCJKkr_Medium",
+                          fontStyle: FontStyle.normal,
+                          fontSize: _fontsize,
+                        ),
+                        textAlign: TextAlign.right),
                     Container(
-                      margin: EdgeInsets.fromLTRB(
-                          155 / screenWidth, 98 / screenHeight, 0, 0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Column(
                         children: [
-                          // 보호자 연령대
-                          Text("보호자\n연령대",
-                              style: TextStyle(
-                                color: const Color(0xffff7292),
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "NotoSansCJKkr_Medium",
-                                fontStyle: FontStyle.normal,
-                                fontSize: _fontsize,
-                              ),
-                              textAlign: TextAlign.right),
-                          Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 / screenWidth),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[0]
-                                              ? './assets/registrationPage/10_pink.png'
-                                              : './assets/registrationPage/10_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: () {
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 59 / screenWidth),
+                                child: InkWell(
+                                  child: Image.asset(
+                                    changeimage[0]
+                                        ? './assets/registrationPage/10_pink.png'
+                                        : './assets/registrationPage/10_grey.png',
+                                    height: 196 / screenHeight,
+                                    width: 251 / screenWidth,
+                                  ),
+                                  onTap: onEdit
+                                      ? () {
                                           _change('10');
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[1]
-                                              ? './assets/registrationPage/20_pink.png'
-                                              : './assets/registrationPage/20_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: () {
+                                        }
+                                      : null,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 55 / screenWidth),
+                                child: InkWell(
+                                  child: Image.asset(
+                                    changeimage[1]
+                                        ? './assets/registrationPage/20_pink.png'
+                                        : './assets/registrationPage/20_grey.png',
+                                    height: 196 / screenHeight,
+                                    width: 251 / screenWidth,
+                                  ),
+                                  onTap: onEdit
+                                      ? () {
                                           _change('20');
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[2]
-                                              ? './assets/registrationPage/30_pink.png'
-                                              : './assets/registrationPage/30_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: () {
+                                        }
+                                      : null,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 55 / screenWidth),
+                                child: InkWell(
+                                  child: Image.asset(
+                                    changeimage[2]
+                                        ? './assets/registrationPage/30_pink.png'
+                                        : './assets/registrationPage/30_grey.png',
+                                    height: 196 / screenHeight,
+                                    width: 251 / screenWidth,
+                                  ),
+                                  onTap: onEdit
+                                      ? () {
                                           _change('30');
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                        }
+                                      : null,
                                 ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 / screenWidth,
-                                          top: 45 / screenHeight),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[3]
-                                              ? './assets/registrationPage/40_pink.png'
-                                              : './assets/registrationPage/40_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: () {
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 59 / screenWidth,
+                                    top: 45 / screenHeight),
+                                child: InkWell(
+                                  child: Image.asset(
+                                    changeimage[3]
+                                        ? './assets/registrationPage/40_pink.png'
+                                        : './assets/registrationPage/40_grey.png',
+                                    height: 196 / screenHeight,
+                                    width: 251 / screenWidth,
+                                  ),
+                                  onTap: onEdit
+                                      ? () {
                                           _change('40');
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth,
-                                          top: 45 / screenHeight),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[4]
-                                              ? './assets/registrationPage/50_pink.png'
-                                              : './assets/registrationPage/50_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: () {
-                                          _change('50');
-                                        },
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth,
-                                          top: 45 / screenHeight),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[5]
-                                              ? './assets/registrationPage/others_pink.png'
-                                              : './assets/registrationPage/others_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: () {
-                                          _change('60');
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                        }
+                                      : null,
                                 ),
-                              ],
-                            ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 55 / screenWidth,
+                                    top: 45 / screenHeight),
+                                child: InkWell(
+                                  child: Image.asset(
+                                    changeimage[4]
+                                        ? './assets/registrationPage/50_pink.png'
+                                        : './assets/registrationPage/50_grey.png',
+                                    height: 196 / screenHeight,
+                                    width: 251 / screenWidth,
+                                  ),
+                                  onTap: onEdit
+                                      ? () {
+                                          _change('50');
+                                        }
+                                      : null,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: 55 / screenWidth,
+                                    top: 45 / screenHeight),
+                                child: InkWell(
+                                  child: Image.asset(
+                                    changeimage[5]
+                                        ? './assets/registrationPage/others_pink.png'
+                                        : './assets/registrationPage/others_grey.png',
+                                    height: 196 / screenHeight,
+                                    width: 251 / screenWidth,
+                                  ),
+                                  onTap: onEdit
+                                      ? () {
+                                          _change('60');
+                                        }
+                                      : null,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
+                  ],
+                ),
+              ),
 
-                    // Ok Button
-                    onEdit
-                        ? Container(
-                            margin: EdgeInsets.only(top: 87 / screenHeight),
-                            child: SizedBox(
-                              height: 194 / screenWidth,
-                              width: 1193 / screenHeight,
-                              child: FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                color: isIdValid
-                                    ? Color(0xffff7292)
-                                    : Color(0xffcacaca),
-                                onPressed: isIdValid
-                                    ? () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => FutureBuilder(
-                                            future: updateNickname(),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.hasData) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20.0)),
-                                                  ),
-                                                  title: Text(snapshot.data),
-                                                  actions: [
-                                                    FlatButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                        setState(() {
-                                                          onEdit = false;
-                                                        });
-                                                      },
-                                                      child: // 확인
-                                                          Text("확인",
-                                                              style: TextStyle(
-                                                                  color: const Color(
-                                                                      0xffff7292),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontFamily:
-                                                                      "NotoSansCJKkr_Medium",
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .normal,
-                                                                  fontSize:
-                                                                      _fontsize),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center),
-                                                    ),
-                                                  ],
-                                                );
-                                              } else if (snapshot.hasError) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20.0)),
-                                                  ),
-                                                  title: Text(snapshot.error),
-                                                  actions: [
-                                                    FlatButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: // 확인
-                                                          Text("확인",
-                                                              style: TextStyle(
-                                                                  color: const Color(
-                                                                      0xffff7292),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontFamily:
-                                                                      "NotoSansCJKkr_Medium",
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .normal,
-                                                                  fontSize:
-                                                                      _fontsize),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center),
-                                                    ),
-                                                  ],
-                                                );
-                                              }
-                                              return Center(
-                                                child: SizedBox(
-                                                    height: 200 / screenHeight,
-                                                    width: 200 / screenWidth,
-                                                    child:
-                                                        buildSpinKitThreeBounce(
-                                                            80, screenWidth)
-                                                    //     CircularProgressIndicator(
-                                                    //   strokeWidth: 5.0,
-                                                    //   valueColor:
-                                                    //       new AlwaysStoppedAnimation<
-                                                    //           Color>(
-                                                    //     Colors.pinkAccent,
-                                                    //   ),
-                                                    // ),
-                                                    ),
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      }
-                                    : () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
+              // Ok Button
+              onEdit
+                  ? Container(
+                      margin: EdgeInsets.only(top: 87 / screenHeight),
+                      child: SizedBox(
+                        height: 194 / screenWidth,
+                        width: 1193 / screenHeight,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)),
+                          color:
+                              isIdValid ? Color(0xffff7292) : Color(0xffcacaca),
+                          onPressed: isIdValid &&
+                                  nickName != "" &&
+                                  yController.text != "" &&
+                                  gender != "" &&
+                                  userAge != ""
+                              ? () {
+                                  print(userAge);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => FutureBuilder(
+                                      future: updateNickname(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            setState(() {
+                                              onEdit = false;
+                                            });
+                                            // Add Your Code here.
+                                            Navigator.pop(context);
+                                          });
+                                        } else if (snapshot.hasError) {
+                                          return AlertDialog(
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20.0)),
                                             ),
-                                            title: Text("Check your ID first"),
+                                            title: Text(snapshot.error),
                                             actions: [
                                               FlatButton(
-                                                child: Text("OK"),
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
+                                                child: // 확인
+                                                    Text("확인",
+                                                        style: TextStyle(
+                                                            color: const Color(
+                                                                0xffff7292),
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontFamily:
+                                                                "NotoSansCJKkr_Medium",
+                                                            fontStyle: FontStyle
+                                                                .normal,
+                                                            fontSize:
+                                                                _fontsize),
+                                                        textAlign:
+                                                            TextAlign.center),
                                               ),
                                             ],
-                                          ),
+                                          );
+                                        }
+                                        return Center(
+                                          child: SizedBox(
+                                              height: 200 / screenHeight,
+                                              width: 200 / screenWidth,
+                                              child: buildSpinKitThreeBounce(
+                                                  80, screenWidth)),
                                         );
                                       },
-                                child: // 중복확인
-                                    Text("OK",
-                                        style: TextStyle(
-                                            color: const Color(0xffffffff),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 62 / screenWidth),
-                                        textAlign: TextAlign.left),
-                              ),
-                            ),
-                          )
-                        : Container(),
+                                    ),
+                                  );
+                                }
+                              : () {
+                                  showToast("모든 필드를 입력하십시오", screenWidth);
+                                },
+                          child: // 중복확인
+                              Text("OK",
+                                  style: TextStyle(
+                                      color: const Color(0xffffffff),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 62 / screenWidth),
+                                  textAlign: TextAlign.left),
+                        ),
+                      ),
+                    )
+                  : Container(),
 
-                    //logout
+              //logout
 
-                    Container(
+              userId != ""
+                  ? Container(
                       margin: EdgeInsets.fromLTRB(
                           931 / screenWidth,
                           onEdit ? 88 / screenHeight : 370 / screenHeight,
@@ -1459,1082 +1446,23 @@ class _myPageState extends State<myPage> {
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              )
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //back button
-                    Container(
-                      margin: EdgeInsets.fromLTRB(81 / screenWidth,
-                          110 / screenHeight, 1100 / screenWidth, 0),
-                      child: onEdit
-                          ? InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  onEdit = false;
-                                  yController.text = "";
-                                  birthday = "";
-                                  changeimage.fillRange(0, 6, false);
-                                });
-                                await getMyInfo();
-                              },
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "./assets/myPage/back.png",
-                                    width: 43 / screenWidth,
-                                    height: 76 / screenHeight,
-                                  ),
-                                  // 내 정보
-                                  Container(
-                                    margin:
-                                        EdgeInsets.only(left: 33 / screenWidth),
-                                    child: Text("내 정보",
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(
-                                              255, 114, 148, 1.0),
-                                          fontFamily: 'NotoSansCJKkr_Medium',
-                                          fontSize: 57 / screenWidth,
-                                        ),
-                                        textAlign: TextAlign.left),
-                                  )
-                                ],
-                              ),
-                            )
-                          : Container(),
-                    ),
-
-                    //Center avatar
-                    Center(
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                            height: 439 / screenHeight,
-                            width: 439 / screenWidth,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("./assets/myPage/avatar.png"),
-                              // backgroundImage: (() {
-                              //   if (_image != null) {
-                              //     print("1");
-                              //     return FileImage(_image);
-                              //   } else if (imageLink != "" && imageLink != null) {
-                              //     print("2");
-                              //     // print("here " + imageLink);
-                              //     return NetworkImage(imageLink); //imageURL
-
-                              //   } else {
-                              //     print("3");
-                              //     return AssetImage("./assets/myPage/avatar.png");
-                              //   }
-                              // }()),
-                              // child: Image.network(imageLink),
-                              child: (() {
-                                // your code here
-
-                                if (_image != null) {
-                                  print("1");
-                                  print("here " + imageLink);
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: FileImage(_image), //imageURL
-                                          fit: BoxFit.fill),
-                                    ),
-                                  );
-                                } else if (imageLink != "" &&
-                                    imageLink != null) {
-                                  print("2");
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: NetworkImage(imageLink),
-                                          fit: BoxFit.fill),
-                                    ),
-                                  );
-                                } else {
-                                  print("3");
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "./assets/myPage/avatar.png"),
-                                          fit: BoxFit.fill),
-                                    ),
-                                  );
-                                }
-                              }()),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(
-                                330 / screenWidth, 341 / screenHeight, 0, 0),
-                            child: InkWell(
-                              onTap: loginOption != "login"
-                                  ? () {
-                                      _showPicker(context);
-                                    }
-                                  : () {
-                                      showToast("로그인 해주세요!", screenWidth);
-                                    },
-                              child: Image.asset(
-                                "./assets/myPage/camera.png",
-                                height: 109 / screenHeight,
-                                width: 110 / screenWidth,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Nickname
-                    onEdit
-                        ? Container(
-                            margin: EdgeInsets.only(
-                              top: 85 / screenHeight,
-                            ),
-                            child: Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // 닉네임
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        157 / screenWidth,
-                                        45 / screenHeight,
-                                        88 / screenWidth,
-                                        0),
-                                    child: Text("닉네임",
-                                        style: TextStyle(
-                                            color: const Color(0xffff7292),
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontSize: 58 / screenWidth),
-                                        textAlign: TextAlign.left),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        right: 121 / screenWidth,
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          TextFormField(
-                                            // controller: yController,
-                                            maxLength: 10,
-                                            onChanged: (txt) {
-                                              txt.length <= 10
-                                                  ? setState(() {
-                                                      nickName = txt;
-                                                    })
-                                                  : null;
-                                            },
-
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                                color: Color(0xff3a3939),
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Bold",
-                                                fontSize: 58 / screenWidth),
-                                            decoration: InputDecoration(
-                                              contentPadding: EdgeInsets.only(
-                                                  right: 410 / screenWidth),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color:
-                                                      const Color(0xffff7292),
-                                                ),
-
-                                                //Color.fromRGBO(255, 114, 148, 1.0)
-                                              ),
-                                              focusedBorder:
-                                                  UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Color(0xffff7292)),
-                                              ),
-                                              hintText: '닉네임을 입력하세요',
-                                              hintStyle: TextStyle(
-                                                  color:
-                                                      const Color(0xffcacaca),
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Medium",
-                                                  fontSize: 58 / screenWidth),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: FlatButton(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
-                                              color: nickName == ""
-                                                  ? Color(0xffcacaca)
-                                                  : Color(0xffff7292),
-                                              onPressed:
-                                                  loginOption != "login" &&
-                                                          nickName != ""
-                                                      ? () {
-                                                          currentFocus
-                                                              .unfocus();
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (context) =>
-                                                                FutureBuilder(
-                                                                    future:
-                                                                        checkNickname(),
-                                                                    builder:
-                                                                        (context,
-                                                                            snapshot) {
-                                                                      if (snapshot
-                                                                          .hasData) {
-                                                                        // print(snapshot.data);
-                                                                        return AlertDialog(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                                                                          title: // 사용 가능한 닉네임입니다.
-                                                                              Text(snapshot.data, style: TextStyle(color: const Color(0xff4d4d4d), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: 62.5 / screenWidth), textAlign: TextAlign.left),
-                                                                          actions: [
-                                                                            FlatButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: // 확인
-                                                                                    Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
-                                                                          ],
-                                                                        );
-                                                                      } else if (snapshot
-                                                                          .hasError)
-                                                                        return AlertDialog(
-                                                                          shape:
-                                                                              RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                                                                          title:
-                                                                              // id already exists.
-                                                                              Text(snapshot.error, style: TextStyle(color: Color(0xff4d4d4d), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: 62.5 / screenWidth), textAlign: TextAlign.left),
-                                                                          actions: [
-                                                                            FlatButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: // 확인
-                                                                                    Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
-                                                                          ],
-                                                                        );
-
-                                                                      return Center(
-                                                                        child: SizedBox(
-                                                                            height: 200 /
-                                                                                screenHeight,
-                                                                            width: 200 /
-                                                                                screenWidth,
-                                                                            child:
-                                                                                buildSpinKitThreeBounce(80, screenWidth)
-                                                                            // CircularProgressIndicator(
-                                                                            //   strokeWidth:
-                                                                            //       5.0,
-                                                                            //   valueColor:
-                                                                            //       new AlwaysStoppedAnimation<Color>(
-                                                                            //     Colors.pinkAccent,
-                                                                            //   ),
-                                                                            // )
-                                                                            ),
-                                                                      );
-                                                                    }),
-                                                          );
-                                                        }
-                                                      : () {},
-                                              child: // 중복확인
-                                                  Text("중복확인",
-                                                      style: TextStyle(
-                                                          color: const Color(
-                                                              0xffffffff),
-                                                          fontFamily:
-                                                              "NotoSansCJKkr_Medium",
-                                                          fontSize:
-                                                              50 / screenWidth),
-                                                      textAlign:
-                                                          TextAlign.left),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        : Container(
-                            margin: EdgeInsets.only(top: 31 / screenHeight),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  // width: 320 / screenWidth,
-                                  child: userId == ""
-                                      ? nickNameShow("우아하게", screenWidth)
-                                      : FutureBuilder(
-                                          future: getMyNickname(),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.hasData) {
-                                              // print("hasdata " + snapshot.data);
-                                              return snapshot.data != ""
-                                                  ? nickNameShow(snapshot.data,
-                                                      screenWidth)
-                                                  : nickNameShow(
-                                                      "우아하게", screenWidth);
-                                            } else if (snapshot.hasError) {
-                                              // print("haserror " + snapshot.error);
-                                              return nickNameShow(
-                                                  snapshot.error, screenWidth);
-                                            }
-                                            return Center(
-                                              child: SizedBox(
-                                                height: 50 / screenHeight,
-                                                width: 50 / screenWidth,
-                                                child: buildSpinKitThreeBounce(
-                                                    30, screenWidth),
-                                                // CircularProgressIndicator(
-                                                //   strokeWidth: 5.0,
-                                                //   valueColor:
-                                                //       new AlwaysStoppedAnimation<
-                                                //           Color>(
-                                                //     Colors.pinkAccent,
-                                                //   ),
-                                                // ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                ),
-                                Container(
-                                  // margin: EdgeInsets.fromLTRB(
-                                  //     992 / screenWidth,
-                                  //     0,
-                                  //     148 / screenWidth,
-                                  //     0),
-                                  child: loginOption ==
-                                          "login" // Change this on release to ==
-                                      ? Image.asset(
-                                          "./assets/myPage/button1_grey.png",
-                                          width: 361 / screenWidth,
-                                          height: 147 / screenHeight,
-                                        )
-                                      : InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              isIdValid = false;
-                                              nickName = "";
-                                              onEdit = true;
-                                              genderImage[0] = false;
-                                              genderImage[1] = false;
-                                              birthday = "";
-                                              yController.text = "";
-                                              changeimage.fillRange(
-                                                  0, 6, false);
-                                              userAge = "";
-                                              // changeimage[0] = false;
-                                              // changeimage[1] = false;
-                                              // changeimage[2] = false;
-                                              // changeimage[3] = false;
-                                              // changeimage[4] = false;
-                                              // changeimage[5] = false;
-                                            });
-                                          },
-                                          child: Image.asset(
-                                            "./assets/myPage/button1_pink.png",
-                                            width: 361 / screenWidth,
-                                            height: 147 / screenHeight,
-                                          ),
-                                        ),
-                                )
-                              ],
-                            ),
-                          ),
-
-                    //Gender
-                    Container(
+                    )
+                  : Container(
                       margin: EdgeInsets.fromLTRB(
-                          99 / screenWidth, 100 / screenHeight, 0, 0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // 아이성별
-                          Container(
-                            margin: EdgeInsets.fromLTRB(
-                                0, 24 / screenHeight, 56 / screenWidth, 0),
-                            child: Text("아이성별",
-                                style: TextStyle(
-                                    color: const Color(0xffff7292),
-                                    fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 57 / screenWidth),
-                                textAlign: TextAlign.left),
-                          ),
-                          InkWell(
-                            onTap: onEdit
-                                ? () {
-                                    setState(() {
-                                      gender = "boy";
-                                      genderImage[0] = !genderImage[0];
-                                      genderImage[1] = false;
-                                    });
-                                  }
-                                : null,
-                            child: Image.asset(
-                              genderImage[0]
-                                  ? "./assets/myPage/boy_pink.png"
-                                  : "./assets/myPage/boy_grey.png",
-                              height: 363 / screenHeight,
-                              width: 262 / screenWidth,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 98 / screenWidth),
-                            child: InkWell(
-                              onTap: onEdit
-                                  ? () {
-                                      setState(() {
-                                        gender = "girl";
-                                        genderImage[1] = !genderImage[1];
-                                        genderImage[0] = false;
-                                      });
-                                    }
-                                  : null,
-                              child: Image.asset(
-                                genderImage[1]
-                                    ? "./assets/myPage/girl_pink.png"
-                                    : "./assets/myPage/girl_grey.png",
-                                height: 363 / screenHeight,
-                                width: 262 / screenWidth,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Birthday
-
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          99 / screenWidth, 40 / screenHeight, 0, 0),
-                      child: Row(
-                        children: [
-                          // 아이생일
-                          Text("아이생일",
-                              style: TextStyle(
-                                fontSize: 56 / screenWidth,
-                                color: const Color(0xffff7292),
-                                fontFamily: "NotoSansCJKkr_Medium",
-                              ),
-                              textAlign: TextAlign.left),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(
-                                  82 / screenWidth, 0, 121 / screenWidth, 0),
-                              child: Stack(
-                                children: [
-                                  GestureDetector(
-                                    onTap: onEdit ? yearPicker : null,
-                                    child: AbsorbPointer(
-                                      child: TextFormField(
-                                        readOnly: true,
-                                        controller: yController,
-
-                                        // onChanged: (txt) {
-                                        //   setState(() {
-                                        //     birthday = txt;
-                                        //   });
-                                        // },
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            color: Color(0xffff7292),
-                                            fontSize: 73 / screenWidth,
-                                            fontFamily: 'NotoSansCJKkr_Medium',
-                                            fontStyle: FontStyle.normal,
-                                            letterSpacing: -1.0),
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: const Color(0xffff7292),
-                                            ),
-                                            //Color.fromRGBO(255, 114, 148, 1.0)
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Color(0xffff7292)),
-                                          ),
-                                          hintText: birthday == ""
-                                              ? '생년월일을 선택해주세요'
-                                              : birthday,
-                                          hintStyle: TextStyle(
-                                              color: Color(0xffd4d4d4),
-                                              // onEdit
-                                              //     ? Color(0xffd4d4d4)
-                                              //     : Color(0xffff7292),
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily:
-                                                  "NotoSansCJKkr_Medium",
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 66.0 / screenWidth),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  onEdit
-                                      ? Align(
-                                          alignment: Alignment.centerRight,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              yearPicker();
-                                            },
-                                            icon: Image.asset(
-                                                "./assets/myPage/calendar.png"),
-                                          ),
-                                        )
-                                      : Container(),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Ages
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          155 / screenWidth, 98 / screenHeight, 0, 0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // 보호자 연령대
-                          Text("보호자\n연령대",
-                              style: TextStyle(
-                                color: const Color(0xffff7292),
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "NotoSansCJKkr_Medium",
-                                fontStyle: FontStyle.normal,
-                                fontSize: _fontsize,
-                              ),
-                              textAlign: TextAlign.right),
-                          Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 / screenWidth),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[0]
-                                              ? './assets/registrationPage/10_pink.png'
-                                              : './assets/registrationPage/10_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: onEdit
-                                            ? () {
-                                                _change('10');
-                                              }
-                                            : null,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[1]
-                                              ? './assets/registrationPage/20_pink.png'
-                                              : './assets/registrationPage/20_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: onEdit
-                                            ? () {
-                                                _change('20');
-                                              }
-                                            : null,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[2]
-                                              ? './assets/registrationPage/30_pink.png'
-                                              : './assets/registrationPage/30_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: onEdit
-                                            ? () {
-                                                _change('30');
-                                              }
-                                            : null,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 / screenWidth,
-                                          top: 45 / screenHeight),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[3]
-                                              ? './assets/registrationPage/40_pink.png'
-                                              : './assets/registrationPage/40_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: onEdit
-                                            ? () {
-                                                _change('40');
-                                              }
-                                            : null,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth,
-                                          top: 45 / screenHeight),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[4]
-                                              ? './assets/registrationPage/50_pink.png'
-                                              : './assets/registrationPage/50_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: onEdit
-                                            ? () {
-                                                _change('50');
-                                              }
-                                            : null,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 55 / screenWidth,
-                                          top: 45 / screenHeight),
-                                      child: InkWell(
-                                        child: Image.asset(
-                                          changeimage[5]
-                                              ? './assets/registrationPage/others_pink.png'
-                                              : './assets/registrationPage/others_grey.png',
-                                          height: 196 / screenHeight,
-                                          width: 251 / screenWidth,
-                                        ),
-                                        onTap: onEdit
-                                            ? () {
-                                                _change('60');
-                                              }
-                                            : null,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Ok Button
-                    onEdit
-                        ? Container(
-                            margin: EdgeInsets.only(top: 87 / screenHeight),
-                            child: SizedBox(
-                              height: 194 / screenWidth,
-                              width: 1193 / screenHeight,
-                              child: FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                color: isIdValid
-                                    ? Color(0xffff7292)
-                                    : Color(0xffcacaca),
-                                onPressed: isIdValid &&
-                                        nickName != "" &&
-                                        yController.text != "" &&
-                                        gender != "" &&
-                                        userAge != ""
-                                    ? () {
-                                        print(userAge);
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => FutureBuilder(
-                                            future: updateNickname(),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.hasData) {
-                                                WidgetsBinding.instance
-                                                    .addPostFrameCallback((_) {
-                                                  setState(() {
-                                                    onEdit = false;
-                                                  });
-                                                  // Add Your Code here.
-                                                  Navigator.pop(context);
-                                                });
-                                              } else if (snapshot.hasError) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                20.0)),
-                                                  ),
-                                                  title: Text(snapshot.error),
-                                                  actions: [
-                                                    FlatButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: // 확인
-                                                          Text("확인",
-                                                              style: TextStyle(
-                                                                  color: const Color(
-                                                                      0xffff7292),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontFamily:
-                                                                      "NotoSansCJKkr_Medium",
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .normal,
-                                                                  fontSize:
-                                                                      _fontsize),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center),
-                                                    ),
-                                                  ],
-                                                );
-                                              }
-                                              return Center(
-                                                child: SizedBox(
-                                                    height: 200 / screenHeight,
-                                                    width: 200 / screenWidth,
-                                                    child:
-                                                        buildSpinKitThreeBounce(
-                                                            80, screenWidth)),
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      }
-                                    : () {
-                                        showToast("모든 필드를 입력하십시오", screenWidth);
-                                      },
-                                child: // 중복확인
-                                    Text("OK",
-                                        style: TextStyle(
-                                            color: const Color(0xffffffff),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 62 / screenWidth),
-                                        textAlign: TextAlign.left),
-                              ),
-                            ),
-                          )
-                        : Container(),
-
-                    //logout
-
-                    userId != ""
-                        ? Container(
-                            margin: EdgeInsets.fromLTRB(
-                                931 / screenWidth,
-                                onEdit ? 88 / screenHeight : 370 / screenHeight,
-                                0,
-                                71 / screenHeight),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20.0)),
-                                        ),
-                                        title: // 로그아웃 하시겠습니까?
-                                            Text("로그아웃 하시겠습니까?",
-                                                style: TextStyle(
-                                                    color:
-                                                        const Color(0xff4d4d4d),
-                                                    fontWeight: FontWeight.w500,
-                                                    fontFamily:
-                                                        "NotoSansCJKkr_Medium",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize:
-                                                        62.5 / screenWidth),
-                                                textAlign: TextAlign.left),
-                                        actions: [
-                                          FlatButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: // 아니요
-                                                Text("아니요",
-                                                    style: TextStyle(
-                                                        color: const Color(
-                                                            0xffff7292),
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontFamily:
-                                                            "NotoSansCJKkr_Medium",
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: _fontsize),
-                                                    textAlign: TextAlign.left),
-                                          ),
-                                          FlatButton(
-                                            onPressed: () async {
-                                              SharedPreferences prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              await prefs
-                                                  .remove("uahageUserId");
-                                              await prefs
-                                                  .remove("uahageLoginOption");
-                                              Navigator.pop(context);
-
-                                              Navigator.pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        loginPage()),
-                                                (Route<dynamic> route) => false,
-                                              );
-                                              // Navigator.of(context)
-                                              //     .popUntil((route) => route.isFirst);
-                                            },
-                                            child: // 네
-                                                Text("네",
-                                                    style: TextStyle(
-                                                        color: const Color(
-                                                            0xffff7292),
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontFamily:
-                                                            "NotoSansCJKkr_Medium",
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: _fontsize),
-                                                    textAlign: TextAlign.left),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  child: // 로그아웃
-                                      Text("로그아웃",
-                                          style: textStyle52,
-                                          textAlign: TextAlign.left),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: 15 / screenWidth,
-                                      right: 15 / screenWidth),
-                                  child: Text(
-                                    "|",
-                                    style: textStyle52,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: loginOption == "login"
-                                      ? () {
-                                          showToast("  로그인 해주세요!", screenWidth);
-                                        }
-                                      : () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20.0)),
-                                              ),
-                                              title: Text(
-                                                  "탈퇴하시겠습니까? 탈퇴 시 기존 데이터를 복구할 수 없습니다.",
-                                                  style: TextStyle(
-                                                      color: const Color(
-                                                          0xff4d4d4d),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontFamily:
-                                                          "NotoSansCJKkr_Medium",
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      fontSize:
-                                                          70.5 / screenWidth),
-                                                  textAlign: TextAlign.left),
-                                              actions: [
-                                                FlatButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: // 아니요
-                                                      Text("아니요",
-                                                          style: TextStyle(
-                                                              color: const Color(
-                                                                  0xffff7292),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontFamily:
-                                                                  "NotoSansCJKkr_Medium",
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontSize:
-                                                                  _fontsize),
-                                                          textAlign:
-                                                              TextAlign.left),
-                                                ),
-                                                FlatButton(
-                                                  onPressed: () async {
-                                                    Navigator.pop(context);
-                                                    SharedPreferences prefs =
-                                                        await SharedPreferences
-                                                            .getInstance();
-                                                    await prefs
-                                                        .remove("uahageUserId");
-                                                    await prefs.remove(
-                                                        "uahageLoginOption");
-                                                    //delete data in the database
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (_) =>
-                                                          FutureBuilder(
-                                                        future:
-                                                            withdrawalUser(),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (snapshot
-                                                              .hasData) {
-                                                            print("hasdata");
-                                                            WidgetsBinding
-                                                                .instance
-                                                                .addPostFrameCallback(
-                                                                    (_) {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pushReplacement(MaterialPageRoute(
-                                                                      builder: (BuildContext
-                                                                              context) =>
-                                                                          withdrawal()));
-                                                            });
-                                                          } else if (snapshot
-                                                              .hasError) {
-                                                            WidgetsBinding
-                                                                .instance
-                                                                .addPostFrameCallback(
-                                                                    (_) {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pushReplacement(MaterialPageRoute(
-                                                                      builder: (BuildContext
-                                                                              context) =>
-                                                                          withdrawal()));
-                                                            });
-                                                          }
-
-                                                          return Center(
-                                                            child: SizedBox(
-                                                                height: 200 /
-                                                                    screenHeight,
-                                                                width: 200 /
-                                                                    screenWidth,
-                                                                child: buildSpinKitThreeBounce(
-                                                                    80,
-                                                                    screenWidth)
-                                                                //     CircularProgressIndicator(
-                                                                //   strokeWidth: 5.0,
-                                                                //   valueColor:
-                                                                //       new AlwaysStoppedAnimation<
-                                                                //           Color>(
-                                                                //     Colors.pinkAccent,
-                                                                //   ),
-                                                                // )
-                                                                ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-
-                                                    // Navigator.pushReplacement(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) => loginPage()));
-                                                    // Navigator.of(context)
-                                                    //     .popUntil((route) => route.isFirst);
-                                                  },
-                                                  child: // 네
-                                                      Text("네",
-                                                          style: TextStyle(
-                                                              color: const Color(
-                                                                  0xffff7292),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontFamily:
-                                                                  "NotoSansCJKkr_Medium",
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontSize:
-                                                                  _fontsize),
-                                                          textAlign:
-                                                              TextAlign.left),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                  child: // 로그아웃   |   회원탈퇴
-                                      Text("회원탈퇴",
-                                          style: textStyle52,
-                                          textAlign: TextAlign.left),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(
-                            margin: EdgeInsets.fromLTRB(
-                                931 / screenWidth,
-                                onEdit ? 88 / screenHeight : 370 / screenHeight,
-                                0,
-                                71 / screenHeight),
-                            child: InkWell(
-                                child: Text("로그인하기",
-                                    style: textStyle52,
-                                    textAlign: TextAlign.left),
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                }),
-                          )
-                  ],
-                ),
-              ),
+                          931 / screenWidth,
+                          onEdit ? 88 / screenHeight : 370 / screenHeight,
+                          0,
+                          71 / screenHeight),
+                      child: InkWell(
+                          child: Text("로그인하기",
+                              style: textStyle52, textAlign: TextAlign.left),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          }),
+                    )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -2675,19 +1603,6 @@ class _myPageState extends State<myPage> {
                 });
               },
             ),
-            // FlatButton(
-            //   child: Text(
-            //     '글씨바꾸기',
-            //     style: TextStyle(
-            //       color: Color.fromRGBO(255, 114, 148, 1.0),
-            //       fontFamily: 'NotoSansCJKkr_Medium',
-            //       fontSize: 57 / screenWidth,
-            //     ),
-            //   ),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
           ],
         );
       },

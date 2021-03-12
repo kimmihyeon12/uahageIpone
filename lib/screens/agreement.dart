@@ -188,11 +188,11 @@ class _agreementPageState extends State<agreementPage> {
 
   @override
   void initState() {
+    _initKakaoTalkInstalled();
+    // setState(() {
+    loginOption = widget.loginOption;
+    // });
     super.initState();
-
-    setState(() {
-      loginOption = widget.loginOption;
-    });
   }
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
@@ -248,1202 +248,418 @@ class _agreementPageState extends State<agreementPage> {
       });
     }
 
-    return (() {
-      if (isIphoneX) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(180 / screenHeight),
+          child: AppBar(
             backgroundColor: Color(0xffff7292),
+            centerTitle: true,
+            // iconTheme: IconThemeData(
+            //   color: Color(0xffff7292), //change your color here
+            // ),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color: Color(0xffffffff)),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
             title: Text("약관동의",
                 style: TextStyle(
-                    color: const Color(0xffffffff),
-                    fontWeight: FontWeight.w700,
+                    color: Color(0xffffffff),
+                    fontWeight: FontWeight.w600,
                     fontFamily: "NotoSansCJKkr_Bold",
                     fontStyle: FontStyle.normal,
-                    fontSize: 116.5 / screenWidth),
+                    fontSize: 73 / screenWidth),
                 textAlign: TextAlign.left),
           ),
-          body: Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // // head
-              Container(
-                height: 0 / screenHeight,
-                width: 1501 / screenWidth,
-                color: Color(0xffff7292),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(),
+            // head
+            // Container(
+            //   height: 178 / screenHeight,
+            //   width: 1501 / screenWidth,
+            //   color: Color(0xffff7292),
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       IconButton(
+            //         onPressed: () {
+            //           Navigator.pop(context);
+            //         },
+            //         icon: Container(
+            //           height: 76 / screenHeight,
+            //           width: 43 / screenWidth,
+            //           margin: EdgeInsets.only(left: 31 / screenWidth),
+            //           child: Image.asset("./assets/agreementPage/back.png"),
+            //         ),
+            //       ),
+            //       Container(
+            //         margin: EdgeInsets.only(left: 424 / screenWidth),
+            //         child: // 약관동의
+            //             Text("약관동의",
+            //                 style: TextStyle(
+            //                     color: const Color(0xffffffff),
+            //                     fontWeight: FontWeight.w700,
+            //                     fontFamily: "NotoSansCJKkr_Bold",
+            //                     fontStyle: FontStyle.normal,
+            //                     fontSize: 75 / screenWidth),
+            //                 textAlign: TextAlign.left),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            // Title
+
+            Container(
+              margin: EdgeInsets.only(top: 441 / screenHeight),
+              child: // 서비스 약관에 동의해주세요.
+                  Text("서비스 약관에 동의해주세요.",
+                      style: TextStyle(
+                          color: const Color(0xffff7292),
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "NotoSansCJKkr_Bold",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 78 / screenWidth),
+                      textAlign: TextAlign.left),
+            ),
+
+            // Agreement
+            Container(
+              margin: EdgeInsets.only(top: 156 / screenHeight),
+              width: 1296 / screenWidth,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14.0),
+                border: Border.all(width: 0.1),
               ),
-
-              // // Title
-
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: 1125 / screenHeight),
-                  child: // 서비스 약관에 동의해주세요.
-                      Text("서비스 약관에 동의해주세요.",
-                          style: TextStyle(
-                              color: const Color(0xffff7292),
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "NotoSansCJKkr_Bold",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 21), //116.5 / screenWidth
-                          textAlign: TextAlign.left),
-                ),
-              ),
-
-              // Agreement
-              Container(
-                margin: EdgeInsets.only(top: 349 / screenHeight),
-                width: 1822 / screenWidth,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(width: 0.1),
-                ),
-                child: // 모두 동의합니다.
-                    Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 180 / screenHeight,
-                          margin: EdgeInsets.only(
-                              left: 37 / screenWidth,
-                              top: 90 / screenHeight,
-                              bottom: 90 / screenHeight),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                check1 = check2 = check3 = check4 = !check1;
-                              });
-                            },
-                            child: check1
-                                ? Image.asset(
-                                    "./assets/agreementPage/checked.png")
-                                : Image.asset(
-                                    "./assets/agreementPage/unchecked.png"),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 44 / screenWidth,
-                          ),
-                          child: Text("모두 동의합니다.",
-                              style: TextStyle(
-                                  color: const Color(0xff000000),
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "NotoSansCJKkr_Bold",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 87.5 / screenWidth),
-                              textAlign: TextAlign.left),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                        thickness: 0.1, height: 0, color: Color(0xff000000)),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 180 / screenHeight,
-                          margin: EdgeInsets.only(
-                              left: 37 / screenWidth,
-                              top: 90 / screenHeight,
-                              bottom: 90 / screenHeight),
-                          child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  check2 = !check2;
-                                });
-                              },
-                              child: check2
-                                  ? Image.asset(
-                                      "./assets/agreementPage/checked.png")
-                                  : Image.asset(
-                                      "./assets/agreementPage/unchecked.png")),
-                        ),
-                        Container(
-                          width: 1100 / screenWidth,
-                          margin:
-                              EdgeInsets.only(left: 49 / screenWidth, right: 0),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => announce()),
-                              );
-                            },
-                            child: Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("[필수] 이용약관 동의",
-                                    style: TextStyle(
-                                        color: const Color(0xff666666),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSansCJKkr_Medium",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 87.5 / screenWidth),
-                                    textAlign: TextAlign.left),
-                                Container(
-                                  height: 104 / screenHeight,
-                                  margin:
-                                      EdgeInsets.only(right: 20 / screenWidth),
-                                  child: Image.asset(
-                                      "./assets/agreementPage/next.png"),
-                                ),
-                              ],
-                            ),
-                          ), // [필수] 이용약관 동의
-                        ),
-                      ],
-                    ),
-                    Divider(
-                        thickness: 0.1, height: 0, color: Color(0xff000000)),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 180 / screenHeight,
-                          margin: EdgeInsets.only(
-                              left: 37 / screenWidth,
-                              top: 65 / screenHeight,
-                              bottom: 65 / screenHeight),
-                          child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  check3 = !check3;
-                                });
-                              },
-                              child: check3
-                                  ? Image.asset(
-                                      "./assets/agreementPage/checked.png")
-                                  : Image.asset(
-                                      "./assets/agreementPage/unchecked.png")),
-                        ),
-                        Container(
-                          width: 1100 / screenWidth,
-                          margin:
-                              EdgeInsets.only(left: 34 / screenWidth, right: 0),
-                          child: // [필수] 이용약관 동의
-                              InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => announce()),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("[필수] 개인정보처리방침 동의",
-                                    style: TextStyle(
-                                        color: const Color(0xff666666),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSansCJKkr_Medium",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 62.5 / screenWidth),
-                                    textAlign: TextAlign.left),
-                                Container(
-                                  height: 74 / screenHeight,
-                                  margin:
-                                      EdgeInsets.only(right: 20 / screenWidth),
-                                  child: Image.asset(
-                                      "./assets/agreementPage/next.png"),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                        thickness: 0.1, height: 0, color: Color(0xff000000)),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 180 / screenHeight,
-                          margin: EdgeInsets.only(
-                              left: 37 / screenWidth,
-                              top: 65 / screenHeight,
-                              bottom: 65 / screenHeight),
-                          child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  check4 = !check4;
-                                });
-                              },
-                              child: check4
-                                  ? Image.asset(
-                                      "./assets/agreementPage/checked.png")
-                                  : Image.asset(
-                                      "./assets/agreementPage/unchecked.png")),
-                        ),
-                        Container(
-                          width: 1100 / screenWidth,
-                          margin: EdgeInsets.only(
-                            left: 34 / screenWidth,
-                          ),
-                          child: // [필수] 이용약관 동의
-                              InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => announce()),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("[필수] 위치기반서비스 이용약관 동의",
-                                    style: TextStyle(
-                                        color: const Color(0xff666666),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSansCJKkr_Medium",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 62.5 / screenWidth),
-                                    textAlign: TextAlign.left),
-                                Container(
-                                  height: 74 / screenHeight,
-                                  margin:
-                                      EdgeInsets.only(right: 20 / screenWidth),
-                                  child: Image.asset(
-                                      "./assets/agreementPage/next.png"),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              // Ok button
-              Container(
-                margin: EdgeInsets.only(top: 243 / screenHeight),
-                child: SizedBox(
-                  height: 194 / screenHeight,
-                  width: 1193 / screenWidth,
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                    color: check1 ? const Color(0xffff7292) : Color(0xffcacaca),
-                    onPressed: () {
-                      if (!check1) {
-                        showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            title: // 이용약관에 동의하셔야 합니다.
-                                Text("이용약관에 동의하셔야 합니다.",
-                                    style: TextStyle(
-                                        color: const Color(0xff4d4d4d),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSansCJKkr_Medium",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 62.5 / screenWidth),
-                                    textAlign: TextAlign.left),
-                            actions: [
-                              FlatButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: // 확인
-                                      Text("확인",
-                                          style: TextStyle(
-                                              color: const Color(0xffff7292),
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily:
-                                                  "NotoSansCJKkr_Medium",
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 62.5 / screenWidth),
-                                          textAlign: TextAlign.center))
-                            ],
-                          ),
-                        );
-                      } else {
-                        print(loginOption);
-                        switch (loginOption) {
-                          case "kakao":
-                            _initKakaoTalkInstalled();
-                            if (_isKakaoTalkInstalled)
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => FutureBuilder(
-                                  future: _loginWithTalk(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return AlertDialog(
-                                        title: Text(snapshot.data),
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return AlertDialog(
-                                          title: Text(snapshot.error));
-                                    }
-                                    return Center(
-                                      child: SizedBox(
-                                          height: 200 / screenHeight,
-                                          width: 200 / screenWidth,
-                                          child: buildSpinKitThreeBounce(
-                                              80, screenWidth)),
-                                    );
-                                  },
-                                ),
-                              );
-                            else {
-                              _loginWithKakao();
-                            }
-                            break;
-                          case "naver":
-                            naverLogin();
-                            break;
-                          case "login":
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      navigationPage(loginOption: loginOption)),
-                            );
-                            break;
-                          default:
-                            break;
-                        }
-                      }
-                    },
-                    child: // 중복확인
-                        Text("OK",
-                            style: TextStyle(
-                                color: Color(0xffffffff),
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "NotoSansCJKkr_Medium",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 62.5 / screenWidth),
-                            textAlign: TextAlign.left),
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
-      } else if (isIOS) {
-        return SafeArea(
-          child: Scaffold(
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // head
-                Container(
-                  height: 178 / screenHeight,
-                  width: 1501 / screenWidth,
-                  color: Color(0xffff7292),
-                  child: Row(
+              child: // 모두 동의합니다.
+                  Column(
+                children: [
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Container(
-                          height: 76 / screenHeight,
-                          width: 43 / screenWidth,
-                          margin: EdgeInsets.only(left: 31 / screenWidth),
-                          child: Image.asset("./assets/agreementPage/back.png"),
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              check1 = check2 = check3 = check4 = !check1;
+                            });
+                          },
+                          child: check1
+                              ? Image.asset(
+                                  "./assets/agreementPage/checked.png")
+                              : Image.asset(
+                                  "./assets/agreementPage/unchecked.png"),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 424 / screenWidth),
-                        child: // 약관동의
-                            Text("약관동의",
-                                style: TextStyle(
-                                    color: const Color(0xffffffff),
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "NotoSansCJKkr_Bold",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 75 / screenWidth),
-                                textAlign: TextAlign.left),
+                        margin: EdgeInsets.only(
+                          left: 30 / screenWidth,
+                        ),
+                        child: Text("모두 동의합니다.",
+                            style: TextStyle(
+                                color: const Color(0xff000000),
+                                fontWeight: FontWeight.w700,
+                                fontFamily: "NotoSansCJKkr_Bold",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 62.5 / screenWidth),
+                            textAlign: TextAlign.left),
                       ),
                     ],
                   ),
-                ),
-
-                // Title
-
-                Container(
-                  margin: EdgeInsets.only(top: 441 / screenHeight),
-                  child: // 서비스 약관에 동의해주세요.
-                      Text("서비스 약관에 동의해주세요.",
-                          style: TextStyle(
-                              color: const Color(0xffff7292),
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "NotoSansCJKkr_Bold",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 78 / screenWidth),
-                          textAlign: TextAlign.left),
-                ),
-
-                // Agreement
-                Container(
-                  margin: EdgeInsets.only(top: 156 / screenHeight),
-                  width: 1296 / screenWidth,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(width: 0.3),
-                  ),
-                  child: // 모두 동의합니다.
-                      Column(
+                  Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  check1 = check2 = check3 = check4 = !check1;
-                                });
-                              },
-                              child: check1
-                                  ? Image.asset(
-                                      "./assets/agreementPage/checked.png")
-                                  : Image.asset(
-                                      "./assets/agreementPage/unchecked.png"),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 30 / screenWidth,
-                            ),
-                            child: Text("모두 동의합니다.",
-                                style: TextStyle(
-                                    color: const Color(0xff000000),
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "NotoSansCJKkr_Bold",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 62.5 / screenWidth),
-                                textAlign: TextAlign.left),
-                          ),
-                        ],
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                check2 = !check2;
+                              });
+                            },
+                            child: check2
+                                ? Image.asset(
+                                    "./assets/agreementPage/checked.png")
+                                : Image.asset(
+                                    "./assets/agreementPage/unchecked.png")),
                       ),
-                      Divider(
-                          thickness: 0.1, height: 0, color: Color(0xff000000)),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    check2 = !check2;
-                                  });
-                                },
-                                child: check2
-                                    ? Image.asset(
-                                        "./assets/agreementPage/checked.png")
-                                    : Image.asset(
-                                        "./assets/agreementPage/unchecked.png")),
-                          ),
-                          Container(
-                            width: 1100 / screenWidth,
-                            margin: EdgeInsets.only(
-                                left: 34 / screenWidth, right: 0),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => announce()),
-                                );
-                              },
-                              child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("[필수] 이용약관 동의",
-                                      style: TextStyle(
-                                          color: const Color(0xff666666),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                                  Container(
-                                    height: 74 / screenHeight,
-                                    margin: EdgeInsets.only(
-                                        right: 20 / screenWidth),
-                                    child: Image.asset(
-                                        "./assets/agreementPage/next.png"),
-                                  ),
-                                ],
+                      Container(
+                        width: 1100 / screenWidth,
+                        margin:
+                            EdgeInsets.only(left: 34 / screenWidth, right: 0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => announce()),
+                            );
+                          },
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("[필수] 이용약관 동의",
+                                  style: TextStyle(
+                                      color: const Color(0xff666666),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 62.5 / screenWidth),
+                                  textAlign: TextAlign.left),
+                              Container(
+                                height: 74 / screenHeight,
+                                margin:
+                                    EdgeInsets.only(right: 20 / screenWidth),
+                                child: Image.asset(
+                                    "./assets/agreementPage/next.png"),
                               ),
-                            ), // [필수] 이용약관 동의
+                            ],
                           ),
-                        ],
-                      ),
-                      Divider(
-                          thickness: 0.1, height: 0, color: Color(0xff000000)),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    check3 = !check3;
-                                  });
-                                },
-                                child: check3
-                                    ? Image.asset(
-                                        "./assets/agreementPage/checked.png")
-                                    : Image.asset(
-                                        "./assets/agreementPage/unchecked.png")),
-                          ),
-                          Container(
-                            width: 1100 / screenWidth,
-                            margin: EdgeInsets.only(
-                                left: 34 / screenWidth, right: 0),
-                            child: // [필수] 이용약관 동의
-                                InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => announce()),
-                                );
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("[필수] 개인정보처리방침 동의",
-                                      style: TextStyle(
-                                          color: const Color(0xff666666),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                                  Container(
-                                    height: 74 / screenHeight,
-                                    margin: EdgeInsets.only(
-                                        right: 20 / screenWidth),
-                                    child: Image.asset(
-                                        "./assets/agreementPage/next.png"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                          thickness: 0.1, height: 0, color: Color(0xff000000)),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    check4 = !check4;
-                                  });
-                                },
-                                child: check4
-                                    ? Image.asset(
-                                        "./assets/agreementPage/checked.png")
-                                    : Image.asset(
-                                        "./assets/agreementPage/unchecked.png")),
-                          ),
-                          Container(
-                            width: 1100 / screenWidth,
-                            margin: EdgeInsets.only(
-                              left: 34 / screenWidth,
-                            ),
-                            child: // [필수] 이용약관 동의
-                                InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => announce()),
-                                );
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("[필수] 위치기반서비스 이용약관 동의",
-                                      style: TextStyle(
-                                          color: const Color(0xff666666),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                                  Container(
-                                    height: 74 / screenHeight,
-                                    margin: EdgeInsets.only(
-                                        right: 20 / screenWidth),
-                                    child: Image.asset(
-                                        "./assets/agreementPage/next.png"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                        ), // [필수] 이용약관 동의
                       ),
                     ],
                   ),
-                ),
-
-                // Ok button
-                Container(
-                  margin: EdgeInsets.only(top: 243 / screenHeight),
-                  child: SizedBox(
-                    height: 194 / screenHeight,
-                    width: 1193 / screenWidth,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                      color:
-                          check1 ? const Color(0xffff7292) : Color(0xffcacaca),
-                      onPressed: () {
-                        if (!check1) {
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: // 이용약관에 동의하셔야 합니다.
-                                  Text("이용약관에 동의하셔야 합니다.",
-                                      style: TextStyle(
-                                          color: const Color(0xff4d4d4d),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                              actions: [
-                                FlatButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: // 확인
-                                        Text("확인",
-                                            style: TextStyle(
-                                                color: const Color(0xffff7292),
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Medium",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 62.5 / screenWidth),
-                                            textAlign: TextAlign.center))
-                              ],
-                            ),
-                          );
-                        } else {
-                          print(loginOption);
-                          switch (loginOption) {
-                            case "kakao":
-                              _initKakaoTalkInstalled();
-                              if (_isKakaoTalkInstalled)
-                                showDialog(
-                                  context: context,
-                                  builder: (ctx) => FutureBuilder(
-                                    future: _loginWithTalk(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return AlertDialog(
-                                          title: Text(snapshot.data),
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return AlertDialog(
-                                            title: Text(snapshot.error));
-                                      }
-                                      return Center(
-                                        child: SizedBox(
-                                            height: 200 / screenHeight,
-                                            width: 200 / screenWidth,
-                                            child: buildSpinKitThreeBounce(
-                                                80, screenWidth)),
-                                      );
-                                    },
-                                  ),
-                                );
-                              else {
-                                _loginWithKakao();
-                              }
-                              break;
-                            case "naver":
-                              naverLogin();
-                              break;
-                            case "login":
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => navigationPage(
-                                        loginOption: loginOption)),
-                              );
-                              break;
-                            default:
-                              break;
-                          }
-                        }
-                      },
-                      child: // 중복확인
-                          Text("OK",
-                              style: TextStyle(
-                                  color: Color(0xffffffff),
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "NotoSansCJKkr_Medium",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 62.5 / screenWidth),
-                              textAlign: TextAlign.left),
-                    ),
+                  Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                check3 = !check3;
+                              });
+                            },
+                            child: check3
+                                ? Image.asset(
+                                    "./assets/agreementPage/checked.png")
+                                : Image.asset(
+                                    "./assets/agreementPage/unchecked.png")),
+                      ),
+                      Container(
+                        width: 1100 / screenWidth,
+                        margin:
+                            EdgeInsets.only(left: 34 / screenWidth, right: 0),
+                        child: // [필수] 이용약관 동의
+                            InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => announce()),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("[필수] 개인정보처리방침 동의",
+                                  style: TextStyle(
+                                      color: const Color(0xff666666),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 62.5 / screenWidth),
+                                  textAlign: TextAlign.left),
+                              Container(
+                                height: 74 / screenHeight,
+                                margin:
+                                    EdgeInsets.only(right: 20 / screenWidth),
+                                child: Image.asset(
+                                    "./assets/agreementPage/next.png"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
-        );
-      } else {
-        return SafeArea(
-          child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(180 / screenHeight),
-              child: AppBar(
-                backgroundColor: Color(0xffff7292),
-                centerTitle: true,
-                // iconTheme: IconThemeData(
-                //   color: Color(0xffff7292), //change your color here
-                // ),
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back_ios, color: Color(0xffffffff)),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                title: Text("약관동의",
-                    style: TextStyle(
-                        color: Color(0xffffffff),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "NotoSansCJKkr_Bold",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 73 / screenWidth),
-                    textAlign: TextAlign.left),
+                  Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                check4 = !check4;
+                              });
+                            },
+                            child: check4
+                                ? Image.asset(
+                                    "./assets/agreementPage/checked.png")
+                                : Image.asset(
+                                    "./assets/agreementPage/unchecked.png")),
+                      ),
+                      Container(
+                        width: 1100 / screenWidth,
+                        margin: EdgeInsets.only(
+                          left: 34 / screenWidth,
+                        ),
+                        child: // [필수] 이용약관 동의
+                            InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => announce()),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 1000 / screenWidth,
+                                height: 100 / screenHeight,
+                                child: Text("[필수] 위치기반서비스 이용약관 ...",
+                                    style: TextStyle(
+                                        color: const Color(0xff666666),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 62.5 / screenWidth),
+                                    textAlign: TextAlign.left),
+                              ),
+                              Container(
+                                height: 74 / screenHeight,
+                                margin:
+                                    EdgeInsets.only(right: 20 / screenWidth),
+                                child: Image.asset(
+                                    "./assets/agreementPage/next.png"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(),
-                // head
-                // Container(
-                //   height: 178 / screenHeight,
-                //   width: 1501 / screenWidth,
-                //   color: Color(0xffff7292),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: [
-                //       IconButton(
-                //         onPressed: () {
-                //           Navigator.pop(context);
-                //         },
-                //         icon: Container(
-                //           height: 76 / screenHeight,
-                //           width: 43 / screenWidth,
-                //           margin: EdgeInsets.only(left: 31 / screenWidth),
-                //           child: Image.asset("./assets/agreementPage/back.png"),
-                //         ),
-                //       ),
-                //       Container(
-                //         margin: EdgeInsets.only(left: 424 / screenWidth),
-                //         child: // 약관동의
-                //             Text("약관동의",
-                //                 style: TextStyle(
-                //                     color: const Color(0xffffffff),
-                //                     fontWeight: FontWeight.w700,
-                //                     fontFamily: "NotoSansCJKkr_Bold",
-                //                     fontStyle: FontStyle.normal,
-                //                     fontSize: 75 / screenWidth),
-                //                 textAlign: TextAlign.left),
-                //       ),
-                //     ],
-                //   ),
-                // ),
 
-                // Title
-
-                Container(
-                  margin: EdgeInsets.only(top: 441 / screenHeight),
-                  child: // 서비스 약관에 동의해주세요.
-                      Text("서비스 약관에 동의해주세요.",
-                          style: TextStyle(
-                              color: const Color(0xffff7292),
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "NotoSansCJKkr_Bold",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 78 / screenWidth),
-                          textAlign: TextAlign.left),
-                ),
-
-                // Agreement
-                Container(
-                  margin: EdgeInsets.only(top: 156 / screenHeight),
-                  width: 1296 / screenWidth,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(width: 0.1),
-                  ),
-                  child: // 모두 동의합니다.
-                      Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  check1 = check2 = check3 = check4 = !check1;
-                                });
-                              },
-                              child: check1
-                                  ? Image.asset(
-                                      "./assets/agreementPage/checked.png")
-                                  : Image.asset(
-                                      "./assets/agreementPage/unchecked.png"),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 30 / screenWidth,
-                            ),
-                            child: Text("모두 동의합니다.",
-                                style: TextStyle(
-                                    color: const Color(0xff000000),
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "NotoSansCJKkr_Bold",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 62.5 / screenWidth),
-                                textAlign: TextAlign.left),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                          thickness: 0.1, height: 0, color: Color(0xff000000)),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    check2 = !check2;
-                                  });
+            // Ok button
+            Container(
+              margin: EdgeInsets.only(top: 243 / screenHeight),
+              child: SizedBox(
+                height: 194 / screenHeight,
+                width: 1193 / screenWidth,
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  color: check1 ? const Color(0xffff7292) : Color(0xffcacaca),
+                  onPressed: () {
+                    if (!check1) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: // 이용약관에 동의하셔야 합니다.
+                              Text("이용약관에 동의하셔야 합니다.",
+                                  style: TextStyle(
+                                      color: const Color(0xff4d4d4d),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 62.5 / screenWidth),
+                                  textAlign: TextAlign.left),
+                          actions: [
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
                                 },
-                                child: check2
-                                    ? Image.asset(
-                                        "./assets/agreementPage/checked.png")
-                                    : Image.asset(
-                                        "./assets/agreementPage/unchecked.png")),
-                          ),
-                          Container(
-                            width: 1100 / screenWidth,
-                            margin: EdgeInsets.only(
-                                left: 34 / screenWidth, right: 0),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => announce()),
-                                );
-                              },
-                              child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("[필수] 이용약관 동의",
-                                      style: TextStyle(
-                                          color: const Color(0xff666666),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                                  Container(
-                                    height: 74 / screenHeight,
-                                    margin: EdgeInsets.only(
-                                        right: 20 / screenWidth),
-                                    child: Image.asset(
-                                        "./assets/agreementPage/next.png"),
-                                  ),
-                                ],
-                              ),
-                            ), // [필수] 이용약관 동의
-                          ),
-                        ],
-                      ),
-                      Divider(
-                          thickness: 0.1, height: 0, color: Color(0xff000000)),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    check3 = !check3;
-                                  });
-                                },
-                                child: check3
-                                    ? Image.asset(
-                                        "./assets/agreementPage/checked.png")
-                                    : Image.asset(
-                                        "./assets/agreementPage/unchecked.png")),
-                          ),
-                          Container(
-                            width: 1100 / screenWidth,
-                            margin: EdgeInsets.only(
-                                left: 34 / screenWidth, right: 0),
-                            child: // [필수] 이용약관 동의
-                                InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => announce()),
-                                );
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("[필수] 개인정보처리방침 동의",
-                                      style: TextStyle(
-                                          color: const Color(0xff666666),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                                  Container(
-                                    height: 74 / screenHeight,
-                                    margin: EdgeInsets.only(
-                                        right: 20 / screenWidth),
-                                    child: Image.asset(
-                                        "./assets/agreementPage/next.png"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Divider(
-                          thickness: 0.1, height: 0, color: Color(0xff000000)),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 91 / screenHeight,
-                            margin: EdgeInsets.only(
-                                left: 37 / screenWidth,
-                                top: 65 / screenHeight,
-                                bottom: 65 / screenHeight),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    check4 = !check4;
-                                  });
-                                },
-                                child: check4
-                                    ? Image.asset(
-                                        "./assets/agreementPage/checked.png")
-                                    : Image.asset(
-                                        "./assets/agreementPage/unchecked.png")),
-                          ),
-                          Container(
-                            width: 1100 / screenWidth,
-                            margin: EdgeInsets.only(
-                              left: 34 / screenWidth,
-                            ),
-                            child: // [필수] 이용약관 동의
-                                InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => announce()),
-                                );
-                              },
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: 1000 / screenWidth,
-                                    height: 100 / screenHeight,
-                                    child: Text("[필수] 위치기반서비스 이용약관 ...",
+                                child: // 확인
+                                    Text("확인",
                                         style: TextStyle(
-                                            color: const Color(0xff666666),
+                                            color: const Color(0xffff7292),
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
                                             fontSize: 62.5 / screenWidth),
-                                        textAlign: TextAlign.left),
-                                  ),
-                                  Container(
-                                    height: 74 / screenHeight,
-                                    margin: EdgeInsets.only(
-                                        right: 20 / screenWidth),
-                                    child: Image.asset(
-                                        "./assets/agreementPage/next.png"),
-                                  ),
-                                ],
+                                        textAlign: TextAlign.center))
+                          ],
+                        ),
+                      );
+                    } else {
+                      switch (loginOption) {
+                        case "kakao":
+                          _initKakaoTalkInstalled();
+                          if (_isKakaoTalkInstalled)
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => FutureBuilder(
+                                future: _loginWithTalk(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return AlertDialog(
+                                      title: Text(snapshot.data),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return AlertDialog(
+                                        title: Text(snapshot.error));
+                                  }
+                                  return Center(
+                                    child: SizedBox(
+                                        height: 200 / screenHeight,
+                                        width: 200 / screenWidth,
+                                        child: buildSpinKitThreeBounce(
+                                            80, screenWidth)),
+                                  );
+                                },
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Ok button
-                Container(
-                  margin: EdgeInsets.only(top: 243 / screenHeight),
-                  child: SizedBox(
-                    height: 194 / screenHeight,
-                    width: 1193 / screenWidth,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                      color:
-                          check1 ? const Color(0xffff7292) : Color(0xffcacaca),
-                      onPressed: () {
-                        if (!check1) {
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: // 이용약관에 동의하셔야 합니다.
-                                  Text("이용약관에 동의하셔야 합니다.",
-                                      style: TextStyle(
-                                          color: const Color(0xff4d4d4d),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "NotoSansCJKkr_Medium",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 62.5 / screenWidth),
-                                      textAlign: TextAlign.left),
-                              actions: [
-                                FlatButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: // 확인
-                                        Text("확인",
-                                            style: TextStyle(
-                                                color: const Color(0xffff7292),
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily:
-                                                    "NotoSansCJKkr_Medium",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 62.5 / screenWidth),
-                                            textAlign: TextAlign.center))
-                              ],
-                            ),
-                          );
-                        } else {
-                          switch (loginOption) {
-                            case "kakao":
-                              _initKakaoTalkInstalled();
-                              if (_isKakaoTalkInstalled)
-                                showDialog(
-                                  context: context,
-                                  builder: (ctx) => FutureBuilder(
-                                    future: _loginWithTalk(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        return AlertDialog(
-                                          title: Text(snapshot.data),
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return AlertDialog(
-                                            title: Text(snapshot.error));
-                                      }
-                                      return Center(
-                                        child: SizedBox(
-                                            height: 200 / screenHeight,
-                                            width: 200 / screenWidth,
-                                            child: buildSpinKitThreeBounce(
-                                                80, screenWidth)),
-                                      );
-                                    },
-                                  ),
-                                );
-                              else {
-                                _loginWithKakao();
-                              }
-                              break;
-                            case "naver":
-                              naverLogin();
-                              break;
-                            case "login":
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => navigationPage(
-                                        loginOption: loginOption)),
-                              );
-                              break;
-                            default:
-                              break;
+                            );
+                          else {
+                            _loginWithKakao();
                           }
-                        }
-                      },
-                      child: // 중복확인
-                          Text("OK",
-                              style: TextStyle(
-                                  color: Color(0xffffffff),
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "NotoSansCJKkr_Medium",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 62.5 / screenWidth),
-                              textAlign: TextAlign.left),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      }
-    }());
+                          break;
+                        case "naver":
+                          naverLogin();
+                          break;
+                        case "login":
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    navigationPage(loginOption: loginOption)),
+                          );
+                          break;
+                        default:
+                          break;
+                      }
+                    }
+                  },
+                  child: // 중복확인
+                      Text("OK",
+                          style: TextStyle(
+                              color: Color(0xffffffff),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "NotoSansCJKkr_Medium",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 62.5 / screenWidth),
+                          textAlign: TextAlign.left),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

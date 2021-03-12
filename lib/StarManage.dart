@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:async';
 
 class StarManage {
-  void click_star(
+  Future click_star(
       userIdloginOption,
       store_name1,
       address1,
@@ -41,12 +41,14 @@ class StarManage {
       "type": liststringdata
     };
     var response = await http.post(
-      "http://13.209.41.43/star",
+      "http://211.223.46.144:3000/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(ss),
     );
+    print("response.statusCode: ${response.statusCode}");
+    return response.statusCode;
   }
 
   getStarColor(userId, loginOption, liststringdata) async {
