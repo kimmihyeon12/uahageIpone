@@ -48,8 +48,8 @@ class StarManage {
       },
       body: jsonEncode(ss),
     );
-    print("response.statusCode: ${response.statusCode}");
-    return response.statusCode;
+    print("response.statusCode: ${response.body}");
+    return json.decode(response.body);
   }
 
   getStarColor(userId, loginOption, liststringdata) async {

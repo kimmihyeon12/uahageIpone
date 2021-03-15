@@ -69,7 +69,7 @@ class _starPageState extends State<starPage> {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
     });
-
+    print("initialized");
     super.initState();
   }
 
@@ -95,7 +95,7 @@ class _starPageState extends State<starPage> {
     //     null,
     //     star_color,
     //     liststringdata);
-    await starInsertDelete.click_star(
+    var response = await starInsertDelete.click_star(
         userId + loginOption,
         null,
         address1,
@@ -113,6 +113,7 @@ class _starPageState extends State<starPage> {
         null,
         false,
         null);
+    if (response["affectedRows"] == 1) setState(() {});
   }
 
   _showToast(screenWidth) {
@@ -352,28 +353,16 @@ class _starPageState extends State<starPage> {
                                                             170 / screenHeight,
                                                       ),
                                                       icon: Image.asset(
-                                                        // starColor[index]
-                                                        //     ?
                                                         "./assets/listPage/star_color.png",
-                                                        // :"./assets/listPage/star_grey.png",
-
                                                         height:
                                                             60 / screenHeight,
                                                       ),
                                                       onPressed: () async {
-                                                        // setState(() {
-                                                        //   starColor[index] =
-                                                        //       !starColor[index];
-                                                        // });
-
-                                                        setState(() {
-                                                          var data = snapshot
-                                                              .data[index];
-                                                          click_star(
-                                                            data.address,
-                                                          );
-                                                        });
-                                                        _showToast(screenWidth);
+                                                        var data = snapshot
+                                                            .data[index];
+                                                        click_star(
+                                                          data.address,
+                                                        );
                                                       },
                                                     ),
                                                   ],
