@@ -12,9 +12,9 @@ head
 
     }
     	div {       
-        height: 40px; 
+        height: 35px; 
         text-align: center;
-        line-height:40px;
+        line-height:35px;
 
 
 
@@ -65,7 +65,13 @@ script.
                 color: 'white',
                 textAlign: 'center',
                 fontWeight: 'bold',
-                lineHeight: '50px'
+                lineHeight: '50px',
+                margin: '0',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                -ms-transform: translate('-50%', '-50%'),
+                transform: translate('-50%', '-50%'),
 
                  
                         },
@@ -157,7 +163,7 @@ script.
                                                  image : markerImage1,
                                              });
                    markers.push(marker);
-           var content =  '<div style="0px 28px 0px 10px;\
+           var content =  '<div style="0px 28px 0px 15px;\
                  		border-radius:20px;\
                     box-shadow:0px 3px 2px #888;\
                     background-color:#f06292;  \
