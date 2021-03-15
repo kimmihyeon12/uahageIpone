@@ -340,7 +340,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 78 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[0],
                           width: 219 / screenWidth,
@@ -365,7 +365,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 180 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[1],
                           width: 169 / screenWidth,
@@ -388,7 +388,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 196 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[2],
                           width: 190 / screenWidth,
@@ -403,7 +403,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 211 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[3],
                           width: 163 / screenWidth,
@@ -427,7 +427,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 92 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[4],
                           width: 192 / screenWidth,
@@ -450,7 +450,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 206 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[5],
                           width: 151 / screenWidth,
@@ -473,7 +473,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 224 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[6],
                           width: 142 / screenWidth,
@@ -488,7 +488,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 159 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[7],
                           width: 294 / screenWidth,
@@ -512,7 +512,7 @@ class _homePageState extends State<homePage> {
                           padding: EdgeInsets.only(
                         left: 91 / screenWidth,
                       )),
-                      InkWell(
+                      GestureDetector(
                         child: Image.asset(
                           homeimage[8],
                           width: 189 / screenWidth,

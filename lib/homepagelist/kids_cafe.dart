@@ -174,7 +174,7 @@ class _kids_cafeState extends State<kids_cafe> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -202,7 +202,7 @@ class _kids_cafeState extends State<kids_cafe> {
                 Container(
                   margin: EdgeInsets.only(right: 30 / screenWidth),
                   child: toggle
-                      ? InkWell(
+                      ? GestureDetector(
                           onTap: () {
                             setState(() {
                               toggle = !toggle;
@@ -218,7 +218,7 @@ class _kids_cafeState extends State<kids_cafe> {
                             height: 133 / screenHeight,
                           ),
                         )
-                      : InkWell(
+                      : GestureDetector(
                           onTap: () {
                             setState(() {
                               toggle = !toggle;
@@ -283,154 +283,166 @@ class _kids_cafeState extends State<kids_cafe> {
                   }
                   return Card(
                     elevation: 0.3,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: kid_cafe_sublist(
-                                index: index,
-                                storename: snapshot.data[index].store_name,
-                                address: snapshot.data[index].address,
-                                phone: snapshot.data[index].phone,
-                                fare: snapshot.data[index].fare,
-                                userId: userId,
-                                loginOption: loginOption,
-                              ),
-                              duration: Duration(milliseconds: 250),
-                              reverseDuration: Duration(milliseconds: 100),
-                            ));
-                      },
-                      child: Container(
-                          padding: EdgeInsets.only(
-                            top: 30 / screenHeight,
-                            left: 26 / screenWidth,
-                            bottom: 40 / screenHeight,
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                          (() {
-                                            if (index % 2 == 0)
-                                              return listimage[0];
-                                            else
-                                              return listimage[1];
-                                          }()),
+                    child: Container(
+                        padding: EdgeInsets.only(
+                          top: 30 / screenHeight,
+                          left: 26 / screenWidth,
+                          bottom: 40 / screenHeight,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: kid_cafe_sublist(
+                                        index: index,
+                                        storename:
+                                            snapshot.data[index].store_name,
+                                        address: snapshot.data[index].address,
+                                        phone: snapshot.data[index].phone,
+                                        fare: snapshot.data[index].fare,
+                                        userId: userId,
+                                        loginOption: loginOption,
+                                      ),
+                                      duration: Duration(milliseconds: 250),
+                                      reverseDuration:
+                                          Duration(milliseconds: 100),
+                                    ));
+                              },
+                              child: Container(
+                                width: 1280 / screenWidth,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                (() {
+                                                  if (index % 2 == 0)
+                                                    return listimage[0];
+                                                  else
+                                                    return listimage[1];
+                                                }()),
+                                              ),
+                                              fit: BoxFit.fitHeight),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      height: 414 / screenHeight,
+                                      width: 414 / screenHeight,
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                      left: 53 / screenWidth,
+                                    )),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10 / screenHeight)),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 700 / screenWidth,
+                                              height: 90 / screenHeight,
+                                              child: Text(
+                                                snapshot.data[index].store_name,
+                                                style: TextStyle(
+                                                  fontSize: 56 / screenWidth,
+                                                  fontFamily:
+                                                      'NotoSansCJKkr_Medium',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        fit: BoxFit.fitHeight),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                height: 414 / screenHeight,
-                                width: 414 / screenHeight,
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(
-                                left: 53 / screenWidth,
-                              )),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10 / screenHeight)),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: 800 / screenWidth,
-                                        height: 90 / screenHeight,
-                                        child: Text(
-                                          snapshot.data[index].store_name,
-                                          style: TextStyle(
-                                            fontSize: 56 / screenWidth,
-                                            fontFamily: 'NotoSansCJKkr_Medium',
+                                        Container(
+                                          // height: 350 / screenHeight,
+                                          width: 650 / screenWidth,
+                                          child: Text(
+                                            snapshot.data[index].address,
+                                            style: TextStyle(
+                                              // fontFamily: 'NatoSans',
+                                              color: Colors.grey,
+                                              fontSize: 56 / screenWidth,
+                                              fontFamily:
+                                                  'NotoSansCJKkr_Medium',
+                                              height: 1.2,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      IconButton(
-                                        padding: EdgeInsets.all(0),
-                                        constraints: BoxConstraints(
-                                          maxWidth: 70 / screenWidth,
-                                          maxHeight: 70 / screenHeight,
-                                        ),
-                                        icon: Image.asset(
-                                          star_color_list[index] == 'null'
-                                              ? "./assets/listPage/star_grey.png"
-                                              : "./assets/listPage/star_color.png",
-                                          height: 60 / screenHeight,
-                                        ),
-                                        onPressed: loginOption == "login"
-                                            ? () {
-                                                Fluttertoast.showToast(
-                                                  msg: "  로그인 해주세요!  ",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      Colors.black45,
-                                                  textColor: Colors.white,
-                                                  fontSize: 48 / screenHeight,
-                                                );
-                                              }
-                                            : () async {
-                                                setState(() {
-                                                  store_name1 = snapshot
-                                                      .data[index].store_name;
-                                                  address1 = snapshot
-                                                      .data[index].address;
-                                                  phone1 = snapshot
-                                                      .data[index].phone;
-                                                  fare1 =
-                                                      snapshot.data[index].fare;
-
-                                                  if (star_color_list[index] ==
-                                                      'null') {
-                                                    star_color = true;
-                                                    star_color_list[index] =
-                                                        "test";
-                                                    print(
-                                                        ' star_color_list[index]');
-                                                    print(
-                                                        star_color_list[index]);
-                                                  } else {
-                                                    star_color = false;
-                                                    star_color_list[index] =
-                                                        'null';
-                                                  }
-                                                  ;
-
-                                                  click_star();
-                                                });
-                                              },
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    // height: 350 / screenHeight,
-                                    width: 650 / screenWidth,
-                                    child: Text(
-                                      snapshot.data[index].address,
-                                      style: TextStyle(
-                                        // fontFamily: 'NatoSans',
-                                        color: Colors.grey,
-                                        fontSize: 56 / screenWidth,
-                                        fontFamily: 'NotoSansCJKkr_Medium',
-                                        height: 1.2,
-                                      ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ],
-                          )),
-                    ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 30 / screenWidth,
+                                  top: 10 / screenHeight),
+
+                              //         color:Colors.yellow,
+                              child: IconButton(
+                                padding: EdgeInsets.all(0),
+                                constraints: BoxConstraints(
+                                  maxWidth: 70 / screenWidth,
+                                  maxHeight: 70 / screenHeight,
+                                ),
+                                icon: Image.asset(
+                                  star_color_list[index] == 'null'
+                                      ? "./assets/listPage/star_grey.png"
+                                      : "./assets/listPage/star_color.png",
+                                  height: 60 / screenHeight,
+                                ),
+                                onPressed: loginOption == "login"
+                                    ? () {
+                                        Fluttertoast.showToast(
+                                          msg: "  로그인 해주세요!  ",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.black45,
+                                          textColor: Colors.white,
+                                          fontSize: 48 / screenHeight,
+                                        );
+                                      }
+                                    : () async {
+                                        setState(() {
+                                          store_name1 =
+                                              snapshot.data[index].store_name;
+                                          address1 =
+                                              snapshot.data[index].address;
+                                          phone1 = snapshot.data[index].phone;
+                                          fare1 = snapshot.data[index].fare;
+
+                                          if (star_color_list[index] ==
+                                              'null') {
+                                            star_color = true;
+                                            star_color_list[index] = "test";
+                                            print(' star_color_list[index]');
+                                            print(star_color_list[index]);
+                                          } else {
+                                            star_color = false;
+                                            star_color_list[index] = 'null';
+                                          }
+                                          ;
+
+                                          click_star();
+                                        });
+                                      },
+                              ),
+                            ),
+                          ],
+                        )),
                   );
                 }),
           );

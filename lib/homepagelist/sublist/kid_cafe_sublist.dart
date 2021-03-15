@@ -322,7 +322,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                   height: 1.2),
                             ),
                           ),
-                          InkWell(
+                          GestureDetector(
                             child: Row(
                               children: [
                                 Image.asset(

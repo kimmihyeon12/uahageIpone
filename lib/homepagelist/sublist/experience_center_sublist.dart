@@ -315,7 +315,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                                   height: 1.2),
                             ),
                           ),
-                          InkWell(
+                          GestureDetector(
                             child: Row(
                               children: [
                                 Image.asset(

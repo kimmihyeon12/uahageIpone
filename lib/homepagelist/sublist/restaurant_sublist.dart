@@ -403,7 +403,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                   height: 1.2),
                             ),
                           ),
-                          InkWell(
+                          GestureDetector(
                             child: Row(
                               children: [
                                 Image.asset(

@@ -280,7 +280,7 @@ class _examination_institution_sublistState
                                   height: 1.2),
                             ),
                           ),
-                          InkWell(
+                          GestureDetector(
                             child: Row(
                               children: [
                                 Image.asset(

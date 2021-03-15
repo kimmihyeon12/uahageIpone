@@ -69,10 +69,10 @@ class _starPageState extends State<starPage> {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
     });
-    print("initialized");
     super.initState();
   }
 
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   StarManage starInsertDelete = new StarManage();
   click_star(address1) async {
     print("clickedstar: $address1");
@@ -113,7 +113,7 @@ class _starPageState extends State<starPage> {
         null,
         false,
         null);
-    if (response["affectedRows"] == 1) setState(() {});
+    if (jsonDecode(response)["affectedRows"] == 1) setState(() {});
   }
 
   _showToast(screenWidth) {
@@ -262,6 +262,7 @@ class _starPageState extends State<starPage> {
                             ],
                           )
                         : ListView.builder(
+                            key: listKey,
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, index) {
                               print(
@@ -275,150 +276,177 @@ class _starPageState extends State<starPage> {
                                       top: 30 / screenHeight,
                                       left: 26 / (1501 / ScreenWidth),
                                     ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        listClicked(snapshot, index, context);
-                                      },
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          (() {
-                                            if (index % 4 == 1) {
-                                              return Image.asset(
-                                                listimage[0],
-                                                height: 400 / screenHeight,
-                                                width: 400 / screenHeight,
-                                              );
-                                            } else if (index % 4 == 2) {
-                                              return Image.asset(
-                                                listimage[1],
-                                                height: 400 / screenHeight,
-                                                width: 400 / screenHeight,
-                                              );
-                                            } else if (index % 4 == 3) {
-                                              return Image.asset(
-                                                listimage[2],
-                                                height: 400 / screenHeight,
-                                                width: 400 / screenHeight,
-                                              );
-                                            } else {
-                                              return Image.asset(
-                                                listimage[3],
-                                                height: 400 / screenHeight,
-                                                width: 400 / screenHeight,
-                                              );
-                                            }
-                                          }()),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                            left: 53 / screenWidth,
-                                          )),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                  padding: EdgeInsets.only(
-                                                top: 10 / screenHeight,
-                                              )),
-                                              Container(
-                                                height: 80 / screenHeight,
-                                                child: Row(
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            listClicked(
+                                                snapshot, index, context);
+                                          },
+                                          child: Container(
+                                            width: 1280 / screenWidth,
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                (() {
+                                                  if (index % 4 == 1) {
+                                                    return Image.asset(
+                                                      listimage[0],
+                                                      height:
+                                                          400 / screenHeight,
+                                                      width: 400 / screenHeight,
+                                                    );
+                                                  } else if (index % 4 == 2) {
+                                                    return Image.asset(
+                                                      listimage[1],
+                                                      height:
+                                                          400 / screenHeight,
+                                                      width: 400 / screenHeight,
+                                                    );
+                                                  } else if (index % 4 == 3) {
+                                                    return Image.asset(
+                                                      listimage[2],
+                                                      height:
+                                                          400 / screenHeight,
+                                                      width: 400 / screenHeight,
+                                                    );
+                                                  } else {
+                                                    return Image.asset(
+                                                      listimage[3],
+                                                      height:
+                                                          400 / screenHeight,
+                                                      width: 400 / screenHeight,
+                                                    );
+                                                  }
+                                                }()),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                  left: 53 / screenWidth,
+                                                )),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                      top: 10 / screenHeight,
+                                                    )),
                                                     Container(
-                                                      width: 800 / screenWidth,
                                                       height: 80 / screenHeight,
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            width: 700 /
+                                                                screenWidth,
+                                                            height: 80 /
+                                                                screenHeight,
+                                                            child: Text(
+                                                              snapshot
+                                                                  .data[index]
+                                                                  .store_name,
+                                                              style: TextStyle(
+                                                                fontSize: 56 /
+                                                                    screenWidth,
+                                                                fontFamily:
+                                                                    'NotoSansCJKkr_Medium',
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 10 /
+                                                              screenHeight),
+                                                      width: 650 / screenWidth,
+                                                      height:
+                                                          142 / screenHeight,
                                                       child: Text(
                                                         snapshot.data[index]
-                                                            .store_name,
+                                                            .address,
                                                         style: TextStyle(
+                                                          // fontFamily: 'NatoSans',
+                                                          color: Colors.grey,
                                                           fontSize:
-                                                              56 / screenWidth,
+                                                              55 / screenWidth,
                                                           fontFamily:
                                                               'NotoSansCJKkr_Medium',
+                                                          height: 1.2,
                                                         ),
                                                       ),
                                                     ),
-                                                    IconButton(
+                                                    Container(
+                                                      height:
+                                                          140 / screenHeight,
+                                                      //  width: 650 / screenWidth,
                                                       alignment:
-                                                          Alignment.centerRight,
-                                                      padding:
-                                                          EdgeInsets.all(0),
-                                                      constraints:
-                                                          BoxConstraints(
-                                                        maxWidth:
-                                                            170 / screenWidth,
-                                                        maxHeight:
-                                                            170 / screenHeight,
+                                                          Alignment.bottomRight,
+                                                      child: Row(
+                                                        children: [
+                                                          chair(snapshot
+                                                              .data[index]
+                                                              .chair),
+                                                          carriage(snapshot
+                                                              .data[index]
+                                                              .carriage),
+                                                          menu(snapshot
+                                                              .data[index]
+                                                              .menu),
+                                                          bed(snapshot
+                                                              .data[index].bed),
+                                                          tableware(snapshot
+                                                              .data[index]
+                                                              .tableware),
+                                                          meetingroom(snapshot
+                                                              .data[index]
+                                                              .meetingroom),
+                                                          diapers(snapshot
+                                                              .data[index]
+                                                              .diapers),
+                                                          playroom(snapshot
+                                                              .data[index]
+                                                              .playroom),
+                                                          nursingroom(snapshot
+                                                              .data[index]
+                                                              .nursingroom),
+                                                        ],
                                                       ),
-                                                      icon: Image.asset(
-                                                        "./assets/listPage/star_color.png",
-                                                        height:
-                                                            60 / screenHeight,
-                                                      ),
-                                                      onPressed: () async {
-                                                        var data = snapshot
-                                                            .data[index];
-                                                        click_star(
-                                                          data.address,
-                                                        );
-                                                      },
-                                                    ),
+                                                    )
                                                   ],
                                                 ),
-                                              ),
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                    top: 10 / screenHeight),
-                                                width: 650 / screenWidth,
-                                                height: 142 / screenHeight,
-                                                child: Text(
-                                                  snapshot.data[index].address,
-                                                  style: TextStyle(
-                                                    // fontFamily: 'NatoSans',
-                                                    color: Colors.grey,
-                                                    fontSize: 55 / screenWidth,
-                                                    fontFamily:
-                                                        'NotoSansCJKkr_Medium',
-                                                    height: 1.2,
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 140 / screenHeight,
-                                                //  width: 650 / screenWidth,
-                                                alignment:
-                                                    Alignment.bottomRight,
-                                                child: Row(
-                                                  children: [
-                                                    chair(snapshot
-                                                        .data[index].chair),
-                                                    carriage(snapshot
-                                                        .data[index].carriage),
-                                                    menu(snapshot
-                                                        .data[index].menu),
-                                                    bed(snapshot
-                                                        .data[index].bed),
-                                                    tableware(snapshot
-                                                        .data[index].tableware),
-                                                    meetingroom(snapshot
-                                                        .data[index]
-                                                        .meetingroom),
-                                                    diapers(snapshot
-                                                        .data[index].diapers),
-                                                    playroom(snapshot
-                                                        .data[index].playroom),
-                                                    nursingroom(snapshot
-                                                        .data[index]
-                                                        .nursingroom),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              left: 20 / screenWidth,
+                                              top: 10 / screenHeight),
+                                          child: IconButton(
+                                            alignment: Alignment.centerRight,
+                                            padding: EdgeInsets.all(0),
+                                            constraints: BoxConstraints(
+                                              maxWidth: 170 / screenWidth,
+                                              maxHeight: 170 / screenHeight,
+                                            ),
+                                            icon: Image.asset(
+                                              "./assets/listPage/star_color.png",
+                                              height: 60 / screenHeight,
+                                            ),
+                                            onPressed: () async {
+                                              var data = snapshot.data[index];
+                                              await click_star(
+                                                data.address,
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      ],
                                     )),
                               );
                             });

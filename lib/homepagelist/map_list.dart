@@ -252,7 +252,7 @@ class _map_listState extends State<map_list> {
               ],
             ),
             listrequest == "restaurant"
-                ? InkWell(
+                ? GestureDetector(
                     onTap: () async {
                       setState(() {
                         grey_image = [
@@ -283,7 +283,7 @@ class _map_listState extends State<map_list> {
               children: [
                 Align(
                   alignment: Alignment.bottomLeft,
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: () async {
                       //     uadate_location();
                       lacations();
@@ -383,7 +383,7 @@ class _map_listState extends State<map_list> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap: () {
                           Navigator.push(context, () {
                             if (Message[14] == 'restaurant') {
@@ -630,7 +630,7 @@ class _map_listState extends State<map_list> {
                                 return Scaffold(
                                   backgroundColor: Colors.white,
                                   body: Center(
-                                    child: InkWell(
+                                    child: GestureDetector(
                                       onTap: () {
                                         setState(() {
                                           grey_image[index] =
