@@ -42,7 +42,7 @@ class StarManage {
     };
     print("keldi: $ss");
     var response = await http.post(
-      "http://211.223.46.144:3000/star",
+      "http://13.209.41.43/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
