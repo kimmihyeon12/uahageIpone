@@ -108,9 +108,7 @@ class _navigationPageState extends State<navigationPage> {
       },
       child: SafeArea(
           child: Scaffold(
-              body: _selectedTabIndex == 2
-                  ? starPage(userId: userId, loginOption: loginOption)
-                  : Stack(
+              body: Stack(
                       children: [
                         IndexedStack(
                           index: _selectedTabIndex,

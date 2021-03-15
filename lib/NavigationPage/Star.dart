@@ -48,7 +48,7 @@ class _starPageState extends State<starPage> {
     "./assets/listPage/nursingroom.png",
     "./assets/listPage/chair.png",
   ];
-  List<bool> arr = List(500);
+  List<bool> arr = [];
   var list = true;
   int _currentMax = 0;
   ScrollController _scrollController = ScrollController();
@@ -69,66 +69,50 @@ class _starPageState extends State<starPage> {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
     });
-    myFuture = _getstar();
 
     super.initState();
   }
 
   StarManage starInsertDelete = new StarManage();
-  click_star(
-      store_name1,
-      address1,
-      phone1,
-      menu1,
-      bed1,
-      tableware1,
-      meetingroom1,
-      diapers1,
-      playroom1,
-      carriage1,
-      nursingroom1,
-      chair1,
-      star_color,
-      liststringdata) async {
+  click_star(address1) async {
     print("clickedstar: $address1");
 
+    // await starInsertDelete.click_star(
+    //     userId + loginOption,
+    //     store_name1,
+    //     address1,
+    //     phone1,
+    //     menu1,
+    //     bed1,
+    //     tableware1,
+    //     meetingroom1,
+    //     diapers1,
+    //     playroom1,
+    //     carriage1,
+    //     nursingroom1,
+    //     chair1,
+    //     null,
+    //     null,
+    //     star_color,
+    //     liststringdata);
     await starInsertDelete.click_star(
         userId + loginOption,
-        store_name1,
+        null,
         address1,
-        phone1,
-        menu1,
-        bed1,
-        tableware1,
-        meetingroom1,
-        diapers1,
-        playroom1,
-        carriage1,
-        nursingroom1,
-        chair1,
         null,
         null,
-        star_color,
-        liststringdata);
-    // var statusCode = await starInsertDelete.click_star(
-    //     userId + loginOption,
-    //     null,
-    //     address1,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     null,
-    //     false,
-    //     null);
-    // print("status: $statusCode");
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        false,
+        null);
   }
 
   _showToast(screenWidth) {
@@ -163,7 +147,7 @@ class _starPageState extends State<starPage> {
 
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
-  List<bool> starColor = [];
+  // List<bool> starColor = [];
   @override
   Widget build(BuildContext context) {
     var ScreenHeight = MediaQuery.of(context).size.height;
@@ -186,17 +170,18 @@ class _starPageState extends State<starPage> {
         backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
-            centerTitle: true,
-            title: Text(
-              "즐겨찾기",
-              style: TextStyle(
-                fontSize: 73 / screenWidth,
-                fontFamily: 'NotoSansCJKkr_Bold',
-                letterSpacing: 0,
-                color: Colors.white,
+          child: Container(
+            color: Color.fromRGBO(255, 114, 148, 1.0),
+            height: 178 / screenHeight,
+            child: Center(
+              child: Text(
+                "즐겨찾기",
+                style: TextStyle(
+                  fontSize: 73 / screenWidth,
+                  fontFamily: 'NotoSansCJKkr_Bold',
+                  letterSpacing: 0,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -224,26 +209,16 @@ class _starPageState extends State<starPage> {
             Expanded(
               flex: 1,
               child: FutureBuilder(
-                future: myFuture,
+                future: _getstar(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
+                  if (snapshot.hasError) {
                     return Center(
-                      child: SizedBox(
-                          width: 60,
-                          height: 60,
-                          child:
-                              // CircularProgressIndicator(
-                              //   strokeWidth: 5.0,
-                              //   valueColor: new AlwaysStoppedAnimation<Color>(
-                              //     Colors.pinkAccent,
-                              //   ),
-                              // ),
-                              buildSpinKitThreeBounce(100, screenWidth)),
+                      child: Text(snapshot.error),
                     );
-                  } else {
+                  } else if (snapshot.hasData) {
                     print("snapshot length " + snapshot.data.length.toString());
                     // print(snapshot.data[0].type.toString());
-                    print("startColor: $starColor");
+                    // print("startColor: $starColor");
                     return snapshot.data.length == 0
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -286,10 +261,10 @@ class _starPageState extends State<starPage> {
                             ],
                           )
                         : ListView.builder(
-                            itemCount: starColor.length,
-                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
                             itemBuilder: (context, index) {
-                              print('snapshot.data.length');
+                              print(
+                                  'snapshot.data.length: ${snapshot.data.length}');
                               // print("startColor: $starColor");
                               return Card(
                                 elevation: 0.3,
@@ -311,22 +286,26 @@ class _starPageState extends State<starPage> {
                                             if (index % 4 == 1) {
                                               return Image.asset(
                                                 listimage[0],
-                                                height: 414 / screenHeight,
+                                                height: 400 / screenHeight,
+                                                width: 400 / screenHeight,
                                               );
                                             } else if (index % 4 == 2) {
                                               return Image.asset(
                                                 listimage[1],
-                                                height: 414 / screenHeight,
+                                                height: 400 / screenHeight,
+                                                width: 400 / screenHeight,
                                               );
                                             } else if (index % 4 == 3) {
                                               return Image.asset(
                                                 listimage[2],
-                                                height: 414 / screenHeight,
+                                                height: 400 / screenHeight,
+                                                width: 400 / screenHeight,
                                               );
                                             } else {
                                               return Image.asset(
                                                 listimage[3],
-                                                height: 414 / screenHeight,
+                                                height: 400 / screenHeight,
+                                                width: 400 / screenHeight,
                                               );
                                             }
                                           }()),
@@ -354,7 +333,7 @@ class _starPageState extends State<starPage> {
                                                             .store_name,
                                                         style: TextStyle(
                                                           fontSize:
-                                                              58 / screenWidth,
+                                                              56 / screenWidth,
                                                           fontFamily:
                                                               'NotoSansCJKkr_Medium',
                                                         ),
@@ -373,37 +352,27 @@ class _starPageState extends State<starPage> {
                                                             170 / screenHeight,
                                                       ),
                                                       icon: Image.asset(
-                                                        starColor[index]
-                                                            ? "./assets/listPage/star_color.png"
-                                                            : "./assets/listPage/star_grey.png",
+                                                        // starColor[index]
+                                                        //     ?
+                                                        "./assets/listPage/star_color.png",
+                                                        // :"./assets/listPage/star_grey.png",
+
                                                         height:
                                                             60 / screenHeight,
                                                       ),
                                                       onPressed: () async {
-                                                        setState(() {
-                                                          starColor[index] =
-                                                              !starColor[index];
-                                                        });
+                                                        // setState(() {
+                                                        //   starColor[index] =
+                                                        //       !starColor[index];
+                                                        // });
                                                         var data = snapshot
                                                             .data[index];
-
-                                                        await click_star(
-                                                            data.store_name,
+                                                        setState(() {
+                                                          click_star(
                                                             data.address,
-                                                            data.phone,
-                                                            data.menu,
-                                                            data.bed,
-                                                            data.tableware,
-                                                            data.meetingroom,
-                                                            data.diapers,
-                                                            data.playroom,
-                                                            data.carriage,
-                                                            data.nursingroom,
-                                                            data.chair,
-                                                            starColor[index],
-                                                            "restaurant");
-
-                                                        // _showToast(screenWidth);
+                                                          );
+                                                        });
+                                                        _showToast(screenWidth);
                                                       },
                                                     ),
                                                   ],
@@ -411,7 +380,7 @@ class _starPageState extends State<starPage> {
                                               ),
                                               Container(
                                                 margin: EdgeInsets.only(
-                                                    top: 30 / screenHeight),
+                                                    top: 10 / screenHeight),
                                                 width: 650 / screenWidth,
                                                 height: 142 / screenHeight,
                                                 child: Text(
@@ -464,6 +433,19 @@ class _starPageState extends State<starPage> {
                               );
                             });
                   }
+                  return Center(
+                    child: SizedBox(
+                        width: 60,
+                        height: 60,
+                        child:
+                            // CircularProgressIndicator(
+                            //   strokeWidth: 5.0,
+                            //   valueColor: new AlwaysStoppedAnimation<Color>(
+                            //     Colors.pinkAccent,
+                            //   ),
+                            // ),
+                            buildSpinKitThreeBounce(100, screenWidth)),
+                  );
                 },
               ),
             ),
@@ -554,6 +536,7 @@ class _starPageState extends State<starPage> {
   Future _getstar() async {
     print("called function");
     var star_list1 = [];
+    // starColor = [];
     var data = await http
         .get('http://13.209.41.43/starlist?user_id=$userId$loginOption');
 
@@ -578,7 +561,7 @@ class _starPageState extends State<starPage> {
           r["type"]);
 
       star_list1.add(star_list);
-      starColor.add(true);
+      // starColor.add(true);
     }
 
     return star_list1;

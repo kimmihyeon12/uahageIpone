@@ -388,7 +388,7 @@ class _restaurantState extends State<restaurant> {
                                   children: [
                                     Container(
                                       width: 800 / screenWidth,
-                                      height: 100 / screenHeight,
+                                      height: 90 / screenHeight,
                                       child: Text(
                                         snapshot.data[index].store_name,
                                         style: TextStyle(
@@ -472,14 +472,14 @@ class _restaurantState extends State<restaurant> {
                                 ),
 
                                 Container(
-                                  height: 141 / screenHeight,
+                                  height: 130 / screenHeight,
                                   width: 650 / screenWidth,
                                   child: Text(
                                     snapshot.data[index].address,
                                     style: TextStyle(
                                       // fontFamily: 'NatoSans',
                                       color: Colors.grey,
-                                      fontSize: 55 / screenWidth,
+                                      fontSize: 56 / screenWidth,
                                       fontFamily: 'NotoSansCJKkr_Medium',
                                       height: 1.2,
                                     ),

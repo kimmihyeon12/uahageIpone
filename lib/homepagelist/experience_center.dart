@@ -342,11 +342,11 @@ class _experience_centerState extends State<experience_center> {
                                   children: [
                                     Container(
                                       width: 800 / screenWidth,
-                                      height: 100 / screenHeight,
+                                      height: 90 / screenHeight,
                                       child: Text(
                                         snapshot.data[index].store_name,
                                         style: TextStyle(
-                                          fontSize: 50 / screenWidth,
+                                          fontSize: 56 / screenWidth,
                                           fontFamily: 'NotoSansCJKkr_Medium',
                                         ),
                                       ),
@@ -415,7 +415,7 @@ class _experience_centerState extends State<experience_center> {
                                     style: TextStyle(
                                       // fontFamily: 'NatoSans',
                                       color: Colors.grey,
-                                      fontSize: 50 / screenWidth,
+                                      fontSize: 56 / screenWidth,
                                       fontFamily: 'NotoSansCJKkr_Medium',
                                       height: 1.2,
                                     ),

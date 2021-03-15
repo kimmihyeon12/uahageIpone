@@ -148,21 +148,23 @@ class _homePageState extends State<homePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
-            centerTitle: true,
-            title: Text(
-              "우아하게",
-              style: TextStyle(
-                fontSize: 73 / screenWidth,
-                fontFamily: 'NotoSansCJKkr_Bold',
-                letterSpacing: 0,
-                color: Colors.white,
+          preferredSize: Size.fromHeight(178 / screenHeight),
+          child: Container(
+            color: Color.fromRGBO(255, 114, 148, 1.0),
+            height: 178 / screenHeight,
+            child: Center(
+              child: Text(
+                "우아하게",
+                style: TextStyle(
+                  fontSize: 73 / screenWidth,
+                  fontFamily: 'NotoSansCJKkr_Bold',
+                  letterSpacing: 0,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
+          // ),
         ),
         body: SingleChildScrollView(
           child: Column(

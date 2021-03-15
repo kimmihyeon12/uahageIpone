@@ -14,13 +14,15 @@ style.
       font-weight:bold;
       color: white;
       margin: 7px 15px 0px 10px;
+      height : 100%;
 
     }
-    	div {       
+    	div {    
+    
+        height: 40px; 
         text-align: center;
-      
-        height: 30px;
-        margin: -2px -4px auto;
+        line-height:40px;
+       
 
 
 
@@ -74,11 +76,11 @@ script.
                 background: '-webkit-linear-gradient(to right,#ff6e7f, #f06292)',  /* Chrome 10-25, Safari 5.1-6 */
                 background:' linear-gradient(to right, #ff6e7f, #f06292)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
                 opacity: '0.7',
-                borderRadius: '25px',
+                borderRadius: '50%',
                 color: 'white',
                 textAlign: 'center',
                 fontWeight: 'bold',
-                lineHeight: '51px'
+                lineHeight: '50px'
 
                  
                         },
@@ -130,7 +132,7 @@ script.
                       distance = calcDist(lat,lon,data[i].lon,data[i].lat);
                       //- console.log(distance);
                        
-                      if(distance<500){
+                      if(true){
                      displayMarker(coords,data[i].store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair,Examination_item,fare);
                       }
                       
@@ -169,7 +171,7 @@ script.
                                              });
             markers.push(marker);
          
-            var content =  '<div style="padding: 3px 28px 3px 15px; \
+            var content =  '<div style="padding: 0px 28px 0px 10px; \
                  		border-radius:20px;\
                     box-shadow:0px 3px 2px #888;\
                     background-color:#f06292;  \

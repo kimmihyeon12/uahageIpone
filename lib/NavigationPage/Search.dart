@@ -133,11 +133,11 @@ class _searchPageState extends State<searchPage> {
   }
 
   Future checkStar() async {
-    print("start checking");
+    print("start checking: message ${Message[0]}");
     var response;
     try {
       response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+          "http://211.223.46.144:3000/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
       print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
