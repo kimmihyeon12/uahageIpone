@@ -365,9 +365,10 @@ class _starPageState extends State<starPage> {
                                                         //   starColor[index] =
                                                         //       !starColor[index];
                                                         // });
-                                                        var data = snapshot
-                                                            .data[index];
+
                                                         setState(() {
+                                                          var data = snapshot
+                                                              .data[index];
                                                           click_star(
                                                             data.address,
                                                           );
