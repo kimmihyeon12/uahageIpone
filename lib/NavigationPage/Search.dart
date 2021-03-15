@@ -608,7 +608,7 @@ class _searchPageState extends State<searchPage> {
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
                                               fontSize: 58 / screenWidth,
-                                              height: 0.8,
+                                              height: 1.2,
                                             ),
                                             textAlign: TextAlign.left),
                                       ),

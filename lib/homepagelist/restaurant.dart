@@ -84,6 +84,7 @@ class _restaurantState extends State<restaurant> {
   ScrollController _scrollController = ScrollController();
   bool _isLoading;
   List<Restaurant> restaurants;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -207,6 +208,7 @@ class _restaurantState extends State<restaurant> {
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.white,
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -472,7 +474,7 @@ class _restaurantState extends State<restaurant> {
                                 ),
 
                                 Container(
-                                  height: 135 / screenHeight,
+                                  height: 137 / screenHeight,
                                   width: 650 / screenWidth,
                                   child: Text(
                                     snapshot.data[index].address,
