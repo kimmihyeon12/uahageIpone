@@ -472,7 +472,7 @@ class _restaurantState extends State<restaurant> {
                                 ),
 
                                 Container(
-                                  height: 130 / screenHeight,
+                                  height: 135 / screenHeight,
                                   width: 650 / screenWidth,
                                   child: Text(
                                     snapshot.data[index].address,
