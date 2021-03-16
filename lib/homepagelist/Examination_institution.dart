@@ -268,186 +268,192 @@ class _examination_institutionState extends State<examination_institution> {
         } else if (snapshot.hasData &&
             snapshot.data != null &&
             star_color_list.length != 0) {
-          return ListView.builder(
-              controller: _scrollController,
-              itemCount: examination_institutions?.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  elevation: 0.3,
-                  child: Container(
-                      // height: 500 / screenHeight,
-                      padding: EdgeInsets.only(
-                        top: 30 / screenHeight,
-                        left: 26 / screenWidth,
-                        bottom: 40 / screenHeight,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    child: examination_institution_sublist(
-                                      index: index,
-                                      storename:
-                                          snapshot.data[index].store_name,
-                                      address: snapshot.data[index].address,
-                                      phone: snapshot.data[index].phone,
-                                      examinationitem:
-                                          snapshot.data[index].Examination_item,
-                                      userId: userId,
-                                      loginOption: loginOption,
+          return Scrollbar(
+            child: ListView.builder(
+                controller: _scrollController,
+                itemCount: examination_institutions?.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 0.3,
+                    child: Container(
+                        // height: 500 / screenHeight,
+                        padding: EdgeInsets.only(
+                          top: 30 / screenHeight,
+                          left: 26 / screenWidth,
+                          bottom: 40 / screenHeight,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: examination_institution_sublist(
+                                        index: index,
+                                        storename:
+                                            snapshot.data[index].store_name,
+                                        address: snapshot.data[index].address,
+                                        phone: snapshot.data[index].phone,
+                                        examinationitem: snapshot
+                                            .data[index].Examination_item,
+                                        userId: userId,
+                                        loginOption: loginOption,
+                                      ),
+                                      duration: Duration(milliseconds: 250),
+                                      reverseDuration:
+                                          Duration(milliseconds: 100),
+                                    ));
+                              },
+                              child: Container(
+                                width: 1280 / screenWidth,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          // border: Border.all(width: 3.0),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                (() {
+                                                  if (index % 2 == 0)
+                                                    return listimage[0];
+                                                  else
+                                                    return listimage[1];
+                                                }()),
+                                              ),
+                                              fit: BoxFit.fitHeight),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      height: 414 / screenHeight,
+                                      width: 414 / screenHeight,
                                     ),
-                                    duration: Duration(milliseconds: 250),
-                                    reverseDuration:
-                                        Duration(milliseconds: 100),
-                                  ));
-                            },
-                            child: Container(
-                              width: 1280 / screenWidth,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        // border: Border.all(width: 3.0),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                              (() {
-                                                if (index % 2 == 0)
-                                                  return listimage[0];
-                                                else
-                                                  return listimage[1];
-                                              }()),
-                                            ),
-                                            fit: BoxFit.fitHeight),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
-                                    height: 414 / screenHeight,
-                                    width: 414 / screenHeight,
-                                  ),
-                                  // (() {
-                                  //   if (index % 2 == 0) {
-                                  //     return Image.asset(
-                                  //       listimage[0],
-                                  //       height: 414 / screenHeight,
-                                  //     );
-                                  //   } else {
-                                  //     return Image.asset(
-                                  //       listimage[1],
-                                  //       height: 414 / screenHeight,
-                                  //     );
-                                  //   }
-                                  // }()),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                    left: 53 / screenWidth,
-                                  )),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 10 / screenHeight)),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 700 / screenWidth,
-                                            height: 90 / screenHeight,
-                                            child: Text(
-                                              snapshot.data[index].store_name,
-                                              style: TextStyle(
-                                                fontSize: 56 / screenWidth,
-                                                fontFamily:
-                                                    'NotoSansCJKkr_Medium',
+                                    // (() {
+                                    //   if (index % 2 == 0) {
+                                    //     return Image.asset(
+                                    //       listimage[0],
+                                    //       height: 414 / screenHeight,
+                                    //     );
+                                    //   } else {
+                                    //     return Image.asset(
+                                    //       listimage[1],
+                                    //       height: 414 / screenHeight,
+                                    //     );
+                                    //   }
+                                    // }()),
+                                    Padding(
+                                        padding: EdgeInsets.only(
+                                      left: 53 / screenWidth,
+                                    )),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10 / screenHeight)),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 700 / screenWidth,
+                                              height: 90 / screenHeight,
+                                              child: Text(
+                                                snapshot.data[index].store_name,
+                                                style: TextStyle(
+                                                  fontSize: 56 / screenWidth,
+                                                  fontFamily:
+                                                      'NotoSansCJKkr_Medium',
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        // height: 350 / screenHeight,
-                                        width: 650 / screenWidth,
-                                        child: Text(
-                                          snapshot.data[index].address,
-                                          style: TextStyle(
-                                            // fontFamily: 'NatoSans',
-                                            color: Colors.grey,
-                                            fontSize: 56 / screenWidth,
-                                            fontFamily: 'NotoSansCJKkr_Medium',
-                                            height: 1.2,
+                                          ],
+                                        ),
+                                        Container(
+                                          // height: 350 / screenHeight,
+                                          width: 650 / screenWidth,
+                                          child: Text(
+                                            snapshot.data[index].address,
+                                            style: TextStyle(
+                                              // fontFamily: 'NatoSans',
+                                              color: Colors.grey,
+                                              fontSize: 56 / screenWidth,
+                                              fontFamily:
+                                                  'NotoSansCJKkr_Medium',
+                                              height: 1.2,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: 30 / screenWidth, top: 10 / screenHeight),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: 30 / screenWidth,
+                                  top: 10 / screenHeight),
 
-                            //         color:Colors.yellow,
-                            child: IconButton(
-                              padding: EdgeInsets.all(0),
-                              constraints: BoxConstraints(
-                                maxWidth: 70 / screenWidth,
-                                maxHeight: 70 / screenHeight,
+                              //         color:Colors.yellow,
+                              child: IconButton(
+                                padding: EdgeInsets.all(0),
+                                constraints: BoxConstraints(
+                                  maxWidth: 70 / screenWidth,
+                                  maxHeight: 70 / screenHeight,
+                                ),
+                                icon: Image.asset(
+                                  star_color_list[index] == 'null'
+                                      ? "./assets/listPage/star_grey.png"
+                                      : "./assets/listPage/star_color.png",
+                                  height: 60 / screenHeight,
+                                ),
+                                onPressed: loginOption == "login"
+                                    ? () {
+                                        Fluttertoast.showToast(
+                                          msg: "  로그인 해주세요!  ",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.black45,
+                                          textColor: Colors.white,
+                                          fontSize: 48 / screenWidth,
+                                        );
+                                      }
+                                    : () async {
+                                        setState(() {
+                                          store_name1 =
+                                              snapshot.data[index].store_name;
+                                          address1 =
+                                              snapshot.data[index].address;
+                                          phone1 = snapshot.data[index].phone;
+                                          Examination_item1 = snapshot
+                                              .data[index].Examination_item;
+
+                                          if (star_color_list[index] ==
+                                              'null') {
+                                            star_color = true;
+                                            star_color_list[index] = "test";
+                                            print(' star_color_list[index]');
+                                            print(star_color_list[index]);
+                                          } else {
+                                            star_color = false;
+                                            star_color_list[index] = 'null';
+                                          }
+
+                                          click_star();
+                                        });
+                                      },
                               ),
-                              icon: Image.asset(
-                                star_color_list[index] == 'null'
-                                    ? "./assets/listPage/star_grey.png"
-                                    : "./assets/listPage/star_color.png",
-                                height: 60 / screenHeight,
-                              ),
-                              onPressed: loginOption == "login"
-                                  ? () {
-                                      Fluttertoast.showToast(
-                                        msg: "  로그인 해주세요!  ",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.black45,
-                                        textColor: Colors.white,
-                                        fontSize: 48 / screenWidth,
-                                      );
-                                    }
-                                  : () async {
-                                      setState(() {
-                                        store_name1 =
-                                            snapshot.data[index].store_name;
-                                        address1 = snapshot.data[index].address;
-                                        phone1 = snapshot.data[index].phone;
-                                        Examination_item1 = snapshot
-                                            .data[index].Examination_item;
-
-                                        if (star_color_list[index] == 'null') {
-                                          star_color = true;
-                                          star_color_list[index] = "test";
-                                          print(' star_color_list[index]');
-                                          print(star_color_list[index]);
-                                        } else {
-                                          star_color = false;
-                                          star_color_list[index] = 'null';
-                                        }
-
-                                        click_star();
-                                      });
-                                    },
                             ),
-                          ),
-                        ],
-                      )),
-                );
-              });
+                          ],
+                        )),
+                  );
+                }),
+          );
         } else {
           return Center(
             child: SizedBox(

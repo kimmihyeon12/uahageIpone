@@ -131,7 +131,7 @@ class _kids_cafeState extends State<kids_cafe> {
   Future<List<Kids_cafe>> _getrestaurant() async {
     String liststringdata = "Kids_cafe";
     var data = await http.get(
-        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
     //?maxCount=$_currentMax
 
     var jsonData = json.decode(data.body);
@@ -270,17 +270,6 @@ class _kids_cafeState extends State<kids_cafe> {
                 itemCount: kids_cafes?.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  if (_isLoading) {
-                    //index == snapshot.data.length
-                    print("show circular");
-                    return Center(
-                      child: SizedBox(
-                        width: 15,
-                        height: 15,
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
                   return Card(
                     elevation: 0.3,
                     child: Container(
