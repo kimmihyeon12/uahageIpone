@@ -2,7 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class announce extends StatelessWidget {
+class announce extends StatefulWidget {
+  announce({Key key, this.choice}) : super(key: key);
+  String choice;
+  @override
+  _announceState createState() => _announceState();
+}
+
+class _announceState extends State<announce> {
   bool isIOS = Platform.isIOS;
 
   @override
@@ -103,7 +110,7 @@ class announce extends StatelessWidget {
                 width: 1192 / screenHeight,
                 child: FlatButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, widget.choice);
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0)),

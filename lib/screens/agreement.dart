@@ -481,11 +481,17 @@ class _agreementPageState extends State<agreementPage> {
                         margin:
                             EdgeInsets.only(left: 34 / screenWidth, right: 0),
                         child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
+                          onTap: () async {
+                            final result = await Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => announce()),
+                                  builder: (context) => announce(
+                                        choice: "check2",
+                                      )),
                             );
+                            if (result == "check2")
+                              setState(() {
+                                check2 = true;
+                              });
                           },
                           child: Row(
                             // mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -540,11 +546,17 @@ class _agreementPageState extends State<agreementPage> {
                             EdgeInsets.only(left: 34 / screenWidth, right: 0),
                         child: // [필수] 이용약관 동의
                             InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
+                          onTap: () async {
+                            final result = await Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => announce()),
+                                  builder: (context) => announce(
+                                        choice: "check3",
+                                      )),
                             );
+                            if (result == "check3")
+                              setState(() {
+                                check3 = true;
+                              });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -599,11 +611,17 @@ class _agreementPageState extends State<agreementPage> {
                         ),
                         child: // [필수] 이용약관 동의
                             InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
+                          onTap: () async {
+                            final result = await Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => announce()),
+                                  builder: (context) => announce(
+                                        choice: "check4",
+                                      )),
                             );
+                            if (result == "check4")
+                              setState(() {
+                                check4 = true;
+                              });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

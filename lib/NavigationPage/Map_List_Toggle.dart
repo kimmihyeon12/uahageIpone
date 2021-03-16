@@ -144,34 +144,35 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
               backgroundColor: Colors.white,
               appBar: AppBar(
                 toolbarHeight: 250 / screenHeight,
-                automaticallyImplyLeading: false,
+                // automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_sharp,
+                    color: Colors.pinkAccent,
+                  ),
+                  iconSize: 100 / screenWidth,
+                  color: Colors.white,
+                  onPressed: () {
+                    // setState(() {
+                    //   searchbtn = false;
+                    //   print(searchbtn);
+                    // });
+                    Navigator.pop(context, 'Yep!');
+                  },
+                ),
                 elevation: 0,
                 title: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
                         padding: EdgeInsets.only(
                       top: 500 / screenHeight,
                     )),
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios_sharp,
-                        color: Colors.pinkAccent,
-                      ),
-                      iconSize: 100 / screenWidth,
-                      color: Colors.white,
-                      onPressed: () {
-                        // setState(() {
-                        //   searchbtn = false;
-                        //   print(searchbtn);
-                        // });
-                        Navigator.pop(context, 'Yep!');
-                      },
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                      left: 870 / screenWidth,
-                    )),
+                    // Padding(
+                    //     padding: EdgeInsets.only(
+                    //   left: 870 / screenWidth,
+                    // )),
                     GestureDetector(
                       child: Image.asset(
                         './assets/off.png',
@@ -314,7 +315,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios_sharp),
                         iconSize: 100 / screenWidth,
-                        color: Colors.white,
+                        color: Colors.pinkAccent,
                         onPressed: () {
                           setState(() {
                             searchbtn = false;
@@ -371,186 +372,179 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
             Animation<double> secondaryAnimation) {
           return StatefulBuilder(builder: (context, setState) {
             return Builder(builder: (context) {
-              return GestureDetector(
-                onPanDown: (a) {
-                  print('aha');
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.transparent,
-                  child: Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 2100 / (screenHeight),
-                            bottom: 50 / screenHeight,
-                            left: 33 / screenWidth,
-                            right: 33 / screenWidth),
-                        width: MediaQuery.of(context).size.width,
-                        child: Card(
-                          shadowColor: Colors.black54,
-                          elevation: 1,
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.rightToLeft,
-                                    child: restaurant_sublist(
-                                      index: index++,
-                                      storename: Message[0],
-                                      address: Message[1],
-                                      phone: Message[2],
-                                      menu: Message[3],
-                                      bed: Message[4],
-                                      tableware: Message[5],
-                                      meetingroom: Message[6],
-                                      diapers: Message[7],
-                                      playroom: Message[8],
-                                      carriage: Message[9],
-                                      nursingroom: Message[10],
-                                      chair: Message[11],
-                                      userId: userId,
-                                      loginOption: loginOption,
-                                    ),
-                                    duration: Duration(milliseconds: 100),
-                                    reverseDuration:
-                                        Duration(milliseconds: 100),
-                                  ));
-                            },
-                            child: Row(
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  left: 30 /
-                                      (1501 /
-                                          MediaQuery.of(context).size.width),
-                                )),
-                                Image.asset(
-                                  "./assets/listPage/clipGroup1.png",
-                                  height: 409 / screenHeight,
-                                  width: 413 / screenWidth,
+              return Stack(
+                children: [
+                  GestureDetector(
+                    onPanDown: (a) {
+                      print('aha');
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      width: MediaQuery.of(context).size.width,
+                      height: 2100 / (screenHeight),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 2100 / (screenHeight),
+                        bottom: 50 / screenHeight,
+                        left: 33 / screenWidth,
+                        right: 33 / screenWidth),
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      elevation: 1,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: restaurant_sublist(
+                                  index: index++,
+                                  storename: Message[0],
+                                  address: Message[1],
+                                  phone: Message[2],
+                                  menu: Message[3],
+                                  bed: Message[4],
+                                  tableware: Message[5],
+                                  meetingroom: Message[6],
+                                  diapers: Message[7],
+                                  playroom: Message[8],
+                                  carriage: Message[9],
+                                  nursingroom: Message[10],
+                                  chair: Message[11],
+                                  userId: userId,
+                                  loginOption: loginOption,
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  left: 53 /
-                                      (1501 /
-                                          MediaQuery.of(context).size.width),
-                                )),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: 60 / screenHeight),
-                                      width: 880 / screenWidth,
-                                      height: 82 / screenHeight,
-                                      child: Row(
-                                        //  crossAxisAlignment: CrossAxisAlignment.center,
-                                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: 680 / screenWidth,
-                                            child: Text(Message[0],
-                                                style: TextStyle(
-                                                  color:
-                                                      const Color(0xff010000),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      "NotoSansCJKkr_Bold",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 58 / screenWidth,
-                                                  height: 1.2,
-                                                ),
-                                                textAlign: TextAlign.left),
-                                          ),
-                                          IconButton(
-                                            //  iconSize: 60 / screenHeight,
-                                            padding: EdgeInsets.all(0),
-                                            icon: Image.asset(
-                                                star_color
-                                                    ? "./assets/listPage/star_color.png"
-                                                    : "./assets/listPage/star_grey.png",
-                                                height: 60 / screenHeight),
-                                            onPressed: loginOption == "login"
-                                                ? () {
-                                                    Fluttertoast.showToast(
-                                                      msg: "  로그인 해주세요!  ",
-                                                      toastLength:
-                                                          Toast.LENGTH_SHORT,
-                                                      gravity:
-                                                          ToastGravity.BOTTOM,
-                                                      timeInSecForIosWeb: 1,
-                                                      backgroundColor:
-                                                          Colors.black45,
-                                                      textColor: Colors.white,
-                                                      fontSize:
-                                                          56 / screenWidth,
-                                                    );
-                                                  }
-                                                : () async {
-                                                    setState(() {
-                                                      star_color = !star_color;
-                                                    });
-
-                                                    loginOption != "login"
-                                                        ? await click_star()
-                                                        : null;
-                                                  },
-                                          ),
-                                        ],
+                                duration: Duration(milliseconds: 100),
+                                reverseDuration: Duration(milliseconds: 100),
+                              ));
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(
+                              left: 30 /
+                                  (1501 / MediaQuery.of(context).size.width),
+                            )),
+                            Image.asset(
+                              "./assets/listPage/clipGroup1.png",
+                              height: 409 / screenHeight,
+                              width: 413 / screenWidth,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(
+                              left: 53 /
+                                  (1501 / MediaQuery.of(context).size.width),
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 60 / screenHeight),
+                                  width: 880 / screenWidth,
+                                  height: 82 / screenHeight,
+                                  child: Row(
+                                    //  crossAxisAlignment: CrossAxisAlignment.center,
+                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: 680 / screenWidth,
+                                        child: Text(
+                                            Message[0].length <= 10
+                                                ? Message[0]
+                                                : Message[0].substring(0, 11),
+                                            style: TextStyle(
+                                              color: const Color(0xff010000),
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: "NotoSansCJKkr_Bold",
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: 58 / screenWidth,
+                                              height: 1.2,
+                                            ),
+                                            // overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left),
                                       ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: 10 / screenHeight),
-                                      width: 650 / screenWidth,
-                                      height: 138 / screenHeight,
-                                      child: Text(Message[1],
-                                          style: TextStyle(
-                                            color: const Color(0xffb0b0b0),
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 55 / screenWidth,
-                                            height: 1.2,
-                                          ),
-                                          textAlign: TextAlign.left),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          top: 10 / screenHeight),
-                                      height: 120 / screenHeight,
-                                      width: 650 / screenWidth,
-                                      alignment: Alignment.bottomRight,
-                                      child: Row(children: [
-                                        menu(Message[3]),
-                                        bed(Message[4]),
-                                        tableware(Message[5]),
-                                        meetingroom(Message[6]),
-                                        diapers(Message[7]),
-                                        playroom(Message[8]),
-                                        carriage(Message[9]),
-                                        nursingroom(Message[10]),
-                                        chair(Message[11]),
-                                      ]),
-                                    ),
-                                  ],
+                                      IconButton(
+                                        //  iconSize: 60 / screenHeight,
+                                        padding: EdgeInsets.all(0),
+                                        icon: Image.asset(
+                                            star_color
+                                                ? "./assets/listPage/star_color.png"
+                                                : "./assets/listPage/star_grey.png",
+                                            height: 60 / screenHeight),
+                                        onPressed: loginOption == "login"
+                                            ? () {
+                                                Fluttertoast.showToast(
+                                                  msg: "  로그인 해주세요!  ",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.BOTTOM,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor:
+                                                      Colors.black45,
+                                                  textColor: Colors.white,
+                                                  fontSize: 56 / screenWidth,
+                                                );
+                                              }
+                                            : () async {
+                                                setState(() {
+                                                  star_color = !star_color;
+                                                });
+                                                await click_star();
+                                              },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 10 / screenHeight),
+                                  width: 650 / screenWidth,
+                                  height: 138 / screenHeight,
+                                  child: Text(Message[1],
+                                      style: TextStyle(
+                                        color: const Color(0xffb0b0b0),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 55 / screenWidth,
+                                        height: 1.2,
+                                      ),
+                                      textAlign: TextAlign.left),
+                                ),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 10 / screenHeight),
+                                  height: 120 / screenHeight,
+                                  width: 650 / screenWidth,
+                                  alignment: Alignment.bottomRight,
+                                  child: Row(children: [
+                                    menu(Message[3]),
+                                    bed(Message[4]),
+                                    tableware(Message[5]),
+                                    meetingroom(Message[6]),
+                                    diapers(Message[7]),
+                                    playroom(Message[8]),
+                                    carriage(Message[9]),
+                                    nursingroom(Message[10]),
+                                    chair(Message[11]),
+                                  ]),
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               );
             });
           });
