@@ -154,21 +154,25 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       top: 500 / screenHeight,
                     )),
                     IconButton(
-                      icon: Icon(Icons.arrow_back_ios_sharp),
+                      icon: Icon(
+                        Icons.arrow_back_ios_sharp,
+                        color: Colors.pinkAccent,
+                      ),
                       iconSize: 100 / screenWidth,
                       color: Colors.white,
                       onPressed: () {
-                        setState(() {
-                          searchbtn = false;
-                          print(searchbtn);
-                        });
+                        // setState(() {
+                        //   searchbtn = false;
+                        //   print(searchbtn);
+                        // });
+                        Navigator.pop(context, 'Yep!');
                       },
                     ),
                     Padding(
                         padding: EdgeInsets.only(
                       left: 870 / screenWidth,
                     )),
-                    InkWell(
+                    GestureDetector(
                       child: Image.asset(
                         './assets/off.png',
                         width: 290 / screenWidth,
@@ -180,7 +184,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           print(searchbtn);
                           i = 0;
                         });
-                        _onbackpressed();
                       },
                     ),
                   ],
@@ -193,7 +196,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                     // print(snapshot.data.id[index]);
                     return Card(
                       elevation: 0.3,
-                      child: InkWell(
+                      child: GestureDetector(
                         child: Container(
                             height: 400 / screenHeight,
                             padding: EdgeInsets.only(
@@ -318,6 +321,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
                             print(searchbtn);
                           });
+                          Navigator.pop(context, 'Yep!');
                         },
                       ),
                       Padding(
@@ -328,7 +332,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         future: Future.delayed(Duration(milliseconds: 550)),
                         builder: (c, s) =>
                             s.connectionState == ConnectionState.done
-                                ? InkWell(
+                                ? GestureDetector(
                                     child: Image.asset(
                                       './assets/on.png',
                                       width: 290 / screenWidth,
@@ -392,7 +396,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () {
                               Navigator.push(
                                   context,

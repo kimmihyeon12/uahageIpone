@@ -9,6 +9,7 @@ import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dar
 import 'package:page_transition/page_transition.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/StarManage.dart';
+import 'package:uahage/homepagelist/examination_institution_helper.dart';
 
 class examination_institution extends StatefulWidget {
   String loginOption;
@@ -53,8 +54,8 @@ class _examination_institutionState extends State<examination_institution> {
     "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image2.png",
   ];
 
-  Future<List<Examination_institution>> myFuture;
-  List<Examination_institution> examination_institutions = [];
+  Future<List<dynamic>> myFuture;
+  List<dynamic> examination_institutions = [];
   ScrollController _scrollController = ScrollController();
   bool _isLoading;
   @override
@@ -69,8 +70,8 @@ class _examination_institutionState extends State<examination_institution> {
     Locality = widget.Locality ?? "";
     // oldNickname = userId != "" ? getMyNickname().toString() : "";
     // });
-    _star_color();
-    myFuture = _getrestaurant();
+    get_star_color();
+    myFuture = _getexamination_institution();
 
     _scrollController.addListener(() {
       double maxScroll = _scrollController.position.maxScrollExtent;
@@ -82,7 +83,7 @@ class _examination_institutionState extends State<examination_institution> {
         print("isloading: $_isLoading");
         _currentMax += 10;
         _isLoading = true;
-        _getrestaurant();
+        _getexamination_institution();
       }
     });
     // getCurrentLocation();
@@ -111,38 +112,22 @@ class _examination_institutionState extends State<examination_institution> {
         liststringdata);
   }
 
-  Future _star_color() async {
-    var data = await http.get(
-        'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
-    var dec = jsonDecode(data.body);
-    // print(dec);
-    for (int i = 0; i < dec.length; i++) {
-      star_color_list.add(dec[i]["store_name"].toString());
-    }
+  Future get_star_color() async {
+    star_color_list = await starInsertDelete.getStarColor(
+        userId, loginOption, liststringdata);
     setState(() {});
   }
 
-  Future<List<Examination_institution>> _getrestaurant() async {
-    var data = await http.get(
+  Future<List<dynamic>> _getexamination_institution() async {
+    var response = await http.get(
         'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
-    //?maxCount=$_currentMax
-
-    var jsonData = json.decode(data.body);
-    for (var r in jsonData) {
-      Examination_institution examination_institution = Examination_institution(
-        r["id"],
-        r["store_name"],
-        r["address"],
-        r["phone"],
-        r["Examination_item"],
-      );
-
-      examination_institutions.add(examination_institution);
+    List responseJson = json.decode(response.body);
+    for (var data in responseJson) {
+      examination_institutions.add(examinationinstitution.fromJson(data));
     }
     setState(() {
       _isLoading = false;
     });
-
     return examination_institutions;
   }
 
@@ -465,15 +450,4 @@ class _examination_institutionState extends State<examination_institution> {
       },
     );
   }
-}
-
-class Examination_institution {
-  final int id;
-  final String store_name;
-  final String address;
-  final String phone;
-  final String Examination_item;
-
-  Examination_institution(this.id, this.store_name, this.address, this.phone,
-      this.Examination_item);
 }

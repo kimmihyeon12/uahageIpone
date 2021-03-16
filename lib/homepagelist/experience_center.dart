@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/StarManage.dart';
+import 'package:uahage/homepagelist/experience_center_helper.dart';
 
 class experience_center extends StatefulWidget {
   String loginOption;
@@ -64,9 +65,9 @@ class _experience_centerState extends State<experience_center> {
   // ScrollController _scrollController = ScrollController();
   bool _isLoading = false;
 
-  Future<List<Experience_center>> myFuture;
+  Future<List<dynamic>> myFuture;
+  List<dynamic> experience_centers = [];
   ScrollController _scrollController = ScrollController();
-  List<Experience_center> experience_centers = [];
 
   @override
   void initState() {
@@ -79,10 +80,9 @@ class _experience_centerState extends State<experience_center> {
     Locality = widget.Locality ?? "";
     // oldNickname = userId != "" ? getMyNickname().toString() : "";
     // });
-    _star_color();
+    get_star_color();
     _isLoading = false;
-
-    myFuture = _getrestaurant();
+    myFuture = _getexperience_center();
     _scrollController.addListener(() {
       double maxScroll = _scrollController.position.maxScrollExtent;
       double currentScroll = _scrollController.position.pixels;
@@ -93,7 +93,7 @@ class _experience_centerState extends State<experience_center> {
         print("isloading: $_isLoading");
         _currentMax += 10;
         _isLoading = true;
-        _getrestaurant();
+        _getexperience_center();
       }
     });
     // getCurrentLocation();
@@ -123,39 +123,22 @@ class _experience_centerState extends State<experience_center> {
         liststringdata);
   }
 
-  Future _star_color() async {
-    var data = await http.get(
-        'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
-    var dec = jsonDecode(data.body);
-    // print(dec);
-    for (int i = 0; i < dec.length; i++) {
-      //  print(dec[i]["store_name"].toString());
-      star_color_list.add(dec[i]["store_name"].toString());
-    }
+  Future get_star_color() async {
+    star_color_list = await starInsertDelete.getStarColor(
+        userId, loginOption, liststringdata);
     setState(() {});
   }
 
-  Future<List<Experience_center>> _getrestaurant() async {
-    var data = await http.get(
+  Future<List<dynamic>> _getexperience_center() async {
+    var response = await http.get(
         'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
-    //?maxCount=$_currentMax
-
-    var jsonData = json.decode(data.body);
-    for (var r in jsonData) {
-      Experience_center experience_center = Experience_center(
-        r["id"],
-        r["store_name"],
-        r["address"],
-        r["phone"],
-        r["fare"],
-      );
-
-      experience_centers.add(experience_center);
+    List responseJson = json.decode(response.body);
+    for (var data in responseJson) {
+      experience_centers.add(Experiencecenter.fromJson(data));
     }
     setState(() {
       _isLoading = false;
     });
-
     return experience_centers;
   }
 
@@ -458,15 +441,4 @@ class _experience_centerState extends State<experience_center> {
       },
     );
   }
-}
-
-class Experience_center {
-  final int id;
-  final String store_name;
-  final String address;
-  final String phone;
-  final String fare;
-
-  Experience_center(
-      this.id, this.store_name, this.address, this.phone, this.fare);
 }

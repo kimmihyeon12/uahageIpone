@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class KidsCafe {
-  KidsCafe({
+class Experiencecenter {
+  Experiencecenter({
     this.id,
     this.store_name,
     this.address,
@@ -15,7 +15,8 @@ class KidsCafe {
   String phone;
   String fare;
 
-  factory KidsCafe.fromJson(Map<String, dynamic> json) => KidsCafe(
+  factory Experiencecenter.fromJson(Map<String, dynamic> json) =>
+      Experiencecenter(
         id: json["id"],
         store_name: json["store_name"],
         address: json["address"],

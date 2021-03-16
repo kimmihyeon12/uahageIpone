@@ -208,6 +208,14 @@ class _agreementPageState extends State<agreementPage> {
   bool check2 = false;
   bool check3 = false;
   bool check4 = false;
+  List<bool> checks = [false, false, false, false];
+
+  List<String> listTile = [
+    "모두 동의합니다.",
+    "[필수] 이용약관 동의",
+    "[필수] 이용약관 동의",
+    "[필수] 이용약관 동의"
+  ];
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
 
@@ -343,264 +351,292 @@ class _agreementPageState extends State<agreementPage> {
             //     );
             //   }),
             // ),
-            Container(
-              height: 0.4 * MediaQuery.of(context).size.height,
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: StatefulBuilder(builder:
-                          (BuildContext context, StateSetter setState) {
-                        return Checkbox(
-                          value: check1,
-                          onChanged: (value) => setState(() {
-                            check1 = value;
-                            print(check1);
-                          }),
-                          activeColor: Colors.pinkAccent,
-                          checkColor: Colors.white,
-                        );
-                      }),
-                      title: Text('$index sheep'),
-                      trailing: Container(
-                          height: 74 / screenHeight,
-                          child:
-                              Image.asset("./assets/agreementPage/next.png")),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return Divider();
-                  },
-                  itemCount: 4),
-            ),
             // Container(
             //   margin: EdgeInsets.only(top: 156 / screenHeight),
             //   width: 1296 / screenWidth,
+            //   height: 837 / screenHeight,
             //   decoration: BoxDecoration(
             //     borderRadius: BorderRadius.circular(14.0),
             //     border: Border.all(width: 0.1),
             //   ),
-            //   child: // 모두 동의합니다.
-            //       Column(
-            //     children: [
-            //       Row(
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: [
-            //           Container(
-            //             height: 91 / screenHeight,
-            //             margin: EdgeInsets.only(
-            //                 left: 37 / screenWidth,
-            //                 top: 65 / screenHeight,
-            //                 bottom: 65 / screenHeight),
-            //             child: InkWell(
-            //               onTap: () {
-            //                 setState(() {
-            //                   check1 = check2 = check3 = check4 = !check1;
-            //                 });
-            //               },
-            //               child: check1
-            //                   ? Image.asset(
-            //                       "./assets/agreementPage/checked.png")
-            //                   : Image.asset(
-            //                       "./assets/agreementPage/unchecked.png"),
-            //             ),
-            //           ),
-            //           Container(
-            //             margin: EdgeInsets.only(
-            //               left: 30 / screenWidth,
-            //             ),
-            //             child: Text("모두 동의합니다.",
-            //                 style: TextStyle(
-            //                     color: const Color(0xff000000),
-            //                     fontWeight: FontWeight.w700,
-            //                     fontFamily: "NotoSansCJKkr_Bold",
-            //                     fontStyle: FontStyle.normal,
-            //                     fontSize: 62.5 / screenWidth),
-            //                 textAlign: TextAlign.left),
-            //           ),
-            //         ],
-            //       ),
-            //       Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
-            //       Row(
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: [
-            //           Container(
-            //             height: 91 / screenHeight,
-            //             margin: EdgeInsets.only(
-            //                 left: 37 / screenWidth,
-            //                 top: 65 / screenHeight,
-            //                 bottom: 65 / screenHeight),
-            //             child: InkWell(
-            //                 onTap: () {
-            //                   setState(() {
-            //                     check2 = !check2;
-            //                   });
-            //                 },
-            //                 child: check2
-            //                     ? Image.asset(
-            //                         "./assets/agreementPage/checked.png")
-            //                     : Image.asset(
-            //                         "./assets/agreementPage/unchecked.png")),
-            //           ),
-            //           Container(
-            //             width: 1100 / screenWidth,
-            //             margin:
-            //                 EdgeInsets.only(left: 34 / screenWidth, right: 0),
-            //             child: InkWell(
-            //               onTap: () {
-            //                 Navigator.of(context).push(
-            //                   MaterialPageRoute(
-            //                       builder: (context) => announce()),
-            //                 );
-            //               },
-            //               child: Row(
-            //                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                 children: [
-            //                   Text("[필수] 이용약관 동의",
-            //                       style: TextStyle(
-            //                           color: const Color(0xff666666),
-            //                           fontWeight: FontWeight.w500,
-            //                           fontFamily: "NotoSansCJKkr_Medium",
-            //                           fontStyle: FontStyle.normal,
-            //                           fontSize: 62.5 / screenWidth),
-            //                       textAlign: TextAlign.left),
-            //                   Container(
-            //                     height: 74 / screenHeight,
-            //                     margin:
-            //                         EdgeInsets.only(right: 20 / screenWidth),
-            //                     child: Image.asset(
-            //                         "./assets/agreementPage/next.png"),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ), // [필수] 이용약관 동의
-            //           ),
-            //         ],
-            //       ),
-            //       Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
-            //       Row(
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: [
-            //           Container(
-            //             height: 91 / screenHeight,
-            //             margin: EdgeInsets.only(
-            //                 left: 37 / screenWidth,
-            //                 top: 65 / screenHeight,
-            //                 bottom: 65 / screenHeight),
-            //             child: InkWell(
-            //                 onTap: () {
-            //                   setState(() {
-            //                     check3 = !check3;
-            //                   });
-            //                 },
-            //                 child: check3
-            //                     ? Image.asset(
-            //                         "./assets/agreementPage/checked.png")
-            //                     : Image.asset(
-            //                         "./assets/agreementPage/unchecked.png")),
-            //           ),
-            //           Container(
-            //             width: 1100 / screenWidth,
-            //             margin:
-            //                 EdgeInsets.only(left: 34 / screenWidth, right: 0),
-            //             child: // [필수] 이용약관 동의
-            //                 InkWell(
-            //               onTap: () {
-            //                 Navigator.of(context).push(
-            //                   MaterialPageRoute(
-            //                       builder: (context) => announce()),
-            //                 );
-            //               },
-            //               child: Row(
-            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                 children: [
-            //                   Text("[필수] 개인정보처리방침 동의",
-            //                       style: TextStyle(
-            //                           color: const Color(0xff666666),
-            //                           fontWeight: FontWeight.w500,
-            //                           fontFamily: "NotoSansCJKkr_Medium",
-            //                           fontStyle: FontStyle.normal,
-            //                           fontSize: 62.5 / screenWidth),
-            //                       textAlign: TextAlign.left),
-            //                   Container(
-            //                     height: 74 / screenHeight,
-            //                     margin:
-            //                         EdgeInsets.only(right: 20 / screenWidth),
-            //                     child: Image.asset(
-            //                         "./assets/agreementPage/next.png"),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //       Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
-            //       Row(
-            //         crossAxisAlignment: CrossAxisAlignment.center,
-            //         children: [
-            //           Container(
-            //             height: 91 / screenHeight,
-            //             margin: EdgeInsets.only(
-            //                 left: 37 / screenWidth,
-            //                 top: 65 / screenHeight,
-            //                 bottom: 65 / screenHeight),
-            //             child: InkWell(
-            //                 onTap: () {
-            //                   setState(() {
-            //                     check4 = !check4;
-            //                   });
-            //                 },
-            //                 child: check4
-            //                     ? Image.asset(
-            //                         "./assets/agreementPage/checked.png")
-            //                     : Image.asset(
-            //                         "./assets/agreementPage/unchecked.png")),
-            //           ),
-            //           Container(
-            //             width: 1100 / screenWidth,
-            //             margin: EdgeInsets.only(
-            //               left: 34 / screenWidth,
-            //             ),
-            //             child: // [필수] 이용약관 동의
-            //                 InkWell(
-            //               onTap: () {
-            //                 Navigator.of(context).push(
-            //                   MaterialPageRoute(
-            //                       builder: (context) => announce()),
-            //                 );
-            //               },
-            //               child: Row(
-            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                 children: [
-            //                   Container(
-            //                     width: 1000 / screenWidth,
-            //                     height: 100 / screenHeight,
-            //                     child: Text("[필수] 위치기반서비스 이용약관 ...",
-            //                         style: TextStyle(
-            //                             color: const Color(0xff666666),
-            //                             fontWeight: FontWeight.w500,
-            //                             fontFamily: "NotoSansCJKkr_Medium",
-            //                             fontStyle: FontStyle.normal,
-            //                             fontSize: 62.5 / screenWidth),
-            //                         textAlign: TextAlign.left),
-            //                   ),
-            //                   Container(
-            //                     height: 74 / screenHeight,
-            //                     margin:
-            //                         EdgeInsets.only(right: 20 / screenWidth),
-            //                     child: Image.asset(
-            //                         "./assets/agreementPage/next.png"),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
+            //   child: ListView.separated(
+            //       shrinkWrap: true,
+            //       itemBuilder: (context, index) {
+            //         return ListTile(
+            //           contentPadding:
+            //               EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+            //           leading: StatefulBuilder(builder:
+            //               (BuildContext context, StateSetter setState) {
+            //             return Checkbox(
+            //               value: checks[index],
+            //               onChanged: (value) => setState(() {
+            //                 checks[index] = value;
+            //               }),
+            //               activeColor: Colors.pinkAccent,
+            //               checkColor: Colors.white,
+            //             );
+            //           }),
+            //           title: index == 0
+            //               ? Text('${listTile[index]}',
+            //                   style: TextStyle(
+            //                       color: const Color(0xff000000),
+            //                       fontWeight: FontWeight.w700,
+            //                       fontFamily: "NotoSansCJKkr_Bold",
+            //                       fontStyle: FontStyle.normal,
+            //                       fontSize: 62.5 / screenWidth),
+            //                   textAlign: TextAlign.left)
+            //               : Text('${listTile[index]}',
+            //                   style: TextStyle(
+            //                       color: const Color(0xff666666),
+            //                       fontWeight: FontWeight.w500,
+            //                       fontFamily: "NotoSansCJKkr_Medium",
+            //                       fontStyle: FontStyle.normal,
+            //                       fontSize: 62.5 / screenWidth),
+            //                   textAlign: TextAlign.left),
+            //           trailing: index == 0
+            //               ? null
+            //               : Container(
+            //                   height: 74 / screenHeight,
+            //                   child: Image.asset(
+            //                       "./assets/agreementPage/next.png")),
+            //         );
+            //       },
+            //       separatorBuilder: (context, index) {
+            //         return Divider();
+            //       },
+            //       itemCount: 4),
             // ),
+
+            Container(
+              margin: EdgeInsets.only(top: 156 / screenHeight),
+              width: 1296 / screenWidth,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14.0),
+                border: Border.all(width: 0.1),
+              ),
+              child: // 모두 동의합니다.
+                  Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              check1 = check2 = check3 = check4 = !check1;
+                            });
+                          },
+                          child: check1
+                              ? Image.asset(
+                                  "./assets/agreementPage/checked.png")
+                              : Image.asset(
+                                  "./assets/agreementPage/unchecked.png"),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 30 / screenWidth,
+                        ),
+                        child: Text("모두 동의합니다.",
+                            style: TextStyle(
+                                color: const Color(0xff000000),
+                                fontWeight: FontWeight.w700,
+                                fontFamily: "NotoSansCJKkr_Bold",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 62.5 / screenWidth),
+                            textAlign: TextAlign.left),
+                      ),
+                    ],
+                  ),
+                  Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                check2 = !check2;
+                              });
+                            },
+                            child: check2
+                                ? Image.asset(
+                                    "./assets/agreementPage/checked.png")
+                                : Image.asset(
+                                    "./assets/agreementPage/unchecked.png")),
+                      ),
+                      Container(
+                        width: 1100 / screenWidth,
+                        margin:
+                            EdgeInsets.only(left: 34 / screenWidth, right: 0),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => announce()),
+                            );
+                          },
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("[필수] 이용약관 동의",
+                                  style: TextStyle(
+                                      color: const Color(0xff666666),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 62.5 / screenWidth),
+                                  textAlign: TextAlign.left),
+                              Container(
+                                height: 74 / screenHeight,
+                                margin:
+                                    EdgeInsets.only(right: 20 / screenWidth),
+                                child: Image.asset(
+                                    "./assets/agreementPage/next.png"),
+                              ),
+                            ],
+                          ),
+                        ), // [필수] 이용약관 동의
+                      ),
+                    ],
+                  ),
+                  Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                check3 = !check3;
+                              });
+                            },
+                            child: check3
+                                ? Image.asset(
+                                    "./assets/agreementPage/checked.png")
+                                : Image.asset(
+                                    "./assets/agreementPage/unchecked.png")),
+                      ),
+                      Container(
+                        width: 1100 / screenWidth,
+                        margin:
+                            EdgeInsets.only(left: 34 / screenWidth, right: 0),
+                        child: // [필수] 이용약관 동의
+                            InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => announce()),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("[필수] 개인정보처리방침 동의",
+                                  style: TextStyle(
+                                      color: const Color(0xff666666),
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 62.5 / screenWidth),
+                                  textAlign: TextAlign.left),
+                              Container(
+                                height: 74 / screenHeight,
+                                margin:
+                                    EdgeInsets.only(right: 20 / screenWidth),
+                                child: Image.asset(
+                                    "./assets/agreementPage/next.png"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Divider(thickness: 0.1, height: 0, color: Color(0xff000000)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 91 / screenHeight,
+                        margin: EdgeInsets.only(
+                            left: 37 / screenWidth,
+                            top: 65 / screenHeight,
+                            bottom: 65 / screenHeight),
+                        child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                check4 = !check4;
+                              });
+                            },
+                            child: check4
+                                ? Image.asset(
+                                    "./assets/agreementPage/checked.png")
+                                : Image.asset(
+                                    "./assets/agreementPage/unchecked.png")),
+                      ),
+                      Container(
+                        width: 1100 / screenWidth,
+                        margin: EdgeInsets.only(
+                          left: 34 / screenWidth,
+                        ),
+                        child: // [필수] 이용약관 동의
+                            InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => announce()),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 1000 / screenWidth,
+                                height: 100 / screenHeight,
+                                child: Text("[필수] 위치기반서비스 이용약관 동의",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: const Color(0xff666666),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "NotoSansCJKkr_Medium",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 62.5 / screenWidth),
+                                    textAlign: TextAlign.left),
+                              ),
+                              Container(
+                                height: 74 / screenHeight,
+                                margin:
+                                    EdgeInsets.only(right: 20 / screenWidth),
+                                child: Image.asset(
+                                    "./assets/agreementPage/next.png"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
 
             // Ok button
             Container(

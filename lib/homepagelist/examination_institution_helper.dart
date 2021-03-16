@@ -1,25 +1,26 @@
 import 'dart:convert';
 
-class KidsCafe {
-  KidsCafe({
+class examinationinstitution {
+  examinationinstitution({
     this.id,
     this.store_name,
     this.address,
     this.phone,
-    this.fare,
+    this.Examination_item,
   });
 
   int id;
   String store_name;
   String address;
   String phone;
-  String fare;
+  String Examination_item;
 
-  factory KidsCafe.fromJson(Map<String, dynamic> json) => KidsCafe(
+  factory examinationinstitution.fromJson(Map<String, dynamic> json) =>
+      examinationinstitution(
         id: json["id"],
         store_name: json["store_name"],
         address: json["address"],
         phone: json["phone"],
-        fare: json["fare"],
+        Examination_item: json["Examination_item"],
       );
 }

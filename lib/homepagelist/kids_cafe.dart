@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/StarManage.dart';
+import 'package:uahage/homepagelist/Kids_cafe_helper.dart';
 
 class kids_cafe extends StatefulWidget {
   String loginOption;
@@ -62,8 +63,8 @@ class _kids_cafeState extends State<kids_cafe> {
   String userId = "";
   String loginOption = "";
 
-  Future<List<Kids_cafe>> myFuture;
-  List<Kids_cafe> kids_cafes;
+  Future<List<dynamic>> myFuture;
+  List<dynamic> kids_cafes;
   void initState() {
     // setState(() {
     kids_cafes = [];
@@ -74,9 +75,9 @@ class _kids_cafeState extends State<kids_cafe> {
     longitude = widget.longitude;
     Area = widget.Area ?? "";
     Locality = widget.Locality ?? "";
-    _star_color();
+    get_star_color();
+    myFuture = _getkidcafe();
 
-    myFuture = _getrestaurant();
     _scrollController.addListener(() {
       double maxScroll = _scrollController.position.maxScrollExtent;
       double currentScroll = _scrollController.position.pixels;
@@ -86,7 +87,7 @@ class _kids_cafeState extends State<kids_cafe> {
         print("scrolling");
         _currentMax += 10;
         _isLoading = true;
-        _getrestaurant();
+        _getkidcafe();
       }
     });
 
@@ -116,35 +117,19 @@ class _kids_cafeState extends State<kids_cafe> {
         liststringdata);
   }
 
-  Future _star_color() async {
-    var data = await http.get(
-        'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
-    var dec = jsonDecode(data.body);
-    // print(dec);
-    for (int i = 0; i < dec.length; i++) {
-      //  print(dec[i]["store_name"].toString());
-      star_color_list.add(dec[i]["store_name"].toString());
-    }
+  Future get_star_color() async {
+    star_color_list = await starInsertDelete.getStarColor(
+        userId, loginOption, liststringdata);
     setState(() {});
   }
 
-  Future<List<Kids_cafe>> _getrestaurant() async {
+  Future<List<dynamic>> _getkidcafe() async {
     String liststringdata = "Kids_cafe";
-    var data = await http.get(
-        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
-    //?maxCount=$_currentMax
-
-    var jsonData = json.decode(data.body);
-
-    for (var r in jsonData) {
-      Kids_cafe kids_cafe = Kids_cafe(
-        r["id"],
-        r["store_name"],
-        r["address"],
-        r["phone"],
-        r["fare"],
-      );
-      kids_cafes.add(kids_cafe);
+    var response = await http.get(
+        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+    List responseJson = json.decode(response.body);
+    for (var data in responseJson) {
+      kids_cafes.add(KidsCafe.fromJson(data));
     }
     setState(() {
       _isLoading = false;
@@ -445,14 +430,4 @@ class _kids_cafeState extends State<kids_cafe> {
       },
     );
   }
-}
-
-class Kids_cafe {
-  final int id;
-  final String store_name;
-  final String address;
-  final String phone;
-  final String fare;
-
-  Kids_cafe(this.id, this.store_name, this.address, this.phone, this.fare);
 }

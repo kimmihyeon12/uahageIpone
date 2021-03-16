@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/StarManage.dart';
+import 'package:uahage/homepagelist/Restaurant_helper.dart';
 
 class restaurant extends StatefulWidget {
   String loginOption;
@@ -79,11 +80,11 @@ class _restaurantState extends State<restaurant> {
     "./assets/listPage/chair.png",
   ];
 
-  Future<List<Restaurant>> myFuture;
+  Future<List<dynamic>> myFuture;
   int _currentMax = 0;
   ScrollController _scrollController = ScrollController();
   bool _isLoading;
-  List<Restaurant> restaurants;
+  List<dynamic> restaurants;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -98,7 +99,7 @@ class _restaurantState extends State<restaurant> {
     Area = widget.Area ?? "";
     Locality = widget.Locality ?? "";
     // });
-    _star_color();
+    get_star_color();
     myFuture = _getrestaurant();
     _scrollController.addListener(() {
       double maxScroll = _scrollController.position.maxScrollExtent;
@@ -139,51 +140,22 @@ class _restaurantState extends State<restaurant> {
         liststringdata);
   }
 
-  Future _star_color() async {
-    var data = await http.get(
-        'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
-    var dec = jsonDecode(data.body);
-    // print(dec);
-    for (int i = 0; i < dec.length; i++) {
-      //  print(dec[i]["store_name"].toString());
-      star_color_list.add(dec[i]["store_name"].toString());
-      // print(star_color_list[i]);
-    }
+  Future get_star_color() async {
+    star_color_list = await starInsertDelete.getStarColor(
+        userId, loginOption, liststringdata);
     setState(() {});
   }
 
-  Future<List<Restaurant>> _getrestaurant() async {
-    http.Response data = await http.get(
-        // 'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
-        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
-
-    List jsonData = json.decode(data.body);
-
-    // jsonData.map((json) =>
-    //     print("Calling: $json")); //Restaurant.fromJson(json)  .toList()
-
-    for (var r in jsonData) {
-      Restaurant restaurant = Restaurant(
-          r["id"],
-          r["store_name"],
-          r["address"],
-          r["phone"],
-          r["menu"],
-          r["bed"],
-          r["Tableware"],
-          r["meetingroom"],
-          r["diapers"],
-          r["playroom"],
-          r["carriage"],
-          r["nursingroom"],
-          r["chair"]);
-
-      restaurants.add(restaurant);
+  Future<List<dynamic>> _getrestaurant() async {
+    final response = await http.get(
+        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+    List responseJson = json.decode(response.body);
+    for (var data in responseJson) {
+      restaurants.add(Restaurant.fromJson(data));
     }
     setState(() {
       _isLoading = false;
     });
-
     return restaurants;
   }
 
@@ -695,35 +667,4 @@ class _restaurantState extends State<restaurant> {
                 right: 0 / (1501 / MediaQuery.of(context).size.width)),
           );
   }
-}
-
-class Restaurant {
-  final int id;
-  final String store_name;
-  final String address;
-  final String phone;
-  final String menu;
-  final String bed;
-  final String tableware;
-  final String meetingroom;
-  final String diapers;
-  final String playroom;
-  final String carriage;
-  final String nursingroom;
-  final String chair;
-
-  Restaurant(
-      this.id,
-      this.store_name,
-      this.address,
-      this.phone,
-      this.menu,
-      this.bed,
-      this.tableware,
-      this.meetingroom,
-      this.diapers,
-      this.playroom,
-      this.carriage,
-      this.nursingroom,
-      this.chair);
 }
