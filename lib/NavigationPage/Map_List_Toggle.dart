@@ -180,6 +180,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           print(searchbtn);
                           i = 0;
                         });
+                        _onbackpressed();
                       },
                     ),
                   ],
