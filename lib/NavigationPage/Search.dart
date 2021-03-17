@@ -90,14 +90,14 @@ class _searchPageState extends State<searchPage> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
+            .loadUrl('http://211.223.46.144:3000/getAddress?address=$searchKey')
         : null;
   }
 
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   StarManage starInsertDelete = new StarManage();
@@ -127,7 +127,7 @@ class _searchPageState extends State<searchPage> {
     var response;
     try {
       response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
+          "http://211.223.46.144:3000/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
       print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
@@ -212,15 +212,15 @@ class _searchPageState extends State<searchPage> {
             key: key,
             onPageFinished: doneLoading,
             onPageStarted: startLoading,
-            // initialUrl: 'http://13.209.41.43/map',
+            // initialUrl: 'http://211.223.46.144:3000/map',
             onWebViewCreated: (WebViewController webViewController) {
               controller = webViewController;
               controller.loadUrl(latitude == 'NaN' ||
                       longitude == 'NaN' ||
                       latitude == '' ||
                       longitude == ''
-                  ? 'http://13.209.41.43/map'
-                  : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                  ? 'http://211.223.46.144:3000/map'
+                  : 'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
             },
             javascriptMode: JavascriptMode.unrestricted,
             javascriptChannels: Set.from([
@@ -247,7 +247,7 @@ class _searchPageState extends State<searchPage> {
           //   key: key,
           //   onPageFinished: doneLoading,
           //   onPageStarted: startLoading,
-          //   // initialUrl: 'http://13.209.41.43/map',
+          //   // initialUrl: 'http://211.223.46.144:3000/map',
 
           //   onWebViewCreated: (WebViewController webViewController) {
           //     controller = webViewController;
@@ -255,8 +255,8 @@ class _searchPageState extends State<searchPage> {
           //             longitude == 'NaN' ||
           //             latitude == '' ||
           //             longitude == ''
-          //         ? 'http://13.209.41.43/map'
-          //         : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+          //         ? 'http://211.223.46.144:3000/map'
+          //         : 'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
           //   },
           //   javascriptMode: JavascriptMode.unrestricted,
           //   javascriptChannels: Set.from([
@@ -355,9 +355,9 @@ class _searchPageState extends State<searchPage> {
                         latitude == '' ||
                         longitude == '') await lacations();
                     // controller.loadUrl(
-                    //     'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                    //     'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
                     controller.loadUrl(
-                        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+                        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
                   },
                   child: Container(
                     margin: EdgeInsets.only(
