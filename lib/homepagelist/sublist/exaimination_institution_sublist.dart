@@ -143,7 +143,7 @@ class _examination_institution_sublistState
                     children: [
                       Container(
                         width: 1250 / screenWidth,
-                        child: Text(data.storename,
+                        child: Text(data.store_name,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "NotoSansCJKkr_Bold",
@@ -301,7 +301,7 @@ class _examination_institution_sublistState
                                 10 / (1501 / MediaQuery.of(context).size.width),
                           )),
                           Text(
-                            data.examinationitem,
+                            data.Examination_item,
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontFamily: "NotoSansCJKkr_Medium",

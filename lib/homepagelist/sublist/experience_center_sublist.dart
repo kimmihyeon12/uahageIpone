@@ -177,7 +177,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                     children: [
                       Container(
                         width: 1250 / screenWidth,
-                        child: Text(data.storename,
+                        child: Text(data.store_name,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "NotoSansCJKkr_Bold",
