@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:uahage/homepagelist/map_list.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/examination_institution_helper.dart';
 
@@ -43,7 +43,7 @@ class _examination_institutionState extends State<examination_institution> {
   String liststringdata = 'Examination_institution';
   String store_name1, address1, phone1, Examination_item1;
   var star_color = false;
-  List<String> star_color_list = [];
+  List<bool> star_color_list = [];
   var list = true;
   int _currentMax = 0;
   var indexcount = 0;
@@ -58,6 +58,7 @@ class _examination_institutionState extends State<examination_institution> {
   List<dynamic> examination_institutions = [];
   ScrollController _scrollController = ScrollController();
   bool _isLoading;
+  toast show_toast = new toast();
   @override
   void initState() {
     // setState(() {
@@ -159,7 +160,9 @@ class _examination_institutionState extends State<examination_institution> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
+                InkWell(
+                  highlightColor: Colors.white,
+
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -270,22 +273,30 @@ class _examination_institutionState extends State<examination_institution> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
+                            InkWell(
+                              highlightColor: Colors.white,
+                              onTap: () async {
+                                bool result = await Navigator.push(
                                     context,
                                     PageTransition(
                                       type: PageTransitionType.rightToLeft,
                                       child: examination_institution_sublist(
-                                        index: index,
-                                        data:snapshot.data[index],
-                                        userId: userId,
-                                        loginOption: loginOption,
-                                      ),
+                                          index:index,
+                                          data: snapshot.data[index],
+                                          userId: userId,
+                                          loginOption: loginOption),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
-                                          Duration(milliseconds: 100),
+                                      Duration(milliseconds: 100),
                                     ));
+
+                                setState(() {
+                                if (result) {
+                                    star_color_list[index] = true;
+                                  } else {
+                                    star_color_list[index] =false;
+                                  }
+                                });
                               },
                               child: Container(
                                 width: 1280 / screenWidth,
@@ -374,22 +385,15 @@ class _examination_institutionState extends State<examination_institution> {
                                   maxHeight: 70 / screenHeight,
                                 ),
                                 icon: Image.asset(
-                                  star_color_list[index] == 'null'
+                                  !star_color_list[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
                                   height: 60 / screenHeight,
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                        Fluttertoast.showToast(
-                                          msg: "  로그인 해주세요!  ",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.black45,
-                                          textColor: Colors.white,
-                                          fontSize: 48 / screenWidth,
-                                        );
+                                  show_toast.showToast(context,"로그인해주세요!");
+
                                       }
                                     : () async {
                                         setState(() {
@@ -401,15 +405,14 @@ class _examination_institutionState extends State<examination_institution> {
                                           Examination_item1 = snapshot
                                               .data[index].Examination_item;
 
-                                          if (star_color_list[index] ==
-                                              'null') {
+                                          if (star_color_list[index] == false) {
                                             star_color = true;
-                                            star_color_list[index] = "test";
+                                            star_color_list[index] = true;
                                             print(' star_color_list[index]');
                                             print(star_color_list[index]);
                                           } else {
                                             star_color = false;
-                                            star_color_list[index] = 'null';
+                                            star_color_list[index] = false;
                                           }
 
                                           click_star();

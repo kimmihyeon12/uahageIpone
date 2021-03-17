@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class appbar extends StatelessWidget {
 
-  sub_appbar(String text ,context){
+  sub_appbar(String text ,context , star_color){
     // print(this.text);
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
@@ -16,7 +16,9 @@ class appbar extends StatelessWidget {
         // ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: (){Navigator.pop(context, star_color);
+          print(star_color.toString());
+          },
         ),
         title: Text(
           text,

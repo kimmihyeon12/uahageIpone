@@ -5,10 +5,12 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/StarManage.dart';
 class experience_center_sublist extends StatefulWidget {
+
   experience_center_sublist(
       {Key key,
         this.index,
@@ -26,7 +28,7 @@ class experience_center_sublist extends StatefulWidget {
 
 class _experience_center_sublistState extends State<experience_center_sublist> {
   WebViewController controller;
-  FToast fToast;
+
   var userId = "", loginOption = "";
   var data , storename, address;
   var star_color = false;
@@ -39,8 +41,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
   ];
   @override
   void initState() {
-    fToast = FToast();
-    fToast.init(context);
+
     setState(() {
       data = widget.data;
       storename = widget.data.store_name;
@@ -48,62 +49,38 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
       userId = widget.userId;
       loginOption = widget.loginOption;
     });
-    print(storename);
-    // _star_color();
-    checkStar();
+    getSubStarColor();
     super.initState();
   }
-
-  Future checkStar() async {
-    print("start checking");
-    var response;
-    try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
+  StarManage starInsertDelete = new StarManage();
+  Future click_star() async {
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        data.store_name,
+        data.address,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        data.fare,
+        null,
+        star_color,
+        "Examination_institution");
   }
-
-  _showToast(screenWidth) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.black45,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "주소가 복사되었어요",
-            style: TextStyle(
-              fontSize: 45 / screenWidth,
-              fontFamily: 'NotoSansCJKkr_Medium',
-              letterSpacing: 0,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
-    );
+  Future getSubStarColor() async {
+    star_color =
+    await starInsertDelete.getSubStarColor(userId, loginOption, storename);
+    setState(() {
+      star_color = star_color;
+    });
   }
+  toast show_toast = new toast();
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
@@ -142,7 +119,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        appBar:bar.sub_appbar("체험관 안내",context),
+        appBar:bar.sub_appbar("체험관 안내",context,star_color),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
@@ -199,7 +176,16 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                                 ? "./assets/listPage/star_color.png"
                                 : "./assets/listPage/star_grey.png",
                             height: 60 / screenHeight),
-                        onPressed: () async {},
+                        onPressed: loginOption == "login"
+                            ? () {
+                          show_toast.showToast(context,"로그인해주세요!");
+                        }
+                            : () async {
+                          setState(() {
+                            star_color = !star_color;
+                          });
+                          await click_star();
+                        },
                       ),
                     ],
                   ),
@@ -267,7 +253,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                             onTap: () {
                               FlutterClipboard.copy(data.address);
                               //     .then((value) => print('copied'));
-                              // _showToast(screenWidth);
+                              show_toast.showToast(context,"주소가 복사되었습니다");
                             },
                           )
                         ],

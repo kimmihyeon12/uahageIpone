@@ -91,25 +91,11 @@ class _map_listState extends State<map_list> {
         "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
-  Future checkStar() async {
-    print("start checking");
-    var response;
-    try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
+  Future getSubStarColor() async{
+   star_color = await starInsertDelete.getSubStarColor(userId, loginOption,  Message[0]);
+    setState((){
+      star_color = star_color;
+    });
   }
 
   searchAddress(searchKey) async {
@@ -230,7 +216,7 @@ class _map_listState extends State<map_list> {
                           print("messages:" + messages);
                           print('userId:' + userId);
                           Message = messages.split(",");
-                          await checkStar();
+                          await getSubStarColor();
                           showPopUpbottomMenu(
                               context, screenHeight, screenWidth);
                         }),

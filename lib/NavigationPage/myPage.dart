@@ -11,7 +11,7 @@ import './../screens/loginPage.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 
 class myPage extends StatefulWidget {
   String loginOption;
@@ -67,7 +67,7 @@ class _myPageState extends State<myPage> {
       getMyInfo();
     }
   }
-
+  toast show_toast = new toast();
   getMyInfo() async {
     try {
       var response = await http
@@ -368,17 +368,7 @@ class _myPageState extends State<myPage> {
     } catch (e) {}
   }
 
-  void showToast(String txt, double screenWidth) {
-    Fluttertoast.showToast(
-      msg: txt,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black45,
-      textColor: Colors.white,
-      fontSize: 48 / screenWidth,
-    );
-  }
+
 
   bool isIOS = Platform.isIOS;
   @override
@@ -538,7 +528,7 @@ class _myPageState extends State<myPage> {
                                 _showPicker(context);
                               }
                             : () {
-                                showToast("로그인 해주세요!", screenWidth);
+                          show_toast.showToast(context,"로그인해주세요!");
                               },
                         child: Image.asset(
                           "./assets/myPage/camera.png",
@@ -1195,7 +1185,8 @@ class _myPageState extends State<myPage> {
                                   );
                                 }
                               : () {
-                                  showToast("모든 필드를 입력하십시오", screenWidth);
+                            show_toast.showToast(context,"모든 필드를 입력하십시오");
+
                                 },
                           child: // 중복확인
                               Text("OK",
@@ -1311,7 +1302,7 @@ class _myPageState extends State<myPage> {
                           InkWell(
                             onTap: loginOption == "login"
                                 ? () {
-                                    showToast("  로그인 해주세요!", screenWidth);
+                              show_toast.showToast(context,"로그인해주세요!");
                                   }
                                 : () {
                                     showDialog(

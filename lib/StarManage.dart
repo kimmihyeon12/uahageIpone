@@ -40,7 +40,7 @@ class StarManage {
       "star_color": star_color,
       "type": liststringdata
     };
-    print("keldi: $ss");
+
     var response = await http.post(
       "http://13.209.41.43/star",
       headers: <String, String>{
@@ -52,14 +52,38 @@ class StarManage {
   }
 
   getStarColor(userId, loginOption, liststringdata) async {
-    List<String> star_color_list = [];
+    List<bool> star_color_list = [];
     var data = await http.get(
         'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
     var dec = jsonDecode(data.body);
 
     for (int i = 0; i < dec.length; i++) {
-      star_color_list.add(dec[i]["store_name"].toString());
+      if (dec[i]["store_name"] != null) {
+        star_color_list.add(true);
+      } else {
+        star_color_list.add(false);
+      }
     }
     return star_color_list;
+  }
+
+  getSubStarColor(userId, loginOption, storename) async {
+    print('getSubStarColor');
+    var response;
+    var star_color = false;
+    try {
+      response = await http.get(
+          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
+
+      if (response.statusCode == 200) {
+        star_color = true;
+      } else {
+        star_color = false;
+      }
+
+      return star_color;
+    } catch (err) {
+      print(err);
+    }
   }
 }

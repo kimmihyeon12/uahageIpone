@@ -5,9 +5,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/StarManage.dart';
 class kid_cafe_sublist extends StatefulWidget {
   kid_cafe_sublist(
       {Key key,
@@ -27,7 +28,7 @@ class kid_cafe_sublist extends StatefulWidget {
 
 class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   WebViewController controller;
-  FToast fToast;
+
   var userId = "", loginOption = "";
   var data , storename, address;
   var star_color = false;
@@ -38,8 +39,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   ];
   @override
   void initState() {
-    fToast = FToast();
-    fToast.init(context);
+
     setState(() {
       data = widget.data;
       storename = widget.data.store_name;
@@ -47,63 +47,43 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     userId = widget.userId;
       loginOption = widget.loginOption;
     });
+    getSubStarColor();
 
-    // _star_color();
-    checkStar();
 
     super.initState();
   }
 
-  Future checkStar() async {
-    print("start checking");
-    var response;
-    try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
+  StarManage starInsertDelete = new StarManage();
+  toast show_toast = new toast();
+  Future click_star() async {
+    await starInsertDelete.click_star(
+        userId + loginOption,
+        data.store_name,
+        data.address,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        data.fare,
+        null,
+        star_color,
+        "Examination_institution");
+  }
+  Future getSubStarColor() async {
+    star_color =
+    await starInsertDelete.getSubStarColor(userId, loginOption, storename);
+    setState(() {
+      star_color = star_color;
+    });
   }
 
-  _showToast(screenWidth) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.black45,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "주소가 복사되었어요",
-            style: TextStyle(
-              fontSize: 45 / screenWidth,
-              fontFamily: 'NotoSansCJKkr_Medium',
-              letterSpacing: 0,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
 
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
-    );
-  }
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
@@ -145,7 +125,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar:bar.sub_appbar("키즈카페 안내",context),
+        appBar:bar.sub_appbar("키즈카페 안내",context, star_color),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,7 +178,16 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                 ? "./assets/listPage/star_color.png"
                                 : "./assets/listPage/star_grey.png",
                             height: 60 / screenHeight),
-                        onPressed: () async {},
+                        onPressed: loginOption == "login"
+                            ? () {
+                          show_toast.showToast(context,"로그인해주세요!");
+                        }
+                            : () async {
+                          setState(() {
+                            star_color = !star_color;
+                          });
+                          await click_star();
+                        },
                       ),
                     ],
                   ),
@@ -265,8 +254,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                             ),
                             onTap: () {
                               FlutterClipboard.copy(data.address);
-                              //     .then((value) => print('copied'));
-                              // _showToast(screenWidth);
+                              show_toast.showToast(context,"주소가 복사되었습니다");
                             },
                           )
                         ],

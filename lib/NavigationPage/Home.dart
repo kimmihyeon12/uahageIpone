@@ -10,7 +10,7 @@ import 'package:uahage/homepagelist/experience_center.dart';
 import 'package:uahage/homepagelist/restaurant.dart';
 import 'package:uahage/homepagelist/kids_cafe.dart';
 import 'package:uahage/homepagelist/Examination_institution.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -34,7 +34,7 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  //FToast fToast;
+
   String loginOption = "";
   String userId = "";
   String Area = "";
@@ -60,7 +60,7 @@ class _homePageState extends State<homePage> {
     if (latitude == "" || longitude == "") getLatLong();
     super.initState();
   }
-
+  toast show_toast = new toast();
   Location location = new Location();
   Future lacations() async {
     await location.getCurrentLocation();
@@ -104,7 +104,8 @@ class _homePageState extends State<homePage> {
     "./assets/homePage/toylibrary.png",
     "./assets/homePage/childcareCenter.png"
   ];
-  var myController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
@@ -228,7 +229,7 @@ class _homePageState extends State<homePage> {
                       // primaryColorDark: Colors.red,
                       ),
                   child: TextField(
-                    controller: myController,
+
                     onChanged: (txt) {
                       setState(() {
                         searchkey = txt;
@@ -275,12 +276,12 @@ class _homePageState extends State<homePage> {
                                               longitude: longitude,
                                               searchkey: searchkey)));
 
-                                 // myController.clear();
 
                                 }
                               : () {
-                                  currentFocus.unfocus();
-                                  showToast("주소를 입력해주세요!", screenWidth);
+                            currentFocus.unfocus();
+                                  show_toast.showToast(context,"주소를 입력해주세요!");
+
                                 },
                           icon: Image.asset(
                             "./assets/homePage/search.png",
@@ -360,7 +361,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          showToast("  서비스 준비 중이에요!  ", screenWidth);
+                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
                         },
                       ),
                       Padding(
@@ -375,7 +376,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          showToast("  서비스 준비 중이에요!  ", screenWidth);
+                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
                         },
                       ),
                     ],
@@ -445,7 +446,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          showToast("  서비스 준비 중이에요!  ", screenWidth);
+                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
                         },
                       ),
                       Padding(
@@ -460,7 +461,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          showToast("  서비스 준비 중이에요!  ", screenWidth);
+                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
                         },
                       ),
                     ],
@@ -484,7 +485,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          showToast("  서비스 준비 중이에요!  ", screenWidth);
+                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
                         },
                       ),
                     ],
@@ -534,15 +535,4 @@ class _homePageState extends State<homePage> {
     );
   }
 
-  void showToast(String txt, double screenWidth) {
-    Fluttertoast.showToast(
-      msg: txt,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black45,
-      textColor: Colors.white,
-      fontSize: 48 / screenWidth,
-    );
-  }
 }

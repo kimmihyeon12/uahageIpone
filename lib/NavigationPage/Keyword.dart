@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:uahage/ToastManage.dart';
 class Keyword extends StatefulWidget {
   Keyword(
       {Key key,
@@ -48,7 +48,7 @@ class _KeywordState extends State<Keyword> {
       size: size / screenWidth,
     );
   }
-
+  toast show_toast = new toast();
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -91,15 +91,8 @@ class _KeywordState extends State<Keyword> {
                                   longitude: longitude,
                                   searchkey: messages)));
                     } else {
-                      Fluttertoast.showToast(
-                        msg: "  옳바르게 입력해주세요!  ",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.black45,
-                        textColor: Colors.white,
-                        fontSize: 48 / screenWidth,
-                      );
+                      show_toast.showToast(context, "  옳바르게 입력해주세요!  ");
+
                       currentFocus.unfocus();
                       Navigator.pop(context);
                     }
