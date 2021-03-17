@@ -14,6 +14,8 @@ import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:uahage/StarManage.dart';
+import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/icon.dart';
 
 class starPage extends StatefulWidget {
   String loginOption;
@@ -37,17 +39,7 @@ class _starPageState extends State<starPage> {
     "./assets/listPage/layer1.png",
     "./assets/listPage/layer2.png",
   ];
-  var iconimage = [
-    "./assets/listPage/menu.png",
-    "./assets/listPage/bed.png",
-    "./assets/listPage/tableware.png",
-    "./assets/listPage/meetingroom.png",
-    "./assets/listPage/diapers.png",
-    "./assets/listPage/playroom.png",
-    "./assets/listPage/playroom.png",
-    "./assets/listPage/nursingroom.png",
-    "./assets/listPage/chair.png",
-  ];
+
   List<bool> arr = [];
   var list = true;
   int _currentMax = 0;
@@ -61,6 +53,7 @@ class _starPageState extends State<starPage> {
   }
 
   Future myFuture;
+  icon iconwidget = new icon();
   @override
   void initState() {
     fToast = FToast();
@@ -75,26 +68,7 @@ class _starPageState extends State<starPage> {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   StarManage starInsertDelete = new StarManage();
   click_star(address1) async {
-    print("clickedstar: $address1");
 
-    // await starInsertDelete.click_star(
-    //     userId + loginOption,
-    //     store_name1,
-    //     address1,
-    //     phone1,
-    //     menu1,
-    //     bed1,
-    //     tableware1,
-    //     meetingroom1,
-    //     diapers1,
-    //     playroom1,
-    //     carriage1,
-    //     nursingroom1,
-    //     chair1,
-    //     null,
-    //     null,
-    //     star_color,
-    //     liststringdata);
     var response = await starInsertDelete.click_star(
         userId + loginOption,
         null,
@@ -148,7 +122,7 @@ class _starPageState extends State<starPage> {
 
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
-  // List<bool> starColor = [];
+  appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
     var ScreenHeight = MediaQuery.of(context).size.height;
@@ -169,44 +143,10 @@ class _starPageState extends State<starPage> {
     }
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: Container(
-            color: Color.fromRGBO(255, 114, 148, 1.0),
-            height: 178 / screenHeight,
-            child: Center(
-              child: Text(
-                "즐겨찾기",
-                style: TextStyle(
-                  fontSize: 73 / screenWidth,
-                  fontFamily: 'NotoSansCJKkr_Bold',
-                  letterSpacing: 0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
+        appBar: bar.navHome_abbbar("즐겨찾기",context),
         body: Column(
           children: [
-            // Container(
-            //   alignment: Alignment.topCenter,
-            //   height: 180 / screenHeight,
-            //   width: double.infinity,
-            //   color: Color.fromRGBO(255, 114, 148, 1.0),
-            //   child: Align(
-            //     alignment: Alignment.center,
-            //     child: Text(
-            //       "즐겨찾기",
-            //       style: TextStyle(
-            //         fontSize: 73 / screenWidth,
-            //         fontFamily: 'NotoSansCJKkr_Bold',
-            //         letterSpacing: 0,
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
             Expanded(
               flex: 1,
               child: FutureBuilder(
@@ -401,33 +341,33 @@ class _starPageState extends State<starPage> {
                                                               .bottomRight,
                                                           child: Row(
                                                             children: [
-                                                              chair(snapshot
+                                                              iconwidget.chair(snapshot
                                                                   .data[index]
-                                                                  .chair),
-                                                              carriage(snapshot
+                                                                  .chair , context),
+                                                              iconwidget.carriage(snapshot
                                                                   .data[index]
-                                                                  .carriage),
-                                                              menu(snapshot
+                                                                  .carriage, context),
+                                                              iconwidget.menu(snapshot
                                                                   .data[index]
-                                                                  .menu),
-                                                              bed(snapshot
+                                                                  .menu, context),
+                                                              iconwidget. bed(snapshot
                                                                   .data[index]
-                                                                  .bed),
-                                                              tableware(snapshot
+                                                                  .bed, context),
+                                                              iconwidget.tableware(snapshot
                                                                   .data[index]
-                                                                  .tableware),
-                                                              meetingroom(snapshot
+                                                                  .tableware, context),
+                                                              iconwidget. meetingroom(snapshot
                                                                   .data[index]
-                                                                  .meetingroom),
-                                                              diapers(snapshot
+                                                                  .meetingroom, context),
+                                                              iconwidget.diapers(snapshot
                                                                   .data[index]
-                                                                  .diapers),
-                                                              playroom(snapshot
+                                                                  .diapers, context),
+                                                              iconwidget.playroom(snapshot
                                                                   .data[index]
-                                                                  .playroom),
-                                                              nursingroom(snapshot
+                                                                  .playroom, context),
+                                                              iconwidget.nursingroom(snapshot
                                                                   .data[index]
-                                                                  .nursingroom),
+                                                                  .nursingroom, context),
                                                             ],
                                                           ),
                                                         )
@@ -497,18 +437,7 @@ class _starPageState extends State<starPage> {
             type: PageTransitionType.rightToLeft,
             child: restaurant_sublist(
                 index: index,
-                storename: snapshot.data[index].store_name,
-                address: snapshot.data[index].address,
-                bed: snapshot.data[index].bed,
-                phone: snapshot.data[index].phone,
-                menu: snapshot.data[index].menu,
-                tableware: snapshot.data[index].tableware,
-                meetingroom: snapshot.data[index].meetingroom,
-                diapers: snapshot.data[index].diapers,
-                playroom: snapshot.data[index].playroom,
-                carriage: snapshot.data[index].carriage,
-                nursingroom: snapshot.data[index].nursingroom,
-                chair: snapshot.data[index].chair,
+               data:snapshot.data[index],
                 userId: userId,
                 loginOption: loginOption),
             duration: Duration(milliseconds: 250),
@@ -521,10 +450,7 @@ class _starPageState extends State<starPage> {
             type: PageTransitionType.rightToLeft,
             child: kid_cafe_sublist(
               index: index,
-              storename: snapshot.data[index].store_name,
-              address: snapshot.data[index].address,
-              phone: snapshot.data[index].phone,
-              fare: snapshot.data[index].fare,
+              data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
             ),
@@ -538,11 +464,7 @@ class _starPageState extends State<starPage> {
             type: PageTransitionType.rightToLeft,
             child: examination_institution_sublist(
               index: index,
-              storename: snapshot.data[index].store_name,
-              address: snapshot.data[index].address,
-              phone: snapshot.data[index].phone,
-              examinationitem: snapshot.data[index].Examination_item,
-              userId: userId,
+            data: snapshot.data[index],
               loginOption: loginOption,
             ),
             duration: Duration(milliseconds: 250),
@@ -555,10 +477,7 @@ class _starPageState extends State<starPage> {
             type: PageTransitionType.rightToLeft,
             child: experience_center_sublist(
               index: index,
-              storename: snapshot.data[index].store_name,
-              address: snapshot.data[index].address,
-              phone: snapshot.data[index].phone,
-              fare: snapshot.data[index].fare,
+              data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
             ),
@@ -569,7 +488,7 @@ class _starPageState extends State<starPage> {
   }
 
   Future _getstar() async {
-    print("called function");
+
     var star_list1 = [];
     // starColor = [];
     var data = await http
@@ -602,147 +521,7 @@ class _starPageState extends State<starPage> {
     return star_list1;
   }
 
-  menu(String menu) {
-    var menus = menu.toString();
 
-    return menus == "○"
-        ? Container(
-            child: Image.asset(iconimage[0], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[0], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  bed(String bed) {
-    var beds = bed.toString();
-
-    return beds == "○"
-        ? Container(
-            child: Image.asset(iconimage[1], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[1], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  tableware(String tableware) {
-    var tablewares = tableware.toString();
-
-    return tablewares == "○"
-        ? Container(
-            child: Image.asset(iconimage[2], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[2], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  meetingroom(String meetingroom) {
-    var meetingrooms = meetingroom.toString();
-
-    return meetingrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[3], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[3], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  diapers(String diapers) {
-    var diaperss = diapers.toString();
-
-    return diaperss == "○"
-        ? Container(
-            child: Image.asset(iconimage[4], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[4], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  playroom(String playroom) {
-    var playrooms = playroom.toString();
-
-    return playrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[5], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[5], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  carriage(String carriage) {
-    var carriages = carriage.toString();
-
-    return carriages == "○"
-        ? Container(
-            child: Image.asset(iconimage[6], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[6], width: 0, height: 0),
-          );
-  }
-
-  nursingroom(String nursingroom) {
-    var nursingrooms = nursingroom.toString();
-
-    return nursingrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[7], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[7], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  chair(String chair) {
-    var chairs = chair.toString();
-
-    return chairs == "○"
-        ? Container(
-            child: Image.asset(iconimage[8], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[8], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
 }
 
 class Star_list {

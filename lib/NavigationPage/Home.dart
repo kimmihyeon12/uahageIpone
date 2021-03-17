@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uahage/Location.dart';
-
+import 'package:uahage/screens/allAppBar.dart';
 class homePage extends StatefulWidget {
   String loginOption;
   String userId;
@@ -104,7 +104,7 @@ class _homePageState extends State<homePage> {
     "./assets/homePage/toylibrary.png",
     "./assets/homePage/childcareCenter.png"
   ];
-
+  var myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
@@ -117,6 +117,7 @@ class _homePageState extends State<homePage> {
     ]);
     print(Platform.operatingSystem);
 
+    appbar bar = new appbar();
     var ScreenHeight = MediaQuery.of(context).size.height;
     var ScreenWidth = MediaQuery.of(context).size.width;
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -147,52 +148,11 @@ class _homePageState extends State<homePage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(178 / screenHeight),
-          child: Container(
-            color: Color.fromRGBO(255, 114, 148, 1.0),
-            height: 178 / screenHeight,
-            child: Center(
-              child: Text(
-                "우아하게",
-                style: TextStyle(
-                  fontSize: 73 / screenWidth,
-                  fontFamily: 'NotoSansCJKkr_Bold',
-                  letterSpacing: 0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          // ),
-        ),
+        appBar: bar.navHome_abbbar("우아하게",context),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              //appbar
-              // Align(
-              //   alignment: Alignment.topCenter,
-              //   child: Container(
-              //     height: 180 / screenHeight,
-              //     width: double.infinity,
-              //     color: Color.fromRGBO(255, 114, 148, 1.0),
-              //     child: Align(
-              //       alignment: Alignment.center,
-              //       child: Text(
-              //         "우아하게",
-              //         style: TextStyle(
-              //           fontSize: 73 / screenWidth,
-              //           fontFamily: 'NotoSansCJKkr_Bold',
-              //           letterSpacing: 0,
-              //           color: Colors.white,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              //image
-              Container(
+             Container(
                 width: ScreenWidth,
                 height: 900 / screenHeight,
                 child: Stack(
@@ -268,6 +228,7 @@ class _homePageState extends State<homePage> {
                       // primaryColorDark: Colors.red,
                       ),
                   child: TextField(
+                    controller: myController,
                     onChanged: (txt) {
                       setState(() {
                         searchkey = txt;
@@ -313,6 +274,9 @@ class _homePageState extends State<homePage> {
                                               latitude: latitude,
                                               longitude: longitude,
                                               searchkey: searchkey)));
+
+                                 // myController.clear();
+
                                 }
                               : () {
                                   currentFocus.unfocus();

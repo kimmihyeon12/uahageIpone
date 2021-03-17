@@ -58,6 +58,7 @@ class _restaurantState extends State<restaurant> {
       nursingroom1,
       chair1;
   var list = true;
+
   // ScrollController _scrollController = ScrollController();
   List<String> star_color_list = [];
   var star_color = false;
@@ -68,17 +69,6 @@ class _restaurantState extends State<restaurant> {
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image1.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image2.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image3.png",
-  ];
-  var iconimage = [
-    "./assets/listPage/menu.png",
-    "./assets/listPage/bed.png",
-    "./assets/listPage/tableware.png",
-    "./assets/listPage/meetingroom.png",
-    "./assets/listPage/diapers.png",
-    "./assets/listPage/playroom.png",
-    "./assets/listPage/carriage.png",
-    "./assets/listPage/nursingroom.png",
-    "./assets/listPage/chair.png",
   ];
 
   Future<List<dynamic>> myFuture;
@@ -177,10 +167,14 @@ class _restaurantState extends State<restaurant> {
 
   @override
   Widget build(BuildContext context) {
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+    double screenHeight = 2668 / MediaQuery
+        .of(context)
+        .size
+        .height;
+    double screenWidth = 1500 / MediaQuery
+        .of(context)
+        .size
+        .width;
     return SafeArea(
       child: Scaffold(
           key: _scaffoldKey,
@@ -205,8 +199,8 @@ class _restaurantState extends State<restaurant> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 45 / screenWidth,
-                      )),
+                            left: 45 / screenWidth,
+                          )),
                       Container(
                         // width: 310 / screenWidth,
                         child: Text(
@@ -224,37 +218,37 @@ class _restaurantState extends State<restaurant> {
                   margin: EdgeInsets.only(right: 30 / screenWidth),
                   child: toggle
                       ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              toggle = !toggle;
-                              if (indexcount == 1)
-                                indexcount = 0;
-                              else
-                                indexcount = 1;
-                            });
-                          },
-                          child: Image.asset(
-                            './assets/on.png',
-                            width: 284 / screenWidth,
-                            height: 133 / screenHeight,
-                          ),
-                        )
+                    onTap: () {
+                      setState(() {
+                        toggle = !toggle;
+                        if (indexcount == 1)
+                          indexcount = 0;
+                        else
+                          indexcount = 1;
+                      });
+                    },
+                    child: Image.asset(
+                      './assets/on.png',
+                      width: 284 / screenWidth,
+                      height: 133 / screenHeight,
+                    ),
+                  )
                       : GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              toggle = !toggle;
-                              if (indexcount == 1)
-                                indexcount = 0;
-                              else
-                                indexcount = 1;
-                            });
-                          },
-                          child: Image.asset(
-                            './assets/off.png',
-                            width: 284 / screenWidth,
-                            height: 133 / screenHeight,
-                          ),
-                        ),
+                    onTap: () {
+                      setState(() {
+                        toggle = !toggle;
+                        if (indexcount == 1)
+                          indexcount = 0;
+                        else
+                          indexcount = 1;
+                      });
+                    },
+                    child: Image.asset(
+                      './assets/off.png',
+                      width: 284 / screenWidth,
+                      height: 133 / screenHeight,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -298,7 +292,10 @@ class _restaurantState extends State<restaurant> {
                     elevation: 0.3,
                     child: Container(
                         height: 500 / screenHeight,
-                        width: MediaQuery.of(context).size.height,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .height,
                         padding: EdgeInsets.only(
                           top: 30 / screenHeight,
                           left: 26 / screenWidth,
@@ -314,29 +311,12 @@ class _restaurantState extends State<restaurant> {
                                       type: PageTransitionType.rightToLeft,
                                       child: restaurant_sublist(
                                           index: index,
-                                          storename:
-                                              snapshot.data[index].store_name,
-                                          address: snapshot.data[index].address,
-                                          bed: snapshot.data[index].bed,
-                                          phone: snapshot.data[index].phone,
-                                          menu: snapshot.data[index].menu,
-                                          tableware:
-                                              snapshot.data[index].tableware,
-                                          meetingroom:
-                                              snapshot.data[index].meetingroom,
-                                          diapers: snapshot.data[index].diapers,
-                                          playroom:
-                                              snapshot.data[index].playroom,
-                                          carriage:
-                                              snapshot.data[index].carriage,
-                                          nursingroom:
-                                              snapshot.data[index].nursingroom,
-                                          chair: snapshot.data[index].chair,
+                                          data:snapshot.data[index],
                                           userId: userId,
                                           loginOption: loginOption),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
-                                          Duration(milliseconds: 100),
+                                      Duration(milliseconds: 100),
                                     ));
                               },
                               child: Container(
@@ -347,7 +327,7 @@ class _restaurantState extends State<restaurant> {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                          // border: Border.all(width: 3.0),
+                                        // border: Border.all(width: 3.0),
                                           image: DecorationImage(
                                               image: NetworkImage(
                                                 (() {
@@ -367,18 +347,18 @@ class _restaurantState extends State<restaurant> {
                                     ),
                                     Padding(
                                         padding: EdgeInsets.only(
-                                      left: 53 / screenWidth,
-                                    )),
+                                          left: 53 / screenWidth,
+                                        )),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                             padding: EdgeInsets.only(
                                                 top: 10 / screenHeight)),
                                         Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               width: 700 / screenWidth,
@@ -388,7 +368,7 @@ class _restaurantState extends State<restaurant> {
                                                 style: TextStyle(
                                                   fontSize: 56 / screenWidth,
                                                   fontFamily:
-                                                      'NotoSansCJKkr_Medium',
+                                                  'NotoSansCJKkr_Medium',
                                                 ),
                                               ),
                                             ),
@@ -404,7 +384,7 @@ class _restaurantState extends State<restaurant> {
                                               color: Colors.grey,
                                               fontSize: 56 / screenWidth,
                                               fontFamily:
-                                                  'NotoSansCJKkr_Medium',
+                                              'NotoSansCJKkr_Medium',
                                               height: 1.2,
                                             ),
                                           ),
@@ -474,57 +454,57 @@ class _restaurantState extends State<restaurant> {
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                        Fluttertoast.showToast(
-                                          msg: "  로그인 해주세요!  ",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.black45,
-                                          textColor: Colors.white,
-                                          fontSize: 56 / screenWidth,
-                                        );
-                                      }
+                                  Fluttertoast.showToast(
+                                    msg: "  로그인 해주세요!  ",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.black45,
+                                    textColor: Colors.white,
+                                    fontSize: 56 / screenWidth,
+                                  );
+                                }
                                     : () async {
-                                        setState(() {
-                                          store_name1 =
-                                              snapshot.data[index].store_name;
-                                          address1 =
-                                              snapshot.data[index].address;
-                                          bed1 = snapshot.data[index].bed;
-                                          phone1 = snapshot.data[index].phone;
-                                          menu1 = snapshot.data[index].menu;
-                                          tableware1 =
-                                              snapshot.data[index].tableware;
-                                          meetingroom1 =
-                                              snapshot.data[index].meetingroom;
-                                          diapers1 =
-                                              snapshot.data[index].diapers;
-                                          playroom1 =
-                                              snapshot.data[index].playroom;
-                                          carriage1 =
-                                              snapshot.data[index].carriage;
-                                          nursingroom1 =
-                                              snapshot.data[index].nursingroom;
-                                          chair1 = snapshot.data[index].chair;
+                                  setState(() {
+                                    store_name1 =
+                                        snapshot.data[index].store_name;
+                                    address1 =
+                                        snapshot.data[index].address;
+                                    bed1 = snapshot.data[index].bed;
+                                    phone1 = snapshot.data[index].phone;
+                                    menu1 = snapshot.data[index].menu;
+                                    tableware1 =
+                                        snapshot.data[index].tableware;
+                                    meetingroom1 =
+                                        snapshot.data[index].meetingroom;
+                                    diapers1 =
+                                        snapshot.data[index].diapers;
+                                    playroom1 =
+                                        snapshot.data[index].playroom;
+                                    carriage1 =
+                                        snapshot.data[index].carriage;
+                                    nursingroom1 =
+                                        snapshot.data[index].nursingroom;
+                                    chair1 = snapshot.data[index].chair;
 
-                                          if (star_color_list[index] ==
-                                              'null') {
-                                            setState(() {
-                                              star_color = true;
-                                              star_color_list[index] = "test";
-                                            });
-                                          } else {
-                                            setState(() {
-                                              star_color = false;
-                                              star_color_list[index] = 'null';
-                                            });
-                                          }
+                                    if (star_color_list[index] ==
+                                        'null') {
+                                      setState(() {
+                                        star_color = true;
+                                        star_color_list[index] = "test";
+                                      });
+                                    } else {
+                                      setState(() {
+                                        star_color = false;
+                                        star_color_list[index] = 'null';
+                                      });
+                                    }
 
-                                          click_star();
+                                    click_star();
 
-                                          //    _star_color();
-                                        });
-                                      },
+                                    //    _star_color();
+                                  });
+                                },
                               ),
                             ),
                           ],
@@ -542,147 +522,5 @@ class _restaurantState extends State<restaurant> {
         }
       },
     );
-  }
-
-  menu(String menu) {
-    var menus = menu.toString();
-
-    return menus == "○"
-        ? Container(
-            child: Image.asset(iconimage[0], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[0], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  bed(String bed) {
-    var beds = bed.toString();
-
-    return beds == "○"
-        ? Container(
-            child: Image.asset(iconimage[1], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[1], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  tableware(String tableware) {
-    var tablewares = tableware.toString();
-
-    return tablewares == "○"
-        ? Container(
-            child: Image.asset(iconimage[2], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[2], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  meetingroom(String meetingroom) {
-    var meetingrooms = meetingroom.toString();
-
-    return meetingrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[3], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[3], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  diapers(String diapers) {
-    var diaperss = diapers.toString();
-
-    return diaperss == "○"
-        ? Container(
-            child: Image.asset(iconimage[4], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[4], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  playroom(String playroom) {
-    var playrooms = playroom.toString();
-
-    return playrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[5], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[5], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  carriage(String carriage) {
-    var carriages = carriage.toString();
-
-    return carriages == "○"
-        ? Container(
-            child: Image.asset(iconimage[6], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[6], width: 0, height: 0),
-          );
-  }
-
-  nursingroom(String nursingroom) {
-    var nursingrooms = nursingroom.toString();
-
-    return nursingrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[7], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[7], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  chair(String chair) {
-    var chairs = chair.toString();
-
-    return chairs == "○"
-        ? Container(
-            child: Image.asset(iconimage[8], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                right: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[8], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                right: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
   }
 }

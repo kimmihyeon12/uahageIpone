@@ -655,7 +655,7 @@ class _myPageState extends State<myPage> {
                                                                                 fontWeight: FontWeight.w500,
                                                                                 fontFamily: "NotoSansCJKkr_Medium",
                                                                                 fontStyle: FontStyle.normal,
-                                                                                fontSize: 62.5 / screenWidth),
+                                                                                fontSize: 55 / screenWidth),
                                                                             textAlign: TextAlign.left),
                                                                     actions: [
                                                                       FlatButton(
@@ -683,7 +683,7 @@ class _myPageState extends State<myPage> {
                                                                                 fontWeight: FontWeight.w500,
                                                                                 fontFamily: "NotoSansCJKkr_Medium",
                                                                                 fontStyle: FontStyle.normal,
-                                                                                fontSize: 62.5 / screenWidth),
+                                                                                fontSize: 55 / screenWidth),
                                                                             textAlign: TextAlign.left),
                                                                     actions: [
                                                                       FlatButton(
@@ -1240,7 +1240,7 @@ class _myPageState extends State<myPage> {
                                               fontFamily:
                                                   "NotoSansCJKkr_Medium",
                                               fontStyle: FontStyle.normal,
-                                              fontSize: 62.5 / screenWidth),
+                                              fontSize: 55 / screenWidth),
                                           textAlign: TextAlign.left),
                                   actions: [
                                     FlatButton(
@@ -1329,7 +1329,7 @@ class _myPageState extends State<myPage> {
                                                 fontFamily:
                                                     "NotoSansCJKkr_Medium",
                                                 fontStyle: FontStyle.normal,
-                                                fontSize: 70.5 / screenWidth),
+                                                fontSize: 55 / screenWidth),
                                             textAlign: TextAlign.left),
                                         actions: [
                                           FlatButton(

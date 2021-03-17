@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:uahage/StarManage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:uahage/icon.dart';
 
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
@@ -30,17 +31,6 @@ class Map_List_Toggle extends StatefulWidget {
 
 class _Map_List_ToggleState extends State<Map_List_Toggle> {
   @override
-  var iconimage = [
-    "./assets/listPage/menu.png",
-    "./assets/listPage/bed.png",
-    "./assets/listPage/tableware.png",
-    "./assets/listPage/meetingroom.png",
-    "./assets/listPage/diapers.png",
-    "./assets/listPage/playroom.png",
-    "./assets/listPage/carriage.png",
-    "./assets/listPage/nursingroom.png",
-    "./assets/listPage/chair.png",
-  ];
   String userId = "";
   String loginOption = "";
   int position;
@@ -54,6 +44,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   var index = 1;
   List<String> store_namelist = List(500);
   List<String> addresslist = List(500);
+
   void initState() {
     super.initState();
     loginOption = widget.loginOption;
@@ -62,6 +53,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   }
 
   StarManage starInsertDelete = new StarManage();
+
   Future click_star() async {
     await starInsertDelete.click_star(
         userId + loginOption,
@@ -122,6 +114,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       size: size / screenWidth,
     );
   }
+
+  icon iconwidget = new icon();
 
   Widget build(BuildContext context) {
     var latitude = widget.latitude;
@@ -406,18 +400,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
-                                  storename: Message[0],
-                                  address: Message[1],
-                                  phone: Message[2],
-                                  menu: Message[3],
-                                  bed: Message[4],
-                                  tableware: Message[5],
-                                  meetingroom: Message[6],
-                                  diapers: Message[7],
-                                  playroom: Message[8],
-                                  carriage: Message[9],
-                                  nursingroom: Message[10],
-                                  chair: Message[11],
+                                  data:Message,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),
@@ -526,15 +509,16 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                   width: 650 / screenWidth,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
-                                    menu(Message[3]),
-                                    bed(Message[4]),
-                                    tableware(Message[5]),
-                                    meetingroom(Message[6]),
-                                    diapers(Message[7]),
-                                    playroom(Message[8]),
-                                    carriage(Message[9]),
-                                    nursingroom(Message[10]),
-                                    chair(Message[11]),
+                                    iconwidget.menu(Message[3], context),
+                                    iconwidget.bed(Message[4], context),
+                                    iconwidget.tableware(Message[5], context),
+                                    iconwidget.meetingroom(Message[6], context),
+                                    iconwidget.diapers(Message[7], context),
+                                    iconwidget.playroom(Message[8], context),
+                                    iconwidget.carriage(Message[9], context),
+                                    iconwidget.nursingroom(
+                                        Message[10], context),
+                                    iconwidget.chair(Message[11], context),
                                   ]),
                                 ),
                               ],
@@ -562,147 +546,5 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       //  switchbtn = false;
       return Navigator.pop(context, 'Yep!');
     });
-  }
-
-  menu(String menu) {
-    var menus = menu.toString();
-
-    return menus == "○"
-        ? Container(
-            child: Image.asset(iconimage[0], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[0], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  bed(String bed) {
-    var beds = bed.toString();
-
-    return beds == "○"
-        ? Container(
-            child: Image.asset(iconimage[1], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[1], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  tableware(String tableware) {
-    var tablewares = tableware.toString();
-
-    return tablewares == "○"
-        ? Container(
-            child: Image.asset(iconimage[2], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[2], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  meetingroom(String meetingroom) {
-    var meetingrooms = meetingroom.toString();
-
-    return meetingrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[3], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[3], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  diapers(String diapers) {
-    var diaperss = diapers.toString();
-
-    return diaperss == "○"
-        ? Container(
-            child: Image.asset(iconimage[4], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[4], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  playroom(String playroom) {
-    var playrooms = playroom.toString();
-
-    return playrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[5], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[5], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  carriage(String carriage) {
-    var carriages = carriage.toString();
-
-    return carriages == "○"
-        ? Container(
-            child: Image.asset(iconimage[6], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[6], width: 0, height: 0),
-          );
-  }
-
-  nursingroom(String nursingroom) {
-    var nursingrooms = nursingroom.toString();
-
-    return nursingrooms == "○"
-        ? Container(
-            child: Image.asset(iconimage[7], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[7], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
-  }
-
-  chair(String chair) {
-    var chairs = chair.toString();
-
-    return chairs == "○"
-        ? Container(
-            child: Image.asset(iconimage[8], width: 30, height: 30),
-            padding: EdgeInsets.only(
-                left: 20 / (1501 / MediaQuery.of(context).size.width)),
-          )
-        : Container(
-            child: Image.asset(iconimage[8], width: 0, height: 0),
-            padding: EdgeInsets.only(
-                left: 0 / (1501 / MediaQuery.of(context).size.width)),
-          );
   }
 }

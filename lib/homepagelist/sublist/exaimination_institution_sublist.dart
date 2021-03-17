@@ -7,22 +7,17 @@ import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:uahage/screens/allAppBar.dart';
 
 class examination_institution_sublist extends StatefulWidget {
   examination_institution_sublist(
       {Key key,
-      this.index,
-      this.storename,
-      this.address,
-      this.phone,
-      this.examinationitem,
+        this.index,
+        this.data,
       this.userId,
       this.loginOption});
   int index;
-  String storename;
-  String address;
-  String phone;
-  String examinationitem;
+  var data;
   String loginOption;
   String userId;
 
@@ -36,7 +31,7 @@ class _examination_institution_sublistState
   WebViewController controller;
   FToast fToast;
   var userId = "", loginOption = "";
-  var storename, address, phone, examinationitem;
+  var data , storename, address;
   var star_color = false;
   var mainimage = [
     "https://uahage.s3.ap-northeast-2.amazonaws.com/images_exam_sublist_/image2.png",
@@ -48,10 +43,8 @@ class _examination_institution_sublistState
     fToast = FToast();
     fToast.init(context);
     setState(() {
-      storename = widget.storename;
-      address = widget.address;
-      phone = widget.phone;
-      examinationitem = widget.examinationitem;
+      storename = widget.data.store_name;
+      address = widget.data.address;
       userId = widget.userId;
       loginOption = widget.loginOption;
     });
@@ -114,80 +107,20 @@ class _examination_institution_sublistState
   @override
   Widget build(BuildContext context) {
     var index = widget.index;
-    var storename = widget.storename;
-    var address = widget.address;
-    var phone = widget.phone;
-    var examinationitem = widget.examinationitem;
+    var data = widget.data;
+    appbar bar = new appbar();
 
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            // iconTheme: IconThemeData(
-            //   color: Color(0xffff7292), //change your color here
-            // ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: Text(
-              "영유아 검진 및 구강검진 병원 안내",
-              style: TextStyle(
-                  color: Color(0xffff7292),
-                  fontFamily: "NotoSansCJKkr_Medium",
-                  fontSize: 62.0 / screenWidth),
-            ),
-          ),
-        ),
+        appBar: bar.sub_appbar("영유아 검진 및 구강검진 병원 안내",context),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //bar
-              // Container(
-              //   height: 178 / screenHeight,
-              //   width: 1501 / screenWidth,
-              //   color: Colors.white,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Stack(children: [
-              //         Center(
-              //           child: IconButton(
-              //             onPressed: () {
-              //               Navigator.pop(context);
-              //             },
-              //             icon: Image.asset(
-              //               "./assets/listPage/backbutton.png",
-              //               width: 44 / (screenWidth),
-              //               height: 76 / (screenHeight),
-              //             ),
-              //           ),
-              //         ),
-              //         Container(
-              //           height: 178 / screenHeight,
-              //           width: 1501 / screenWidth,
-              //           child: Center(
-              //               child: // 약관동의
-              //                   Text(
-              //             "영유아 검진 및 구강검진 병원 안내",
-              //             style: TextStyle(
-              //                 color: Color(0xffff7292),
-              //                 fontFamily: "NotoSansCJKkr_Medium",
-              //                 fontSize: 62.0 / screenWidth),
-              //           )),
-              //         ),
-              //       ]),
-              //     ],
-              //   ),
-              // ),
+
               Container(
                 // height: 939 / screenHeight,
                 width: 1501 / screenWidth,
@@ -210,7 +143,7 @@ class _examination_institution_sublistState
                     children: [
                       Container(
                         width: 1250 / screenWidth,
-                        child: Text(storename,
+                        child: Text(data.storename,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "NotoSansCJKkr_Bold",
@@ -272,7 +205,7 @@ class _examination_institution_sublistState
                           Container(
                             width: 1065 / (screenWidth),
                             child: Text(
-                              address == null ? "정보 없음" : address,
+                              data.address == null ? "정보 없음" :data. address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
@@ -298,7 +231,7 @@ class _examination_institution_sublistState
                               ],
                             ),
                             onTap: () {
-                              FlutterClipboard.copy(address);
+                              FlutterClipboard.copy(data.address);
                               //     .then((value) => print('copied'));
                               // _showToast(screenWidth);
                             },
@@ -321,7 +254,7 @@ class _examination_institution_sublistState
                         top: 10 / (1501 / MediaQuery.of(context).size.width),
                       )),
                       Text(
-                        phone,
+                        data. phone,
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
@@ -368,7 +301,7 @@ class _examination_institution_sublistState
                                 10 / (1501 / MediaQuery.of(context).size.width),
                           )),
                           Text(
-                            examinationitem,
+                            data.examinationitem,
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontFamily: "NotoSansCJKkr_Medium",

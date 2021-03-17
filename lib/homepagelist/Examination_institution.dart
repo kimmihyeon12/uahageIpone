@@ -278,12 +278,7 @@ class _examination_institutionState extends State<examination_institution> {
                                       type: PageTransitionType.rightToLeft,
                                       child: examination_institution_sublist(
                                         index: index,
-                                        storename:
-                                            snapshot.data[index].store_name,
-                                        address: snapshot.data[index].address,
-                                        phone: snapshot.data[index].phone,
-                                        examinationitem: snapshot
-                                            .data[index].Examination_item,
+                                        data:snapshot.data[index],
                                         userId: userId,
                                         loginOption: loginOption,
                                       ),
@@ -315,19 +310,7 @@ class _examination_institutionState extends State<examination_institution> {
                                       height: 414 / screenHeight,
                                       width: 414 / screenHeight,
                                     ),
-                                    // (() {
-                                    //   if (index % 2 == 0) {
-                                    //     return Image.asset(
-                                    //       listimage[0],
-                                    //       height: 414 / screenHeight,
-                                    //     );
-                                    //   } else {
-                                    //     return Image.asset(
-                                    //       listimage[1],
-                                    //       height: 414 / screenHeight,
-                                    //     );
-                                    //   }
-                                    // }()),
+
                                     Padding(
                                         padding: EdgeInsets.only(
                                       left: 53 / screenWidth,

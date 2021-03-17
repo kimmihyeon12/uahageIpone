@@ -93,16 +93,16 @@ class _withdrawalState extends State<withdrawal> {
                 ),
                 Padding(
                     padding: EdgeInsets.only(
-                  top: 127 / screenHeight,
+                  top: 100 / screenHeight,
                 )),
                 Text(
                   "그동안 우아하게를 이용해주시고 ",
                   style: TextStyle(
                       fontFamily: "NotoSansCJKkr_Medium",
-                      //  height: 1.0,
+                       // height: 0.8,
                       //   letterSpacing: -1.0,
-                      fontSize: 65 / screenHeight,
-                      color: Color(0xffff7292)),
+                      fontSize: 55 / screenHeight,
+                      color:Color.fromRGBO(255, 114, 142, 1.0)),
                 ),
                 Text(
                   "그 사랑해주셔서 감사합니다.",
@@ -110,8 +110,8 @@ class _withdrawalState extends State<withdrawal> {
                       fontFamily: "NotoSansCJKkr_Medium",
                       //  height: 1.0,
                       //   letterSpacing: -1.0,
-                      fontSize: 65 / screenHeight,
-                      color: Color.fromRGBO(255, 114, 148, 1.0)),
+                      fontSize: 55 / screenHeight,
+                      color: Color.fromRGBO(255, 114, 142, 1.0)),
                 ),
                 Text(
                   "더욱더 노력하고 발전하는 우아하게가 되겠습니다.",
@@ -119,8 +119,8 @@ class _withdrawalState extends State<withdrawal> {
                       fontFamily: "NotoSansCJKkr_Medium",
                       //  height: 1.0,
                       //   letterSpacing: -1.0,
-                      fontSize: 65 / screenHeight,
-                      color: Color.fromRGBO(255, 114, 148, 1.0)),
+                      fontSize: 55 / screenHeight,
+                      color: Color.fromRGBO(255, 114, 142, 1.0)),
                 ),
               ],
             ),
