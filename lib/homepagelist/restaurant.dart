@@ -12,6 +12,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/Restaurant_helper.dart';
+import 'package:uahage/icon.dart';
 
 class restaurant extends StatefulWidget {
   String loginOption;
@@ -171,6 +172,8 @@ class _restaurantState extends State<restaurant> {
       size: size / screenWidth,
     );
   }
+
+  icon iconwidget = new icon();
 
   @override
   Widget build(BuildContext context) {
@@ -412,21 +415,36 @@ class _restaurantState extends State<restaurant> {
                                           alignment: Alignment.bottomRight,
                                           child: Row(
                                             children: [
-                                              chair(snapshot.data[index].chair),
-                                              carriage(snapshot
-                                                  .data[index].carriage),
-                                              menu(snapshot.data[index].menu),
-                                              bed(snapshot.data[index].bed),
-                                              tableware(snapshot
-                                                  .data[index].tableware),
-                                              meetingroom(snapshot
-                                                  .data[index].meetingroom),
-                                              diapers(
-                                                  snapshot.data[index].diapers),
-                                              playroom(snapshot
-                                                  .data[index].playroom),
-                                              nursingroom(snapshot
-                                                  .data[index].nursingroom),
+                                              iconwidget.chair(
+                                                  snapshot.data[index].chair,
+                                                  context),
+                                              iconwidget.carriage(
+                                                  snapshot.data[index].carriage,
+                                                  context),
+                                              iconwidget.menu(
+                                                  snapshot.data[index].menu,
+                                                  context),
+                                              iconwidget.bed(
+                                                  snapshot.data[index].bed,
+                                                  context),
+                                              iconwidget.tableware(
+                                                  snapshot
+                                                      .data[index].tableware,
+                                                  context),
+                                              iconwidget.meetingroom(
+                                                  snapshot
+                                                      .data[index].meetingroom,
+                                                  context),
+                                              iconwidget.diapers(
+                                                  snapshot.data[index].diapers,
+                                                  context),
+                                              iconwidget.playroom(
+                                                  snapshot.data[index].playroom,
+                                                  context),
+                                              iconwidget.nursingroom(
+                                                  snapshot
+                                                      .data[index].nursingroom,
+                                                  context),
                                             ],
                                           ),
                                         ),
