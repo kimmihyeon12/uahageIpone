@@ -184,15 +184,26 @@ class _searchPageState extends State<searchPage> {
   final key = UniqueKey();
 
   doneLoading(String A) {
+    // setState(() {
+    //   position = 0;
+    // });
     setState(() {
-      position = 0;
+      isLoading = false;
     });
+    print("isloading: $isLoading");
   }
 
   startLoading(String A) {
     setState(() {
-      position = 1;
+      isLoading = true;
     });
+    print("isloading: $isLoading");
+    // return showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return buildSpinKitThreeBounce(20, screenWidth);
+    //   },
+    // );
   }
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
@@ -203,6 +214,7 @@ class _searchPageState extends State<searchPage> {
   }
 
   bool isIOS = Platform.isIOS;
+  var isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -213,45 +225,70 @@ class _searchPageState extends State<searchPage> {
     return Scaffold(
       body: Stack(
         children: [
-          IndexedStack(
-            index: position,
-            children: [
-              WebView(
-                key: key,
-                onPageFinished: doneLoading,
-                onPageStarted: startLoading,
-                // initialUrl: 'http://13.209.41.43/map',
-                onWebViewCreated: (WebViewController webViewController) {
-                  controller = webViewController;
-                  controller.loadUrl(latitude == 'NaN' ||
-                          longitude == 'NaN' ||
-                          latitude == '' ||
-                          longitude == ''
-                      ? 'http://13.209.41.43/map'
-                      : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
-                },
-                javascriptMode: JavascriptMode.unrestricted,
-                javascriptChannels: Set.from([
-                  JavascriptChannel(
-                      name: 'Print',
-                      onMessageReceived: (JavascriptMessage message) async {
-                        //This is where you receive message from
-                        //javascript code and handle in Flutter/Dart
-                        //like here, the message is just being printed
-                        //in Run/LogCat window of android studio
-                        var messages = message.message;
-                        Message = messages.split(",");
-                        await checkStar();
-                        showPopUpbottomMenu(context, screenHeight, screenWidth);
-                      })
-                ]),
-              ),
-              Container(
-                color: Colors.white,
-                child: Center(child: buildSpinKitThreeBounce(80, screenWidth)),
-              ),
-            ],
+          // IndexedStack(
+          //   index: position,
+          //   children: [
+          //     WebView(
+          //       key: key,
+          //       onPageFinished: doneLoading,
+          //       onPageStarted: startLoading,
+          //       // initialUrl: 'http://13.209.41.43/map',
+          //       onWebViewCreated: (WebViewController webViewController) {
+          //         controller = webViewController;
+          //         controller.loadUrl(latitude == 'NaN' ||
+          //                 longitude == 'NaN' ||
+          //                 latitude == '' ||
+          //                 longitude == ''
+          //             ? 'http://13.209.41.43/map'
+          //             : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+          //       },
+          //       javascriptMode: JavascriptMode.unrestricted,
+          //       javascriptChannels: Set.from([
+          //         JavascriptChannel(
+          //             name: 'Print',
+          //             onMessageReceived: (JavascriptMessage message) async {
+
+          //               var messages = message.message;
+          //               Message = messages.split(",");
+          //               await checkStar();
+          //               showPopUpbottomMenu(context, screenHeight, screenWidth);
+          //             })
+          //       ]),
+          //     ),
+          //     Container(
+          //       color: Colors.white,
+          //       child: Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+          //     ),
+          //   ],
+          // ),
+          WebView(
+            key: key,
+            onPageFinished: doneLoading,
+            onPageStarted: startLoading,
+            // initialUrl: 'http://13.209.41.43/map',
+
+            onWebViewCreated: (WebViewController webViewController) {
+              controller = webViewController;
+              controller.loadUrl(latitude == 'NaN' ||
+                      longitude == 'NaN' ||
+                      latitude == '' ||
+                      longitude == ''
+                  ? 'http://13.209.41.43/map'
+                  : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+            },
+            javascriptMode: JavascriptMode.unrestricted,
+            javascriptChannels: Set.from([
+              JavascriptChannel(
+                  name: 'Print',
+                  onMessageReceived: (JavascriptMessage message) async {
+                    var messages = message.message;
+                    Message = messages.split(",");
+                    await checkStar();
+                    showPopUpbottomMenu(context, screenHeight, screenWidth);
+                  })
+            ]),
           ),
+
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -325,8 +362,6 @@ class _searchPageState extends State<searchPage> {
 
           // bottom Buttons
           Row(
-            // crossAxisAlignment: CrossAxisAlignment.end,
-            // mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Align(
                 alignment: Alignment.bottomLeft,
@@ -338,7 +373,9 @@ class _searchPageState extends State<searchPage> {
                         latitude == '' ||
                         longitude == '') await lacations();
                     controller.loadUrl(
-                        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+                        'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                    // controller.loadUrl(
+                    //     "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -351,40 +388,6 @@ class _searchPageState extends State<searchPage> {
                   ),
                 ),
               ),
-              // Align(
-              //   alignment: Alignment.bottomRight,
-              //   child: Container(
-              //     margin: EdgeInsets.fromLTRB(
-              //         1060 / screenWidth, 0, 0, 47 / screenHeight),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.end,
-              //       // crossAxisAlignment: CrossAxisAlignment.end,
-              //       children: [
-              //         /* IconButton(
-              //     onPressed: () {
-              //       controller.loadUrl(
-              //           "http://13.209.41.43/zoomIn?lat=$latitude&long=$longitude");
-              //     },
-              //     icon: Image.asset(
-              //       "assets/searchPage/plus.png",
-              //       width: 105 / screenWidth,
-              //       height: 105 / screenHeight,
-              //     )),
-              // IconButton(
-              //     onPressed: () {
-              //       controller.loadUrl(
-              //           "http://13.209.41.43/zoomOut?lat=$latitude&long=$longitude");
-              //     },
-              //     icon: Image.asset(
-              //       "assets/searchPage/minus.png",
-              //       width: 105 / screenWidth,
-              //       height: 105 / screenHeight,
-              //     )),*/
-              //       ],
-              //     ),
-              //   ),
-              // )
-              //
             ],
           ),
         ],
