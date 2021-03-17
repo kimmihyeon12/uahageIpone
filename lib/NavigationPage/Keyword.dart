@@ -5,6 +5,7 @@ import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/ToastManage.dart';
+
 class Keyword extends StatefulWidget {
   Keyword(
       {Key key,
@@ -48,7 +49,6 @@ class _KeywordState extends State<Keyword> {
       size: size / screenWidth,
     );
   }
-<<<<<<< HEAD
 
   int position = 1;
 
@@ -64,9 +64,7 @@ class _KeywordState extends State<Keyword> {
     });
   }
 
-=======
   toast show_toast = new toast();
->>>>>>> 1cd03f97d5bc13e22f1232e47134ec2fcfda5174
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -75,7 +73,6 @@ class _KeywordState extends State<Keyword> {
 
     return Scaffold(
       body: SafeArea(
-<<<<<<< HEAD
         child: Stack(
           children: [
             Container(
@@ -142,54 +139,6 @@ class _KeywordState extends State<Keyword> {
                   )
                 : SizedBox.shrink(),
           ],
-=======
-        child: Container(
-          color: Colors.white,
-          child: WebView(
-            // initialUrl:
-            //     'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27',
-            onWebViewCreated: (WebViewController webViewController) async {
-              controller = webViewController;
-              print(searchkey);
-              print(
-                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=$searchkey');
-              await controller.loadUrl(
-                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
-              // showToggle = true;
-            },
-            javascriptMode: JavascriptMode.unrestricted,
-            javascriptChannels: Set.from([
-              JavascriptChannel(
-                  name: 'Print',
-                  onMessageReceived: (JavascriptMessage message) {
-                    messages = message.message;
-                    print('messages: ' + messages);
-                    //    controller.evaluateJavascript(javascriptString)
-                    // return Map_List_Toggle(latitude:latitude,longitude:longitude,searchkey:messages);
-                    if (messages != 'null') {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Map_List_Toggle(
-                                  userId: userId,
-                                  loginOption: loginOption,
-                                  latitude: latitude,
-                                  longitude: longitude,
-                                  searchkey: messages)));
-                    } else {
-                      show_toast.showToast(context, "  옳바르게 입력해주세요!  ");
-
-                      currentFocus.unfocus();
-                      Navigator.pop(context);
-                    }
-                    // setState(() {
-                    //   searchkey = messages;
-                    //   addressbtn = false;
-                    // });
-                  }),
-            ]),
-          ),
->>>>>>> 1cd03f97d5bc13e22f1232e47134ec2fcfda5174
         ),
       ),
     );

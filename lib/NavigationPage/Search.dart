@@ -123,33 +123,12 @@ class _searchPageState extends State<searchPage> {
         "restaurant");
   }
 
-<<<<<<< HEAD
-  Future checkStar() async {
-    print("start checking: message ${Message[0]}");
-    var response;
-    try {
-      response = await http.get(
-          "http://211.223.46.144:3000/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
-=======
-  Future getSubStarColor() async{
-    star_color = await starInsertDelete.getSubStarColor(userId, loginOption,   Message[0] );
-    setState((){
+  Future getSubStarColor() async {
+    star_color =
+        await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
+    setState(() {
       star_color = star_color;
     });
->>>>>>> 1cd03f97d5bc13e22f1232e47134ec2fcfda5174
   }
 
   // WebViewController _controller;
@@ -605,7 +584,8 @@ class _searchPageState extends State<searchPage> {
                                             height: 60 / screenHeight),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                          show_toast.showToast(context,"로그인해주세요!");
+                                                show_toast.showToast(
+                                                    context, "로그인해주세요!");
                                               }
                                             : () async {
                                                 setState(() {

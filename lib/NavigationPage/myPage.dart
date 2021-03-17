@@ -67,6 +67,7 @@ class _myPageState extends State<myPage> {
       getMyInfo();
     }
   }
+
   toast show_toast = new toast();
   getMyInfo() async {
     try {
@@ -368,8 +369,6 @@ class _myPageState extends State<myPage> {
     } catch (e) {}
   }
 
-
-
   bool isIOS = Platform.isIOS;
   @override
   Widget build(BuildContext context) {
@@ -519,7 +518,6 @@ class _myPageState extends State<myPage> {
                         }()),
                       ),
                     ),
-<<<<<<< HEAD
                     Positioned(
                       right: 0,
                       bottom: 0,
@@ -532,30 +530,13 @@ class _myPageState extends State<myPage> {
                                   _showPicker(context);
                                 }
                               : () {
-                                  showToast("로그인 해주세요!", screenWidth);
+                                  show_toast.showToast(context, "로그인해주세요!");
                                 },
                           child: Image.asset(
                             "./assets/myPage/camera.png",
                             height: 109 / screenHeight,
                             width: 110 / screenWidth,
                           ),
-=======
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          330 / screenWidth, 341 / screenHeight, 0, 0),
-                      child: InkWell(
-                        onTap: loginOption != "login"
-                            ? () {
-                                _showPicker(context);
-                              }
-                            : () {
-                          show_toast.showToast(context,"로그인해주세요!");
-                              },
-                        child: Image.asset(
-                          "./assets/myPage/camera.png",
-                          height: 109 / screenHeight,
-                          width: 110 / screenWidth,
->>>>>>> 1cd03f97d5bc13e22f1232e47134ec2fcfda5174
                         ),
                       ),
                     ),
@@ -1207,8 +1188,8 @@ class _myPageState extends State<myPage> {
                                   );
                                 }
                               : () {
-                            show_toast.showToast(context,"모든 필드를 입력하십시오");
-
+                                  show_toast.showToast(
+                                      context, "모든 필드를 입력하십시오");
                                 },
                           child: // 중복확인
                               Text("OK",
@@ -1324,7 +1305,7 @@ class _myPageState extends State<myPage> {
                           InkWell(
                             onTap: loginOption == "login"
                                 ? () {
-                              show_toast.showToast(context,"로그인해주세요!");
+                                    show_toast.showToast(context, "로그인해주세요!");
                                   }
                                 : () {
                                     showDialog(
