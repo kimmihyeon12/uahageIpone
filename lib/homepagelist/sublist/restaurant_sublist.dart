@@ -7,39 +7,17 @@ import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:uahage/screens/allAppBar.dart';
 class restaurant_sublist extends StatefulWidget {
   restaurant_sublist(
       {Key key,
       this.index,
-      this.storename,
-      this.address,
-      this.phone,
-      this.menu,
-      this.bed,
-      this.tableware,
-      this.meetingroom,
-      this.diapers,
-      this.playroom,
-      this.carriage,
-      this.nursingroom,
-      this.chair,
+      this.data,
       this.userId,
       this.loginOption})
       : super(key: key);
   int index;
-  String storename;
-  String address;
-  String phone;
-  String menu;
-  String bed;
-  String tableware;
-  String meetingroom;
-  String diapers;
-  String playroom;
-  String carriage;
-  String nursingroom;
-  String chair;
+  var data;
   String loginOption;
   String userId;
   @override
@@ -50,18 +28,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
   WebViewController controller;
   FToast fToast;
   var userId = "", loginOption = "";
-  var storename,
-      address,
-      phone,
-      menu,
-      bed,
-      tableware,
-      meetingroom,
-      diapers,
-      playroom,
-      carriage,
-      nursingroom,
-      chair;
+  var data , storename, address;
   // List<String> star_color_list = List(10);
   var star_color = false;
 
@@ -78,77 +45,67 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
   //     }
   //   });
   // }
-  Future checkStar() async {
-    print("start checking");
-    var response;
-    try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
-  }
-
-  Future click_star() async {
-    Map<String, dynamic> ss = {
-      "user_id": userId + loginOption,
-      "store_name": storename,
-      "address": address,
-      "phone": phone,
-      "menu": menu,
-      "bed": bed,
-      "tableware": tableware,
-      "meetingroom": meetingroom,
-      "diapers": diapers,
-      "playroom": playroom,
-      "carriage": carriage,
-      "nursingroom": nursingroom,
-      "chair": chair,
-      "star_color": star_color,
-      "type": "restaurant"
-    };
-    var response = await http.post(
-      "http://13.209.41.43/star",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(ss),
-    );
-  }
+  // Future checkStar() async {
+  //   print("start checking");
+  //   var response;
+  //   try {
+  //     response = await http.get(
+  //         "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
+  //     print(response.statusCode);
+  //     if (response.statusCode == 200) {
+  //       setState(() {
+  //         star_color = true;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         star_color = false;
+  //       });
+  //     }
+  //   } catch (err) {
+  //     print(err);
+  //   }
+  // }
+  //
+  // Future click_star() async {
+  //   Map<String, dynamic> ss = {
+  //     "user_id": userId + loginOption,
+  //     "store_name": storename,
+  //     "address": address,
+  //     "phone": phone,
+  //     "menu": menu,
+  //     "bed": bed,
+  //     "tableware": tableware,
+  //     "meetingroom": meetingroom,
+  //     "diapers": diapers,
+  //     "playroom": playroom,
+  //     "carriage": carriage,
+  //     "nursingroom": nursingroom,
+  //     "chair": chair,
+  //     "star_color": star_color,
+  //     "type": "restaurant"
+  //   };
+  //   var response = await http.post(
+  //     "http://13.209.41.43/star",
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: jsonEncode(ss),
+  //   );
+  // }
 
   @override
   void initState() {
     fToast = FToast();
     fToast.init(context);
-    //setState(() {
-    storename = widget.storename;
-    address = widget.address;
-    phone = widget.phone;
-    menu = widget.menu;
-    bed = widget.bed;
-    tableware = widget.tableware;
-    meetingroom = widget.meetingroom;
-    diapers = widget.diapers;
-    playroom = widget.playroom;
-    carriage = widget.carriage;
-    nursingroom = widget.nursingroom;
-    chair = widget.chair;
+    data = widget.data;
+    storename = widget.data.store_name;
+    address = widget.data.address;
     userId = widget.userId;
     loginOption = widget.loginOption;
-    //});
-    print(storename);
+
+
     // _star_color();
-    checkStar();
+    //checkStar();
 
     super.initState();
   }
@@ -240,77 +197,20 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
 
   @override
   Widget build(BuildContext context) {
+    appbar bar = new appbar();
     var index = widget.index;
-
+    var data = widget.data;
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0, centerTitle: true,
-            // iconTheme: IconThemeData(
-            //   color: Color(0xffff7292), //change your color here
-            // ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: Text(
-              "매장안내",
-              style: TextStyle(
-                  color: Color(0xffff7292),
-                  fontFamily: "NotoSansCJKkr_Medium",
-                  fontSize: 62.0 / screenWidth),
-            ),
-          ),
-        ),
+        appBar: bar.sub_appbar("매장안내",context),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //bar
-              // Container(
-              //   height: 178 / screenHeight,
-              //   width: 1501 / screenWidth,
-              //   color: Colors.white,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Stack(children: [
-              //         Center(
-              //           child: IconButton(
-              //             onPressed: () {
-              //               Navigator.pop(context);
-              //             },
-              //             icon: Image.asset(
-              //               "./assets/listPage/backbutton.png",
-              //               width: 44 / (screenWidth),
-              //               height: 76 / (screenHeight),
-              //             ),
-              //           ),
-              //         ),
-              //         Container(
-              //           height: 178 / screenHeight,
-              //           width: 1501 / screenWidth,
-              //           child: Center(
-              //               child: // 약관동의
-              //                   Text(
-              //             "매장안내",
-              //             style: TextStyle(
-              //                 color: Color(0xffff7292),
-              //                 fontFamily: "NotoSansCJKkr_Medium",
-              //                 fontSize: 62.0 / screenWidth),
-              //           )),
-              //         ),
-              //       ]),
-              //     ],
-              //   ),
-              // ),
-              Container(
+             Container(
                 width: 1501 / screenWidth,
                 child: (() {
                   if (index % 3 == 1) {
@@ -333,7 +233,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                     children: [
                       Container(
                         width: 1250 / screenWidth,
-                        child: Text(storename,
+                        child: Text(data.store_name,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "NotoSansCJKkr_Bold",
@@ -395,7 +295,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                           Container(
                             width: 1065 / (screenWidth),
                             child: Text(
-                              address == null ? "정보 없음" : address,
+                              data.address == null ? "정보 없음" : data.address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
@@ -421,7 +321,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               ],
                             ),
                             onTap: () {
-                              FlutterClipboard.copy(address);
+                              FlutterClipboard.copy(data.address);
                               //     .then((value) => print('copied'));
                               // _showToast(screenWidth);
                             },
@@ -444,7 +344,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                         top: 10 / (1501 / MediaQuery.of(context).size.width),
                       )),
                       Text(
-                        phone,
+                        data.phone,
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
@@ -487,7 +387,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             Padding(
                                 padding:
                                     EdgeInsets.only(left: 67 / screenWidth)),
-                            menu == "○"
+                            data.menu == "○"
                                 ? Image.asset(
                                     imagecolor[0],
                                     width: 218 / (screenWidth),
@@ -501,7 +401,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             Padding(
                                 padding:
                                     EdgeInsets.only(left: 59 / screenWidth)),
-                            bed == "○"
+                            data.bed == "○"
                                 ? Image.asset(
                                     imagecolor[1],
                                     width: 218 / (screenWidth),
@@ -515,7 +415,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             Padding(
                                 padding:
                                     EdgeInsets.only(left: 59 / screenWidth)),
-                            tableware == "○"
+                            data.tableware == "○"
                                 ? Image.asset(
                                     imagecolor[2],
                                     width: 218 / (screenWidth),
@@ -529,7 +429,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             Padding(
                                 padding:
                                     EdgeInsets.only(left: 59 / screenWidth)),
-                            meetingroom == "○"
+                            data.meetingroom == "○"
                                 ? Image.asset(
                                     imagecolor[3],
                                     width: 218 / (screenWidth),
@@ -543,7 +443,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                             Padding(
                                 padding:
                                     EdgeInsets.only(left: 59 / screenWidth)),
-                            diapers == "○"
+                            data.diapers == "○"
                                 ? Image.asset(
                                     imagecolor[4],
                                     width: 231 / (screenWidth),
@@ -563,7 +463,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                         children: [
                           Padding(
                               padding: EdgeInsets.only(left: 67 / screenWidth)),
-                          playroom == "○"
+                          data.playroom == "○"
                               ? Image.asset(
                                   imagecolor[5],
                                   width: 218 / (screenWidth),
@@ -576,7 +476,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                 ),
                           Padding(
                               padding: EdgeInsets.only(left: 59 / screenWidth)),
-                          carriage == "○"
+                          data.carriage == "○"
                               ? Image.asset(
                                   imagecolor[6],
                                   width: 218 / (screenWidth),
@@ -589,7 +489,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                 ),
                           Padding(
                               padding: EdgeInsets.only(left: 59 / screenWidth)),
-                          nursingroom == "○"
+                          data.nursingroom == "○"
                               ? Image.asset(
                                   imagecolor[7],
                                   width: 218 / (screenWidth),
@@ -601,8 +501,8 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                   height: 292 / (screenHeight),
                                 ),
                           Padding(
-                              padding: EdgeInsets.only(left: 59 / screenWidth)),
-                          chair == "○"
+                          padding: EdgeInsets.only(left: 59 / screenWidth)),
+                          data    .chair == "○"
                               ? Image.asset(
                                   imagecolor[8],
                                   width: 218 / (screenWidth),
@@ -650,8 +550,6 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                 controller = webViewController;
                                 controller.loadUrl(
                                     'http://13.209.41.43/storename?storename=$storename&address=$address');
-                                // print(storename);
-                                // print(address);
                               },
                               javascriptMode: JavascriptMode.unrestricted,
                             ),

@@ -7,22 +7,16 @@ import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:uahage/screens/allAppBar.dart';
 class experience_center_sublist extends StatefulWidget {
   experience_center_sublist(
       {Key key,
-      this.index,
-      this.storename,
-      this.address,
-      this.phone,
-      this.fare,
+        this.index,
+        this.data,
       this.userId,
       this.loginOption});
   int index;
-  String storename;
-  String address;
-  String phone;
-  String fare;
+  var data;
   String loginOption;
   String userId;
   @override
@@ -34,7 +28,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
   WebViewController controller;
   FToast fToast;
   var userId = "", loginOption = "";
-  var storename, address, phone, fare;
+  var data , storename, address;
   var star_color = false;
 
   var mainimage = [
@@ -48,10 +42,9 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
     fToast = FToast();
     fToast.init(context);
     setState(() {
-      storename = widget.storename;
-      address = widget.address;
-      phone = widget.phone;
-      fare = widget.fare;
+      data = widget.data;
+      storename = widget.data.store_name;
+      address = widget.data.address;
       userId = widget.userId;
       loginOption = widget.loginOption;
     });
@@ -143,80 +136,19 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
   @override
   Widget build(BuildContext context) {
     var index = widget.index;
-    var storename = widget.storename;
-    var address = widget.address;
-    var phone = widget.phone;
-    var fare = widget.fare;
-
+    var data = widget.data;
+    appbar bar = new appbar();
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            // iconTheme: IconThemeData(
-            //   color: Color(0xffff7292), //change your color here
-            // ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: Text(
-              "체험관 안내",
-              style: TextStyle(
-                  color: Color(0xffff7292),
-                  fontFamily: "NotoSansCJKkr_Medium",
-                  fontSize: 62.0 / screenWidth),
-            ),
-          ),
-        ),
+        appBar:bar.sub_appbar("체험관 안내",context),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //bar
-              // Container(
-              //   height: 178 / screenHeight,
-              //   width: 1501 / screenWidth,
-              //   color: Colors.white,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Stack(children: [
-              //         Center(
-              //           child: IconButton(
-              //             onPressed: () {
-              //               Navigator.pop(context);
-              //             },
-              //             icon: Image.asset(
-              //               "./assets/listPage/backbutton.png",
-              //               width: 44 / (screenWidth),
-              //               height: 76 / (screenHeight),
-              //             ),
-              //           ),
-              //         ),
-              //         Container(
-              //           height: 178 / screenHeight,
-              //           width: 1501 / screenWidth,
-              //           child: Center(
-              //               child: // 약관동의
-              //                   Text(
-              //             "체험관 안내",
-              //             style: TextStyle(
-              //                 color: Color(0xffff7292),
-              //                 fontFamily: "NotoSansCJKkr_Medium",
-              //                 fontSize: 62.0 / screenWidth),
-              //           )),
-              //         ),
-              //       ]),
-              //     ],
-              //   ),
-              // ),
+
 
               Container(
                 // height: 939 / screenHeight,
@@ -245,7 +177,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                     children: [
                       Container(
                         width: 1250 / screenWidth,
-                        child: Text(storename,
+                        child: Text(data.store_name,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "NotoSansCJKkr_Bold",
@@ -307,7 +239,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                           Container(
                             width: 1065 / (screenWidth),
                             child: Text(
-                              address == null ? "정보 없음" : address,
+                              data.address == null ? "정보 없음" : data.address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
@@ -333,7 +265,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                               ],
                             ),
                             onTap: () {
-                              FlutterClipboard.copy(address);
+                              FlutterClipboard.copy(data.address);
                               //     .then((value) => print('copied'));
                               // _showToast(screenWidth);
                             },
@@ -356,7 +288,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                         top: 10 / (1501 / MediaQuery.of(context).size.width),
                       )),
                       Text(
-                        phone == null ? '정보없음' : phone,
+                        data.phone == null ? '정보없음' : data.phone,
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
@@ -403,7 +335,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                                 10 / (1501 / MediaQuery.of(context).size.width),
                           )),
                           Text(
-                            fare == null ? "정보 없음" : fare,
+                            data.fare == null ? "정보 없음" : data.fare,
                             style: TextStyle(
                                 color: Color(0xff808080),
                                 fontFamily: "NotoSansCJKkr_Medium",

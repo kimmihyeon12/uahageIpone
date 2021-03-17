@@ -274,11 +274,7 @@ class _kids_cafeState extends State<kids_cafe> {
                                       type: PageTransitionType.rightToLeft,
                                       child: kid_cafe_sublist(
                                         index: index,
-                                        storename:
-                                            snapshot.data[index].store_name,
-                                        address: snapshot.data[index].address,
-                                        phone: snapshot.data[index].phone,
-                                        fare: snapshot.data[index].fare,
+                                        data:snapshot.data[index],
                                         userId: userId,
                                         loginOption: loginOption,
                                       ),

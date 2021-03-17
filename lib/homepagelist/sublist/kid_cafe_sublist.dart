@@ -7,22 +7,18 @@ import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:uahage/screens/allAppBar.dart';
 class kid_cafe_sublist extends StatefulWidget {
   kid_cafe_sublist(
       {Key key,
       this.index,
-      this.storename,
-      this.address,
-      this.phone,
-      this.fare,
+      this.data,
+
       this.userId,
       this.loginOption});
   int index;
-  String storename;
-  String address;
-  String phone;
-  String fare;
+  var data;
+
   String loginOption;
   String userId;
   @override
@@ -33,7 +29,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   WebViewController controller;
   FToast fToast;
   var userId = "", loginOption = "";
-  var storename, address, phone, fare;
+  var data , storename, address;
   var star_color = false;
 
   var mainimage = [
@@ -45,14 +41,13 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     fToast = FToast();
     fToast.init(context);
     setState(() {
-      storename = widget.storename;
-      address = widget.address;
-      phone = widget.phone;
-      fare = widget.fare;
-      userId = widget.userId;
+      data = widget.data;
+      storename = widget.data.store_name;
+      address = widget.data.address;
+    userId = widget.userId;
       loginOption = widget.loginOption;
     });
-    print(storename);
+
     // _star_color();
     checkStar();
 
@@ -141,79 +136,21 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   @override
   Widget build(BuildContext context) {
     var index = widget.index;
-    var storename = widget.storename;
-    var address = widget.address;
-    var phone = widget.phone;
-    var fare = widget.fare;
+    var data = widget.data;
+
+    appbar bar = new appbar();
 
     double screenHeight = 2667 / MediaQuery.of(context).size.height;
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0, centerTitle: true,
-            // iconTheme: IconThemeData(
-            //   color: Color(0xffff7292), //change your color here
-            // ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            title: Text(
-              "키즈카페 안내",
-              style: TextStyle(
-                  color: Color(0xffff7292),
-                  fontFamily: "NotoSansCJKkr_Medium",
-                  fontSize: 62.0 / screenWidth),
-            ),
-          ),
-        ),
+        appBar:bar.sub_appbar("키즈카페 안내",context),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //bar
-              // Container(
-              //   height: 178 / screenHeight,
-              //   width: 1501 / screenWidth,
-              //   color: Colors.white,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Stack(children: [
-              //         Center(
-              //           child: IconButton(
-              //             onPressed: () {
-              //               Navigator.pop(context);
-              //             },
-              //             icon: Image.asset(
-              //               "./assets/listPage/backbutton.png",
-              //               width: 44 / (screenWidth),
-              //               height: 76 / (screenHeight),
-              //             ),
-              //           ),
-              //         ),
-              //         Container(
-              //           height: 178 / screenHeight,
-              //           width: 1501 / screenWidth,
-              //           child: Center(
-              //               child: // 약관동의
-              //                   Text(
-              //             "키즈카페 안내",
-              //             style: TextStyle(
-              //                 color: Color(0xffff7292),
-              //                 fontFamily: "NotoSansCJKkr_Medium",
-              //                 fontSize: 62.0 / screenWidth),
-              //           )),
-              //         ),
-              //       ]),
-              //     ],
-              //   ),
-              // ),
+
 
               Container(
                 // height: 939 / screenHeight,
@@ -225,20 +162,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                     return mainImage(mainimage[1], screenWidth);
                 }()),
               ),
-              // index % 2 == 0
-              //     ? Image.asset(
-              //         mainimage[0],
-              //         width: MediaQuery.of(context).size.width,
-              //       )
-              //     : index % 2 == 1
-              //         ? Image.asset(
-              //             mainimage[1],
-              //             width: MediaQuery.of(context).size.width,
-              //           )
-              //         : Image.asset(
-              //             mainimage[1],
-              //             width: MediaQuery.of(context).size.width,
-              //           ),
+
 
               Card(
                 elevation: 0.3,
@@ -252,7 +176,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                     children: [
                       Container(
                         width: 1250 / screenWidth,
-                        child: Text(storename,
+                        child: Text(data.store_name,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: "NotoSansCJKkr_Bold",
@@ -314,7 +238,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                           Container(
                             width: 1065 / (screenWidth),
                             child: Text(
-                              address == null ? "정보 없음" : address,
+                              data.address == null ? "정보 없음" : data.address,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
@@ -340,7 +264,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                               ],
                             ),
                             onTap: () {
-                              FlutterClipboard.copy(address);
+                              FlutterClipboard.copy(data.address);
                               //     .then((value) => print('copied'));
                               // _showToast(screenWidth);
                             },
@@ -363,7 +287,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                         top: 10 / (1501 / MediaQuery.of(context).size.width),
                       )),
                       Text(
-                        phone,
+                        data.phone,
                         style: TextStyle(
                             color: Color(0xff808080),
                             fontFamily: "NotoSansCJKkr_Medium",
@@ -408,7 +332,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                             top:
                                 10 / (1501 / MediaQuery.of(context).size.width),
                           )),
-                          Text(fare == null ? "정보 없음" : fare,
+                          Text(data.fare == null ? "정보 없음" : data.fare,
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
@@ -456,8 +380,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                 controller = webViewController;
                                 controller.loadUrl(
                                     'http://13.209.41.43/storename?storename=$storename&address=$address');
-                                print(storename);
-                                print(address);
+
                               },
                               javascriptMode: JavascriptMode.unrestricted,
                             ),
