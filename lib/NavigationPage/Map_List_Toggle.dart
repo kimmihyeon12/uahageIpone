@@ -143,7 +143,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                 leading: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios_sharp,
-                    color: Colors.pinkAccent,
+                    color: Color(0xffff7292),
                   ),
                   iconSize: 100 / screenWidth,
                   color: Colors.white,
@@ -309,7 +309,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios_sharp),
                         iconSize: 100 / screenWidth,
-                        color: Colors.pinkAccent,
+                        color: Color(0xffff7292),
                         onPressed: () {
                           setState(() {
                             searchbtn = false;
@@ -400,7 +400,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
-                                  data:Message,
+                                  data: Message,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),

@@ -529,21 +529,25 @@ class _myPageState extends State<myPage> {
                         }()),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          330 / screenWidth, 341 / screenHeight, 0, 0),
-                      child: InkWell(
-                        onTap: loginOption != "login"
-                            ? () {
-                                _showPicker(context);
-                              }
-                            : () {
-                                showToast("로그인 해주세요!", screenWidth);
-                              },
-                        child: Image.asset(
-                          "./assets/myPage/camera.png",
-                          height: 109 / screenHeight,
-                          width: 110 / screenWidth,
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Container(
+                        // margin: EdgeInsets.fromLTRB(
+                        //     330 / screenWidth, 341 / screenHeight, 0, 0),
+                        child: InkWell(
+                          onTap: loginOption != "login"
+                              ? () {
+                                  _showPicker(context);
+                                }
+                              : () {
+                                  showToast("로그인 해주세요!", screenWidth);
+                                },
+                          child: Image.asset(
+                            "./assets/myPage/camera.png",
+                            height: 109 / screenHeight,
+                            width: 110 / screenWidth,
+                          ),
                         ),
                       ),
                     ),

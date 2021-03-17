@@ -49,6 +49,20 @@ class _KeywordState extends State<Keyword> {
     );
   }
 
+  int position = 1;
+
+  doneLoading(String A) {
+    setState(() {
+      position = 0;
+    });
+  }
+
+  startLoading(String A) {
+    setState(() {
+      position = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
@@ -57,59 +71,72 @@ class _KeywordState extends State<Keyword> {
 
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: WebView(
-            // initialUrl:
-            //     'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27',
-            onWebViewCreated: (WebViewController webViewController) async {
-              controller = webViewController;
-              print(searchkey);
-              print(
-                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=$searchkey');
-              await controller.loadUrl(
-                  'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
-              // showToggle = true;
-            },
-            javascriptMode: JavascriptMode.unrestricted,
-            javascriptChannels: Set.from([
-              JavascriptChannel(
-                  name: 'Print',
-                  onMessageReceived: (JavascriptMessage message) {
-                    messages = message.message;
-                    print('messages: ' + messages);
-                    //    controller.evaluateJavascript(javascriptString)
-                    // return Map_List_Toggle(latitude:latitude,longitude:longitude,searchkey:messages);
-                    if (messages != 'null') {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Map_List_Toggle(
-                                  userId: userId,
-                                  loginOption: loginOption,
-                                  latitude: latitude,
-                                  longitude: longitude,
-                                  searchkey: messages)));
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: "  옳바르게 입력해주세요!  ",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.black45,
-                        textColor: Colors.white,
-                        fontSize: 48 / screenWidth,
-                      );
-                      currentFocus.unfocus();
-                      Navigator.pop(context);
-                    }
-                    // setState(() {
-                    //   searchkey = messages;
-                    //   addressbtn = false;
-                    // });
-                  }),
-            ]),
-          ),
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.white,
+              child: WebView(
+                onPageFinished: doneLoading,
+                onPageStarted: startLoading,
+                // initialUrl:
+                //     'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27',
+                onWebViewCreated: (WebViewController webViewController) async {
+                  controller = webViewController;
+
+                  await controller.loadUrl(
+                      'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
+                  // showToggle = true;
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                javascriptChannels: Set.from([
+                  JavascriptChannel(
+                      name: 'Print',
+                      onMessageReceived: (JavascriptMessage message) {
+                        messages = message.message;
+                        print('messages: ' + messages);
+                        //    controller.evaluateJavascript(javascriptString)
+                        // return Map_List_Toggle(latitude:latitude,longitude:longitude,searchkey:messages);
+                        if (messages != 'null') {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Map_List_Toggle(
+                                      userId: userId,
+                                      loginOption: loginOption,
+                                      latitude: latitude,
+                                      longitude: longitude,
+                                      searchkey: messages)));
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: "  옳바르게 입력해주세요!  ",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.black45,
+                            textColor: Colors.white,
+                            fontSize: 48 / screenWidth,
+                          );
+                          currentFocus.unfocus();
+                          Navigator.pop(context);
+                        }
+                        // setState(() {
+                        //   searchkey = messages;
+                        //   addressbtn = false;
+                        // });
+                      }),
+                ]),
+              ),
+            ),
+            position == 1
+                ? Center(
+                    child: Container(
+                      color: Colors.white,
+                      child: Center(
+                          child: buildSpinKitThreeBounce(80, screenWidth)),
+                    ),
+                  )
+                : SizedBox.shrink(),
+          ],
         ),
       ),
     );

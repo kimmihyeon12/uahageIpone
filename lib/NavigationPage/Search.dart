@@ -174,26 +174,19 @@ class _searchPageState extends State<searchPage> {
   final key = UniqueKey();
 
   doneLoading(String A) {
-    // setState(() {
-    //   position = 0;
-    // });
     setState(() {
-      isLoading = false;
+      position = 0;
     });
-    print("isloading: $isLoading");
+    // setState(() {
+    //   isLoading = false;
+    // });
+    // print("isloading: $isLoading");
   }
 
   startLoading(String A) {
     setState(() {
-      isLoading = true;
+      position = 1;
     });
-    print("isloading: $isLoading");
-    // return showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return buildSpinKitThreeBounce(20, screenWidth);
-    //   },
-    // );
   }
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
@@ -215,48 +208,11 @@ class _searchPageState extends State<searchPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // IndexedStack(
-          //   index: position,
-          //   children: [
-          //     WebView(
-          //       key: key,
-          //       onPageFinished: doneLoading,
-          //       onPageStarted: startLoading,
-          //       // initialUrl: 'http://13.209.41.43/map',
-          //       onWebViewCreated: (WebViewController webViewController) {
-          //         controller = webViewController;
-          //         controller.loadUrl(latitude == 'NaN' ||
-          //                 longitude == 'NaN' ||
-          //                 latitude == '' ||
-          //                 longitude == ''
-          //             ? 'http://13.209.41.43/map'
-          //             : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
-          //       },
-          //       javascriptMode: JavascriptMode.unrestricted,
-          //       javascriptChannels: Set.from([
-          //         JavascriptChannel(
-          //             name: 'Print',
-          //             onMessageReceived: (JavascriptMessage message) async {
-
-          //               var messages = message.message;
-          //               Message = messages.split(",");
-          //               await checkStar();
-          //               showPopUpbottomMenu(context, screenHeight, screenWidth);
-          //             })
-          //       ]),
-          //     ),
-          //     Container(
-          //       color: Colors.white,
-          //       child: Center(child: buildSpinKitThreeBounce(80, screenWidth)),
-          //     ),
-          //   ],
-          // ),
           WebView(
             key: key,
             onPageFinished: doneLoading,
             onPageStarted: startLoading,
             // initialUrl: 'http://13.209.41.43/map',
-
             onWebViewCreated: (WebViewController webViewController) {
               controller = webViewController;
               controller.loadUrl(latitude == 'NaN' ||
@@ -278,6 +234,42 @@ class _searchPageState extends State<searchPage> {
                   })
             ]),
           ),
+          position == 1
+              ? Center(
+                  child: Container(
+                    color: Colors.white,
+                    child:
+                        Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+                  ),
+                )
+              : SizedBox.shrink(),
+          // WebView(
+          //   key: key,
+          //   onPageFinished: doneLoading,
+          //   onPageStarted: startLoading,
+          //   // initialUrl: 'http://13.209.41.43/map',
+
+          //   onWebViewCreated: (WebViewController webViewController) {
+          //     controller = webViewController;
+          //     controller.loadUrl(latitude == 'NaN' ||
+          //             longitude == 'NaN' ||
+          //             latitude == '' ||
+          //             longitude == ''
+          //         ? 'http://13.209.41.43/map'
+          //         : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+          //   },
+          //   javascriptMode: JavascriptMode.unrestricted,
+          //   javascriptChannels: Set.from([
+          //     JavascriptChannel(
+          //         name: 'Print',
+          //         onMessageReceived: (JavascriptMessage message) async {
+          //           var messages = message.message;
+          //           Message = messages.split(",");
+          //           await checkStar();
+          //           showPopUpbottomMenu(context, screenHeight, screenWidth);
+          //         })
+          //   ]),
+          // ),
           GestureDetector(
             onTap: () async {
               setState(() {
@@ -362,10 +354,10 @@ class _searchPageState extends State<searchPage> {
                         longitude == 'NaN' ||
                         latitude == '' ||
                         longitude == '') await lacations();
-                    controller.loadUrl(
-                        'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
                     // controller.loadUrl(
-                    //     "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+                    //     'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                    controller.loadUrl(
+                        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
                   },
                   child: Container(
                     margin: EdgeInsets.only(
