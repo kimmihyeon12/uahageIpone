@@ -8,7 +8,7 @@ import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:uahage/homepagelist/map_list.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/Kids_cafe_helper.dart';
 
@@ -46,10 +46,10 @@ class _kids_cafeState extends State<kids_cafe> {
   String liststringdata = 'Kids_cafe';
   String store_name1, address1, phone1, fare1;
   var star_color = false;
-  List<String> star_color_list = [];
+  List<bool> star_color_list = [];
   var list = true;
   var indexcount = 0;
-
+  toast show_toast = new toast();
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
@@ -159,7 +159,8 @@ class _kids_cafeState extends State<kids_cafe> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
+                InkWell(
+                  highlightColor: Colors.white,
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -266,22 +267,31 @@ class _kids_cafeState extends State<kids_cafe> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
+                            InkWell(
+                              highlightColor: Colors.white,
+                              onTap: () async {
+                                bool result = await Navigator.push(
                                     context,
                                     PageTransition(
                                       type: PageTransitionType.rightToLeft,
                                       child: kid_cafe_sublist(
-                                        index: index,
-                                        data:snapshot.data[index],
-                                        userId: userId,
-                                        loginOption: loginOption,
-                                      ),
+                                          index: index,
+                                          data: snapshot.data[index],
+                                          userId: userId,
+                                          loginOption: loginOption),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
-                                          Duration(milliseconds: 100),
+                                      Duration(milliseconds: 100),
                                     ));
+
+                                setState(() {
+
+                                  if (result) {
+                                    star_color_list[index] = true;
+                                  } else {
+                                    star_color_list[index] =false;
+                                  }
+                                });
                               },
                               child: Container(
                                 width: 1280 / screenWidth,
@@ -368,22 +378,14 @@ class _kids_cafeState extends State<kids_cafe> {
                                   maxHeight: 70 / screenHeight,
                                 ),
                                 icon: Image.asset(
-                                  star_color_list[index] == 'null'
+                                  !star_color_list[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
                                   height: 60 / screenHeight,
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                        Fluttertoast.showToast(
-                                          msg: "  로그인 해주세요!  ",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.black45,
-                                          textColor: Colors.white,
-                                          fontSize: 48 / screenHeight,
-                                        );
+                                  show_toast.showToast(context,"로그인해주세요!");
                                       }
                                     : () async {
                                         setState(() {
@@ -395,14 +397,13 @@ class _kids_cafeState extends State<kids_cafe> {
                                           fare1 = snapshot.data[index].fare;
 
                                           if (star_color_list[index] ==
-                                              'null') {
+                                              false) {
                                             star_color = true;
-                                            star_color_list[index] = "test";
-                                            print(' star_color_list[index]');
-                                            print(star_color_list[index]);
+                                            star_color_list[index] = true;
+
                                           } else {
                                             star_color = false;
-                                            star_color_list[index] = 'null';
+                                            star_color_list[index] = false;
                                           }
                                           ;
 

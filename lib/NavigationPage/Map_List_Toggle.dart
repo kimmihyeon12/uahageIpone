@@ -10,7 +10,7 @@ import 'package:uahage/StarManage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/icon.dart';
-
+import 'package:uahage/ToastManage.dart';
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
       {Key key,
@@ -49,11 +49,11 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     super.initState();
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
-    //_star_color();
+
   }
 
   StarManage starInsertDelete = new StarManage();
-
+  toast show_toast = new toast();
   Future click_star() async {
     await starInsertDelete.click_star(
         userId + loginOption,
@@ -75,25 +75,11 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         "restaurant");
   }
 
-  Future checkStar() async {
-    print("start checking");
-    var response;
-    try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=${Message[0]}");
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          star_color = true;
-        });
-      } else {
-        setState(() {
-          star_color = false;
-        });
-      }
-    } catch (err) {
-      print(err);
-    }
+  Future getSubStarColor() async{
+    star_color = await starInsertDelete.getSubStarColor(userId, loginOption,  Message[0]);
+    setState((){
+      star_color = star_color;
+    });
   }
 
   doneLoading(String A) {
@@ -287,7 +273,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
                             Message = messages.split(",");
-                            await checkStar();
+                            await  getSubStarColor() ;
                             showPopUpbottomMenu(
                                 context, screenHeight, screenWidth);
                           })
@@ -464,17 +450,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                             height: 60 / screenHeight),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                                Fluttertoast.showToast(
-                                                  msg: "  로그인 해주세요!  ",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      Colors.black45,
-                                                  textColor: Colors.white,
-                                                  fontSize: 56 / screenWidth,
-                                                );
+                                          show_toast.showToast(context,"로그인해주세요!");
+
                                               }
                                             : () async {
                                                 setState(() {

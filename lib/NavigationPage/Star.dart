@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
@@ -27,7 +27,7 @@ class starPage extends StatefulWidget {
 }
 
 class _starPageState extends State<starPage> {
-  FToast fToast;
+
   String userId = "";
   String loginOption = "";
   var address1 = "";
@@ -56,8 +56,7 @@ class _starPageState extends State<starPage> {
   icon iconwidget = new icon();
   @override
   void initState() {
-    fToast = FToast();
-    fToast.init(context);
+
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
@@ -90,35 +89,7 @@ class _starPageState extends State<starPage> {
     if (jsonDecode(response)["affectedRows"] == 1) setState(() {});
   }
 
-  _showToast(screenWidth) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.black45,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "즐겨찾기가 해제되었어요",
-            style: TextStyle(
-              fontSize: 45 / screenWidth,
-              fontFamily: 'NotoSansCJKkr_Medium',
-              letterSpacing: 0,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
 
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
-    );
-  }
 
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;

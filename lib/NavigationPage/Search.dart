@@ -10,7 +10,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/ToastManage.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
@@ -48,6 +48,7 @@ class _searchPageState extends State<searchPage> {
   int index = 1;
   var Message;
 
+  toast show_toast = new toast();
   List<String> star_color_list = List(2);
   List<bool> grey_image = [
     true,
@@ -122,6 +123,7 @@ class _searchPageState extends State<searchPage> {
         "restaurant");
   }
 
+<<<<<<< HEAD
   Future checkStar() async {
     print("start checking: message ${Message[0]}");
     var response;
@@ -141,6 +143,13 @@ class _searchPageState extends State<searchPage> {
     } catch (err) {
       print(err);
     }
+=======
+  Future getSubStarColor() async{
+    star_color = await starInsertDelete.getSubStarColor(userId, loginOption,   Message[0] );
+    setState((){
+      star_color = star_color;
+    });
+>>>>>>> 1cd03f97d5bc13e22f1232e47134ec2fcfda5174
   }
 
   // WebViewController _controller;
@@ -229,7 +238,7 @@ class _searchPageState extends State<searchPage> {
                   onMessageReceived: (JavascriptMessage message) async {
                     var messages = message.message;
                     Message = messages.split(",");
-                    await checkStar();
+                    await getSubStarColor();
                     showPopUpbottomMenu(context, screenHeight, screenWidth);
                   })
             ]),
@@ -596,17 +605,7 @@ class _searchPageState extends State<searchPage> {
                                             height: 60 / screenHeight),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                                Fluttertoast.showToast(
-                                                  msg: "  로그인 해주세요!  ",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor:
-                                                      Colors.black45,
-                                                  textColor: Colors.white,
-                                                  fontSize: 56 / screenWidth,
-                                                );
+                                          show_toast.showToast(context,"로그인해주세요!");
                                               }
                                             : () async {
                                                 setState(() {
