@@ -9,14 +9,10 @@ import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/StarManage.dart';
-class experience_center_sublist extends StatefulWidget {
 
+class experience_center_sublist extends StatefulWidget {
   experience_center_sublist(
-      {Key key,
-        this.index,
-        this.data,
-      this.userId,
-      this.loginOption});
+      {Key key, this.index, this.data, this.userId, this.loginOption});
   int index;
   var data;
   String loginOption;
@@ -30,7 +26,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
   WebViewController controller;
 
   var userId = "", loginOption = "";
-  var data , storename, address;
+  var data, storename, address;
   var star_color = false;
 
   var mainimage = [
@@ -41,17 +37,17 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
   ];
   @override
   void initState() {
-
     setState(() {
       data = widget.data;
-      storename = widget.data.store_name;
-      address = widget.data.address;
+      storename = data.store_name;
+      address = data.address;
       userId = widget.userId;
       loginOption = widget.loginOption;
     });
     getSubStarColor();
     super.initState();
   }
+
   StarManage starInsertDelete = new StarManage();
   Future click_star() async {
     await starInsertDelete.click_star(
@@ -73,13 +69,15 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
         star_color,
         "Examination_institution");
   }
+
   Future getSubStarColor() async {
     star_color =
-    await starInsertDelete.getSubStarColor(userId, loginOption, storename);
+        await starInsertDelete.getSubStarColor(userId, loginOption, storename);
     setState(() {
       star_color = star_color;
     });
   }
+
   toast show_toast = new toast();
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
@@ -119,14 +117,12 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
     double screenWidth = 1501 / MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        appBar:bar.sub_appbar("체험관 안내",context,star_color),
+        appBar: bar.sub_appbar("체험관 안내", context, star_color),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-
               Container(
                 // height: 939 / screenHeight,
                 width: 1501 / screenWidth,
@@ -141,7 +137,6 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                     return mainImage(mainimage[3], screenWidth);
                 }()),
               ),
-
               Card(
                 elevation: 0.3,
                 child: Container(
@@ -178,20 +173,19 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                             height: 60 / screenHeight),
                         onPressed: loginOption == "login"
                             ? () {
-                          show_toast.showToast(context,"로그인해주세요!");
-                        }
+                                show_toast.showToast(context, "로그인해주세요!");
+                              }
                             : () async {
-                          setState(() {
-                            star_color = !star_color;
-                          });
-                          await click_star();
-                        },
+                                setState(() {
+                                  star_color = !star_color;
+                                });
+                                await click_star();
+                              },
                       ),
                     ],
                   ),
                 ),
               ),
-
               Card(
                 elevation: 0.3,
                 child: Container(
@@ -253,7 +247,7 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                             onTap: () {
                               FlutterClipboard.copy(data.address);
                               //     .then((value) => print('copied'));
-                              show_toast.showToast(context,"주소가 복사되었습니다");
+                              show_toast.showToast(context, "주소가 복사되었습니다");
                             },
                           )
                         ],
@@ -289,7 +283,6 @@ class _experience_center_sublistState extends State<experience_center_sublist> {
                   ),
                 ),
               ),
-
               Card(
                 elevation: 0.3,
                 child: Container(

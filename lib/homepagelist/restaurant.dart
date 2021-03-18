@@ -271,9 +271,8 @@ class _restaurantState extends State<restaurant> {
             child: Text("${snapshot.error}"),
           );
         } else if (snapshot.hasData &&
-            snapshot.data != null
-            && star_color_list.length != 0
-        ) {
+            snapshot.data != null &&
+            star_color_list.length != 0) {
           print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
           return Scrollbar(
             child: ListView.builder(
@@ -282,7 +281,6 @@ class _restaurantState extends State<restaurant> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   // print(snapshot.data.id[index]);
-
                   print("List index: $index");
                   return Card(
                     elevation: 0.3,
@@ -297,7 +295,7 @@ class _restaurantState extends State<restaurant> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             InkWell(
-                             highlightColor: Colors.white,
+                              highlightColor: Colors.white,
                               onTap: () async {
                                 bool result = await Navigator.push(
                                     context,
@@ -314,11 +312,10 @@ class _restaurantState extends State<restaurant> {
                                     ));
 
                                 setState(() {
-
                                   if (result) {
                                     star_color_list[index] = true;
                                   } else {
-                                    star_color_list[index] =false;
+                                    star_color_list[index] = false;
                                   }
                                 });
                               },
@@ -457,7 +454,8 @@ class _restaurantState extends State<restaurant> {
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                  show_toast.showToast(context,"로그인해주세요!");
+                                        show_toast.showToast(
+                                            context, "로그인해주세요!");
                                       }
                                     : () async {
                                         setState(() {

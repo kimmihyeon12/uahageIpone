@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
@@ -14,6 +15,7 @@ import 'package:uahage/ToastManage.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
+import 'dart:convert';
 
 class searchPage extends StatefulWidget {
   searchPage(
@@ -216,7 +218,7 @@ class _searchPageState extends State<searchPage> {
                   name: 'Print',
                   onMessageReceived: (JavascriptMessage message) async {
                     var messages = message.message;
-                    Message = messages.split(",");
+                    Message = messages.split("|");
                     await getSubStarColor();
                     showPopUpbottomMenu(context, screenHeight, screenWidth);
                   })
@@ -517,13 +519,34 @@ class _searchPageState extends State<searchPage> {
                       ),
                       child: InkWell(
                         onTap: () {
+                          final btm = BottomButton(
+                              storeName: Message[0],
+                              address1: Message[1],
+                              phone1: Message[2],
+                              menu1: Message[3],
+                              bed1: Message[4],
+                              tableware1: Message[5],
+                              meetingroom1: Message[6],
+                              diapers1: Message[7],
+                              playroom1: Message[8],
+                              carriage1: Message[9],
+                              nursingroom1: Message[10],
+                              chair1: Message[11],
+                              Examination_item1: Message[12],
+                              fare1: Message[13]);
+                          // print(Message);
+                          // print(toMap);
+                          print(btm);
+                          print(btm.carriage);
+                          print(btm.store_name);
+
                           Navigator.push(
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
-                                  data: Message,
+                                  data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),

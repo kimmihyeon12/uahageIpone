@@ -9,14 +9,10 @@ import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/StarManage.dart';
+
 class kid_cafe_sublist extends StatefulWidget {
   kid_cafe_sublist(
-      {Key key,
-      this.index,
-      this.data,
-
-      this.userId,
-      this.loginOption});
+      {Key key, this.index, this.data, this.userId, this.loginOption});
   int index;
   var data;
 
@@ -30,7 +26,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   WebViewController controller;
 
   var userId = "", loginOption = "";
-  var data , storename, address;
+  var data, storename, address;
   var star_color = false;
 
   var mainimage = [
@@ -39,16 +35,14 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   ];
   @override
   void initState() {
-
     setState(() {
       data = widget.data;
-      storename = widget.data.store_name;
-      address = widget.data.address;
-    userId = widget.userId;
+      storename = data.store_name;
+      address = data.address;
+      userId = widget.userId;
       loginOption = widget.loginOption;
     });
     getSubStarColor();
-
 
     super.initState();
   }
@@ -75,15 +69,14 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
         star_color,
         "Examination_institution");
   }
+
   Future getSubStarColor() async {
     star_color =
-    await starInsertDelete.getSubStarColor(userId, loginOption, storename);
+        await starInsertDelete.getSubStarColor(userId, loginOption, storename);
     setState(() {
       star_color = star_color;
     });
   }
-
-
 
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
@@ -125,13 +118,11 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar:bar.sub_appbar("키즈카페 안내",context, star_color),
+        appBar: bar.sub_appbar("키즈카페 안내", context, star_color),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-
               Container(
                 // height: 939 / screenHeight,
                 width: 1501 / screenWidth,
@@ -142,8 +133,6 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                     return mainImage(mainimage[1], screenWidth);
                 }()),
               ),
-
-
               Card(
                 elevation: 0.3,
                 child: Container(
@@ -180,20 +169,19 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                             height: 60 / screenHeight),
                         onPressed: loginOption == "login"
                             ? () {
-                          show_toast.showToast(context,"로그인해주세요!");
-                        }
+                                show_toast.showToast(context, "로그인해주세요!");
+                              }
                             : () async {
-                          setState(() {
-                            star_color = !star_color;
-                          });
-                          await click_star();
-                        },
+                                setState(() {
+                                  star_color = !star_color;
+                                });
+                                await click_star();
+                              },
                       ),
                     ],
                   ),
                 ),
               ),
-
               Card(
                 elevation: 0.3,
                 child: Container(
@@ -254,7 +242,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                             ),
                             onTap: () {
                               FlutterClipboard.copy(data.address);
-                              show_toast.showToast(context,"주소가 복사되었습니다");
+                              show_toast.showToast(context, "주소가 복사되었습니다");
                             },
                           )
                         ],
@@ -368,7 +356,6 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                 controller = webViewController;
                                 controller.loadUrl(
                                     'http://13.209.41.43/storename?storename=$storename&address=$address');
-
                               },
                               javascriptMode: JavascriptMode.unrestricted,
                             ),

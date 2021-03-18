@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/icon.dart';
 import 'package:uahage/ToastManage.dart';
+
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
       {Key key,
@@ -49,7 +51,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     super.initState();
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
-
   }
 
   StarManage starInsertDelete = new StarManage();
@@ -75,9 +76,10 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         "restaurant");
   }
 
-  Future getSubStarColor() async{
-    star_color = await starInsertDelete.getSubStarColor(userId, loginOption,  Message[0]);
-    setState((){
+  Future getSubStarColor() async {
+    star_color =
+        await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
+    setState(() {
       star_color = star_color;
     });
   }
@@ -244,7 +246,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         (WebViewController webViewController) async {
                       controller = webViewController;
                       await controller.loadUrl(
-                          "http://13.209.41.43/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+                          "http://211.223.46.144:3000/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
                     },
                     javascriptMode: JavascriptMode.unrestricted,
                     javascriptChannels: Set.from([
@@ -272,8 +274,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           name: 'Print1',
                           onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
-                            Message = messages.split(",");
-                            await  getSubStarColor() ;
+                            Message = messages.split("|");
+                            await getSubStarColor();
                             showPopUpbottomMenu(
                                 context, screenHeight, screenWidth);
                           })
@@ -380,13 +382,27 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       ),
                       child: InkWell(
                         onTap: () {
+                          final btm = BottomButton(
+                            storeName: Message[0],
+                            address1: Message[1],
+                            phone1: Message[2],
+                            menu1: Message[3],
+                            bed1: Message[4],
+                            tableware1: Message[5],
+                            meetingroom1: Message[6],
+                            diapers1: Message[7],
+                            playroom1: Message[8],
+                            carriage1: Message[9],
+                            nursingroom1: Message[10],
+                            chair1: Message[11],
+                          );
                           Navigator.push(
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
-                                  data: Message,
+                                  data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),
@@ -450,8 +466,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                             height: 60 / screenHeight),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                          show_toast.showToast(context,"로그인해주세요!");
-
+                                                show_toast.showToast(
+                                                    context, "로그인해주세요!");
                                               }
                                             : () async {
                                                 setState(() {

@@ -27,7 +27,7 @@ class examination_institution_sublist extends StatefulWidget {
 class _examination_institution_sublistState
     extends State<examination_institution_sublist> {
   WebViewController controller;
- 
+
   var userId = "", loginOption = "";
   var data, storename, address;
   var star_color = false;
@@ -41,10 +41,10 @@ class _examination_institution_sublistState
   var enabled = false;
   @override
   void initState() {
-   setState(() {
+    setState(() {
       data = widget.data;
-      storename = widget.data.store_name;
-      address = widget.data.address;
+      storename = data.store_name;
+      address = data.address;
       userId = widget.userId;
       loginOption = widget.loginOption;
     });
@@ -60,9 +60,10 @@ class _examination_institution_sublistState
     getSubStarColor();
     super.initState();
   }
- toast show_toast = new toast();
+
+  toast show_toast = new toast();
   StarManage starInsertDelete = new StarManage();
-  
+
   Future click_star() async {
     await starInsertDelete.click_star(
         userId + loginOption,
@@ -91,8 +92,6 @@ class _examination_institution_sublistState
       star_color = star_color;
     });
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +164,7 @@ class _examination_institution_sublistState
                                 height: 60 / screenHeight),
                             onPressed: loginOption == "login"
                                 ? () {
-                              show_toast.showToast(context,"로그인해주세요!");
+                                    show_toast.showToast(context, "로그인해주세요!");
                                   }
                                 : () async {
                                     setState(() {
@@ -241,7 +240,7 @@ class _examination_institution_sublistState
                                 onTap: () {
                                   FlutterClipboard.copy(data.address);
                                   //     .then((value) => print('copied'));
-                                  show_toast.showToast(context,"주소가 복사되었습니다");
+                                  show_toast.showToast(context, "주소가 복사되었습니다");
                                 },
                               )
                             ],

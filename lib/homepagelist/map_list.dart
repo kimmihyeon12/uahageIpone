@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
@@ -88,12 +89,13 @@ class _map_listState extends State<map_list> {
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
-  Future getSubStarColor() async{
-   star_color = await starInsertDelete.getSubStarColor(userId, loginOption,  Message[0]);
-    setState((){
+  Future getSubStarColor() async {
+    star_color =
+        await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
+    setState(() {
       star_color = star_color;
     });
   }
@@ -103,10 +105,9 @@ class _map_listState extends State<map_list> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
+            .loadUrl('http://211.223.46.144:3000/getAddress?address=$searchKey')
         : null;
   }
-
 
   WebViewController controller;
   icon iconwidget = new icon();
@@ -169,7 +170,7 @@ class _map_listState extends State<map_list> {
   }
 
   // uadate_location() async{
-  //   String url = 'http://13.209.41.43/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
+  //   String url = 'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
   //   var response = await http.get(url);
   //   setState(() {
   //     print('reload');
@@ -181,148 +182,146 @@ class _map_listState extends State<map_list> {
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: [
-            IndexedStack(
-              index: position,
-              children: [
-                WebView(
-                  key: key,
-                  onPageFinished: doneLoading,
-                  onPageStarted: startLoading,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    controller = webViewController;
+        child: Stack(children: [
+          IndexedStack(
+            index: position,
+            children: [
+              WebView(
+                key: key,
+                onPageFinished: doneLoading,
+                onPageStarted: startLoading,
+                onWebViewCreated: (WebViewController webViewController) {
+                  controller = webViewController;
 
-                    if (latitude == 'NaN' ||
-                        longitude == 'NaN' ||
-                        latitude == '' ||
-                        longitude == '') {
-                      getLatLong();
-                    } else {
-                      controller.loadUrl(
-                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
-                    }
+                  if (latitude == 'NaN' ||
+                      longitude == 'NaN' ||
+                      latitude == '' ||
+                      longitude == '') {
+                    getLatLong();
+                  } else {
+                    controller.loadUrl(
+                        'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
+                  }
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                javascriptChannels: Set.from([
+                  JavascriptChannel(
+                      name: 'Print',
+                      onMessageReceived: (JavascriptMessage message) async {
+                        //This is where you receive message from
+                        //javascript code and handle in Flutter/Dart
+                        //like here, the message is just being printed
+                        //in Run/LogCat window of android studio
+                        var messages = message.message;
+                        print("messages:" + messages);
+                        print('userId:' + userId);
+                        Message = messages.split("|");
+                        print("Message: $Message");
+                        await getSubStarColor();
+                        showPopUpbottomMenu(context, screenHeight, screenWidth);
+                      }),
+                ]),
+              ),
+              Container(
+                color: Colors.white,
+                child: Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+              ),
+            ],
+          ),
+          listrequest == "restaurant"
+              ? GestureDetector(
+                  onTap: () async {
+                    setState(() {
+                      grey_image = [
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                      ];
+                    });
+                    await showPopUpMenu(context, screenHeight, screenWidth);
                   },
-                  javascriptMode: JavascriptMode.unrestricted,
-                  javascriptChannels: Set.from([
-                    JavascriptChannel(
-                        name: 'Print',
-                        onMessageReceived: (JavascriptMessage message) async {
-                          //This is where you receive message from
-                          //javascript code and handle in Flutter/Dart
-                          //like here, the message is just being printed
-                          //in Run/LogCat window of android studio
-                          var messages = message.message;
-                          print("messages:" + messages);
-                          print('userId:' + userId);
-                          Message = messages.split(",");
-                          await getSubStarColor();
-                          showPopUpbottomMenu(
-                              context, screenHeight, screenWidth);
-                        }),
-                  ]),
-                ),
-                Container(
-                  color: Colors.white,
-                  child:
-                      Center(child: buildSpinKitThreeBounce(80, screenWidth)),
-                ),
-              ],
-            ),
-            listrequest == "restaurant"
-                ? GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        grey_image = [
-                          true,
-                          true,
-                          true,
-                          true,
-                          true,
-                          true,
-                          true,
-                          true,
-                          true,
-                        ];
-                      });
-                      await showPopUpMenu(context, screenHeight, screenWidth);
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          left: 1250 / screenWidth, top: 30 / screenHeight),
-                      child: Image.asset(
-                        "./assets/searchPage/cat_btn.png",
-                        height: 158 / screenHeight,
-                      ),
-                    ),
-                  )
-                : Container(),
-            Row(
-              children: [
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: GestureDetector(
-                    onTap: () async {
-                      //     uadate_location();
-                      lacations();
-                      controller.loadUrl(
-                          'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          left: 48 / screenWidth, bottom: 76 / screenHeight),
-                      child: SizedBox(
-                        height: 159 / screenHeight,
-                        width: 161 / screenWidth,
-                        child: Image.asset("assets/searchPage/location.png"),
-                      ),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        left: 1250 / screenWidth, top: 30 / screenHeight),
+                    child: Image.asset(
+                      "./assets/searchPage/cat_btn.png",
+                      height: 158 / screenHeight,
                     ),
                   ),
-                ),
-                // Align(
-                //   alignment: Alignment.bottomRight,
-                //   child: Container(
-                //     margin: EdgeInsets.fromLTRB(
-                //         1060 / screenWidth, 0, 0, 47 / screenHeight),
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.end,
-                //       // crossAxisAlignment: CrossAxisAlignment.end,
-                //       children: [
-                //         IconButton(
-                //             onPressed: () {
-                //               setState(() {
-                //                 zoom -= 1;
-                //               });
-                //               controller.loadUrl(
-                //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
-                //             },
-                //             icon: Image.asset(
-                //               "assets/searchPage/plus.png",
-                //               width: 105 / screenWidth,
-                //               height: 105 / screenHeight,
-                //             )),
-                //         IconButton(
-                //             onPressed: () {
-                //               setState(() {
-                //                 zoom += 1;
-                //               });
-                //               controller.loadUrl(
-                //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
-                //             },
-                //             icon: Image.asset(
-                //               "assets/searchPage/minus.png",
-                //               width: 105 / screenWidth,
-                //               height: 105 / screenHeight,
-                //             )),
-                //       ],
-                //     ),
-                //   ),
-                // )
-                // //
-              ],
-            ),
-          ],
-        ),
+                )
+              : Container(),
+          // Row(
+          //   children: [
+          //     Align(
+          //       alignment: Alignment.bottomLeft,
+          //       child: GestureDetector(
+          //         onTap: () async {
+          //           //     uadate_location();
+          //           lacations();
+          //           controller.loadUrl(
+          //               'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
+          //         },
+          //         child: Container(
+          //           margin: EdgeInsets.only(
+          //               left: 48 / screenWidth, bottom: 76 / screenHeight),
+          //           child: SizedBox(
+          //             height: 159 / screenHeight,
+          //             width: 161 / screenWidth,
+          //             child: Image.asset("assets/searchPage/location.png"),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          // Align(
+          //   alignment: Alignment.bottomRight,
+          //   child: Container(
+          //     margin: EdgeInsets.fromLTRB(
+          //         1060 / screenWidth, 0, 0, 47 / screenHeight),
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.end,
+          //       // crossAxisAlignment: CrossAxisAlignment.end,
+          //       children: [
+          //         IconButton(
+          //             onPressed: () {
+          //               setState(() {
+          //                 zoom -= 1;
+          //               });
+          //               controller.loadUrl(
+          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+          //             },
+          //             icon: Image.asset(
+          //               "assets/searchPage/plus.png",
+          //               width: 105 / screenWidth,
+          //               height: 105 / screenHeight,
+          //             )),
+          //         IconButton(
+          //             onPressed: () {
+          //               setState(() {
+          //                 zoom += 1;
+          //               });
+          //               controller.loadUrl(
+          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+          //             },
+          //             icon: Image.asset(
+          //               "assets/searchPage/minus.png",
+          //               width: 105 / screenWidth,
+          //               height: 105 / screenHeight,
+          //             )),
+          //       ],
+          //     ),
+          //   ),
+          // )
+          // //
+          //   ],
+          // ),
+          // ],
+        ]),
       ),
     );
   }
@@ -363,13 +362,35 @@ class _map_listState extends State<map_list> {
                       ),
                       child: GestureDetector(
                         onTap: () {
+                          final btm = BottomButton(
+                              storeName: Message[0],
+                              address1: Message[1],
+                              phone1: Message[2],
+                              menu1: Message[3],
+                              bed1: Message[4],
+                              tableware1: Message[5],
+                              meetingroom1: Message[6],
+                              diapers1: Message[7],
+                              playroom1: Message[8],
+                              carriage1: Message[9],
+                              nursingroom1: Message[10],
+                              chair1: Message[11],
+                              Examination_item1: Message[12],
+                              fare1: Message[13]);
+                          // print(Message);
+                          // print(toMap);
+                          print(btm);
+                          print(btm.address);
+                          print(btm.carriage);
+                          print(btm.store_name);
+
                           Navigator.push(context, () {
                             if (Message[14] == 'restaurant') {
                               return PageTransition(
                                 type: PageTransitionType.rightToLeft,
                                 child: restaurant_sublist(
                                   index: index++,
-                                  data:Message,
+                                  data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),
@@ -382,7 +403,7 @@ class _map_listState extends State<map_list> {
                                 type: PageTransitionType.rightToLeft,
                                 child: examination_institution_sublist(
                                   index: index++,
-                                  data:Message,
+                                  data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),
@@ -394,7 +415,7 @@ class _map_listState extends State<map_list> {
                                 type: PageTransitionType.rightToLeft,
                                 child: experience_center_sublist(
                                   index: index++,
-                                  data:Message,
+                                  data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),
@@ -406,7 +427,7 @@ class _map_listState extends State<map_list> {
                                 type: PageTransitionType.rightToLeft,
                                 child: kid_cafe_sublist(
                                   index: index++,
-                                  data:Message,
+                                  data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
                                 ),
@@ -662,5 +683,4 @@ class _map_listState extends State<map_list> {
         barrierColor: null,
         transitionDuration: const Duration(milliseconds: 150));
   }
-
 }
