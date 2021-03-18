@@ -93,14 +93,14 @@ class _searchPageState extends State<searchPage> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://211.223.46.144:3000/getAddress?address=$searchKey')
+            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
         : null;
   }
 
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   StarManage starInsertDelete = new StarManage();
@@ -202,15 +202,15 @@ class _searchPageState extends State<searchPage> {
             key: key,
             onPageFinished: doneLoading,
             onPageStarted: startLoading,
-            // initialUrl: 'http://211.223.46.144:3000/map',
+            // initialUrl: 'http://13.209.41.43/map',
             onWebViewCreated: (WebViewController webViewController) {
               controller = webViewController;
               controller.loadUrl(latitude == 'NaN' ||
                       longitude == 'NaN' ||
                       latitude == '' ||
                       longitude == ''
-                  ? 'http://211.223.46.144:3000/map'
-                  : 'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
+                  ? 'http://13.209.41.43/map'
+                  : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
             },
             javascriptMode: JavascriptMode.unrestricted,
             javascriptChannels: Set.from([
@@ -237,7 +237,7 @@ class _searchPageState extends State<searchPage> {
           //   key: key,
           //   onPageFinished: doneLoading,
           //   onPageStarted: startLoading,
-          //   // initialUrl: 'http://211.223.46.144:3000/map',
+          //   // initialUrl: 'http://13.209.41.43/map',
 
           //   onWebViewCreated: (WebViewController webViewController) {
           //     controller = webViewController;
@@ -245,8 +245,8 @@ class _searchPageState extends State<searchPage> {
           //             longitude == 'NaN' ||
           //             latitude == '' ||
           //             longitude == ''
-          //         ? 'http://211.223.46.144:3000/map'
-          //         : 'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
+          //         ? 'http://13.209.41.43/map'
+          //         : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
           //   },
           //   javascriptMode: JavascriptMode.unrestricted,
           //   javascriptChannels: Set.from([
@@ -345,9 +345,9 @@ class _searchPageState extends State<searchPage> {
                         latitude == '' ||
                         longitude == '') await lacations();
                     // controller.loadUrl(
-                    //     'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
+                    //     'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
                     controller.loadUrl(
-                        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+                        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -518,7 +518,7 @@ class _searchPageState extends State<searchPage> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           final btm = BottomButton(
                               storeName: Message[0],
                               address1: Message[1],
@@ -540,7 +540,7 @@ class _searchPageState extends State<searchPage> {
                           print(btm.carriage);
                           print(btm.store_name);
 
-                          Navigator.push(
+                          final result = await Navigator.push(
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
@@ -553,6 +553,13 @@ class _searchPageState extends State<searchPage> {
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
                               ));
+                          result
+                              ? setState(() {
+                                  star_color = true;
+                                })
+                              : setState(() {
+                                  star_color = false;
+                                });
                         },
                         child: Row(
                           children: [

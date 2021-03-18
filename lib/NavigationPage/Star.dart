@@ -27,7 +27,6 @@ class starPage extends StatefulWidget {
 }
 
 class _starPageState extends State<starPage> {
-
   String userId = "";
   String loginOption = "";
   var address1 = "";
@@ -56,7 +55,6 @@ class _starPageState extends State<starPage> {
   icon iconwidget = new icon();
   @override
   void initState() {
-
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
@@ -67,7 +65,6 @@ class _starPageState extends State<starPage> {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   StarManage starInsertDelete = new StarManage();
   click_star(address1) async {
-
     var response = await starInsertDelete.click_star(
         userId + loginOption,
         null,
@@ -88,8 +85,6 @@ class _starPageState extends State<starPage> {
         null);
     if (jsonDecode(response)["affectedRows"] == 1) setState(() {});
   }
-
-
 
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
@@ -114,10 +109,9 @@ class _starPageState extends State<starPage> {
     }
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: bar.navHome_abbbar("즐겨찾기",context),
+        appBar: bar.navHome_abbbar("즐겨찾기", context),
         body: Column(
           children: [
-
             Expanded(
               flex: 1,
               child: FutureBuilder(
@@ -312,33 +306,60 @@ class _starPageState extends State<starPage> {
                                                               .bottomRight,
                                                           child: Row(
                                                             children: [
-                                                              iconwidget.chair(snapshot
-                                                                  .data[index]
-                                                                  .chair , context),
-                                                              iconwidget.carriage(snapshot
-                                                                  .data[index]
-                                                                  .carriage, context),
-                                                              iconwidget.menu(snapshot
-                                                                  .data[index]
-                                                                  .menu, context),
-                                                              iconwidget. bed(snapshot
-                                                                  .data[index]
-                                                                  .bed, context),
-                                                              iconwidget.tableware(snapshot
-                                                                  .data[index]
-                                                                  .tableware, context),
-                                                              iconwidget. meetingroom(snapshot
-                                                                  .data[index]
-                                                                  .meetingroom, context),
-                                                              iconwidget.diapers(snapshot
-                                                                  .data[index]
-                                                                  .diapers, context),
-                                                              iconwidget.playroom(snapshot
-                                                                  .data[index]
-                                                                  .playroom, context),
-                                                              iconwidget.nursingroom(snapshot
-                                                                  .data[index]
-                                                                  .nursingroom, context),
+                                                              iconwidget.chair(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .chair,
+                                                                  context),
+                                                              iconwidget.carriage(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .carriage,
+                                                                  context),
+                                                              iconwidget.menu(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .menu,
+                                                                  context),
+                                                              iconwidget.bed(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .bed,
+                                                                  context),
+                                                              iconwidget.tableware(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .tableware,
+                                                                  context),
+                                                              iconwidget.meetingroom(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .meetingroom,
+                                                                  context),
+                                                              iconwidget.diapers(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .diapers,
+                                                                  context),
+                                                              iconwidget.playroom(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .playroom,
+                                                                  context),
+                                                              iconwidget.nursingroom(
+                                                                  snapshot
+                                                                      .data[
+                                                                          index]
+                                                                      .nursingroom,
+                                                                  context),
                                                             ],
                                                           ),
                                                         )
@@ -408,7 +429,7 @@ class _starPageState extends State<starPage> {
             type: PageTransitionType.rightToLeft,
             child: restaurant_sublist(
                 index: index,
-               data:snapshot.data[index],
+                data: snapshot.data[index],
                 userId: userId,
                 loginOption: loginOption),
             duration: Duration(milliseconds: 250),
@@ -435,7 +456,7 @@ class _starPageState extends State<starPage> {
             type: PageTransitionType.rightToLeft,
             child: examination_institution_sublist(
               index: index,
-            data: snapshot.data[index],
+              data: snapshot.data[index],
               loginOption: loginOption,
             ),
             duration: Duration(milliseconds: 250),
@@ -459,7 +480,6 @@ class _starPageState extends State<starPage> {
   }
 
   Future _getstar() async {
-
     var star_list1 = [];
     // starColor = [];
     var data = await http
@@ -491,8 +511,6 @@ class _starPageState extends State<starPage> {
 
     return star_list1;
   }
-
-
 }
 
 class Star_list {

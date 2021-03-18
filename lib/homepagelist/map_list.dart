@@ -89,7 +89,7 @@ class _map_listState extends State<map_list> {
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   Future getSubStarColor() async {
@@ -105,7 +105,7 @@ class _map_listState extends State<map_list> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://211.223.46.144:3000/getAddress?address=$searchKey')
+            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
         : null;
   }
 
@@ -170,7 +170,7 @@ class _map_listState extends State<map_list> {
   }
 
   // uadate_location() async{
-  //   String url = 'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
+  //   String url = 'http://13.209.41.43/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
   //   var response = await http.get(url);
   //   setState(() {
   //     print('reload');
@@ -200,7 +200,7 @@ class _map_listState extends State<map_list> {
                     getLatLong();
                   } else {
                     controller.loadUrl(
-                        'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
+                        'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
                   }
                 },
                 javascriptMode: JavascriptMode.unrestricted,
@@ -265,7 +265,7 @@ class _map_listState extends State<map_list> {
           //           //     uadate_location();
           //           lacations();
           //           controller.loadUrl(
-          //               'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
+          //               'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
           //         },
           //         child: Container(
           //           margin: EdgeInsets.only(
@@ -293,7 +293,7 @@ class _map_listState extends State<map_list> {
           //                 zoom -= 1;
           //               });
           //               controller.loadUrl(
-          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+          //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
           //             },
           //             icon: Image.asset(
           //               "assets/searchPage/plus.png",
@@ -306,7 +306,7 @@ class _map_listState extends State<map_list> {
           //                 zoom += 1;
           //               });
           //               controller.loadUrl(
-          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+          //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
           //             },
           //             icon: Image.asset(
           //               "assets/searchPage/minus.png",
@@ -361,7 +361,7 @@ class _map_listState extends State<map_list> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           final btm = BottomButton(
                               storeName: Message[0],
                               address1: Message[1],
@@ -384,7 +384,7 @@ class _map_listState extends State<map_list> {
                           print(btm.carriage);
                           print(btm.store_name);
 
-                          Navigator.push(context, () {
+                          final result = await Navigator.push(context, () {
                             if (Message[14] == 'restaurant') {
                               return PageTransition(
                                 type: PageTransitionType.rightToLeft,
@@ -436,6 +436,13 @@ class _map_listState extends State<map_list> {
                               );
                             }
                           }());
+                          result
+                              ? setState(() {
+                                  star_color = true;
+                                })
+                              : setState(() {
+                                  star_color = false;
+                                });
                         },
                         child: Row(
                           children: [

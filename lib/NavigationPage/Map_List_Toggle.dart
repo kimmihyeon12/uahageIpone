@@ -246,7 +246,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         (WebViewController webViewController) async {
                       controller = webViewController;
                       await controller.loadUrl(
-                          "http://211.223.46.144:3000/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+                          "http://13.209.41.43/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
                     },
                     javascriptMode: JavascriptMode.unrestricted,
                     javascriptChannels: Set.from([
@@ -381,7 +381,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           final btm = BottomButton(
                             storeName: Message[0],
                             address1: Message[1],
@@ -396,7 +396,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                             nursingroom1: Message[10],
                             chair1: Message[11],
                           );
-                          Navigator.push(
+                          final result = await Navigator.push(
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
@@ -409,6 +409,13 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
                               ));
+                          result
+                              ? setState(() {
+                                  star_color = true;
+                                })
+                              : setState(() {
+                                  star_color = false;
+                                });
                         },
                         child: Row(
                           children: [
