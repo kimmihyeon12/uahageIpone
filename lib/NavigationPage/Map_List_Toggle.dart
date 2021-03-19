@@ -254,8 +254,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           name: 'Print',
                           onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
+                            print("Print: $messages");
                             var ex = messages.split(",");
-
                             setState(() {
                               for (int j = 0; j < 2; j++) {
                                 store_namelist[i] = ex[0];
@@ -274,6 +274,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                           name: 'Print1',
                           onMessageReceived: (JavascriptMessage message) async {
                             var messages = message.message;
+                            print("Print1: $messages");
                             Message = messages.split("|");
                             await getSubStarColor();
                             showPopUpbottomMenu(

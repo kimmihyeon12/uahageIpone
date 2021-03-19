@@ -59,15 +59,21 @@ script.
     var liststringdata = '#{liststringdata}';
     var markers = [];
     var marker = [];
+    var array_distance = [];
     var clickedOverlay = null;
     var lat = #{lat1}, 
         lon = #{lon1};
     var distance;
     var coords, storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare;
     // flutter 와 통신
-    function getresult(storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare) {
-      Print.postMessage(storename + '|' + address + '|' + phone + '|' + menu + '|' + bed + '|' + tableware + '|' + meetingroom + '|' + diapers + '|' + playroom + '|' + carriage + '|' + nursingroom + '|' + chair + '|' + Examination_item + '|' + fare + '|' + liststringdata);
+    function getResult(storename,address){
+        Print.postMessage(storename+","+address);
     }
+    function getResult1(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
+        Print1.postMessage(storename+'|'+address+'|'+phone+'|'+menu+'|'+bed+'|'+tableware+'|'+meetingroom+'|'+diapers+'|'+playroom+'|'+carriage+'|'+nursingroom+'|'+chair);
+    }
+        //distance 정렬
+    function custonSort(a, b){ if(a.distance == b.distance){ return 0} return a.distance > b.distance ? 1 : -1; }
 
 
     //map 
@@ -151,16 +157,23 @@ script.
         }
         // 데이터 장소 위치
         distance = calcDist(lat, lon, data[i].lon, data[i].lat);
-        //- console.log(distance);
-
-        if (distance < 500) {
-            displayMarker(coords, data[i].store_name, storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare);
+        if(distance<700){
+            displayMarker(coords,data[i].store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair);
+            var distance_object = new Object();
+            distance_object.storename = data[i].store_name;
+            distance_object.address =  data[i].address;
+            distance_object.distance = distance;
+            array_distance.push(distance_object);
         }
 
 
 
     });
     clusterer.addMarkers(markers);
+    var array_list = array_distance.sort(custonSort);
+    for(var i =0; i<array_list.length; i++){
+    getResult(array_list[i].storename+","+array_list[i].address);
+    }
 
 
     // 현재 위치                                    
@@ -186,14 +199,14 @@ script.
         marker.push(m);
         markers.push(m);
 
-        var content = '<div style="padding: 0px 28px 0px 15px; \
+         var content =  '<div style="padding: 0px 28px 0px 15px; \
                         border-radius:20px;\
                         box-shadow:0px 3px 2px #888;\
                         background-color:#f06292;  \
                         background: #f06292  url(http://hohoco.dothome.co.kr/img/arrow.png) no-repeat right 4px center; ;\
                         background-size: 28px 28px\
-                        "onclick="getresult(' + storename + ',' + address + ',' + phone + ',' + menu + ',' + bed + ',' + tableware + ',' + meetingroom + ',' + diapers + ',' + playroom + ',' + carriage + ',' + nursingroom + ',' + chair + ',' + Examination_item + ',' + fare + ' )" >' +
-            '<h1>' + store_name + '</h1>' + '</div>';
+                   "onclick="getResult1('+storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair+')" >'+
+                    '<h1>'  +store_name +'</h1>'+ '</div>';
 
         var CustomOverlay = new kakao.maps.CustomOverlay({
             position: coords,
