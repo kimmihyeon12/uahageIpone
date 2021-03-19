@@ -1,50 +1,42 @@
 doctype html
 head
   meta(charset='utf-8')
-  title &#xC9C0;&#xB3C4; &#xC0DD;&#xC131;&#xD558;&#xAE30;
-// 지도를 표시할 div 입니다
-
+  title 
 style.
-  .container {
-    width: 100%;
+    .container {
+        width: 100% ;
+    }
+    .container #map {
+        position: fixed;
+    }
+    .container .btn {
+            position: absolute;
+            top: 90% ;
+           left: 1.8%;
+            background-color: rgba(255, 0, 0, 0);
+            border: none;
+            outline: none;
+
         }
-      .container #map {
-    position: fixed;
-    }
- .container .btn {
-      
-    position: absolute;
-    top: 90%;
-    left: 3%;
-  
-    background-color:rgba(255, 0, 0, 0);
-    border: none;
- 
-    }
-    .container .btn>img{
-      width:50px;
-         height:50px;
-    }
+        .container .btn > img {
+          width:45px;
+          height:45px;
+        }
 
-  h1{
-      text-align: center;
-      font-size:13px;
-      font-weight:bold;
-      color: white;
-      margin: 7px 15px 0px 10px;
-      height : 100%;
-
-    }
-    	div {    
-    
-        height: 35px; 
+    h1 {
         text-align: center;
-        line-height:35px;
-       
+        font-size: 13px;
+        font-weight: bold;
+        color: white;
+        margin: 7px 15px 0px 10px;
+        height: 100% ;
 
-
-
-    			}
+    }
+    div {
+        height: 35px;
+        text-align: center;
+        line-height: 35px;
+    }
 .container
   #map(style='position: fixed;\
   width: 100%;\
@@ -62,7 +54,6 @@ script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a3235
 script.
  
     var mapdraable;
-
     var data1 = "#{JSON.stringify(data)}"; //"#{data}".split(',');
     var data = JSON.parse(data1.replace(/&quot;/g, '"'));
     var liststringdata = '#{liststringdata}';
@@ -72,7 +63,7 @@ script.
     var lat = #{lat1}, 
         lon = #{lon1};
     var distance;
-
+    var coords, storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare;
     // flutter 와 통신
     function getresult(storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare) {
       Print.postMessage(storename + '|' + address + '|' + phone + '|' + menu + '|' + bed + '|' + tableware + '|' + meetingroom + '|' + diapers + '|' + playroom + '|' + carriage + '|' + nursingroom + '|' + chair + '|' + Examination_item + '|' + fare + '|' + liststringdata);
@@ -133,7 +124,7 @@ script.
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
     var markerPosition1 = new kakao.maps.LatLng(#{lat1}, #{lon1});
     //- console.log(#{lat1}+","+ #{lon1});
-    var coords, storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare;
+  
     //db 값 받아오기
     data.forEach(function(v, i) {
         coords = new kakao.maps.LatLng(data[i].lon, data[i].lat);
@@ -298,22 +289,7 @@ script.
             distance = calcDist(latlng.Ma, latlng.La, data[i].lon, data[i].lat);
             //    console.log(distance);
             if (distance < 1000) {
-                    coords = new kakao.maps.LatLng(data[i].lon, data[i].lat);
-                    storename = "'" + data[i].store_name + "'";
-                    address = "'" + data[i].address + "'";
-                    phone = "'" + data[i].phone + "'";
-                    menu = "'" + data[i].menu + "'";
-                    bed = "'" + data[i].bed + "'";
-                    tableware = "'" + data[i].tableware + "'";
-                    meetingroom = "'" + data[i].meetingroom + "'";
-                    diapers = "'" + data[i].diapers + "'";
-                    playroom = "'" + data[i].playroom + "'";
-                    carriage = "'" + data[i].carriage + "'";
-                    nursingroom = "'" + data[i].nursingroom + "'";
-                    chair = "'" + data[i].chair + "'";
-                    Examination_item = "'" + data[i].Examination_item + "'";
-                    fare = "'" + data[i].fare + "'";
-                    
+                var coords = new kakao.maps.LatLng(data[i].lon, data[i].lat);
                 displayMarker(coords, data[i].store_name, storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare);
             }
         });

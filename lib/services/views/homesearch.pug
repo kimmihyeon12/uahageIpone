@@ -34,7 +34,7 @@ script.
            Print.postMessage(storename+","+address);
           }
         function getResult1(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
-           Print1.postMessage(storename+','+address+','+phone+','+menu+','+bed+','+tableware+','+meetingroom+','+diapers+','+playroom+','+carriage+','+nursingroom+','+chair);}
+           Print1.postMessage(storename+'|'+address+'|'+phone+'|'+menu+'|'+bed+'|'+tableware+'|'+meetingroom+'|'+diapers+'|'+playroom+'|'+carriage+'|'+nursingroom+'|'+chair);}
         //distance 정렬
         function custonSort(a, b){ if(a.distance == b.distance){ return 0} return a.distance > b.distance ? 1 : -1; }
        //
