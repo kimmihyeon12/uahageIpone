@@ -191,7 +191,6 @@ class _searchPageState extends State<searchPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("searchpage 빌드중입니다");
     double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
 
@@ -220,6 +219,8 @@ class _searchPageState extends State<searchPage> {
                     var messages = message.message;
                     Message = messages.split("|");
                     await getSubStarColor();
+                    print("star_color: $star_color");
+                    print("Message: $Message");
                     showPopUpbottomMenu(context, screenHeight, screenWidth);
                   })
             ]),
@@ -233,33 +234,7 @@ class _searchPageState extends State<searchPage> {
                   ),
                 )
               : SizedBox.shrink(),
-          // WebView(
-          //   key: key,
-          //   onPageFinished: doneLoading,
-          //   onPageStarted: startLoading,
-          //   // initialUrl: 'http://13.209.41.43/map',
 
-          //   onWebViewCreated: (WebViewController webViewController) {
-          //     controller = webViewController;
-          //     controller.loadUrl(latitude == 'NaN' ||
-          //             longitude == 'NaN' ||
-          //             latitude == '' ||
-          //             longitude == ''
-          //         ? 'http://13.209.41.43/map'
-          //         : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
-          //   },
-          //   javascriptMode: JavascriptMode.unrestricted,
-          //   javascriptChannels: Set.from([
-          //     JavascriptChannel(
-          //         name: 'Print',
-          //         onMessageReceived: (JavascriptMessage message) async {
-          //           var messages = message.message;
-          //           Message = messages.split(",");
-          //           await checkStar();
-          //           showPopUpbottomMenu(context, screenHeight, screenWidth);
-          //         })
-          //   ]),
-          // ),
           GestureDetector(
             onTap: () async {
               setState(() {
@@ -333,35 +308,35 @@ class _searchPageState extends State<searchPage> {
           ),
 
           // bottom Buttons
-          Row(
-            children: [
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: InkWell(
-                  onTap: () async {
-                    //var response = await getMap(latitude, longitude);
-                    if (latitude == 'NaN' ||
-                        longitude == 'NaN' ||
-                        latitude == '' ||
-                        longitude == '') await lacations();
-                    // controller.loadUrl(
-                    //     'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
-                    controller.loadUrl(
-                        "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                        left: 48 / screenWidth, bottom: 76 / screenHeight),
-                    child: SizedBox(
-                      height: 159 / screenHeight,
-                      width: 161 / screenWidth,
-                      child: Image.asset("assets/searchPage/location.png"),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     Align(
+          //       alignment: Alignment.bottomLeft,
+          //       child: InkWell(
+          //         onTap: () async {
+          //           //var response = await getMap(latitude, longitude);
+          //           if (latitude == 'NaN' ||
+          //               longitude == 'NaN' ||
+          //               latitude == '' ||
+          //               longitude == '') await lacations();
+          //           // controller.loadUrl(
+          //           //     'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+          //           controller.loadUrl(
+          //               "http://13.209.41.43/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+          //         },
+          //         child: Container(
+          //           margin: EdgeInsets.only(
+          //               left: 48 / screenWidth, bottom: 76 / screenHeight),
+          //           child: SizedBox(
+          //             height: 159 / screenHeight,
+          //             width: 161 / screenWidth,
+          //             child: Image.asset("assets/searchPage/location.png"),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

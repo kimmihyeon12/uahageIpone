@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<ConnectivityStatus>(
       builder: (context) => ConnectivityService().connectionStatusController,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: MyHomePage(),
       ),
     );

@@ -140,7 +140,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                     //   searchbtn = false;
                     //   print(searchbtn);
                     // });
-                    Navigator.pop(context, 'Yep!');
+                    Navigator.pop(context, 'closed');
                   },
                 ),
                 elevation: 0,
@@ -542,9 +542,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future<bool> _onbackpressed() {
     setState(() {
-      //  searchbtn = false;
-      //  switchbtn = false;
-      return Navigator.pop(context, 'Yep!');
+      return Navigator.pop(context, 'closed');
     });
   }
 }

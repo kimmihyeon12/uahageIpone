@@ -16,6 +16,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/screens/allAppBar.dart';
+
 class homePage extends StatefulWidget {
   String loginOption;
   String userId;
@@ -34,7 +35,6 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-
   String loginOption = "";
   String userId = "";
   String Area = "";
@@ -60,6 +60,7 @@ class _homePageState extends State<homePage> {
     if (latitude == "" || longitude == "") getLatLong();
     super.initState();
   }
+
   toast show_toast = new toast();
   Location location = new Location();
   Future lacations() async {
@@ -105,7 +106,6 @@ class _homePageState extends State<homePage> {
     "./assets/homePage/childcareCenter.png"
   ];
 
-
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
@@ -149,11 +149,11 @@ class _homePageState extends State<homePage> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: bar.navHome_abbbar("우아하게",context),
+        appBar: bar.navHome_abbbar("우아하게", context),
         body: SingleChildScrollView(
           child: Column(
             children: [
-             Container(
+              Container(
                 width: ScreenWidth,
                 height: 900 / screenHeight,
                 child: Stack(
@@ -229,7 +229,6 @@ class _homePageState extends State<homePage> {
                       // primaryColorDark: Colors.red,
                       ),
                   child: TextField(
-
                     onChanged: (txt) {
                       setState(() {
                         searchkey = txt;
@@ -264,9 +263,9 @@ class _homePageState extends State<homePage> {
                           letterSpacing: -1.0),
                       suffixIcon: IconButton(
                           onPressed: searchkey != ""
-                              ? () {
+                              ? () async {
                                   currentFocus.unfocus();
-                                  Navigator.push(
+                                  final result = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => Keyword(
@@ -276,12 +275,11 @@ class _homePageState extends State<homePage> {
                                               longitude: longitude,
                                               searchkey: searchkey)));
 
-
+                                  print("result: $result");
                                 }
                               : () {
-                            currentFocus.unfocus();
-                                  show_toast.showToast(context,"주소를 입력해주세요!");
-
+                                  currentFocus.unfocus();
+                                  show_toast.showToast(context, "주소를 입력해주세요!");
                                 },
                           icon: Image.asset(
                             "./assets/homePage/search.png",
@@ -361,7 +359,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
+                          show_toast.showToast(context, " 서비스 준비 중이에요!  ");
                         },
                       ),
                       Padding(
@@ -376,7 +374,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
+                          show_toast.showToast(context, " 서비스 준비 중이에요!  ");
                         },
                       ),
                     ],
@@ -446,7 +444,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
+                          show_toast.showToast(context, " 서비스 준비 중이에요!  ");
                         },
                       ),
                       Padding(
@@ -461,7 +459,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
+                          show_toast.showToast(context, " 서비스 준비 중이에요!  ");
                         },
                       ),
                     ],
@@ -485,7 +483,7 @@ class _homePageState extends State<homePage> {
                         ),
                         onTap: () {
                           currentFocus.unfocus();
-                          show_toast.showToast(context," 서비스 준비 중이에요!  ");
+                          show_toast.showToast(context, " 서비스 준비 중이에요!  ");
                         },
                       ),
                     ],
@@ -534,5 +532,4 @@ class _homePageState extends State<homePage> {
       ),
     );
   }
-
 }
