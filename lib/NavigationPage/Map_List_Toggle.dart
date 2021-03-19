@@ -542,7 +542,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future<bool> _onbackpressed() {
     setState(() {
-      return Navigator.pop(context, 'closed');
+      return Navigator.pop(context);
     });
   }
 }

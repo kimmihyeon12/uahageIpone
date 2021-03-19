@@ -48,6 +48,7 @@ class _homePageState extends State<homePage> {
   WebViewController controller;
   List<String> store_namelist = List(500);
   List<String> addresslist = List(500);
+  TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     setState(() {
@@ -229,6 +230,7 @@ class _homePageState extends State<homePage> {
                       // primaryColorDark: Colors.red,
                       ),
                   child: TextField(
+                    controller: _controller,
                     onChanged: (txt) {
                       setState(() {
                         searchkey = txt;
@@ -265,17 +267,16 @@ class _homePageState extends State<homePage> {
                           onPressed: searchkey != ""
                               ? () async {
                                   currentFocus.unfocus();
-                                  final result = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Keyword(
-                                              userId: userId,
-                                              loginOption: loginOption,
-                                              latitude: latitude,
-                                              longitude: longitude,
-                                              searchkey: searchkey)));
-
-                                  print("result: $result");
+                                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Keyword(
+                                                  userId: userId,
+                                                  loginOption: loginOption,
+                                                  latitude: latitude,
+                                                  longitude: longitude,
+                                                  searchkey: searchkey)))
+                                      .then((value) => _controller.clear());
                                 }
                               : () {
                                   currentFocus.unfocus();

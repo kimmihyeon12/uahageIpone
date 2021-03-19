@@ -93,21 +93,23 @@ class _KeywordState extends State<Keyword> {
                 javascriptChannels: Set.from([
                   JavascriptChannel(
                       name: 'Print',
-                      onMessageReceived: (JavascriptMessage message) {
+                      onMessageReceived: (JavascriptMessage message) async {
                         messages = message.message;
                         print('messages: ' + messages);
                         //    controller.evaluateJavascript(javascriptString)
                         // return Map_List_Toggle(latitude:latitude,longitude:longitude,searchkey:messages);
                         if (messages != 'null') {
                           Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Map_List_Toggle(
-                                      userId: userId,
-                                      loginOption: loginOption,
-                                      latitude: latitude,
-                                      longitude: longitude,
-                                      searchkey: messages)));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Map_List_Toggle(
+                                  userId: userId,
+                                  loginOption: loginOption,
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  searchkey: messages),
+                            ),
+                          );
                         } else {
                           Fluttertoast.showToast(
                             msg: "  옳바르게 입력해주세요!  ",
