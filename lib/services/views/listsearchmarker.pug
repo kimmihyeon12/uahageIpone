@@ -298,7 +298,22 @@ script.
             distance = calcDist(latlng.Ma, latlng.La, data[i].lon, data[i].lat);
             //    console.log(distance);
             if (distance < 1000) {
-                var coords = new kakao.maps.LatLng(data[i].lon, data[i].lat);
+                    coords = new kakao.maps.LatLng(data[i].lon, data[i].lat);
+                    storename = "'" + data[i].store_name + "'";
+                    address = "'" + data[i].address + "'";
+                    phone = "'" + data[i].phone + "'";
+                    menu = "'" + data[i].menu + "'";
+                    bed = "'" + data[i].bed + "'";
+                    tableware = "'" + data[i].tableware + "'";
+                    meetingroom = "'" + data[i].meetingroom + "'";
+                    diapers = "'" + data[i].diapers + "'";
+                    playroom = "'" + data[i].playroom + "'";
+                    carriage = "'" + data[i].carriage + "'";
+                    nursingroom = "'" + data[i].nursingroom + "'";
+                    chair = "'" + data[i].chair + "'";
+                    Examination_item = "'" + data[i].Examination_item + "'";
+                    fare = "'" + data[i].fare + "'";
+                    
                 displayMarker(coords, data[i].store_name, storename, address, phone, menu, bed, tableware, meetingroom, diapers, playroom, carriage, nursingroom, chair, Examination_item, fare);
             }
         });
