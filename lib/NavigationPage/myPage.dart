@@ -12,7 +12,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:uahage/ToastManage.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class myPage extends StatefulWidget {
   String loginOption;
   String userId;
@@ -22,18 +22,7 @@ class myPage extends StatefulWidget {
   _myPageState createState() => _myPageState();
 }
 
-// class Message {
-//   final String message;
-
-//   Message({this.message});
-
-//   factory Message.fromJson(Map<String, dynamic> json) {
-//     return Message(
-//       message: json['message'],
-//     );
-//   }
-// }
-
+ 
 class _myPageState extends State<myPage> {
   TextEditingController yController = TextEditingController();
 
@@ -372,8 +361,7 @@ class _myPageState extends State<myPage> {
   bool isIOS = Platform.isIOS;
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2667 / MediaQuery.of(context).size.height;
-    double screenWidth = 1501 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
     FocusScopeNode currentFocus = FocusScope.of(context);
     isIOS
         ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
@@ -385,13 +373,13 @@ class _myPageState extends State<myPage> {
             systemNavigationBarColor: Color(0xffd9d4d5), // navigation bar color
             statusBarColor: Color(0xffd9d4d5), // status bar color
           ));
-    var _fontsize = 52.5 / screenWidth;
+    var _fontsize = 52.5 .sp;
     var textStyle52 = TextStyle(
       color: const Color(0xffb1b1b1),
       fontWeight: FontWeight.w500,
       fontFamily: "NotoSansCJKkr_Medium",
       fontStyle: FontStyle.normal,
-      fontSize: 52 / screenWidth,
+      fontSize: 52 .sp,
     );
 
     // print("widgetbuuild imageLink " + imageLink);
@@ -417,8 +405,8 @@ class _myPageState extends State<myPage> {
             children: [
               //back button
               Container(
-                margin: EdgeInsets.fromLTRB(81 / screenWidth,
-                    110 / screenHeight, 1100 / screenWidth, 0),
+                margin: EdgeInsets.fromLTRB(60 .w,
+                    50 .h, 0, 0),
                 child: onEdit
                     ? InkWell(
                         onTap: () async {
@@ -434,17 +422,17 @@ class _myPageState extends State<myPage> {
                           children: [
                             Image.asset(
                               "./assets/myPage/back.png",
-                              width: 43 / screenWidth,
-                              height: 76 / screenHeight,
+                              width: 43 .w,
+                              height: 76 .h,
                             ),
                             // 내 정보
                             Container(
-                              margin: EdgeInsets.only(left: 33 / screenWidth),
+                              margin: EdgeInsets.only(left: 33 .w),
                               child: Text("내 정보",
                                   style: TextStyle(
                                     color: Color.fromRGBO(255, 114, 148, 1.0),
                                     fontFamily: 'NotoSansCJKkr_Medium',
-                                    fontSize: 57 / screenWidth,
+                                    fontSize: 62 .sp,
                                   ),
                                   textAlign: TextAlign.left),
                             )
@@ -459,8 +447,8 @@ class _myPageState extends State<myPage> {
                 child: Stack(
                   children: [
                     SizedBox(
-                      height: 439 / screenHeight,
-                      width: 439 / screenWidth,
+                      height: 439 .h,
+                      width: 439 .w,
                       child: CircleAvatar(
                         backgroundImage:
                             AssetImage("./assets/myPage/avatar.png"),
@@ -511,7 +499,7 @@ class _myPageState extends State<myPage> {
                                 image: DecorationImage(
                                     image: AssetImage(
                                         "./assets/myPage/avatar.png"),
-                                    fit: BoxFit.fill),
+                                   ),
                               ),
                             );
                           }
@@ -523,7 +511,7 @@ class _myPageState extends State<myPage> {
                       bottom: 0,
                       child: Container(
                         // margin: EdgeInsets.fromLTRB(
-                        //     330 / screenWidth, 341 / screenHeight, 0, 0),
+                        //     330 .w, 341 .h, 0, 0),
                         child: InkWell(
                           onTap: loginOption != "login"
                               ? () {
@@ -534,8 +522,8 @@ class _myPageState extends State<myPage> {
                                 },
                           child: Image.asset(
                             "./assets/myPage/camera.png",
-                            height: 109 / screenHeight,
-                            width: 110 / screenWidth,
+                            height: 109 .h,
+                            width: 110 .w,
                           ),
                         ),
                       ),
@@ -548,7 +536,7 @@ class _myPageState extends State<myPage> {
               onEdit
                   ? Container(
                       margin: EdgeInsets.only(
-                        top: 85 / screenHeight,
+                        top: 85 .h,
                       ),
                       child: Container(
                         child: Row(
@@ -556,23 +544,25 @@ class _myPageState extends State<myPage> {
                           children: [
                             // 닉네임
                             Container(
-                              margin: EdgeInsets.fromLTRB(157 / screenWidth,
-                                  45 / screenHeight, 88 / screenWidth, 0),
+                              margin: EdgeInsets.fromLTRB(157 .w,
+                                   40.h, 88 .w, 0),
                               child: Text("닉네임",
                                   style: TextStyle(
                                       color: const Color(0xffff7292),
                                       fontFamily: "NotoSansCJKkr_Medium",
-                                      fontSize: 58 / screenWidth),
+                                      fontSize: 57 .sp),
                                   textAlign: TextAlign.left),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
+
                                 margin: EdgeInsets.only(
-                                  right: 121 / screenWidth,
+                                  right: 121 .w,
                                 ),
                                 child: Stack(
                                   children: [
+
                                     TextFormField(
                                       // controller: yController,
                                       maxLength: 10,
@@ -588,10 +578,10 @@ class _myPageState extends State<myPage> {
                                       style: TextStyle(
                                           color: Color(0xff3a3939),
                                           fontFamily: "NotoSansCJKkr_Bold",
-                                          fontSize: 58 / screenWidth),
+                                          fontSize: 58 .sp),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.only(
-                                            right: 410 / screenWidth),
+                                            right: 410 .w),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: const Color(0xffff7292),
@@ -607,12 +597,15 @@ class _myPageState extends State<myPage> {
                                         hintStyle: TextStyle(
                                             color: const Color(0xffcacaca),
                                             fontFamily: "NotoSansCJKkr_Medium",
-                                            fontSize: 58 / screenWidth),
+                                            fontSize: 57 .sp),
                                       ),
                                     ),
                                     Align(
-                                      alignment: Alignment.centerRight,
+                                      alignment: Alignment.topRight,
+
                                       child: FlatButton(
+
+                                        height: 125 .h,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(8.0)),
@@ -648,7 +641,7 @@ class _myPageState extends State<myPage> {
                                                                                 fontWeight: FontWeight.w500,
                                                                                 fontFamily: "NotoSansCJKkr_Medium",
                                                                                 fontStyle: FontStyle.normal,
-                                                                                fontSize: 55 / screenWidth),
+                                                                                fontSize: 55 .sp),
                                                                             textAlign: TextAlign.left),
                                                                     actions: [
                                                                       FlatButton(
@@ -676,7 +669,7 @@ class _myPageState extends State<myPage> {
                                                                                 fontWeight: FontWeight.w500,
                                                                                 fontFamily: "NotoSansCJKkr_Medium",
                                                                                 fontStyle: FontStyle.normal,
-                                                                                fontSize: 55 / screenWidth),
+                                                                                fontSize: 55 .sp),
                                                                             textAlign: TextAlign.left),
                                                                     actions: [
                                                                       FlatButton(
@@ -691,13 +684,11 @@ class _myPageState extends State<myPage> {
 
                                                                 return Center(
                                                                   child: SizedBox(
-                                                                      height: 200 /
-                                                                          screenHeight,
-                                                                      width: 200 /
-                                                                          screenWidth,
+                                                                      height: 300 .h,
+                                                                      width: 200 .w,
                                                                       child: buildSpinKitThreeBounce(
                                                                           80,
-                                                                          screenWidth)
+                                                                          1500.w)
                                                                       // CircularProgressIndicator(
                                                                       //   strokeWidth:
                                                                       //       5.0,
@@ -719,7 +710,7 @@ class _myPageState extends State<myPage> {
                                                         const Color(0xffffffff),
                                                     fontFamily:
                                                         "NotoSansCJKkr_Medium",
-                                                    fontSize: 50 / screenWidth),
+                                                    fontSize: 58 .sp),
                                                 textAlign: TextAlign.left),
                                       ),
                                     ),
@@ -732,14 +723,14 @@ class _myPageState extends State<myPage> {
                       ),
                     )
                   : Container(
-                      margin: EdgeInsets.only(top: 31 / screenHeight),
+                      margin: EdgeInsets.only(top: 31 .h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            // width: 320 / screenWidth,
+                            // width: 320 .w,
                             child: userId == ""
-                                ? nickNameShow("우아하게", screenWidth)
+                                ? nickNameShow("우아하게", 1500.w)
                                 : FutureBuilder(
                                     future: getMyNickname(),
                                     builder: (context, snapshot) {
@@ -747,19 +738,19 @@ class _myPageState extends State<myPage> {
                                         // print("hasdata " + snapshot.data);
                                         return snapshot.data != ""
                                             ? nickNameShow(
-                                                snapshot.data, screenWidth)
-                                            : nickNameShow("우아하게", screenWidth);
+                                                snapshot.data, 1500.w)
+                                            : nickNameShow("우아하게", 1500.w);
                                       } else if (snapshot.hasError) {
                                         // print("haserror " + snapshot.error);
                                         return nickNameShow(
-                                            snapshot.error, screenWidth);
+                                            snapshot.error, 1500.w);
                                       }
                                       return Center(
                                         child: SizedBox(
-                                          height: 50 / screenHeight,
-                                          width: 50 / screenWidth,
+                                          height: 50 .h,
+                                          width: 50 .w,
                                           child: buildSpinKitThreeBounce(
-                                              30, screenWidth),
+                                              30, 1500.w),
                                           // CircularProgressIndicator(
                                           //   strokeWidth: 5.0,
                                           //   valueColor:
@@ -775,16 +766,16 @@ class _myPageState extends State<myPage> {
                           ),
                           Container(
                             // margin: EdgeInsets.fromLTRB(
-                            //     992 / screenWidth,
+                            //     992 .w,
                             //     0,
-                            //     148 / screenWidth,
+                            //     148 .w,
                             //     0),
                             child: loginOption ==
                                     "login" // Change this on release to ==
                                 ? Image.asset(
                                     "./assets/myPage/button1_grey.png",
-                                    width: 361 / screenWidth,
-                                    height: 147 / screenHeight,
+                                    width: 361 .w,
+                                    height: 147 .h,
                                   )
                                 : InkWell(
                                     onTap: () {
@@ -808,8 +799,8 @@ class _myPageState extends State<myPage> {
                                     },
                                     child: Image.asset(
                                       "./assets/myPage/button1_pink.png",
-                                      width: 361 / screenWidth,
-                                      height: 147 / screenHeight,
+                                      width: 361 .w,
+                                      height: 147 .h,
                                     ),
                                   ),
                           )
@@ -820,7 +811,7 @@ class _myPageState extends State<myPage> {
               //Gender
               Container(
                 margin: EdgeInsets.fromLTRB(
-                    99 / screenWidth, 100 / screenHeight, 0, 0),
+                    99 .w, 35 .h, 0, 0),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -828,12 +819,12 @@ class _myPageState extends State<myPage> {
                     // 아이성별
                     Container(
                       margin: EdgeInsets.fromLTRB(
-                          0, 24 / screenHeight, 56 / screenWidth, 0),
+                          0, 24 .h, 56 .w, 0),
                       child: Text("아이성별",
                           style: TextStyle(
                               color: const Color(0xffff7292),
                               fontFamily: "NotoSansCJKkr_Medium",
-                              fontSize: 57 / screenWidth),
+                              fontSize: 57 .sp),
                           textAlign: TextAlign.left),
                     ),
                     InkWell(
@@ -850,12 +841,12 @@ class _myPageState extends State<myPage> {
                         genderImage[0]
                             ? "./assets/myPage/boy_pink.png"
                             : "./assets/myPage/boy_grey.png",
-                        height: 363 / screenHeight,
-                        width: 262 / screenWidth,
+                        height: 363 .h,
+                        width: 262 .w,
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 98 / screenWidth),
+                      margin: EdgeInsets.only(left: 98 .w),
                       child: InkWell(
                         onTap: onEdit
                             ? () {
@@ -870,8 +861,8 @@ class _myPageState extends State<myPage> {
                           genderImage[1]
                               ? "./assets/myPage/girl_pink.png"
                               : "./assets/myPage/girl_grey.png",
-                          height: 363 / screenHeight,
-                          width: 262 / screenWidth,
+                          height: 363 .h,
+                          width: 262 .w,
                         ),
                       ),
                     ),
@@ -883,13 +874,13 @@ class _myPageState extends State<myPage> {
 
               Container(
                 margin: EdgeInsets.fromLTRB(
-                    99 / screenWidth, 40 / screenHeight, 0, 0),
+                    99 .w, 5 .h, 0, 0),
                 child: Row(
                   children: [
                     // 아이생일
                     Text("아이생일",
                         style: TextStyle(
-                          fontSize: 56 / screenWidth,
+                          fontSize: 57 .sp,
                           color: const Color(0xffff7292),
                           fontFamily: "NotoSansCJKkr_Medium",
                         ),
@@ -898,7 +889,7 @@ class _myPageState extends State<myPage> {
                       flex: 1,
                       child: Container(
                         margin: EdgeInsets.fromLTRB(
-                            82 / screenWidth, 0, 121 / screenWidth, 0),
+                            82 .w, 0, 121 .w, 0),
                         child: Stack(
                           children: [
                             GestureDetector(
@@ -916,7 +907,7 @@ class _myPageState extends State<myPage> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Color(0xffff7292),
-                                      fontSize: 73 / screenWidth,
+                                      fontSize: 57 .sp,
                                       fontFamily: 'NotoSansCJKkr_Medium',
                                       fontStyle: FontStyle.normal,
                                       letterSpacing: -1.0),
@@ -942,7 +933,7 @@ class _myPageState extends State<myPage> {
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 66.0 / screenWidth),
+                                        fontSize: 57.0 .sp),
                                   ),
                                 ),
                               ),
@@ -969,7 +960,7 @@ class _myPageState extends State<myPage> {
               // Ages
               Container(
                 margin: EdgeInsets.fromLTRB(
-                    155 / screenWidth, 98 / screenHeight, 0, 0),
+                    155 .w, 130 .h, 0, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -979,8 +970,7 @@ class _myPageState extends State<myPage> {
                           color: const Color(0xffff7292),
                           fontWeight: FontWeight.w500,
                           fontFamily: "NotoSansCJKkr_Medium",
-                          fontStyle: FontStyle.normal,
-                          fontSize: _fontsize,
+                           fontSize: 57.sp,
                         ),
                         textAlign: TextAlign.right),
                     Container(
@@ -990,14 +980,14 @@ class _myPageState extends State<myPage> {
                             children: [
                               Padding(
                                 padding:
-                                    EdgeInsets.only(left: 59 / screenWidth),
+                                    EdgeInsets.only(left: 59 .w),
                                 child: InkWell(
                                   child: Image.asset(
                                     changeimage[0]
                                         ? './assets/registrationPage/10_pink.png'
                                         : './assets/registrationPage/10_grey.png',
-                                    height: 196 / screenHeight,
-                                    width: 251 / screenWidth,
+                                    height: 194 .h,
+                                    width: 249 .w,
                                   ),
                                   onTap: onEdit
                                       ? () {
@@ -1008,14 +998,14 @@ class _myPageState extends State<myPage> {
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsets.only(left: 55 / screenWidth),
+                                    EdgeInsets.only(left: 55 .w),
                                 child: InkWell(
                                   child: Image.asset(
                                     changeimage[1]
                                         ? './assets/registrationPage/20_pink.png'
                                         : './assets/registrationPage/20_grey.png',
-                                    height: 196 / screenHeight,
-                                    width: 251 / screenWidth,
+                                    height: 194 .h,
+                                    width: 249 .w,
                                   ),
                                   onTap: onEdit
                                       ? () {
@@ -1026,14 +1016,14 @@ class _myPageState extends State<myPage> {
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsets.only(left: 55 / screenWidth),
+                                    EdgeInsets.only(left: 55 .w),
                                 child: InkWell(
                                   child: Image.asset(
                                     changeimage[2]
                                         ? './assets/registrationPage/30_pink.png'
                                         : './assets/registrationPage/30_grey.png',
-                                    height: 196 / screenHeight,
-                                    width: 251 / screenWidth,
+                                    height: 194 .h,
+                                    width: 249 .w,
                                   ),
                                   onTap: onEdit
                                       ? () {
@@ -1048,15 +1038,15 @@ class _myPageState extends State<myPage> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 59 / screenWidth,
-                                    top: 45 / screenHeight),
+                                    left: 59 .w,
+                                    top: 45 .h),
                                 child: InkWell(
                                   child: Image.asset(
                                     changeimage[3]
                                         ? './assets/registrationPage/40_pink.png'
                                         : './assets/registrationPage/40_grey.png',
-                                    height: 196 / screenHeight,
-                                    width: 251 / screenWidth,
+                                    height: 194 .h,
+                                    width: 249 .w,
                                   ),
                                   onTap: onEdit
                                       ? () {
@@ -1067,15 +1057,15 @@ class _myPageState extends State<myPage> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 55 / screenWidth,
-                                    top: 45 / screenHeight),
+                                    left: 55 .w,
+                                    top: 45 .h),
                                 child: InkWell(
                                   child: Image.asset(
                                     changeimage[4]
                                         ? './assets/registrationPage/50_pink.png'
                                         : './assets/registrationPage/50_grey.png',
-                                    height: 196 / screenHeight,
-                                    width: 251 / screenWidth,
+                                    height: 194 .h,
+                                    width: 249 .w,
                                   ),
                                   onTap: onEdit
                                       ? () {
@@ -1086,15 +1076,15 @@ class _myPageState extends State<myPage> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                    left: 55 / screenWidth,
-                                    top: 45 / screenHeight),
+                                    left: 55 .w,
+                                    top: 45 .h),
                                 child: InkWell(
                                   child: Image.asset(
                                     changeimage[5]
                                         ? './assets/registrationPage/others_pink.png'
                                         : './assets/registrationPage/others_grey.png',
-                                    height: 196 / screenHeight,
-                                    width: 251 / screenWidth,
+                                    height: 194 .h,
+                                    width: 249 .w,
                                   ),
                                   onTap: onEdit
                                       ? () {
@@ -1115,10 +1105,10 @@ class _myPageState extends State<myPage> {
               // Ok Button
               onEdit
                   ? Container(
-                      margin: EdgeInsets.only(top: 87 / screenHeight),
+                      margin: EdgeInsets.only(top: 87 .h),
                       child: SizedBox(
-                        height: 194 / screenWidth,
-                        width: 1193 / screenHeight,
+                        height: 194 .w,
+                        width: 1193 .h,
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)),
@@ -1178,10 +1168,10 @@ class _myPageState extends State<myPage> {
                                         }
                                         return Center(
                                           child: SizedBox(
-                                              height: 200 / screenHeight,
-                                              width: 200 / screenWidth,
+                                              height: 200 .h,
+                                              width: 200 .w,
                                               child: buildSpinKitThreeBounce(
-                                                  80, screenWidth)),
+                                                  80, 1500.w)),
                                         );
                                       },
                                     ),
@@ -1198,7 +1188,7 @@ class _myPageState extends State<myPage> {
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "NotoSansCJKkr_Medium",
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 62 / screenWidth),
+                                      fontSize: 62 .sp),
                                   textAlign: TextAlign.left),
                         ),
                       ),
@@ -1210,10 +1200,10 @@ class _myPageState extends State<myPage> {
               userId != ""
                   ? Container(
                       margin: EdgeInsets.fromLTRB(
-                          931 / screenWidth,
-                          onEdit ? 88 / screenHeight : 370 / screenHeight,
+                          931 .w,
+                          onEdit ? 88 .h : 370 .h,
                           0,
-                          71 / screenHeight),
+                          71 .h),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -1234,7 +1224,7 @@ class _myPageState extends State<myPage> {
                                               fontFamily:
                                                   "NotoSansCJKkr_Medium",
                                               fontStyle: FontStyle.normal,
-                                              fontSize: 55 / screenWidth),
+                                              fontSize: 55 .sp),
                                           textAlign: TextAlign.left),
                                   actions: [
                                     FlatButton(
@@ -1291,12 +1281,13 @@ class _myPageState extends State<myPage> {
                             child: // 로그아웃
                                 Text("로그아웃",
                                     style: textStyle52,
-                                    textAlign: TextAlign.left),
+                                    textAlign: TextAlign.left,
+                                 ),
                           ),
                           Container(
                             margin: EdgeInsets.only(
-                                left: 15 / screenWidth,
-                                right: 15 / screenWidth),
+                                left: 15 .w,
+                                right: 15 .w),
                             child: Text(
                               "|",
                               style: textStyle52,
@@ -1323,7 +1314,7 @@ class _myPageState extends State<myPage> {
                                                 fontFamily:
                                                     "NotoSansCJKkr_Medium",
                                                 fontStyle: FontStyle.normal,
-                                                fontSize: 55 / screenWidth),
+                                                fontSize: 55 .sp),
                                             textAlign: TextAlign.left),
                                         actions: [
                                           FlatButton(
@@ -1386,14 +1377,14 @@ class _myPageState extends State<myPage> {
 
                                                     return Center(
                                                       child: SizedBox(
-                                                          height: 200 /
-                                                              screenHeight,
+                                                          height: 200.h
+                                                              ,
                                                           width:
-                                                              200 / screenWidth,
+                                                              200 .w,
                                                           child:
                                                               buildSpinKitThreeBounce(
                                                                   80,
-                                                                  screenWidth)
+                                                                  1500.w)
                                                           //     CircularProgressIndicator(
                                                           //   strokeWidth: 5.0,
                                                           //   valueColor:
@@ -1443,10 +1434,10 @@ class _myPageState extends State<myPage> {
                     )
                   : Container(
                       margin: EdgeInsets.fromLTRB(
-                          931 / screenWidth,
-                          onEdit ? 88 / screenHeight : 370 / screenHeight,
+                          931 .w,
+                          onEdit ? 88 .h : 370 .h,
                           0,
-                          71 / screenHeight),
+                          71 .h),
                       child: InkWell(
                           child: Text("로그인하기",
                               style: textStyle52, textAlign: TextAlign.left),
@@ -1464,7 +1455,7 @@ class _myPageState extends State<myPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -1475,7 +1466,7 @@ class _myPageState extends State<myPage> {
         style: TextStyle(
             color: const Color(0xff3a3939),
             fontFamily: "NotoSansCJKkr_Bold",
-            fontSize: 70 / screenHeight),
+            fontSize: 70 .sp),
         textAlign: TextAlign.center);
   }
 
@@ -1546,8 +1537,7 @@ class _myPageState extends State<myPage> {
 
   yearPicker() {
     final year = DateTime.now().year;
-    double screenHeight = 2667 / MediaQuery.of(context).size.height;
-    double screenWidth = 1501 / MediaQuery.of(context).size.width;
+
 
     showDialog(
       context: context,
@@ -1561,7 +1551,7 @@ class _myPageState extends State<myPage> {
             style: TextStyle(
               color: Color.fromRGBO(255, 114, 148, 1.0),
               fontWeight: FontWeight.w500,
-              fontSize: 56 / screenWidth,
+              fontSize: 56 .sp,
             ),
             textAlign: TextAlign.center,
           ),
@@ -1587,7 +1577,7 @@ class _myPageState extends State<myPage> {
                 style: TextStyle(
                   color: Color.fromRGBO(255, 114, 148, 1.0),
                   fontFamily: 'NotoSansCJKkr_Medium',
-                  fontSize: 57 / screenWidth,
+                  fontSize: 57 .sp,
                 ),
               ),
               onPressed: () {

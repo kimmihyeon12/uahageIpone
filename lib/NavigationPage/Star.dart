@@ -16,7 +16,7 @@ import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dar
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/icon.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class starPage extends StatefulWidget {
   String loginOption;
   String userId;
@@ -47,7 +47,7 @@ class _starPageState extends State<starPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -91,21 +91,17 @@ class _starPageState extends State<starPage> {
   appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    double screenHeight;
-    double screenWidth;
-
+   
     if (isIphoneX) {
-      screenHeight = 5076 / MediaQuery.of(context).size.height;
-      screenWidth = 2345 / MediaQuery.of(context).size.width;
+      ScreenUtil.init(context, width:  2345 , height:  5076 );
+      
     } else if (isIOS) {
       print("shu1");
-      screenHeight = 1390 / MediaQuery.of(context).size.height;
-      screenWidth = 781.5 / MediaQuery.of(context).size.width;
+      ScreenUtil.init(context, width:  781.5 , height:  1390 );
+    
     } else {
-      screenHeight = 2667 / MediaQuery.of(context).size.height;
-      screenWidth = 1501 / MediaQuery.of(context).size.width;
+      ScreenUtil.init(context, width:  1501 , height:  2667 );
+   
     }
     return Scaffold(
         backgroundColor: Colors.white,
@@ -133,15 +129,15 @@ class _starPageState extends State<starPage> {
                               Container(
                                 alignment: Alignment.center,
                                 margin:
-                                    EdgeInsets.only(top: 803 / screenHeight),
+                                    EdgeInsets.only(top: 803.h),
                                 child: Image.asset(
                                   './assets/starPage/group.png',
-                                  height: 357 / screenHeight,
-                                  width: 325 / screenWidth,
+                                  height: 357 .h,
+                                  width: 325 .w,
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 68 / screenHeight),
+                                margin: EdgeInsets.only(top: 68 .h),
                                 child: // 즐겨찾기 목록이 없습니다. 관심장소를 즐겨찾기에 등록해 보세요.
                                     RichText(
                                   text: TextSpan(children: [
@@ -151,7 +147,7 @@ class _starPageState extends State<starPage> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
-                                            fontSize: 73.0 / screenWidth),
+                                            fontSize: 73.0 .sp),
                                         text: "즐겨찾기 목록이 없습니다.\n"),
                                     TextSpan(
                                         style: TextStyle(
@@ -159,7 +155,7 @@ class _starPageState extends State<starPage> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
-                                            fontSize: 50.0 / screenWidth),
+                                            fontSize: 50.0 .sp),
                                         text: "관심장소를 즐겨찾기에 등록해 보세요.")
                                   ]),
                                 ),
@@ -175,10 +171,10 @@ class _starPageState extends State<starPage> {
                                   return Card(
                                     elevation: 0.3,
                                     child: Container(
-                                        height: 500 / screenHeight,
+                                        height: 450 .h,
                                         padding: EdgeInsets.only(
-                                          top: 30 / screenHeight,
-                                          left: 26 / (1501 / ScreenWidth),
+                                          top: 1.h,
+                                          left: 26.w,
                                         ),
                                         child: Row(
                                           crossAxisAlignment:
@@ -190,7 +186,7 @@ class _starPageState extends State<starPage> {
                                                     snapshot, index, context);
                                               },
                                               child: Container(
-                                                width: 1280 / screenWidth,
+                                                width: 1280 .w,
                                                 child: Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -199,43 +195,35 @@ class _starPageState extends State<starPage> {
                                                       if (index % 4 == 1) {
                                                         return Image.asset(
                                                           listimage[0],
-                                                          height: 400 /
-                                                              screenHeight,
-                                                          width: 400 /
-                                                              screenHeight,
+                                                          height: 414.h,
+                                                          width: 413.w,
                                                         );
                                                       } else if (index % 4 ==
                                                           2) {
                                                         return Image.asset(
                                                           listimage[1],
-                                                          height: 400 /
-                                                              screenHeight,
-                                                          width: 400 /
-                                                              screenHeight,
+                                                          height: 414.h,
+                                                          width: 413.w,
                                                         );
                                                       } else if (index % 4 ==
                                                           3) {
                                                         return Image.asset(
                                                           listimage[2],
-                                                          height: 400 /
-                                                              screenHeight,
-                                                          width: 400 /
-                                                              screenHeight,
+                                                          height: 414.h,
+                                                          width: 413.w,
                                                         );
                                                       } else {
                                                         return Image.asset(
                                                           listimage[3],
-                                                          height: 400 /
-                                                              screenHeight,
-                                                          width: 400 /
-                                                              screenHeight,
+                                                          height: 414.h,
+                                                          width: 413.w,
                                                         );
                                                       }
                                                     }()),
                                                     Padding(
                                                         padding:
                                                             EdgeInsets.only(
-                                                      left: 53 / screenWidth,
+                                                      left: 53 .w,
                                                     )),
                                                     Column(
                                                       crossAxisAlignment:
@@ -246,18 +234,15 @@ class _starPageState extends State<starPage> {
                                                             padding:
                                                                 EdgeInsets.only(
                                                           top:
-                                                              10 / screenHeight,
+                                                              25 .h,
                                                         )),
                                                         Container(
-                                                          height:
-                                                              80 / screenHeight,
+
                                                           child: Row(
                                                             children: [
                                                               Container(
-                                                                width: 700 /
-                                                                    screenWidth,
-                                                                height: 80 /
-                                                                    screenHeight,
+                                                                width: 700.w,
+                                                                height: 82 .h,
                                                                 child: Text(
                                                                   snapshot
                                                                       .data[
@@ -265,8 +250,8 @@ class _starPageState extends State<starPage> {
                                                                       .store_name,
                                                                   style:
                                                                       TextStyle(
-                                                                    fontSize: 56 /
-                                                                        screenWidth,
+                                                                    fontSize: 56
+                                                                        .sp,
                                                                     fontFamily:
                                                                         'NotoSansCJKkr_Medium',
                                                                   ),
@@ -275,14 +260,11 @@ class _starPageState extends State<starPage> {
                                                             ],
                                                           ),
                                                         ),
-                                                        Container(
-                                                          margin: EdgeInsets.only(
-                                                              top: 10 /
-                                                                  screenHeight),
+                                                          Container(
+
                                                           width:
-                                                              650 / screenWidth,
-                                                          height: 142 /
-                                                              screenHeight,
+                                                              650 .w,
+                                                          height: 135 .h,
                                                           child: Text(
                                                             snapshot.data[index]
                                                                 .address,
@@ -290,18 +272,16 @@ class _starPageState extends State<starPage> {
                                                               // fontFamily: 'NatoSans',
                                                               color:
                                                                   Colors.grey,
-                                                              fontSize: 55 /
-                                                                  screenWidth,
+                                                              fontSize: 55 .sp,
                                                               fontFamily:
                                                                   'NotoSansCJKkr_Medium',
-                                                              height: 1.2,
+                                                              height: 1.3,
                                                             ),
                                                           ),
                                                         ),
                                                         Container(
-                                                          height: 140 /
-                                                              screenHeight,
-                                                          //  width: 650 / screenWidth,
+                                                          height: 140 .h,
+                                                          //  width: 650 .w,
                                                           alignment: Alignment
                                                               .bottomRight,
                                                           child: Row(
@@ -371,19 +351,19 @@ class _starPageState extends State<starPage> {
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(
-                                                  left: 20 / screenWidth,
-                                                  top: 10 / screenHeight),
+                                                  left: 20 .w,
+                                                  top: 25.h),
                                               child: IconButton(
                                                 alignment:
                                                     Alignment.centerRight,
                                                 padding: EdgeInsets.all(0),
                                                 constraints: BoxConstraints(
-                                                  maxWidth: 170 / screenWidth,
-                                                  maxHeight: 170 / screenHeight,
+                                                  maxWidth: 170 .w,
+                                                  maxHeight: 170 .h,
                                                 ),
                                                 icon: Image.asset(
                                                   "./assets/listPage/star_color.png",
-                                                  height: 60 / screenHeight,
+                                                  height: 60 .h,
                                                 ),
                                                 onPressed: () async {
                                                   var data =
@@ -411,7 +391,7 @@ class _starPageState extends State<starPage> {
                             //     Colors.pinkAccent,
                             //   ),
                             // ),
-                            buildSpinKitThreeBounce(100, screenWidth)),
+                            buildSpinKitThreeBounce(100, 1500.w)),
                   );
                 },
               ),

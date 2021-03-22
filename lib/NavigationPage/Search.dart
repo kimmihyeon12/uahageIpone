@@ -16,7 +16,7 @@ import 'package:uahage/Location.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
 import 'dart:convert';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class searchPage extends StatefulWidget {
   searchPage(
       {Key key,
@@ -138,6 +138,7 @@ class _searchPageState extends State<searchPage> {
   icon iconwidget = new icon();
   @override
   void initState() {
+    getSubStarColor();
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
@@ -145,7 +146,9 @@ class _searchPageState extends State<searchPage> {
       longitude = widget.longitude ?? "";
       Area = widget.Area ?? "";
       Locality = widget.Locality ?? "";
+
     });
+
     if (latitude == "" || longitude == "" || Locality == "" || Area == "")
       getLatLong();
     super.initState();
@@ -182,7 +185,7 @@ class _searchPageState extends State<searchPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size.w,
     );
   }
 
@@ -191,9 +194,7 @@ class _searchPageState extends State<searchPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
-
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
     return Scaffold(
       body: Stack(
         children: [
@@ -221,7 +222,7 @@ class _searchPageState extends State<searchPage> {
                     await getSubStarColor();
                     print("star_color: $star_color");
                     print("Message: $Message");
-                    showPopUpbottomMenu(context, screenHeight, screenWidth);
+                    showPopUpbottomMenu(context, 2667.h, 1501.w);
                   })
             ]),
           ),
@@ -230,7 +231,7 @@ class _searchPageState extends State<searchPage> {
                   child: Container(
                     color: Colors.white,
                     child:
-                        Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+                        Center(child: buildSpinKitThreeBounce(80, 1501.w)),
                   ),
                 )
               : SizedBox.shrink(),
@@ -250,7 +251,7 @@ class _searchPageState extends State<searchPage> {
                   true,
                 ];
               });
-              await showPopUpMenu(context, screenHeight, screenWidth);
+              await showPopUpMenu(context, 2667.h, 1501.w);
             },
             child: Container(
               decoration: BoxDecoration(
@@ -266,21 +267,21 @@ class _searchPageState extends State<searchPage> {
                 ],
               ),
               margin: EdgeInsets.fromLTRB(
-                  51 / screenWidth, 161 / screenHeight, 51 / screenWidth, 0),
-              height: 196 / screenHeight,
+                  51.w, 161.h, 51.w, 0),
+              height: 196.h,
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 53 / screenWidth),
+                    margin: EdgeInsets.only(left: 53.w),
                     child: Image.asset(
                       "./assets/searchPage/arrow.png",
-                      height: 68 / screenHeight,
+                      height: 68.h,
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 41 / screenWidth),
-                    width: 1200 / screenWidth,
+                    margin: EdgeInsets.only(left: 41.w),
+                    width: 1200.w,
                     child: // 검색 조건을 설정해주세요
                         Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -291,12 +292,12 @@ class _searchPageState extends State<searchPage> {
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "NotoSansCJKkr_Medium",
                                 fontStyle: FontStyle.normal,
-                                fontSize: 58 / screenWidth),
+                                fontSize: 60.sp),
                             textAlign: TextAlign.left),
                         InkWell(
                           child: Image.asset(
                             "./assets/searchPage/cat_btn.png",
-                            height: 158 / screenHeight,
+                            height: 158.h,
                           ),
                         ),
                       ],
@@ -326,10 +327,10 @@ class _searchPageState extends State<searchPage> {
           //         },
           //         child: Container(
           //           margin: EdgeInsets.only(
-          //               left: 48 / screenWidth, bottom: 76 / screenHeight),
+          //               left: 48.w, bottom: 76.h),
           //           child: SizedBox(
-          //             height: 159 / screenHeight,
-          //             width: 161 / screenWidth,
+          //             height: 159.h,
+          //             width: 161.w,
           //             child: Image.asset("assets/searchPage/location.png"),
           //           ),
           //         ),
@@ -355,12 +356,12 @@ class _searchPageState extends State<searchPage> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: 600 / (screenHeight),
-                          bottom: 0 / screenHeight,
-                          left: 190 / screenWidth,
-                          right: 0 / screenWidth),
-                      width: 1100 / screenWidth,
-                      height: 1100 / screenHeight,
+                          top: 600 .h,
+                          bottom: 0.h,
+                          left: 190.w,
+                          right: 0.w),
+                      width: 1100.w,
+                      height: 1100.h,
                       child: Card(
                         shadowColor: Colors.black54,
                         elevation: 1,
@@ -370,12 +371,11 @@ class _searchPageState extends State<searchPage> {
                         ),
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: 110 / (screenHeight),
-                              left: 50 / screenWidth,
-                              right: 50 / screenWidth),
+                              top: 85 .h,
+                              left: 50.w,
+                              right: 50.w),
                           child: SizedBox(
-                            //       width: 888 / screenWidth,
-                            //     height: 800 / screenHeight,
+
                             child: GridView.count(
                               // childAspectRatio: 3 / 2,
                               crossAxisCount: 3,
@@ -396,15 +396,15 @@ class _searchPageState extends State<searchPage> {
                                               "./assets/searchPage/image" +
                                                   (index + 1).toString() +
                                                   "_grey.png",
-                                              height: 293 / screenHeight,
-                                              width: 218 / screenWidth,
+                                              height: 293.h,
+                                              width: 218.w,
                                             )
                                           : Image.asset(
                                               "./assets/searchPage/image" +
                                                   (index + 1).toString() +
                                                   ".png",
-                                              height: 293 / screenHeight,
-                                              width: 218 / screenWidth,
+                                              height: 293.h,
+                                              width: 218.w,
                                             ),
                                     ),
                                   ),
@@ -416,12 +416,12 @@ class _searchPageState extends State<searchPage> {
                       ),
                     ),
                     Positioned(
-                      top: 1850 / screenHeight,
-                      left: 400 / screenWidth,
-                      right: 400 / screenWidth,
+                      top: 1850.h,
+                      left: 400.w,
+                      right: 400.w,
                       child: SizedBox(
-                        width: 611 / screenWidth,
-                        height: 195 / screenHeight,
+                        width: 611.w,
+                        height: 195.h,
                         child: FlatButton(
                           onPressed: () async {
                             await searchCategory();
@@ -438,7 +438,7 @@ class _searchPageState extends State<searchPage> {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'NotoSansCJKkr_Medium',
-                              fontSize: 62 / screenWidth,
+                              fontSize: 60.sp,
                             ),
                           ),
                         ),
@@ -469,21 +469,21 @@ class _searchPageState extends State<searchPage> {
                 children: [
                   GestureDetector(
                     onPanDown: (a) {
-                      print('aha');
+
                       Navigator.pop(context);
                     },
                     child: Container(
                       color: Colors.transparent,
                       width: MediaQuery.of(context).size.width,
-                      height: 1874 / (screenHeight),
+                      height: 1874.h,
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 1874 / (screenHeight),
-                        bottom: 263 / screenHeight,
-                        left: 33 / screenWidth,
-                        right: 33 / screenWidth),
+                        top: 1930 .h,
+                        bottom: 263.h,
+                        left: 33.w,
+                        right: 33.w),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       shadowColor: Colors.black54,
@@ -540,31 +540,30 @@ class _searchPageState extends State<searchPage> {
                           children: [
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 30 / screenWidth,
+                              left: 30.w,
                             )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
-                              height: 409 / screenHeight,
-                              width: 413 / screenWidth,
+                              height: 409.h,
+                              width: 413.w,
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 53 / screenWidth,
+                              left: 53.w,
                             )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 60 / screenHeight),
-                                  width: 880 / screenWidth,
-                                  height: 82 / screenHeight,
+                                      EdgeInsets.only(top: 40.h),
+                                  width: 900.w,
+                                  height: 82.h,
                                   child: Row(
-                                    //  crossAxisAlignment: CrossAxisAlignment.center,
-                                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                                     children: [
                                       Container(
-                                        width: 680 / screenWidth,
+                                        width: 700.w,
                                         child: Text(
                                             Message[0].length <= 10
                                                 ? Message[0]
@@ -574,19 +573,19 @@ class _searchPageState extends State<searchPage> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
-                                              fontSize: 58 / screenWidth,
-                                              height: 1.2,
+                                              fontSize: 58.sp,
+
                                             ),
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(
-                                        //  iconSize: 60 / screenHeight,
+
                                         padding: EdgeInsets.all(0),
                                         icon: Image.asset(
                                             star_color
-                                                ? "./assets/listPage/star_color.png"
-                                                : "./assets/listPage/star_grey.png",
-                                            height: 60 / screenHeight),
+                                                ? "./assets/listPage/star_grey.png"
+                                                : "./assets/listPage/star_color.png",
+                                            height: 60.h),
                                         onPressed: loginOption == "login"
                                             ? () {
                                                 show_toast.showToast(
@@ -607,25 +606,26 @@ class _searchPageState extends State<searchPage> {
                                 ),
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  width: 650 / screenWidth,
-                                  height: 138 / screenHeight,
+                                      EdgeInsets.only(top: 10.h),
+                                  width: 650.w,
+                                  height: 135.h,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                         color: const Color(0xffb0b0b0),
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 55 / screenWidth,
-                                        height: 1.2,
+                                        fontSize: 56.sp,
+                                        height: 1.3
+
                                       ),
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  height: 120 / screenHeight,
-                                  width: 650 / screenWidth,
+                                      EdgeInsets.only(top: 15.h),
+                                  height: 120.h,
+                                  width: 650.w,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     iconwidget.menu(Message[3], context),

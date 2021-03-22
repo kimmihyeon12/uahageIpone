@@ -8,11 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uahage/screens/allAppBar.dart';
 
-//dsda
-
-//dsa
-//sada//
 class registrationPage extends StatefulWidget {
   String userId;
   String loginOption;
@@ -117,7 +115,7 @@ class _registrationPageState extends State<registrationPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -125,12 +123,11 @@ class _registrationPageState extends State<registrationPage> {
   String year, month, yearMonthDay, yearMonthDayTime;
   TextEditingController yController = TextEditingController();
   var changeimage = [false, false, false, false, false, false];
-
+  appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2667 / MediaQuery.of(context).size.height;
-    double screenWidth = 1501 / MediaQuery.of(context).size.width;
-    var _fontsize = 62.5 / screenHeight;
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    var _fontsize = 62.5.sp;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -139,42 +136,12 @@ class _registrationPageState extends State<registrationPage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180 / screenHeight),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Color.fromRGBO(255, 114, 148, 1.0),
-            centerTitle: true,
-            title: Text(
-              "회원가입",
-              style: TextStyle(
-                fontSize: 73 / screenWidth,
-                fontFamily: 'NotoSansCJKkr_Bold',
-                letterSpacing: 0,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
+        appBar: bar.navHome_abbbar("회원가입", context),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              //custom appbar
-              // Container(
-              //     alignment: Alignment(0.0, 0.0),
-              //     color: Color.fromARGB(255, 255, 114, 148),
-              //     width: MediaQuery.of(context).size.width,
-              //     height: 178 / screenHeight,
-              //     child: Text(
-              //       "회원가입",
-              //       style: TextStyle(
-              //         fontSize: 73 / screenWidth,
-              //         color: Colors.white,
-              //         fontFamily: 'NotoSansCJKkr_Bold',
-              //       ),
-              //     )),
 
-              Padding(padding: EdgeInsets.only(top: 250 / screenHeight)),
+              Padding(padding: EdgeInsets.only(top: 250 .h)),
 
               //membership_Nickname
 
@@ -183,20 +150,20 @@ class _registrationPageState extends State<registrationPage> {
                   child: Row(
                     children: [
                       Padding(
-                          padding: EdgeInsets.only(left: 150 / screenWidth)),
+                          padding: EdgeInsets.only(left: 150 .w)),
                       Text(
                         "닉네임",
                         style: TextStyle(
-                            fontSize: 57 / screenWidth,
+                            fontSize: 58 .sp,
                             color: Color.fromARGB(255, 255, 114, 148),
                             fontFamily: 'NotoSansCJKkr_Medium'),
                       ),
-                      Padding(padding: EdgeInsets.only(left: 88 / screenWidth)),
+                      Padding(padding: EdgeInsets.only(left: 88 .w)),
                       Expanded(
                         flex: 1,
                         child: Container(
                           margin: EdgeInsets.only(
-                            right: 121 / screenWidth,
+                            right: 121 .sp
                           ),
                           child: Stack(
                             children: [
@@ -209,14 +176,14 @@ class _registrationPageState extends State<registrationPage> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: const Color(0xff3a3939),
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "NotoSansCJKkr_Bold",
+                                
+                                  fontFamily: "NotoSansCJKkr_Medium",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 62.5 / screenWidth,
+                                  fontSize: 62.5 .sp,
                                 ),
                                 decoration: InputDecoration(
                                   contentPadding:
-                                      EdgeInsets.only(right: 410 / screenWidth),
+                                      EdgeInsets.only(right: 410 .w),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: const Color(0xffff7292),
@@ -228,18 +195,18 @@ class _registrationPageState extends State<registrationPage> {
                                     borderSide:
                                         BorderSide(color: Color(0xffff7292)),
                                   ),
-                                  hintText: '닉네임를 입력하세요',
+                                  hintText: '닉네임을 입력하세요',
                                   hintStyle: TextStyle(
                                       color: Color(0xffcccccc),
-                                      fontSize: 57 / screenWidth,
+                                      fontSize: 58 .sp,
                                       letterSpacing: -1.0),
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Container(
-                                  width: 350 / screenWidth,
-                                  height: 143 / screenHeight,
+                                  width: 350 .w,
+                                  height: 125 .h,
                                   child: FlatButton(
                                     shape: new RoundedRectangleBorder(
                                       borderRadius:
@@ -278,8 +245,7 @@ class _registrationPageState extends State<registrationPage> {
                                                                             FontStyle
                                                                                 .normal,
                                                                         fontSize:
-                                                                            62.5 /
-                                                                                screenWidth),
+                                                                            62.5  .sp),
                                                                     textAlign:
                                                                         TextAlign
                                                                             .left),
@@ -318,8 +284,7 @@ class _registrationPageState extends State<registrationPage> {
                                                                             FontStyle
                                                                                 .normal,
                                                                         fontSize:
-                                                                            62.5 /
-                                                                                screenWidth),
+                                                                            62.5 .sp),
                                                                     textAlign:
                                                                         TextAlign
                                                                             .left),
@@ -338,24 +303,13 @@ class _registrationPageState extends State<registrationPage> {
 
                                                         return Center(
                                                           child: SizedBox(
-                                                              height: 200 /
-                                                                  screenHeight,
-                                                              width: 200 /
-                                                                  screenWidth,
+                                                              height: 200 .h,
+                                                              width: 200 .w ,
                                                               child:
                                                                   buildSpinKitThreeBounce(
                                                                       80,
-                                                                      screenWidth)
-                                                              //     CircularProgressIndicator(
-                                                              //   strokeWidth:
-                                                              //       5.0,
-                                                              //   valueColor:
-                                                              //       new AlwaysStoppedAnimation<
-                                                              //           Color>(
-                                                              //     Colors
-                                                              //         .pinkAccent,
-                                                              //   ),
-                                                              // )
+                                                                     1501.w)
+
                                                               ),
                                                         );
                                                       }),
@@ -370,7 +324,7 @@ class _registrationPageState extends State<registrationPage> {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'NotoSansCJKkr_Medium',
-                                        fontSize: 50 / screenWidth,
+                                        fontSize: 58 .sp,
                                       ),
                                     ),
                                   ),
@@ -384,43 +338,45 @@ class _registrationPageState extends State<registrationPage> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 76 / screenHeight)),
+              Padding(padding: EdgeInsets.only(top: 110 .h)),
 
               //baby_Gender
               Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 91 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 91 .w)),
                     Container(
                       child: Text(
                         "아이성별",
                         style: TextStyle(
-                            fontSize: 57 / screenWidth,
+                            fontSize: 58 .sp,
                             color: Color.fromARGB(255, 255, 114, 148),
                             fontFamily: 'NotoSansCJKkr_Medium'),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 80 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 80 .w)),
                     InkWell(
                       onTap: () {
                         _pressedbaby('boy');
                       },
                       child: Column(children: <Widget>[
                         Container(
-                          height: 364 / screenHeight,
+                          height: 362 .h,
+                          width: 262.w,
                           child: Image.asset(boy ? boy_image[0] : boy_image[1]),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 11)),
                       ]),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 98 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 98 .w)),
                     InkWell(
                       onTap: () {
                         _pressedbaby('girl');
                       },
                       child: Column(children: <Widget>[
                         Container(
-                          height: 364 / screenHeight,
+                          height: 362 .h,
+                          width: 262.w,
                           child:
                               Image.asset(girl ? girl_image[0] : girl_image[1]),
                         ),
@@ -432,14 +388,14 @@ class _registrationPageState extends State<registrationPage> {
               //baby_birtyday
               Container(
                 margin: EdgeInsets.fromLTRB(
-                    99 / screenWidth, 117 / screenHeight, 0, 0),
+                    99 .w, 20 .h, 0, 0),
                 child: Row(
                   children: [
                     // 아이생일
                     Text(
                       "아이생일",
                       style: TextStyle(
-                          fontSize: 57 / screenWidth,
+                          fontSize: 58 .sp,
                           color: Color.fromARGB(255, 255, 114, 148),
                           fontFamily: 'NotoSansCJKkr_Medium'),
                     ),
@@ -447,7 +403,7 @@ class _registrationPageState extends State<registrationPage> {
                       flex: 1,
                       child: Container(
                         margin: EdgeInsets.fromLTRB(
-                            82 / screenWidth, 0, 118 / screenWidth, 0),
+                            82 .w, 0, 118 .w, 0),
                         child: Stack(
                           children: [
                             GestureDetector(
@@ -463,7 +419,7 @@ class _registrationPageState extends State<registrationPage> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Color(0xffff7292),
-                                      fontSize: 73 / screenWidth,
+                                      fontSize: 73 .sp,
                                       fontFamily: 'NotoSansCJKkr_Medium',
                                       fontStyle: FontStyle.normal,
                                       letterSpacing: -1.0),
@@ -482,9 +438,9 @@ class _registrationPageState extends State<registrationPage> {
                                     hintStyle: TextStyle(
                                         color: Color(0xffd4d4d4),
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSansCJKkr",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 66.0 / screenWidth),
+                                        fontFamily: "NotoSansCJKkr_Medium",
+
+                                        fontSize: 58.0 .sp),
                                   ),
                                 ),
                               ),
@@ -510,7 +466,7 @@ class _registrationPageState extends State<registrationPage> {
 
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                    0, 98 / screenHeight, 0, 0 / screenHeight),
+                    0, 98 .h, 0, 0 .h),
               ),
               //Parental age group
 
@@ -518,49 +474,49 @@ class _registrationPageState extends State<registrationPage> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 147 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 147 .w)),
                     Text(
                       "보호자\n 연령대",
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontSize: 57 / screenWidth,
+                          fontSize: 57.sp,
                           color: Color.fromARGB(255, 255, 114, 148),
                           fontFamily: 'NotoSansCJKkr_Medium'),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 62 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 62 .w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[0]
                             ? './assets/registrationPage/10_pink.png'
                             : './assets/registrationPage/10_grey.png',
-                        height: 196 / screenHeight,
-                        width: 251 / screenWidth,
+                        height: 196 .h,
+                        width: 251 .w,
                       ),
                       onTap: () {
                         _change('10');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 55 .w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[1]
                             ? './assets/registrationPage/20_pink.png'
                             : './assets/registrationPage/20_grey.png',
-                        height: 196 / screenHeight,
-                        width: 251 / screenWidth,
+                        height: 196 .h,
+                        width: 251 .w,
                       ),
                       onTap: () {
                         _change('20');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 55 .w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[2]
                             ? './assets/registrationPage/30_pink.png'
                             : './assets/registrationPage/30_grey.png',
-                        height: 196 / screenHeight,
-                        width: 251 / screenWidth,
+                        height: 196 .h,
+                        width: 251 .w,
                       ),
                       onTap: () {
                         _change('30');
@@ -568,53 +524,53 @@ class _registrationPageState extends State<registrationPage> {
                     ),
                   ],
                 ),
-                Padding(padding: EdgeInsets.only(top: 25 / screenWidth)),
+                Padding(padding: EdgeInsets.only(top: 25 .w)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 147 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 147 .w)),
                     Text(
                       "보호자\n 연령대",
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontSize: 57 / screenWidth,
+                          fontSize: 57 .sp,
                           color: Colors.transparent,
                           fontFamily: 'NotoSansCJKkr_Medium'),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 62 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 62 .w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[3]
                             ? './assets/registrationPage/40_pink.png'
                             : './assets/registrationPage/40_grey.png',
-                        height: 196 / screenHeight,
-                        width: 251 / screenWidth,
+                        height: 196 .h,
+                        width: 251 .w,
                       ),
                       onTap: () {
                         _change('40');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 55 .w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[4]
                             ? './assets/registrationPage/50_pink.png'
                             : './assets/registrationPage/50_grey.png',
-                        height: 196 / screenHeight,
-                        width: 251 / screenWidth,
+                        height: 196 .h,
+                        width: 251 .w,
                       ),
                       onTap: () {
                         _change('50');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 / screenWidth)),
+                    Padding(padding: EdgeInsets.only(left: 55 .w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[5]
                             ? './assets/registrationPage/others_pink.png'
                             : './assets/registrationPage/others_grey.png',
-                        height: 196 / screenHeight,
-                        width: 251 / screenWidth,
+                        height: 196 .h,
+                        width: 251 .w,
                       ),
                       onTap: () {
                         _change('ohters');
@@ -623,12 +579,12 @@ class _registrationPageState extends State<registrationPage> {
                   ],
                 ),
               ]),
-              Padding(padding: EdgeInsets.only(top: 125 / screenHeight)),
+              Padding(padding: EdgeInsets.only(top: 125 .h)),
 
               //ok button
               Container(
-                width: 1200 / screenWidth,
-                height: 194 / screenHeight,
+                width: 1193 .w,
+                height: 194 .h,
                 // margin: EdgeInsets.only(bottom: 70/(2667/ScreenHeight)),
                 child: FlatButton(
                   shape: new RoundedRectangleBorder(
@@ -670,10 +626,10 @@ class _registrationPageState extends State<registrationPage> {
                                     });
                                   } else if (snapshot.hasError)
                                     return buildAlertDialog(snapshot,
-                                        screenWidth, context, _fontsize);
+                                        1500.h, context, _fontsize);
 
                                   return buildCenterProgress(
-                                      screenHeight, screenWidth);
+                                      1500.h, 2667.h);
                                 }),
                           );
                         }
@@ -690,12 +646,12 @@ class _registrationPageState extends State<registrationPage> {
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'NotoSansCJKkr_Medium',
-                      fontSize: 57 / screenWidth,
+                      fontSize: 57 .sp,
                     ),
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 200 / screenHeight)),
+              Padding(padding: EdgeInsets.only(top: 270.h)),
 
               //next
               Center(
@@ -734,9 +690,9 @@ class _registrationPageState extends State<registrationPage> {
                             });
                           } else if (snapshot.hasError) {
                             buildAlertDialog(
-                                snapshot, screenWidth, context, _fontsize);
+                                snapshot, 1500.w, context, _fontsize);
                           }
-                          return buildCenterProgress(screenHeight, screenWidth);
+                          return buildCenterProgress(2667.h, 1500.w);
                         },
                       ),
                     );
@@ -746,7 +702,7 @@ class _registrationPageState extends State<registrationPage> {
                     style: TextStyle(
                       color: Color.fromRGBO(255, 114, 148, 1.0),
                       fontFamily: 'NotoSansCJKkr_Medium',
-                      fontSize: 57 / screenWidth,
+                      fontSize: 58 .sp,
                     ),
                   ),
                 ),
@@ -761,8 +717,8 @@ class _registrationPageState extends State<registrationPage> {
   Center buildCenterProgress(double screenHeight, double screenWidth) {
     return Center(
       child: SizedBox(
-          height: 200 / screenHeight,
-          width: 200 / screenWidth,
+          height: 200 .h,
+          width: 200 .w,
           child: buildSpinKitThreeBounce(80, screenWidth)
           // CircularProgressIndicator(
           //   strokeWidth: 5.0,
@@ -787,7 +743,7 @@ class _registrationPageState extends State<registrationPage> {
                   fontWeight: FontWeight.w500,
                   fontFamily: "NotoSansCJKkr_Medium",
                   fontStyle: FontStyle.normal,
-                  fontSize: 62.5 / screenWidth),
+                  fontSize: 62.5 .sp),
               textAlign: TextAlign.left),
       actions: [
         FlatButton(
@@ -852,7 +808,7 @@ class _registrationPageState extends State<registrationPage> {
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Color.fromRGBO(255, 114, 148, 1.0),
-              fontSize: 56 / screenHeight,
+              fontSize: 56 .sp,
             ),
             textAlign: TextAlign.center,
           ),
@@ -878,7 +834,7 @@ class _registrationPageState extends State<registrationPage> {
                 style: TextStyle(
                   color: Color.fromRGBO(255, 114, 148, 1.0),
                   fontFamily: 'NotoSansCJKkr_Medium',
-                  fontSize: 57 / screenHeight,
+                  fontSize: 57 .sp,
                 ),
               ),
               onPressed: () {
@@ -894,7 +850,7 @@ class _registrationPageState extends State<registrationPage> {
             //     style: TextStyle(
             //       color: Color.fromRGBO(255, 114, 148, 1.0),
             //       fontFamily: 'NotoSansCJKkr_Medium',
-            //       fontSize: 57 / screenHeight,
+            //       fontSize: 57 .h,
             //     ),
             //   ),
             //   onPressed: () {

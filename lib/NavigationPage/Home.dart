@@ -16,7 +16,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/screens/allAppBar.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class homePage extends StatefulWidget {
   String loginOption;
   String userId;
@@ -91,7 +91,7 @@ class _homePageState extends State<homePage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -110,9 +110,9 @@ class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
-
     bool isIOS = Platform.isIOS;
-
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -120,10 +120,7 @@ class _homePageState extends State<homePage> {
     print(Platform.operatingSystem);
 
     appbar bar = new appbar();
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+  
     imageView(fileName) {
       // return Image.network(
       //   // 'http://hohoco.dothome.co.kr/img/$fileName.png',
@@ -155,8 +152,8 @@ class _homePageState extends State<homePage> {
           child: Column(
             children: [
               Container(
-                width: ScreenWidth,
-                height: 900 / screenHeight,
+                width: 1500.w,
+                height: 900 .h,
                 child: Stack(
                   children: [
                     PageView(
@@ -188,13 +185,13 @@ class _homePageState extends State<homePage> {
                             //   ),
                             borderRadius: BorderRadius.circular(20.0)),
                         margin: EdgeInsets.only(
-                            top: 40 / screenHeight, right: 40 / screenWidth),
+                            top: 40 .h, right: 40 .w),
                         padding:
                             EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                         child: Text(
                           '$index/5',
                           style: TextStyle(
-                            fontSize: 62 / screenWidth,
+                            fontSize: 62 .sp,
                             color: Colors.white,
                           ),
                         ),
@@ -204,13 +201,13 @@ class _homePageState extends State<homePage> {
                     //   alignment: Alignment.topLeft,
                     //   child: Container(
                     //     margin: EdgeInsets.only(
-                    //       top: 60 / screenHeight,
-                    //       left: 70 / screenWidth,
+                    //       top: 60 .h,
+                    //       left: 70 .w,
                     //     ),
                     //     child: Text(
                     //       "영·유아 보호자와\n함께하는\n정보제공 서비스",
                     //       style: TextStyle(
-                    //           fontSize: 80 / screenWidth,
+                    //           fontSize: 80 .w,
                     //           color: Color(0xffff7292),
                     //           fontFamily: 'NotoSansCJKkr_Medium'),
                     //     ),
@@ -221,8 +218,8 @@ class _homePageState extends State<homePage> {
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(
-                    49 / screenWidth, 53 / screenHeight, 49 / screenWidth, 0),
-                height: 182 / screenHeight,
+                    49 .w, 53 .h, 49 .w, 0),
+                height: 182 .h,
                 child: Theme(
                   data: new ThemeData(
                       primaryColor: Color.fromRGBO(255, 114, 148, 1.0),
@@ -240,7 +237,7 @@ class _homePageState extends State<homePage> {
                     // showCursor: false,
                     style: TextStyle(
                         color: Color(0xffcccccc),
-                        fontSize: 55 / screenWidth,
+                        fontSize: 60 .sp,
                         letterSpacing: -1.0),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -256,11 +253,11 @@ class _homePageState extends State<homePage> {
                             color: Color(0xffff7292),
                           )),
                       contentPadding:
-                          EdgeInsets.fromLTRB(76 / screenWidth, 0, 0, 0),
+                          EdgeInsets.fromLTRB(76 .w, 0, 0, 0),
                       hintText: "장소, 주소, 상호명을 검색해주세요",
                       hintStyle: TextStyle(
                           color: Color(0xffcccccc),
-                          fontSize: 55 / screenWidth,
+                          fontSize: 60 .sp,
                           fontFamily: 'NotoSansCJKkr_Medium',
                           letterSpacing: -1.0),
                       suffixIcon: IconButton(
@@ -284,8 +281,8 @@ class _homePageState extends State<homePage> {
                                 },
                           icon: Image.asset(
                             "./assets/homePage/search.png",
-                            width: 88 / screenWidth,
-                            height: 87 / screenHeight,
+                            width: 88 .w,
+                            height: 87 .h,
                           )),
                     ),
                   ),
@@ -293,7 +290,7 @@ class _homePageState extends State<homePage> {
               ),
               Padding(
                   padding: EdgeInsets.only(
-                top: 50 / screenHeight,
+                top: 50 .h,
               )),
               Column(
                 children: [
@@ -302,13 +299,13 @@ class _homePageState extends State<homePage> {
                     children: [
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 78 / screenWidth,
+                        left: 78 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[0],
-                          width: 219 / screenWidth,
-                          height: 211 / screenHeight,
+                          width: 219 .w,
+                          height: 211 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -327,13 +324,13 @@ class _homePageState extends State<homePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 180 / screenWidth,
+                        left: 180 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[1],
-                          width: 169 / screenWidth,
-                          height: 255 / screenHeight,
+                          width: 169 .w,
+                          height: 255 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -350,13 +347,13 @@ class _homePageState extends State<homePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 196 / screenWidth,
+                        left: 196 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[2],
-                          width: 190 / screenWidth,
-                          height: 264 / screenHeight,
+                          width: 190 .w,
+                          height: 264 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -365,13 +362,13 @@ class _homePageState extends State<homePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 211 / screenWidth,
+                        left: 211 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[3],
-                          width: 163 / screenWidth,
-                          height: 248 / screenHeight,
+                          width: 163 .w,
+                          height: 248 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -382,20 +379,20 @@ class _homePageState extends State<homePage> {
                   ),
                   Padding(
                       padding: EdgeInsets.only(
-                    top: 100 / screenHeight,
+                    top: 100 .h,
                   )),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 92 / screenWidth,
+                        left: 92 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[4],
-                          width: 192 / screenWidth,
-                          height: 251 / screenHeight,
+                          width: 192 .w,
+                          height: 251 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -412,13 +409,13 @@ class _homePageState extends State<homePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 206 / screenWidth,
+                        left: 206 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[5],
-                          width: 151 / screenWidth,
-                          height: 230 / screenHeight,
+                          width: 151 .w,
+                          height: 230 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -435,13 +432,13 @@ class _homePageState extends State<homePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 224 / screenWidth,
+                        left: 224 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[6],
-                          width: 142 / screenWidth,
-                          height: 239 / screenHeight,
+                          width: 142 .w,
+                          height: 239 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -450,13 +447,13 @@ class _homePageState extends State<homePage> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 159 / screenWidth,
+                        left: 159 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[7],
-                          width: 294 / screenWidth,
-                          height: 202 / screenHeight,
+                          width: 294 .w,
+                          height: 202 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -467,20 +464,20 @@ class _homePageState extends State<homePage> {
                   ),
                   Padding(
                       padding: EdgeInsets.only(
-                    top: 100 / screenHeight,
+                    top: 100 .h,
                   )),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 91 / screenWidth,
+                        left: 91 .w,
                       )),
                       GestureDetector(
                         child: Image.asset(
                           homeimage[8],
-                          width: 189 / screenWidth,
-                          height: 221 / screenHeight,
+                          width: 189 .w,
+                          height: 221 .h,
                         ),
                         onTap: () {
                           currentFocus.unfocus();
@@ -493,36 +490,36 @@ class _homePageState extends State<homePage> {
               ),
               Padding(
                   padding: EdgeInsets.only(
-                top: 104 / screenHeight,
+                top: 120 .h,
               )),
               Container(
                 padding: EdgeInsets.only(
-                  left: 100 / screenWidth,
-                  top: 82 / screenHeight,
-                  bottom: 20 / screenHeight,
+                  left: 100 .w,
+                  top: 82 .h,
+                  bottom: 120 .h,
                 ),
                 color: Color.fromRGBO(247, 248, 250, 1.0),
-                // height: 650 / screenHeight,
-                width: ScreenWidth,
+                // height: 650 .h,
+                width: 1500.w,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.asset(
                         "./assets/homePage/logo_grey.png",
-                        width: 256 / screenWidth,
-                        height: 63 / screenHeight,
+                        width: 256 .w,
+                        height: 63 .h,
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 57 / screenHeight,
+                        top: 57 .h,
                       )),
                       Text(
                         "상호명 : (주)호호컴퍼니\n대표이사 : 김화영     사업자등록번호 : 322-86-01766\n유선번호 : 061-331-3116  팩스 : 061-331-3117\nemail : hohoco0701@gmail.com \n주소 : 전라남도 나주시 빛가람로 740 한빛타워 6층 601호\ncopyrightⓒ 호호컴퍼니 Inc. All Rights Reserved.            \n사업자 정보 확인   |   이용약관   |   개인정보처리방침",
                         style: TextStyle(
                             fontFamily: "NotoSansCJKkr_Medium",
-                            //  height: 1.0,
+                              height: 1.8,
                             //   letterSpacing: -1.0,
-                            fontSize: 40 / screenWidth,
+                            fontSize: 45 .sp,
                             color: Color.fromRGBO(151, 151, 151, 1.0)),
                       ),
                     ]),

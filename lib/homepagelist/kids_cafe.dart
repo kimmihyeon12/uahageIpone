@@ -11,6 +11,7 @@ import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/Kids_cafe_helper.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class kids_cafe extends StatefulWidget {
   String loginOption;
@@ -53,7 +54,7 @@ class _kids_cafeState extends State<kids_cafe> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -146,8 +147,7 @@ class _kids_cafeState extends State<kids_cafe> {
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
 
     return SafeArea(
       child: Scaffold(
@@ -167,17 +167,17 @@ class _kids_cafeState extends State<kids_cafe> {
                   child: Row(
                     children: [
                       Image.asset("./assets/listPage/backbutton.png",
-                          width: 44 / screenWidth, height: 76 / screenHeight),
+                          width: 44 .w, height: 76 .h),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 45 / screenWidth,
+                        left: 45 .w,
                       )),
                       Container(
-                        // width: 310 / screenWidth,
+                        // width: 310 .w,
                         child: Text(
                           '키즈·카페',
                           style: TextStyle(
-                              fontSize: 62 / screenWidth,
+                              fontSize: 62 .sp,
                               fontFamily: 'NotoSansCJKkr_Medium',
                               color: Color.fromRGBO(255, 114, 148, 1.0)),
                         ),
@@ -186,7 +186,7 @@ class _kids_cafeState extends State<kids_cafe> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(right: 30 / screenWidth),
+                  margin: EdgeInsets.only(right: 30 .w),
                   child: toggle
                       ? GestureDetector(
                           onTap: () {
@@ -200,8 +200,8 @@ class _kids_cafeState extends State<kids_cafe> {
                           },
                           child: Image.asset(
                             './assets/on.png',
-                            width: 284 / screenWidth,
-                            height: 133 / screenHeight,
+                            width: 284 .w,
+                            height: 133 .h,
                           ),
                         )
                       : GestureDetector(
@@ -216,8 +216,8 @@ class _kids_cafeState extends State<kids_cafe> {
                           },
                           child: Image.asset(
                             './assets/off.png',
-                            width: 284 / screenWidth,
-                            height: 133 / screenHeight,
+                            width: 284 .w,
+                            height: 133 .h,
                           ),
                         ),
                 )
@@ -225,7 +225,7 @@ class _kids_cafeState extends State<kids_cafe> {
             ),
           ),
           body: IndexedStack(index: indexcount, children: <Widget>[
-            kids_cafe_view(context, screenWidth, screenHeight),
+            kids_cafe_view(context, 1500.w, 2667.h),
             map_list(
                 userId: userId,
                 loginOption: loginOption,
@@ -259,10 +259,10 @@ class _kids_cafeState extends State<kids_cafe> {
                   return Card(
                     elevation: 0.3,
                     child: Container(
+                        height: 450 .h,
                         padding: EdgeInsets.only(
-                          top: 30 / screenHeight,
-                          left: 26 / screenWidth,
-                          bottom: 40 / screenHeight,
+                          top: 1.h,
+                          left: 26.w,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,30 +294,31 @@ class _kids_cafeState extends State<kids_cafe> {
                                 });
                               },
                               child: Container(
-                                width: 1280 / screenWidth,
+                                width: 1280 .w,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
+                                        // border: Border.all(width: 3.0),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                (() {
-                                                  if (index % 2 == 0)
-                                                    return listimage[0];
-                                                  else
-                                                    return listimage[1];
-                                                }()),
-                                              ),
-                                              fit: BoxFit.fitHeight),
+                                            image: NetworkImage(
+                                              (() {
+                                                if (index % 2 == 0)
+                                                  return listimage[0];
+                                                else
+                                                  return listimage[1];
+                                              }()),
+                                            ),
+                                          ),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0))),
-                                      height: 414 / screenHeight,
-                                      width: 414 / screenHeight,
+                                      height: 414.h,
+                                      width: 413.w,
                                     ),
                                     Padding(
                                         padding: EdgeInsets.only(
-                                      left: 53 / screenWidth,
+                                      left: 53 .w,
                                     )),
                                     Column(
                                       crossAxisAlignment:
@@ -325,18 +326,20 @@ class _kids_cafeState extends State<kids_cafe> {
                                       children: [
                                         Padding(
                                             padding: EdgeInsets.only(
-                                                top: 10 / screenHeight)),
+                                                top: 10 .h)),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Container(
-                                              width: 700 / screenWidth,
-                                              height: 90 / screenHeight,
+                                              margin:
+                                              EdgeInsets.only(top: 20.h),
+                                              width: 700.w,
+                                              height: 82 .h,
                                               child: Text(
                                                 snapshot.data[index].store_name,
                                                 style: TextStyle(
-                                                  fontSize: 56 / screenWidth,
+                                                  fontSize: 56 .sp,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
@@ -345,17 +348,17 @@ class _kids_cafeState extends State<kids_cafe> {
                                           ],
                                         ),
                                         Container(
-                                          // height: 350 / screenHeight,
-                                          width: 650 / screenWidth,
+                                          height: 255 .h,
+                                          width: 650.w,
                                           child: Text(
                                             snapshot.data[index].address,
                                             style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize: 56 / screenWidth,
+                                              fontSize: 56 .sp,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
-                                              height: 1.2,
+                                              height: 1.3,
                                             ),
                                           ),
                                         ),
@@ -367,21 +370,21 @@ class _kids_cafeState extends State<kids_cafe> {
                             ),
                             Container(
                               margin: EdgeInsets.only(
-                                  left: 30 / screenWidth,
-                                  top: 10 / screenHeight),
+                                  left: 30 .w,
+                                  top: 25 .h),
 
                               //         color:Colors.yellow,
                               child: IconButton(
                                 padding: EdgeInsets.all(0),
                                 constraints: BoxConstraints(
-                                  maxWidth: 70 / screenWidth,
-                                  maxHeight: 70 / screenHeight,
+                                  maxWidth: 70 .w,
+                                  maxHeight: 70 .h,
                                 ),
                                 icon: Image.asset(
                                   !star_color_list[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
-                                  height: 60 / screenHeight,
+                                  height: 60 .h,
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {

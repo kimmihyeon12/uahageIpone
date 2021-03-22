@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:uahage/screens/loginPage.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class withdrawal extends StatefulWidget {
   @override
   _withdrawalState createState() => _withdrawalState();
@@ -26,8 +26,7 @@ class _withdrawalState extends State<withdrawal> {
   //popUntil((route) => route.isFirst));
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2667 / MediaQuery.of(context).size.height;
-    double screenWidth = 1501 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -49,8 +48,8 @@ class _withdrawalState extends State<withdrawal> {
             alignment: Alignment.bottomCenter,
             child: Image(
               image: AssetImage('./assets/firstPage/backfamily.png'),
-
-              width: 1446 / screenWidth,
+         height: 1415.h,
+              width: 1446.w,
               // height: 50,
             ),
           ),
@@ -58,17 +57,17 @@ class _withdrawalState extends State<withdrawal> {
             children: [
               Padding(
                   padding: EdgeInsets.only(
-                left: 658 / screenWidth,
+                left: 658.w,
               )),
               Image(
                 image: AssetImage('./assets/firstPage/Lighting.png'),
-                height: 440 / screenHeight,
-                width: 143 / screenWidth,
+                height: 440.h,
+                width: 143.w,
               ),
               Image(
                 image: AssetImage('./assets/firstPage/logo.png'),
-                height: 88 / screenHeight,
-                width: 662 / screenWidth,
+                height: 88.h,
+                width: 662.w,
               ),
             ],
           ),
@@ -79,7 +78,7 @@ class _withdrawalState extends State<withdrawal> {
               children: [
                 Padding(
                     padding: EdgeInsets.only(
-                  top: 626 / screenHeight,
+                  top: 626.h,
                 )),
                 Text(
                   "회원탈퇴가 완료되었습니다.",
@@ -87,13 +86,13 @@ class _withdrawalState extends State<withdrawal> {
                       fontFamily: "NotoSansCJKkr_Bold",
                       //   height: 1.0,
                       //   letterSpacing: -1.0,
-                      fontSize: 78 / screenHeight,
+                      fontSize: 78.sp,
                       // fontWeight: FontWeight.bold,
                       color: Color(0xffff7292)),
                 ),
                 Padding(
                     padding: EdgeInsets.only(
-                  top: 100 / screenHeight,
+                  top: 100.h,
                 )),
                 Text(
                   "그동안 우아하게를 이용해주시고 ",
@@ -101,7 +100,7 @@ class _withdrawalState extends State<withdrawal> {
                       fontFamily: "NotoSansCJKkr_Medium",
                        // height: 0.8,
                       //   letterSpacing: -1.0,
-                      fontSize: 55 / screenHeight,
+                      fontSize: 63.sp,
                       color:Color.fromRGBO(255, 114, 142, 1.0)),
                 ),
                 Text(
@@ -110,7 +109,7 @@ class _withdrawalState extends State<withdrawal> {
                       fontFamily: "NotoSansCJKkr_Medium",
                       //  height: 1.0,
                       //   letterSpacing: -1.0,
-                      fontSize: 55 / screenHeight,
+                      fontSize: 63.sp,
                       color: Color.fromRGBO(255, 114, 142, 1.0)),
                 ),
                 Text(
@@ -119,7 +118,7 @@ class _withdrawalState extends State<withdrawal> {
                       fontFamily: "NotoSansCJKkr_Medium",
                       //  height: 1.0,
                       //   letterSpacing: -1.0,
-                      fontSize: 55 / screenHeight,
+                      fontSize: 63.sp,
                       color: Color.fromRGBO(255, 114, 142, 1.0)),
                 ),
               ],

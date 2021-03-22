@@ -9,7 +9,7 @@ import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/StarManage.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class kid_cafe_sublist extends StatefulWidget {
   kid_cafe_sublist(
       {Key key, this.index, this.data, this.userId, this.loginOption});
@@ -81,7 +81,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -112,9 +112,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     var data = widget.data;
 
     appbar bar = new appbar();
-
-    double screenHeight = 2667 / MediaQuery.of(context).size.height;
-    double screenWidth = 1501 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, star_color);
@@ -128,49 +126,49 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  // height: 939 / screenHeight,
-                  width: 1501 / screenWidth,
+                  // height: 939 .h,
+                  width: 1501 .w,
                   child: (() {
                     if (index % 2 == 0) {
-                      return mainImage(mainimage[0], screenWidth);
+                      return mainImage(mainimage[0], 1501.w);
                     } else
-                      return mainImage(mainimage[1], screenWidth);
+                      return mainImage(mainimage[1], 1501.w);
                   }()),
                 ),
                 Card(
                   elevation: 0.3,
                   child: Container(
                     padding: EdgeInsets.only(
-                        left: 75 / screenWidth,
-                        top: 45 / screenHeight,
-                        bottom: 45 / screenHeight),
+                        left: 75 .w,
+                        top: 45 .h,
+                        bottom: 45 .h),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 1250 / screenWidth,
+                          width: 1250 .w,
                           child: Text(data.store_name,
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "NotoSansCJKkr_Bold",
-                                  fontSize: 77.0 / screenWidth),
+                                  fontSize: 77.0 .sp),
                               textAlign: TextAlign.left),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                            left: 20 / screenWidth,
+                            left: 20 .w,
                           ),
                         ),
                         IconButton(
                           padding: EdgeInsets.all(0),
                           constraints: BoxConstraints(
-                              maxWidth: 170 / screenWidth,
-                              maxHeight: 170 / screenHeight),
+                              maxWidth: 170 .w,
+                              maxHeight: 170 .h),
                           icon: Image.asset(
                               star_color
                                   ? "./assets/listPage/star_color.png"
                                   : "./assets/listPage/star_grey.png",
-                              height: 60 / screenHeight),
+                              height: 60 .h),
                           onPressed: loginOption == "login"
                               ? () {
                                   show_toast.showToast(context, "로그인해주세요!");
@@ -194,7 +192,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     // alignment: Alignment.center,
-                    //  height: 520 / screenHeight,
+                    //  height: 520 .h,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -207,7 +205,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                           style: TextStyle(
                               color: Color(0xff4d4d4d),
                               fontFamily: "NotoSansCJKkr_Medium",
-                              fontSize: 58.0 / screenWidth),
+                              fontSize: 58.0 .sp),
                         ),
                         Padding(
                             padding: EdgeInsets.only(
@@ -217,13 +215,13 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              width: 1065 / (screenWidth),
+                              width: 1065 .w,
                               child: Text(
                                 data.address == null ? "정보 없음" : data.address,
                                 style: TextStyle(
                                     color: Color(0xff808080),
                                     fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 57.0 / screenWidth,
+                                    fontSize: 57.0 .sp,
                                     height: 1.2),
                               ),
                             ),
@@ -232,16 +230,10 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                 children: [
                                   Image.asset(
                                     "./assets/sublistPage/copy.png",
-                                    width: 250 / (screenWidth),
-                                    height: 56 / (screenHeight),
+                                    width: 250 .w,
+                                    height: 56 .h
                                   ),
-                                  // Text(
-                                  //   "주소복사",
-                                  //   style: TextStyle(
-                                  //       color: Color(0xffff7292),
-                                  //       fontFamily: "NotoSansCJKkr_Medium",
-                                  //       fontSize: 48.0 / screenWidth),
-                                  // ),
+
                                 ],
                               ),
                               onTap: () {
@@ -260,7 +252,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                           style: TextStyle(
                               color: Color(0xff4d4d4d),
                               fontFamily: "NotoSansCJKkr_Medium",
-                              fontSize: 58.0 / screenWidth),
+                              fontSize: 58.0 .sp),
                         ),
                         Padding(
                             padding: EdgeInsets.only(
@@ -271,7 +263,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                           style: TextStyle(
                               color: Color(0xff808080),
                               fontFamily: "NotoSansCJKkr_Medium",
-                              fontSize: 57.0 / screenWidth,
+                              fontSize: 57.0 .sp,
                               height: 1.2),
                         ),
                         Padding(
@@ -285,7 +277,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                 Card(
                   elevation: 0.3,
                   child: Container(
-                    //  height: 300 / screenHeight,
+                    //  height: 300 .h,
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.only(
                       left: 75 / (1501 / MediaQuery.of(context).size.width),
@@ -305,7 +297,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 58.0 / screenWidth),
+                                  fontSize: 58.0 .sp),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -316,7 +308,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                 style: TextStyle(
                                     color: Color(0xff808080),
                                     fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 57.0 / screenWidth,
+                                    fontSize: 57.0 .sp,
                                     height: 1.2)),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -332,7 +324,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                 Card(
                     elevation: 0.3,
                     child: Container(
-                      // height: 1373 / screenHeight,
+                      // height: 1373 .h,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -340,21 +332,21 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                               padding: EdgeInsets.only(
                                 left: 75 /
                                     (1501 / MediaQuery.of(context).size.width),
-                                top: 40 / screenHeight,
+                                top: 40 .h,
                               ),
                               child: Text(
                                 "위치",
                                 style: TextStyle(
                                     color: Color(0xff4d4d4d),
                                     fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 58.0 / screenWidth),
+                                    fontSize: 58.0 .sp),
                               ),
                             ),
                             Padding(
                                 padding:
-                                    EdgeInsets.only(top: 50 / screenHeight)),
+                                    EdgeInsets.only(top: 50 .h)),
                             Container(
-                              height: 1100 / screenHeight,
+                              height: 1100 .h,
                               child: WebView(
                                 onWebViewCreated:
                                     (WebViewController webViewController) {
