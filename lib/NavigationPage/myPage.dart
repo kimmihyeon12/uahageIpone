@@ -22,18 +22,6 @@ class myPage extends StatefulWidget {
   _myPageState createState() => _myPageState();
 }
 
-// class Message {
-//   final String message;
-
-//   Message({this.message});
-
-//   factory Message.fromJson(Map<String, dynamic> json) {
-//     return Message(
-//       message: json['message'],
-//     );
-//   }
-// }
-
 class _myPageState extends State<myPage> {
   TextEditingController yController = TextEditingController();
 
@@ -405,10 +393,14 @@ class _myPageState extends State<myPage> {
     //     : null;
 
     return WillPopScope(
-      onWillPop: () async {
+      onWillPop: () {
         // exit(0);
-        SystemNavigator.pop();
-        return true;
+        print("onEdit: $onEdit");
+        onEdit
+            ? setState(() {
+                onEdit = false;
+              })
+            : Navigator.pop(context);
       },
       child: Scaffold(
         backgroundColor: Colors.white,
