@@ -12,6 +12,7 @@ import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/experience_center_helper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class experience_center extends StatefulWidget {
   String loginOption;
   String userId;
@@ -60,6 +61,7 @@ class _experience_centerState extends State<experience_center> {
       size: size.w,
     );
   }
+
   toast show_toast = new toast();
   int _currentMax = 0;
 
@@ -131,7 +133,7 @@ class _experience_centerState extends State<experience_center> {
 
   Future<List<dynamic>> _getexperience_center() async {
     var response = await http.get(
-        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       experience_centers.add(Experiencecenter.fromJson(data));
@@ -151,7 +153,7 @@ class _experience_centerState extends State<experience_center> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -177,7 +179,6 @@ class _experience_centerState extends State<experience_center> {
                         left: 45.w,
                       )),
                       Container(
-
                         // width: 310.w,
                         child: Text(
                           '체험관',
@@ -263,10 +264,11 @@ class _experience_centerState extends State<experience_center> {
                   return Card(
                     elevation: 0.3,
                     child: Container(
-                        height: 450 .h,
+                        height: 450.h,
                         padding: EdgeInsets.only(
                           top: 1.h,
-                          left: 26.w,),
+                          left: 26.w,
+                        ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -284,15 +286,14 @@ class _experience_centerState extends State<experience_center> {
                                           loginOption: loginOption),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
-                                      Duration(milliseconds: 100),
+                                          Duration(milliseconds: 100),
                                     ));
 
                                 setState(() {
-
                                   if (result) {
                                     star_color_list[index] = true;
                                   } else {
-                                    star_color_list[index] =false;
+                                    star_color_list[index] = false;
                                   }
                                 });
                               },
@@ -305,19 +306,19 @@ class _experience_centerState extends State<experience_center> {
                                       decoration: BoxDecoration(
                                           // border: Border.all(width: 3.0),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                (() {
-                                                  if (index % 4 == 0)
-                                                    return listimage[0];
-                                                  else if (index % 4 == 1)
-                                                    return listimage[1];
-                                                  else if (index % 4 == 2)
-                                                    return listimage[2];
-                                                  else
-                                                    return listimage[3];
-                                                }()),
-                                              ),
-                                              ),
+                                            image: NetworkImage(
+                                              (() {
+                                                if (index % 4 == 0)
+                                                  return listimage[0];
+                                                else if (index % 4 == 1)
+                                                  return listimage[1];
+                                                else if (index % 4 == 2)
+                                                  return listimage[2];
+                                                else
+                                                  return listimage[3];
+                                              }()),
+                                            ),
+                                          ),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0))),
                                       height: 414.h,
@@ -336,21 +337,21 @@ class _experience_centerState extends State<experience_center> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10.h)),
+                                            padding:
+                                                EdgeInsets.only(top: 10.h)),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               margin:
-                                              EdgeInsets.only(top: 20.h),
+                                                  EdgeInsets.only(top: 20.h),
                                               width: 700.w,
-                                              height: 82 .h,
+                                              height: 82.h,
                                               child: Text(
                                                 snapshot.data[index].store_name,
                                                 style: TextStyle(
-                                                  fontSize: 56 .sp,
+                                                  fontSize: 56.sp,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
@@ -359,16 +360,16 @@ class _experience_centerState extends State<experience_center> {
                                           ],
                                         ),
                                         Container(
-                                          height: 255 .h,
+                                          height: 255.h,
                                           width: 650.w,
                                           child: Text(
                                             snapshot.data[index].address,
                                             style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize: 56 .sp,
+                                              fontSize: 56.sp,
                                               fontFamily:
-                                              'NotoSansCJKkr_Medium',
+                                                  'NotoSansCJKkr_Medium',
                                               height: 1.3,
                                             ),
                                           ),
@@ -380,9 +381,7 @@ class _experience_centerState extends State<experience_center> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(
-                                  left: 30.w,
-                                  top: 25.h),
+                              margin: EdgeInsets.only(left: 30.w, top: 25.h),
                               child: IconButton(
                                 padding: EdgeInsets.all(0),
                                 constraints: BoxConstraints(
@@ -397,7 +396,8 @@ class _experience_centerState extends State<experience_center> {
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                  show_toast.showToast(context,"로그인해주세요!");
+                                        show_toast.showToast(
+                                            context, "로그인해주세요!");
                                       }
                                     : () async {
                                         setState(() {
@@ -408,11 +408,9 @@ class _experience_centerState extends State<experience_center> {
                                           phone1 = snapshot.data[index].phone;
                                           fare1 = snapshot.data[index].fare;
 
-                                          if (star_color_list[index] ==
-                                             false) {
+                                          if (star_color_list[index] == false) {
                                             star_color = true;
                                             star_color_list[index] = true;
-
                                           } else {
                                             star_color = false;
                                             star_color_list[index] = false;

@@ -11,6 +11,7 @@ import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class examination_institution_sublist extends StatefulWidget {
   examination_institution_sublist(
       {Key key, this.index, this.data, this.userId, this.loginOption});
@@ -98,8 +99,8 @@ class _examination_institution_sublistState
     var index = widget.index;
     var data = widget.data;
     appbar bar = new appbar();
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
-     
+    ScreenUtil.init(context, width: 1500, height: 2667);
+
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, star_color);
@@ -124,7 +125,7 @@ class _examination_institution_sublistState
                   children: [
                     Container(
                       // height: 939 .h,
-                      width: 1501 .w,
+                      width: 1501.w,
                       child: index % 2 == 0
                           ? mainImage(mainimage[0], 1501.w)
                           : index % 2 == 1
@@ -135,36 +136,33 @@ class _examination_institution_sublistState
                       elevation: 0.3,
                       child: Container(
                         padding: EdgeInsets.only(
-                            left: 75 .w,
-                            top: 45 .h,
-                            bottom: 45 .h),
+                            left: 75.w, top: 45.h, bottom: 45.h),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: 1250 .w,
+                              width: 1250.w,
                               child: Text(data.store_name,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "NotoSansCJKkr_Bold",
-                                      fontSize: 77.0 .sp),
+                                      fontSize: 77.0.sp),
                                   textAlign: TextAlign.left),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                left: 20 .w,
+                                left: 20.w,
                               ),
                             ),
                             IconButton(
                               padding: EdgeInsets.all(0),
                               constraints: BoxConstraints(
-                                  maxWidth: 170 .w,
-                                  maxHeight: 170 .h),
+                                  maxWidth: 170.w, maxHeight: 170.h),
                               icon: Image.asset(
                                   star_color
                                       ? "./assets/listPage/star_color.png"
                                       : "./assets/listPage/star_grey.png",
-                                  height: 60 .h),
+                                  height: 60.h),
                               onPressed: loginOption == "login"
                                   ? () {
                                       show_toast.showToast(context, "로그인해주세요!");
@@ -202,7 +200,7 @@ class _examination_institution_sublistState
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 58.0 .sp),
+                                  fontSize: 58.0.sp),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -221,7 +219,7 @@ class _examination_institution_sublistState
                                     style: TextStyle(
                                         color: Color(0xff808080),
                                         fontFamily: "NotoSansCJKkr_Medium",
-                                        fontSize: 57.0 .sp,
+                                        fontSize: 57.0.sp,
                                         height: 1.2),
                                   ),
                                 ),
@@ -230,7 +228,7 @@ class _examination_institution_sublistState
                                     children: [
                                       Image.asset(
                                         "./assets/sublistPage/copy.png",
-                                        width: 250 .w,
+                                        width: 250.w,
                                         height: 56.h,
                                       ),
                                       // Text(
@@ -261,7 +259,7 @@ class _examination_institution_sublistState
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 58.0 .sp),
+                                  fontSize: 58.0.sp),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -273,7 +271,7 @@ class _examination_institution_sublistState
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 57.0 .sp,
+                                  fontSize: 57.0.sp,
                                   height: 1.2),
                             ),
                             Padding(
@@ -309,7 +307,7 @@ class _examination_institution_sublistState
                                   style: TextStyle(
                                       color: Color(0xff4d4d4d),
                                       fontFamily: "NotoSansCJKkr_Medium",
-                                      fontSize: 58.0 .sp),
+                                      fontSize: 58.0.sp),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.only(
@@ -322,7 +320,7 @@ class _examination_institution_sublistState
                                   style: TextStyle(
                                       color: Color(0xff808080),
                                       fontFamily: "NotoSansCJKkr_Medium",
-                                      fontSize: 57.0 .sp,
+                                      fontSize: 57.0.sp,
                                       height: 1.2),
                                 ),
                                 Padding(
@@ -349,31 +347,29 @@ class _examination_institution_sublistState
                                     left: 75 /
                                         (1501 /
                                             MediaQuery.of(context).size.width),
-                                    top: 30 .h,
+                                    top: 30.h,
                                   ),
                                   child: Text(
                                     "위치",
                                     style: TextStyle(
                                         color: Color(0xff4d4d4d),
                                         fontFamily: "NotoSansCJKkr_Medium",
-                                        fontSize: 58.0 .sp),
+                                        fontSize: 58.0.sp),
                                   ),
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 50 .h)),
+                                Padding(padding: EdgeInsets.only(top: 50.h)),
                               ]),
                         ))
                   ],
                 ),
               ),
               Container(
-                height: 1100 .h,
+                height: 1100.h,
                 child: WebView(
                   onWebViewCreated: (WebViewController webViewController) {
                     controller = webViewController;
                     controller.loadUrl(
-                        'http://13.209.41.43/storename?storename=$storename&address=$address');
+                        'http://13.209.41.43/map/storename?storename=$storename&address=$address');
                     print(storename);
                     print(address);
                   },
@@ -390,7 +386,7 @@ class _examination_institution_sublistState
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size .w,
+      size: size.w,
     );
   }
 

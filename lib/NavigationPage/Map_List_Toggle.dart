@@ -246,7 +246,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         (WebViewController webViewController) async {
                       controller = webViewController;
                       await controller.loadUrl(
-                          "http://211.223.46.144:3000/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+                          "http://211.223.46.144:3000/map/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
                     },
                     javascriptMode: JavascriptMode.unrestricted,
                     javascriptChannels: Set.from([

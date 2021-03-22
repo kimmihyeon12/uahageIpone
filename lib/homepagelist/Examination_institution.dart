@@ -11,6 +11,7 @@ import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/examination_institution_helper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class examination_institution extends StatefulWidget {
   String loginOption;
   String userId;
@@ -121,7 +122,7 @@ class _examination_institutionState extends State<examination_institution> {
 
   Future<List<dynamic>> _getexamination_institution() async {
     var response = await http.get(
-        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       examination_institutions.add(examinationinstitution.fromJson(data));
@@ -148,7 +149,7 @@ class _examination_institutionState extends State<examination_institution> {
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -161,7 +162,6 @@ class _examination_institutionState extends State<examination_institution> {
               children: [
                 InkWell(
                   highlightColor: Colors.white,
-
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -169,12 +169,12 @@ class _examination_institutionState extends State<examination_institution> {
                     children: [
                       Image.asset(
                         "./assets/listPage/backbutton.png",
-                        width: 44 .w,
-                        height: 76 .h,
+                        width: 44.w,
+                        height: 76.h,
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                          left: 62 .w,
+                          left: 62.w,
                         ),
                       ),
                       Container(
@@ -183,7 +183,7 @@ class _examination_institutionState extends State<examination_institution> {
                         child: Text(
                           '병원',
                           style: TextStyle(
-                              fontSize: 62 .sp,
+                              fontSize: 62.sp,
                               fontFamily: 'NotoSansCJKkr_Medium',
                               color: Color.fromRGBO(255, 114, 148, 1.0)),
                         ),
@@ -206,8 +206,8 @@ class _examination_institutionState extends State<examination_institution> {
                           },
                           child: Image.asset(
                             './assets/on.png',
-                            width: 284 .w,
-                            height: 133 .h,
+                            width: 284.w,
+                            height: 133.h,
                           ),
                         )
                       : GestureDetector(
@@ -222,8 +222,8 @@ class _examination_institutionState extends State<examination_institution> {
                           },
                           child: Image.asset(
                             './assets/off.png',
-                            width: 284 .w,
-                            height: 133 .h,
+                            width: 284.w,
+                            height: 133.h,
                           ),
                         ),
                 ),
@@ -263,7 +263,7 @@ class _examination_institutionState extends State<examination_institution> {
                   return Card(
                     elevation: 0.3,
                     child: Container(
-                        height: 450 .h,
+                        height: 450.h,
                         padding: EdgeInsets.only(
                           top: 1.h,
                           left: 26.w,
@@ -279,20 +279,20 @@ class _examination_institutionState extends State<examination_institution> {
                                     PageTransition(
                                       type: PageTransitionType.rightToLeft,
                                       child: examination_institution_sublist(
-                                          index:index,
+                                          index: index,
                                           data: snapshot.data[index],
                                           userId: userId,
                                           loginOption: loginOption),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
-                                      Duration(milliseconds: 100),
+                                          Duration(milliseconds: 100),
                                     ));
 
                                 setState(() {
-                                if (result) {
+                                  if (result) {
                                     star_color_list[index] = true;
                                   } else {
-                                    star_color_list[index] =false;
+                                    star_color_list[index] = false;
                                   }
                                 });
                               },
@@ -305,21 +305,20 @@ class _examination_institutionState extends State<examination_institution> {
                                       decoration: BoxDecoration(
                                           // border: Border.all(width: 3.0),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                (() {
-                                                  if (index % 2 == 0)
-                                                    return listimage[0];
-                                                  else
-                                                    return listimage[1];
-                                                }()),
-                                              ),
-                                               ),
+                                            image: NetworkImage(
+                                              (() {
+                                                if (index % 2 == 0)
+                                                  return listimage[0];
+                                                else
+                                                  return listimage[1];
+                                              }()),
+                                            ),
+                                          ),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0))),
                                       height: 414.h,
                                       width: 413.w,
                                     ),
-
                                     Padding(
                                         padding: EdgeInsets.only(
                                       left: 53.w,
@@ -329,21 +328,21 @@ class _examination_institutionState extends State<examination_institution> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10 .h)),
+                                            padding:
+                                                EdgeInsets.only(top: 10.h)),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               margin:
-                                              EdgeInsets.only(top: 20.h),
+                                                  EdgeInsets.only(top: 20.h),
                                               width: 700.w,
-                                              height: 82 .h,
+                                              height: 82.h,
                                               child: Text(
                                                 snapshot.data[index].store_name,
                                                 style: TextStyle(
-                                                  fontSize: 56 .sp,
+                                                  fontSize: 56.sp,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
@@ -352,14 +351,14 @@ class _examination_institutionState extends State<examination_institution> {
                                           ],
                                         ),
                                         Container(
-                                           height: 255 .h,
+                                          height: 255.h,
                                           width: 650.w,
                                           child: Text(
                                             snapshot.data[index].address,
                                             style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize: 56 .sp,
+                                              fontSize: 56.sp,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
                                               height: 1.3,
@@ -373,27 +372,25 @@ class _examination_institutionState extends State<examination_institution> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(
-                                  left: 30.w,
-                                  top: 25 .h),
+                              margin: EdgeInsets.only(left: 30.w, top: 25.h),
 
                               //         color:Colors.yellow,
                               child: IconButton(
                                 padding: EdgeInsets.all(0),
                                 constraints: BoxConstraints(
                                   maxWidth: 70.w,
-                                  maxHeight: 70 .h,
+                                  maxHeight: 70.h,
                                 ),
                                 icon: Image.asset(
                                   !star_color_list[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
-                                  height: 60 .h,
+                                  height: 60.h,
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                  show_toast.showToast(context,"로그인해주세요!");
-
+                                        show_toast.showToast(
+                                            context, "로그인해주세요!");
                                       }
                                     : () async {
                                         setState(() {

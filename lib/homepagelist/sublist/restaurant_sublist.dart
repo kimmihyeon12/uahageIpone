@@ -12,6 +12,7 @@ import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class restaurant_sublist extends StatefulWidget {
   restaurant_sublist(
       {Key key, this.index, this.data, this.userId, this.loginOption})
@@ -120,7 +121,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size .w,
+      size: size.w,
     );
   }
 
@@ -148,7 +149,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
     appbar bar = new appbar();
     var index = widget.index;
     var data = widget.data;
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, star_color);
@@ -172,7 +173,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 1501 .w,
+                      width: 1501.w,
                       child: (() {
                         if (index % 3 == 1) {
                           return mainImage(mainimage[0], 1501.w);
@@ -186,36 +187,33 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                       elevation: 0.3,
                       child: Container(
                         padding: EdgeInsets.only(
-                            left: 75 .w,
-                            top: 45 .h,
-                            bottom: 45 .h),
+                            left: 75.w, top: 45.h, bottom: 45.h),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: 1250 .w,
+                              width: 1250.w,
                               child: Text(data.store_name,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "NotoSansCJKkr_Bold",
-                                      fontSize: 77.0 .sp),
+                                      fontSize: 77.0.sp),
                                   textAlign: TextAlign.left),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                left: 20 .w,
+                                left: 20.w,
                               ),
                             ),
                             IconButton(
                               padding: EdgeInsets.all(0),
                               constraints: BoxConstraints(
-                                  maxWidth: 170 .w,
-                                  maxHeight: 170 .h),
+                                  maxWidth: 170.w, maxHeight: 170.h),
                               icon: Image.asset(
                                   star_color
                                       ? "./assets/listPage/star_color.png"
                                       : "./assets/listPage/star_grey.png",
-                                  height: 60 .h),
+                                  height: 60.h),
                               onPressed: loginOption == "login"
                                   ? () {
                                       Fluttertoast.showToast(
@@ -225,7 +223,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: Colors.black45,
                                         textColor: Colors.white,
-                                        fontSize: 56 .sp,
+                                        fontSize: 56.sp,
                                       );
                                     }
                                   : () async {
@@ -261,7 +259,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 58.0 .sp),
+                                  fontSize: 58.0.sp),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -272,7 +270,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 1065 .w,
+                                  width: 1065.w,
                                   child: Text(
                                     data.address == null
                                         ? "정보 없음"
@@ -280,7 +278,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                     style: TextStyle(
                                         color: Color(0xff808080),
                                         fontFamily: "NotoSansCJKkr_Medium",
-                                        fontSize: 57.0 .sp,
+                                        fontSize: 57.0.sp,
                                         height: 1.2),
                                   ),
                                 ),
@@ -289,8 +287,8 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                                     children: [
                                       Image.asset(
                                         "./assets/sublistPage/copy.png",
-                                        width: 250 .w,
-                                        height: 56 .h,
+                                        width: 250.w,
+                                        height: 56.h,
                                       ),
                                       // Text(
                                       //   "주소복사",
@@ -319,7 +317,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               style: TextStyle(
                                   color: Color(0xff4d4d4d),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 58.0 .sp),
+                                  fontSize: 58.0.sp),
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -331,7 +329,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               style: TextStyle(
                                   color: Color(0xff808080),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 57.0 .sp,
+                                  fontSize: 57.0.sp,
                                   height: 1.2),
                             ),
                             Padding(
@@ -346,165 +344,140 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                     Card(
                       elevation: 0.3,
                       child: Container(
-                        height: 928 .h,
+                        height: 928.h,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               margin: EdgeInsets.only(
-                                left: 75 .w,
-                                top: 50 .h,
+                                left: 75.w,
+                                top: 50.h,
                               ),
                               child: Text(
                                 "편의시설",
                                 style: TextStyle(
                                     color: Color(0xff4d4d4d),
                                     fontFamily: "NotoSansCJKkr_Medium",
-                                    fontSize: 58.0 .sp,
+                                    fontSize: 58.0.sp,
                                     height: 1.2),
                               ),
                             ),
-                            Padding(
-                                padding:
-                                    EdgeInsets.only(top: 50 .h)),
+                            Padding(padding: EdgeInsets.only(top: 50.h)),
                             Row(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 67 .w)),
+                                  Padding(padding: EdgeInsets.only(left: 67.w)),
                                   data.menu == "○"
                                       ? Image.asset(
                                           imagecolor[0],
-                                          width: 218 .w,
+                                          width: 218.w,
                                           height: 292.h,
                                         )
                                       : Image.asset(
                                           imagegrey[0],
-                                          width: 218 .w,
+                                          width: 218.w,
                                           height: 292.h,
                                         ),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 .w)),
+                                  Padding(padding: EdgeInsets.only(left: 59.w)),
                                   data.bed == "○"
                                       ? Image.asset(
                                           imagecolor[1],
-                                    width: 218 .w,
-                                    height: 292.h,
+                                          width: 218.w,
+                                          height: 292.h,
                                         )
                                       : Image.asset(
                                           imagegrey[1],
-                                    width: 218 .w,
-                                    height: 292.h,
+                                          width: 218.w,
+                                          height: 292.h,
                                         ),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 .w)),
+                                  Padding(padding: EdgeInsets.only(left: 59.w)),
                                   data.tableware == "○"
                                       ? Image.asset(
                                           imagecolor[2],
-                                    width: 218 .w,
-                                    height: 292.h,
+                                          width: 218.w,
+                                          height: 292.h,
                                         )
                                       : Image.asset(
                                           imagegrey[2],
-                                    width: 218 .w,
-                                    height: 292.h,
+                                          width: 218.w,
+                                          height: 292.h,
                                         ),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 .w)),
+                                  Padding(padding: EdgeInsets.only(left: 59.w)),
                                   data.meetingroom == "○"
                                       ? Image.asset(
                                           imagecolor[3],
-                                    width: 218 .w,
-                                    height: 292.h,
+                                          width: 218.w,
+                                          height: 292.h,
                                         )
                                       : Image.asset(
                                           imagegrey[3],
-                                    width: 218 .w,
-                                    height: 292.h,
+                                          width: 218.w,
+                                          height: 292.h,
                                         ),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 .w)),
+                                  Padding(padding: EdgeInsets.only(left: 59.w)),
                                   data.diapers == "○"
                                       ? Image.asset(
                                           imagecolor[4],
-                                    width: 231 .w,
-                                    height: 284.h,
-
+                                          width: 231.w,
+                                          height: 284.h,
                                         )
                                       : Image.asset(
                                           imagegrey[4],
-                                    width: 231 .w,
-                                    height: 284.h,
+                                          width: 231.w,
+                                          height: 284.h,
                                         ),
-                                  Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 59 .w)),
+                                  Padding(padding: EdgeInsets.only(left: 59.w)),
                                 ]),
-                            Padding(
-                                padding:
-                                    EdgeInsets.only(top: 50 .h)),
+                            Padding(padding: EdgeInsets.only(top: 50.h)),
                             Row(
                               children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 67 .w)),
+                                Padding(padding: EdgeInsets.only(left: 67.w)),
                                 data.playroom == "○"
                                     ? Image.asset(
                                         imagecolor[5],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       )
                                     : Image.asset(
                                         imagegrey[5],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 59 .w)),
+                                Padding(padding: EdgeInsets.only(left: 59.w)),
                                 data.carriage == "○"
                                     ? Image.asset(
                                         imagecolor[6],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       )
                                     : Image.asset(
                                         imagegrey[6],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 59 .w)),
+                                Padding(padding: EdgeInsets.only(left: 59.w)),
                                 data.nursingroom == "○"
                                     ? Image.asset(
                                         imagecolor[7],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       )
                                     : Image.asset(
                                         imagegrey[7],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 59 .w)),
+                                Padding(padding: EdgeInsets.only(left: 59.w)),
                                 data.chair == "○"
                                     ? Image.asset(
                                         imagecolor[8],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       )
                                     : Image.asset(
                                         imagegrey[8],
-                                  width: 218 .w,
-                                  height: 292.h,
+                                        width: 218.w,
+                                        height: 292.h,
                                       )
                               ],
                             ),
@@ -521,33 +494,31 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
                               children: [
                                 Container(
                                   padding: EdgeInsets.only(
-                                    left: 75 .w,
-                                    top: 40 .h,
+                                    left: 75.w,
+                                    top: 40.h,
                                   ),
                                   child: Text(
                                     "위치",
                                     style: TextStyle(
                                         color: Color(0xff4d4d4d),
                                         fontFamily: "NotoSansCJKkr_Medium",
-                                        fontSize: 58.0 .sp),
+                                        fontSize: 58.0.sp),
                                   ),
                                 ),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 50 .h)),
+                                Padding(padding: EdgeInsets.only(top: 50.h)),
                               ]),
                         ))
                   ],
                 ),
               ),
               Container(
-                height: 1100 .h,
+                height: 1100.h,
                 child: WebView(
                   // gestureNavigationEnabled: true,
                   onWebViewCreated: (WebViewController webViewController) {
                     controller = webViewController;
                     controller.loadUrl(
-                        'http://13.209.41.43/storename?storename=$storename&address=$address');
+                        'http://13.209.41.43/map/storename?storename=$storename&address=$address');
                   },
                   javascriptMode: JavascriptMode.unrestricted,
                 ),

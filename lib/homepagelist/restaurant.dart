@@ -14,6 +14,7 @@ import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/Restaurant_helper.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class restaurant extends StatefulWidget {
   String loginOption;
   String userId;
@@ -139,7 +140,7 @@ class _restaurantState extends State<restaurant> {
 
   Future<List<dynamic>> _getrestaurant() async {
     final response = await http.get(
-        'http://13.209.41.43/getList/$liststringdata?maxCount=$_currentMax');
+        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       restaurants.add(Restaurant.fromJson(data));
@@ -167,7 +168,7 @@ class _restaurantState extends State<restaurant> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     return SafeArea(
       child: Scaffold(
           key: _scaffoldKey,
@@ -284,7 +285,7 @@ class _restaurantState extends State<restaurant> {
                   return Card(
                     elevation: 0.3,
                     child: Container(
-                        height: 450 .h,
+                        height: 450.h,
                         padding: EdgeInsets.only(
                           top: 1.h,
                           left: 26.w,
@@ -327,17 +328,17 @@ class _restaurantState extends State<restaurant> {
                                       decoration: BoxDecoration(
                                           // border: Border.all(width: 3.0),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                (() {
-                                                  if (index % 3 == 1)
-                                                    return listimage[0];
-                                                  else if (index % 3 == 2)
-                                                    return listimage[1];
-                                                  else
-                                                    return listimage[2];
-                                                }()),
-                                              ),
-                                              ),
+                                            image: NetworkImage(
+                                              (() {
+                                                if (index % 3 == 1)
+                                                  return listimage[0];
+                                                else if (index % 3 == 2)
+                                                  return listimage[1];
+                                                else
+                                                  return listimage[2];
+                                              }()),
+                                            ),
+                                          ),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0))),
                                       height: 414.h,
@@ -352,15 +353,15 @@ class _restaurantState extends State<restaurant> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                            padding: EdgeInsets.only(
-                                                top: 10.h)),
+                                            padding:
+                                                EdgeInsets.only(top: 10.h)),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               margin:
-                                              EdgeInsets.only(top: 20.h),
+                                                  EdgeInsets.only(top: 20.h),
                                               width: 700.w,
                                               height: 82.h,
                                               child: Text(
@@ -390,8 +391,7 @@ class _restaurantState extends State<restaurant> {
                                           ),
                                         ),
                                         Container(
-                                          margin:
-                                          EdgeInsets.only(top: 15.h),
+                                          margin: EdgeInsets.only(top: 15.h),
                                           height: 120.h,
                                           width: 650.w,
                                           alignment: Alignment.bottomRight,
@@ -437,9 +437,7 @@ class _restaurantState extends State<restaurant> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(
-                                  left: 30.w,
-                                  top: 25.h),
+                              margin: EdgeInsets.only(left: 30.w, top: 25.h),
 
                               //         color:Colors.yellow,
                               child: IconButton(

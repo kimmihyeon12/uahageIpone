@@ -86,7 +86,7 @@ class _KeywordState extends State<Keyword> {
                   controller = webViewController;
 
                   await controller.loadUrl(
-                      'http://13.209.41.43/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
+                      'http://13.209.41.43/map/searchlist?lat=$latitude&long=$longitude&searchkey=%27$searchkey%27');
                   // showToggle = true;
                 },
                 javascriptMode: JavascriptMode.unrestricted,

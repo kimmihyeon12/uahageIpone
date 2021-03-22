@@ -17,6 +17,7 @@ import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
 import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class searchPage extends StatefulWidget {
   searchPage(
       {Key key,
@@ -93,14 +94,14 @@ class _searchPageState extends State<searchPage> {
     print(searchKey);
     searchKey != ""
         ? controller
-            .loadUrl('http://13.209.41.43/getAddress?address=$searchKey')
+            .loadUrl('http://13.209.41.43/map/getAddress?address=$searchKey')
         : null;
   }
 
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://211.223.46.144:3000/map/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   StarManage starInsertDelete = new StarManage();
@@ -146,7 +147,6 @@ class _searchPageState extends State<searchPage> {
       longitude = widget.longitude ?? "";
       Area = widget.Area ?? "";
       Locality = widget.Locality ?? "";
-
     });
 
     if (latitude == "" || longitude == "" || Locality == "" || Area == "")
@@ -194,7 +194,7 @@ class _searchPageState extends State<searchPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     return Scaffold(
       body: Stack(
         children: [
@@ -209,8 +209,8 @@ class _searchPageState extends State<searchPage> {
                       longitude == 'NaN' ||
                       latitude == '' ||
                       longitude == ''
-                  ? 'http://13.209.41.43/map'
-                  : 'http://13.209.41.43/getPos?lat=$latitude&long=$longitude');
+                  ? 'http://13.209.41.43/map/'
+                  : 'http://13.209.41.43/map/getPos?lat=$latitude&long=$longitude');
             },
             javascriptMode: JavascriptMode.unrestricted,
             javascriptChannels: Set.from([
@@ -230,8 +230,7 @@ class _searchPageState extends State<searchPage> {
               ? Center(
                   child: Container(
                     color: Colors.white,
-                    child:
-                        Center(child: buildSpinKitThreeBounce(80, 1501.w)),
+                    child: Center(child: buildSpinKitThreeBounce(80, 1501.w)),
                   ),
                 )
               : SizedBox.shrink(),
@@ -266,8 +265,7 @@ class _searchPageState extends State<searchPage> {
                   ),
                 ],
               ),
-              margin: EdgeInsets.fromLTRB(
-                  51.w, 161.h, 51.w, 0),
+              margin: EdgeInsets.fromLTRB(51.w, 161.h, 51.w, 0),
               height: 196.h,
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.center,
@@ -356,10 +354,7 @@ class _searchPageState extends State<searchPage> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: 600 .h,
-                          bottom: 0.h,
-                          left: 190.w,
-                          right: 0.w),
+                          top: 600.h, bottom: 0.h, left: 190.w, right: 0.w),
                       width: 1100.w,
                       height: 1100.h,
                       child: Card(
@@ -371,11 +366,8 @@ class _searchPageState extends State<searchPage> {
                         ),
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: 85 .h,
-                              left: 50.w,
-                              right: 50.w),
+                              top: 85.h, left: 50.w, right: 50.w),
                           child: SizedBox(
-
                             child: GridView.count(
                               // childAspectRatio: 3 / 2,
                               crossAxisCount: 3,
@@ -469,7 +461,6 @@ class _searchPageState extends State<searchPage> {
                 children: [
                   GestureDetector(
                     onPanDown: (a) {
-
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -480,10 +471,7 @@ class _searchPageState extends State<searchPage> {
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 1930 .h,
-                        bottom: 263.h,
-                        left: 33.w,
-                        right: 33.w),
+                        top: 1930.h, bottom: 263.h, left: 33.w, right: 33.w),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       shadowColor: Colors.black54,
@@ -555,12 +543,10 @@ class _searchPageState extends State<searchPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 40.h),
+                                  margin: EdgeInsets.only(top: 40.h),
                                   width: 900.w,
                                   height: 82.h,
                                   child: Row(
-
                                     children: [
                                       Container(
                                         width: 700.w,
@@ -574,12 +560,10 @@ class _searchPageState extends State<searchPage> {
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
                                               fontSize: 58.sp,
-
                                             ),
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(
-
                                         padding: EdgeInsets.all(0),
                                         icon: Image.asset(
                                             star_color
@@ -605,25 +589,21 @@ class _searchPageState extends State<searchPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 10.h),
+                                  margin: EdgeInsets.only(top: 10.h),
                                   width: 650.w,
                                   height: 135.h,
                                   child: Text(Message[1],
                                       style: TextStyle(
-                                        color: const Color(0xffb0b0b0),
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "NotoSansCJKkr_Medium",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 56.sp,
-                                        height: 1.3
-
-                                      ),
+                                          color: const Color(0xffb0b0b0),
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "NotoSansCJKkr_Medium",
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 56.sp,
+                                          height: 1.3),
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 15.h),
+                                  margin: EdgeInsets.only(top: 15.h),
                                   height: 120.h,
                                   width: 650.w,
                                   alignment: Alignment.bottomRight,
