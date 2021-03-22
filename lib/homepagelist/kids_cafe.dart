@@ -11,6 +11,7 @@ import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/homepagelist/Kids_cafe_helper.dart';
+import 'package:uahage/icon.dart';
 
 class kids_cafe extends StatefulWidget {
   String loginOption;
@@ -143,6 +144,8 @@ class _kids_cafeState extends State<kids_cafe> {
     _scrollController.dispose();
   }
 
+  icon iconwidget = new icon();
+
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
@@ -249,7 +252,7 @@ class _kids_cafeState extends State<kids_cafe> {
         } else if (snapshot.hasData &&
             snapshot.data != null &&
             star_color_list.length != 0) {
-          print("length " + snapshot.data.length.toString());
+          print("snapshot data: ${snapshot.data[0].address}");
           return Scrollbar(
             child: ListView.builder(
                 controller: _scrollController,
@@ -281,15 +284,14 @@ class _kids_cafeState extends State<kids_cafe> {
                                           loginOption: loginOption),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
-                                      Duration(milliseconds: 100),
+                                          Duration(milliseconds: 100),
                                     ));
 
                                 setState(() {
-
                                   if (result) {
                                     star_color_list[index] = true;
                                   } else {
-                                    star_color_list[index] =false;
+                                    star_color_list[index] = false;
                                   }
                                 });
                               },
@@ -385,7 +387,8 @@ class _kids_cafeState extends State<kids_cafe> {
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
-                                  show_toast.showToast(context,"로그인해주세요!");
+                                        show_toast.showToast(
+                                            context, "로그인해주세요!");
                                       }
                                     : () async {
                                         setState(() {
@@ -396,11 +399,9 @@ class _kids_cafeState extends State<kids_cafe> {
                                           phone1 = snapshot.data[index].phone;
                                           fare1 = snapshot.data[index].fare;
 
-                                          if (star_color_list[index] ==
-                                              false) {
+                                          if (star_color_list[index] == false) {
                                             star_color = true;
                                             star_color_list[index] = true;
-
                                           } else {
                                             star_color = false;
                                             star_color_list[index] = false;

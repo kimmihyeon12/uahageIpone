@@ -109,6 +109,7 @@ class _agreementPageState extends State<agreementPage> {
     try {
       var code = await AuthCodeClient.instance.requestWithTalk();
       await _issueAccessToken(code);
+      return;
     } catch (e) {
       print(e.toString());
     }
@@ -700,7 +701,6 @@ class _agreementPageState extends State<agreementPage> {
                     } else {
                       switch (loginOption) {
                         case "kakao":
-                          _initKakaoTalkInstalled();
                           if (_isKakaoTalkInstalled)
                             showDialog(
                               context: context,

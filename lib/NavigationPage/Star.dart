@@ -479,6 +479,8 @@ class _starPageState extends State<starPage> {
     }
   }
 
+  var starList = [];
+
   Future _getstar() async {
     var star_list1 = [];
     // starColor = [];

@@ -266,7 +266,6 @@ class _homePageState extends State<homePage> {
                       suffixIcon: IconButton(
                           onPressed: searchkey != ""
                               ? () async {
-                                  currentFocus.unfocus();
                                   Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -277,6 +276,7 @@ class _homePageState extends State<homePage> {
                                                   longitude: longitude,
                                                   searchkey: searchkey)))
                                       .then((value) => _controller.clear());
+                                  currentFocus.unfocus();
                                 }
                               : () {
                                   currentFocus.unfocus();
