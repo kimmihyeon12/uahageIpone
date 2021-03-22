@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'package:uahage/screens/loginPage.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'ConnectivityService.dart';
 import 'connectivity_status.dart';
 
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       builder: (context) => ConnectivityService().connectionStatusController,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+
         home: MyHomePage(),
       ),
     );
@@ -66,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isIphoneX = Device.get().isIphoneX;
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
     print("iphoneX $isIphoneX");
     double screenHeight;
     double screenWidth;

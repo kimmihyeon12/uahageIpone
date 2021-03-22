@@ -46,6 +46,7 @@ dependencies:
   connectivity: ^0.4.3+1
   provider: ^2.0.1
   circular_check_box: ^1.0.4
+  flutter_screenutil: ^2.3.0
   flutter:
     sdk: flutter
 

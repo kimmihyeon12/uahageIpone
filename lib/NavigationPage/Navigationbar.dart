@@ -15,7 +15,7 @@ import 'package:uahage/screens/SnackBar.dart';
 
 import '../connectivity_status.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class navigationPage extends StatefulWidget {
   String userId;
   String loginOption;
@@ -80,11 +80,7 @@ class _navigationPageState extends State<navigationPage> {
   @override
   Widget build(BuildContext context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
-    print("navigation 빌드중입니다");
-    // print("nav " + longitude);
-//    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    var ScreenHeight = MediaQuery.of(context).size.height;
+   ScreenUtil.init(context, width:  1500 , height:  2667 );
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -152,14 +148,14 @@ class _navigationPageState extends State<navigationPage> {
                             BottomNavigationBarItem(
                               icon: Image.asset(
                                 "assets/NavigationbarPage/home_grey.png",
-                                width: 79 / (1501 / ScreenWidth),
-                                height: 144 / (2667 / ScreenHeight),
+                                width: 79 .w,
+                                height: 144.h,
                               ),
                               title: Text("home"),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/home_pink.png",
-                                width: 79 / (1501 / ScreenWidth),
-                                height: 144 / (2667 / ScreenHeight),
+                                width: 79 .w,
+                                height: 144.h,
                               ),
                               // title: Text("home"),
                             ),
@@ -167,13 +163,14 @@ class _navigationPageState extends State<navigationPage> {
                               title: Text(""),
                               icon: Image.asset(
                                 "assets/NavigationbarPage/search_grey.png",
-                                width: 79 / (1501 / ScreenWidth),
-                                height: 139 / (2667 / ScreenHeight),
+                                width: 79 .w,
+                                height: 139.h,
+
                               ),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/search_pink.png",
-                                width: 79 / (1501 / ScreenWidth),
-                                height: 139 / (2667 / ScreenHeight),
+                                width: 79 .w,
+                                height: 139.h,
                               ),
                               // title: Text("search"),
                             ),
@@ -182,13 +179,14 @@ class _navigationPageState extends State<navigationPage> {
 
                               icon: Image.asset(
                                 "assets/NavigationbarPage/star_grey.png",
-                                width: 162 / (1501 / ScreenWidth),
-                                height: 147 / (2667 / ScreenHeight),
+                                width: 162 .w,
+                                height: 147.h,
+
                               ),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/star_pink.png",
-                                width: 162 / (1501 / ScreenWidth),
-                                height: 147 / (2667 / ScreenHeight),
+                                width: 162 .w,
+                                height: 147.h,
                               ),
                               // title: Text("star"),
                             ),
@@ -197,13 +195,13 @@ class _navigationPageState extends State<navigationPage> {
 
                               icon: Image.asset(
                                 "assets/NavigationbarPage/mypage_grey.png",
-                                width: 132 / (1501 / ScreenWidth),
-                                height: 141 / (2667 / ScreenHeight),
+                                width: 132 .w,
+
                               ),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/mypage_grey.png",
-                                width: 132 / (1501 / ScreenWidth),
-                                height: 141 / (2667 / ScreenHeight),
+                                width: 132 .w,
+                                height: 141.h,
                               ),
                               // title: Text("mypage"),
                             ),
