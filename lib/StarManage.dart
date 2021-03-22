@@ -68,12 +68,21 @@ class StarManage {
   }
 
   getSubStarColor(userId, loginOption, storename) async {
-    print('getSubStarColor');
+    print('getSubStarColor: $storename');
     var response;
     var star_color = false;
     try {
-      response = await http.get(
-          "http://13.209.41.43/getStarColor?userId=$userId$loginOption&storeName=$storename");
+      Map<String, String> bb = {
+        "userId": userId + loginOption,
+        "storeName": storename
+      };
+      response = await http.post(
+        "http://211.223.46.144:3000/getStarColor",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(bb),
+      );
 
       if (response.statusCode == 200) {
         star_color = true;
