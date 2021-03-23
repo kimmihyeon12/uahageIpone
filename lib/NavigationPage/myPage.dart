@@ -393,15 +393,7 @@ class _myPageState extends State<myPage> {
     //     : null;
 
     return WillPopScope(
-      onWillPop: () {
-        // exit(0);
-        print("onEdit: $onEdit");
-        onEdit
-            ? setState(() {
-                onEdit = false;
-              })
-            : Navigator.pop(context);
-      },
+      onWillPop: () async => false,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -923,10 +915,7 @@ class _myPageState extends State<myPage> {
                                         : birthday,
                                     hintStyle: TextStyle(
                                         color: Color(0xffd4d4d4),
-
-
                                         fontFamily: "NotoSansCJKkr_Medium",
-
                                         fontSize: 57.0.sp),
                                   ),
                                 ),

@@ -23,6 +23,7 @@ style.
           height:45px;
         }
 
+ 
     h1 {
         text-align: center;
         font-size: 13px;
@@ -45,19 +46,21 @@ style.
   top: 0;\
   background: rgba(51,51,51,0.7);\
   ')
-  button.btn(type='button', onclick='setCenter()')
+  button.btn(type='button', onclick='setCenter(lat_address,lon_address)')
     img(src='http://hohoco.dothome.co.kr/img/location.png')
 
 
 script(type='text/javascript' src='//dapi.kakao.com/v2/maps/sdk.js?appkey=5a323567d193d1f90625406988f60389&libraries=services&libraries=services,clusterer,drawing')
 script.
   
-        function getResult(storename,address){
-           Print.postMessage(storename+","+address);
-          }
+
+       
         function getResult1(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
             Print1.postMessage(storename+'|'+address+'|'+phone+'|'+menu+'|'+bed+'|'+tableware+'|'+meetingroom+'|'+diapers+'|'+playroom+'|'+carriage+'|'+nursingroom+'|'+chair);
         }
+        //-  function getResult(storename,address){
+        //-    Print.postMessage(storename+","+address);
+        //-   }
         //distance 정렬
         function custonSort(a, b){ if(a.distance == b.distance){ return 0} return a.distance > b.distance ? 1 : -1; }
        //
@@ -100,16 +103,17 @@ script.
             },
             ]
             });
-          var lat1; var lon1; var distance; 
+          var lat_address; var lon_address; var distance; 
           var array_distance = [];
-          
+          var markerPosition1;
           var geocoder = new kakao.maps.services.Geocoder();
           // 주소로 좌표를 검색합니다
                 geocoder.addressSearch(#{address}, function(result, status) {
                 // 정상적으로 검색이 완료됐으면
                 if (status === kakao.maps.services.Status.OK) {
                 var coords =  new kakao.maps.LatLng(result[0].y, result[0].x);
-                lat1 =result[0].x; lon1=result[0].y;
+              
+                lat_address =result[0].x; lon_address=result[0].y;
                 var imageSrc = 'http://hohoco.dothome.co.kr/img/marker.png'; // 마커이미지의 주소입니다
                 var imageSize = new kakao.maps.Size(23, 32);
                 var imageSrc1 = 'http://hohoco.dothome.co.kr/img/path.gif';
@@ -118,16 +122,16 @@ script.
                     offset: new kakao.maps.Point(13, 34)
                 };
                 var markerImage1 = new kakao.maps.MarkerImage(imageSrc1, imageSize1, imageOption1);
-                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-                var markerPosition1 = new kakao.maps.LatLng(lat1, lon1);
+                var markerImage = new kakao.maps.MarkerImage(imageSrc1, imageSize);
+               
                 var marker = new kakao.maps.Marker({
                     map: map,
-                    image:markerImage,
+                    image:markerImage1,
                     position: coords
                 });
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var destination = new kakao.maps.CustomOverlay({
-                      content: '<div style="padding: 3px 20px 3px 30px;   border-radius:25px;  box-shadow:0px 3px 2px #888; background-color:#f06292;  background: #f06292      center;" >'+
+                      content: '<div style="padding: 0px 15px 0px 15px;   border-radius:25px;  box-shadow:0px 3px 2px #888; background-color:#f06292;  background: #f06292      center;" >'+
                     '<h1>'  + "목적지" + '</h1>'+ '</div>',
                        map:map ,
                        position: coords,
@@ -155,7 +159,7 @@ script.
                       lat =  data[i].lat;
                       lon =  data[i].lon;
                       
-                     distance = calcDist(lat1,lon1,lat,lon);
+                     distance = calcDist(lat_address,lon_address,lat,lon);
                      if(distance<700){displayMarker(coords,data[i].store_name,storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair);
                         var distance_object = new Object();
                         distance_object.storename = data[i].store_name;
@@ -169,7 +173,7 @@ script.
                     
                     for(var i =0; i<array_list.length; i++){
                      
-                    getResult(array_list[i].storename+","+array_list[i].address);
+              //      getResult(array_list[i].storename+","+array_list[i].address);
                       }
 
       
@@ -244,14 +248,14 @@ script.
                   ) *1000;//m
             return ret.toFixed(2);
           }
-          function setCenter() {
-        // 이동할 위도 경도 위치를 생성합니다 
-
-        var moveLatLon = new kakao.maps.LatLng(lat1, lon1);
-       
-        // 지도 중심을 이동 시킵니다
+      function setCenter(){
+         console.log(lat_address);
+        var moveLatLon = new kakao.maps.LatLng(lon_address,lat_address);
+        console.log(moveLatLon);
+    
         map.panTo(moveLatLon);
     }
+     
 
     function setMarkers() {
         for (var i = 0; i < marker.length; i++) {

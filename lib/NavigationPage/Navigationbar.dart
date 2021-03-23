@@ -16,6 +16,7 @@ import 'package:uahage/screens/SnackBar.dart';
 import '../connectivity_status.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class navigationPage extends StatefulWidget {
   String userId;
   String loginOption;
@@ -80,7 +81,7 @@ class _navigationPageState extends State<navigationPage> {
   @override
   Widget build(BuildContext context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
-   ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -96,41 +97,42 @@ class _navigationPageState extends State<navigationPage> {
             statusBarColor: Color(0xffd9d4d5), // status bar color
           ));
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () async {
         if (loginOption == 'login') {
-          Navigator.pop(context);
+          Navigator.pop(context, true);
         } else
           SystemNavigator.pop();
+        // Navigator.pop(context, true);
       },
       child: SafeArea(
           child: Scaffold(
               body: Stack(
-                      children: [
-                        IndexedStack(
-                          index: _selectedTabIndex,
-                          children: <Widget>[
-                            homePage(
-                              userId: userId,
-                              loginOption: loginOption,
-                              latitude: latitude,
-                              longitude: longitude,
-                            ),
-                            searchPage(
-                                latitude: latitude,
-                                longitude: longitude,
-                                userId: userId,
-                                loginOption: loginOption,
-                                Area: Area,
-                                Locality: Locality),
-                            starPage(userId: userId, loginOption: loginOption),
-                            myPage(userId: userId, loginOption: loginOption),
-                          ],
-                        ),
-                        connectionStatus == ConnectivityStatus.Offline
-                            ? SnackBarpage()
-                            : Container(),
-                      ],
-                    ),
+                children: [
+                  IndexedStack(
+                    index: _selectedTabIndex,
+                    children: <Widget>[
+                      homePage(
+                        userId: userId,
+                        loginOption: loginOption,
+                        latitude: latitude,
+                        longitude: longitude,
+                      ),
+                      searchPage(
+                          latitude: latitude,
+                          longitude: longitude,
+                          userId: userId,
+                          loginOption: loginOption,
+                          Area: Area,
+                          Locality: Locality),
+                      starPage(userId: userId, loginOption: loginOption),
+                      myPage(userId: userId, loginOption: loginOption),
+                    ],
+                  ),
+                  connectionStatus == ConnectivityStatus.Offline
+                      ? SnackBarpage()
+                      : Container(),
+                ],
+              ),
               bottomNavigationBar:
                   (connectionStatus != ConnectivityStatus.Offline)
                       ? BottomNavigationBar(
@@ -148,13 +150,13 @@ class _navigationPageState extends State<navigationPage> {
                             BottomNavigationBarItem(
                               icon: Image.asset(
                                 "assets/NavigationbarPage/home_grey.png",
-                                width: 79 .w,
+                                width: 79.w,
                                 height: 144.h,
                               ),
                               title: Text("home"),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/home_pink.png",
-                                width: 79 .w,
+                                width: 79.w,
                                 height: 144.h,
                               ),
                               // title: Text("home"),
@@ -163,13 +165,12 @@ class _navigationPageState extends State<navigationPage> {
                               title: Text(""),
                               icon: Image.asset(
                                 "assets/NavigationbarPage/search_grey.png",
-                                width: 79 .w,
+                                width: 79.w,
                                 height: 139.h,
-
                               ),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/search_pink.png",
-                                width: 79 .w,
+                                width: 79.w,
                                 height: 139.h,
                               ),
                               // title: Text("search"),
@@ -179,13 +180,12 @@ class _navigationPageState extends State<navigationPage> {
 
                               icon: Image.asset(
                                 "assets/NavigationbarPage/star_grey.png",
-                                width: 162 .w,
+                                width: 162.w,
                                 height: 147.h,
-
                               ),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/star_pink.png",
-                                width: 162 .w,
+                                width: 162.w,
                                 height: 147.h,
                               ),
                               // title: Text("star"),
@@ -195,12 +195,11 @@ class _navigationPageState extends State<navigationPage> {
 
                               icon: Image.asset(
                                 "assets/NavigationbarPage/mypage_grey.png",
-                                width: 132 .w,
-
+                                width: 132.w,
                               ),
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/mypage_grey.png",
-                                width: 132 .w,
+                                width: 132.w,
                                 height: 141.h,
                               ),
                               // title: Text("mypage"),
