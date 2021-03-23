@@ -12,15 +12,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/icon.dart';
 import 'package:uahage/ToastManage.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
       {Key key,
-      this.latitude,
-      this.longitude,
-      this.searchkey,
-      this.userId,
-      this.loginOption})
+        this.latitude,
+        this.longitude,
+        this.searchkey,
+        this.userId,
+        this.loginOption})
       : super(key: key);
   String userId;
   String loginOption;
@@ -78,7 +78,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
 
   Future getSubStarColor() async {
     star_color =
-        await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
+    await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
     setState(() {
       star_color = star_color;
     });
@@ -99,7 +99,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size .w,
     );
   }
 
@@ -114,237 +114,234 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width:  1500 , height:  2667 );
 
     return switchbtn
         ? WillPopScope(
-            onWillPop: _onbackpressed,
-            child: Scaffold(
-              backgroundColor: Colors.white,
-              appBar: AppBar(
-                toolbarHeight: 250 / screenHeight,
-                // automaticallyImplyLeading: false,
-                backgroundColor: Colors.transparent,
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_sharp,
-                    color: Color(0xffff7292),
-                  ),
-                  iconSize: 100 / screenWidth,
-                  color: Colors.white,
+      onWillPop: _onbackpressed,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          toolbarHeight: 250 .h,
+          // automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_sharp,
+              color: Color(0xffff7292),
+            ),
+            iconSize: 100 .w,
+            color: Colors.white,
+            onPressed: () {
+              // setState(() {
+              //   searchbtn = false;
+              //   print(searchbtn);
+              // });
+              Navigator.pop(context, 'closed');
+            },
+          ),
+          elevation: 0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                  padding: EdgeInsets.only(
+                    top: 500 .h,
+                  )),
+              // Padding(
+              //     padding: EdgeInsets.only(
+              //   left: 870 .w,
+              // )),
+              GestureDetector(
+                child: Image.asset(
+                  './assets/off.png',
+                  width: 290 .w,
+                  height: 183 .h,
+                ),
+                onTap: () {
+                  setState(() {
+                    switchbtn = false;
+                    print(searchbtn);
+                    i = 0;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+        body: ListView.builder(
+            itemCount: i,
+            itemBuilder: (context, index) {
+              print('snapshot.data.length');
+              // print(snapshot.data.id[index]);
+              return Card(
+                elevation: 0.3,
+                child: GestureDetector(
+                  child: Container(
+                      height: 400 .h,
+                      padding: EdgeInsets.only(
+                        top: 30 .h,
+                        left: 26 .w,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.only(
+                                top: 200 /
+                                    (1501 /
+                                        MediaQuery.of(context).size.width),
+                              )),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 1300 .w,
+                                height: 100 .h,
+                                child: Text(
+                                  store_namelist[index],
+                                  style: TextStyle(
+                                    fontSize: 56 .sp,
+                                    fontFamily: 'NotoSansCJKkr_Medium',
+                                  ),
+                                ),
+                              ),
+                              SafeArea(
+                                child: Container(
+                                  height: 200 .h,
+                                  width: 800 .w,
+                                  child: Text(
+                                    addresslist[index],
+                                    style: TextStyle(
+                                      // fontFamily: 'NatoSans',
+                                        color: Colors.grey,
+                                        fontSize: 56 .sp,
+                                        fontFamily:
+                                        'NotoSansCJKkr_Medium',
+                                        height: 1.3),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )),
+                ),
+              );
+            }),
+      ),
+    )
+        : WillPopScope(
+      onWillPop: _onbackpressed,
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(children: [
+            WebView(
+              onPageFinished: doneLoading,
+              onPageStarted: startLoading,
+              onWebViewCreated:
+                  (WebViewController webViewController) async {
+                controller = webViewController;
+                await controller.loadUrl(
+                    "http://13.209.41.43/map/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+              },
+              javascriptMode: JavascriptMode.unrestricted,
+              javascriptChannels: Set.from([
+                JavascriptChannel(
+                    name: 'Print',
+                    onMessageReceived: (JavascriptMessage message) async {
+                      var messages = message.message;
+                      print("Print: $messages");
+                      var ex = messages.split(",");
+                      setState(() {
+                        for (int j = 0; j < 2; j++) {
+                          store_namelist[i] = ex[0];
+                          addresslist[i] = ex[1];
+                          print(i.toString() +
+                              "store_namelist" +
+                              store_namelist[i]);
+                          print(i.toString() +
+                              "addresslist" +
+                              addresslist[i]);
+                        }
+                        i++;
+                      });
+                    }),
+                JavascriptChannel(
+                    name: 'Print1',
+                    onMessageReceived: (JavascriptMessage message) async {
+                      var messages = message.message;
+                      print("Print1: $messages");
+                      Message = messages.split("|");
+                      await getSubStarColor();
+                      showPopUpbottomMenu(
+                          context, 2667.h, 1501.w);
+                    })
+              ]),
+            ),
+            position == 1
+                ? Container(
+              color: Colors.white,
+              child: Center(
+                  child: buildSpinKitThreeBounce(80, 1501.w)),
+            )
+                : Container(),
+            Row(
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(
+                      top: 250 .h,
+                    )),
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios_sharp),
+                  iconSize: 100 .w,
+                  color: Color(0xffff7292),
                   onPressed: () {
-                    // setState(() {
-                    //   searchbtn = false;
-                    //   print(searchbtn);
-                    // });
-                    Navigator.pop(context, 'closed');
+                    setState(() {
+                      searchbtn = false;
+
+                      print(searchbtn);
+                    });
+                    Navigator.pop(context, 'Yep!');
                   },
                 ),
-                elevation: 0,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(
-                      top: 500 / screenHeight,
+                Padding(
+                    padding: EdgeInsets.only(
+                      left: 950 .w,
                     )),
-                    // Padding(
-                    //     padding: EdgeInsets.only(
-                    //   left: 870 / screenWidth,
-                    // )),
-                    GestureDetector(
-                      child: Image.asset(
-                        './assets/off.png',
-                        width: 290 / screenWidth,
-                        height: 183 / screenHeight,
-                      ),
-                      onTap: () {
-                        setState(() {
-                          switchbtn = false;
-                          print(searchbtn);
-                          i = 0;
-                        });
-                      },
+                FutureBuilder(
+                  future: Future.delayed(Duration(milliseconds: 550)),
+                  builder: (c, s) =>
+                  s.connectionState == ConnectionState.done
+                      ? GestureDetector(
+                    child: Image.asset(
+                      './assets/on.png',
+                      width: 290 .w,
+                      height: 183 .h,
                     ),
-                  ],
-                ),
-              ),
-              body: ListView.builder(
-                  itemCount: i,
-                  itemBuilder: (context, index) {
-                    print('snapshot.data.length');
-                    // print(snapshot.data.id[index]);
-                    return Card(
-                      elevation: 0.3,
-                      child: GestureDetector(
-                        child: Container(
-                            height: 400 / screenHeight,
-                            padding: EdgeInsets.only(
-                              top: 30 / screenHeight,
-                              left: 26 / screenWidth,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                  top: 200 /
-                                      (1501 /
-                                          MediaQuery.of(context).size.width),
-                                )),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 1300 / screenWidth,
-                                      height: 100 / screenHeight,
-                                      child: Text(
-                                        store_namelist[index],
-                                        style: TextStyle(
-                                          fontSize: 56 / screenWidth,
-                                          fontFamily: 'NotoSansCJKkr_Medium',
-                                        ),
-                                      ),
-                                    ),
-                                    SafeArea(
-                                      child: Container(
-                                        height: 200 / screenHeight,
-                                        width: 800 / screenWidth,
-                                        child: Text(
-                                          addresslist[index],
-                                          style: TextStyle(
-                                              // fontFamily: 'NatoSans',
-                                              color: Colors.grey,
-                                              fontSize: 56 / screenWidth,
-                                              fontFamily:
-                                                  'NotoSansCJKkr_Medium',
-                                              height: 1.2),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )),
-                      ),
-                    );
-                  }),
-            ),
-          )
-        : WillPopScope(
-            onWillPop: _onbackpressed,
-            child: Scaffold(
-              body: SafeArea(
-                child: Stack(children: [
-                  WebView(
-                    onPageFinished: doneLoading,
-                    onPageStarted: startLoading,
-                    onWebViewCreated:
-                        (WebViewController webViewController) async {
-                      controller = webViewController;
-                      await controller.loadUrl(
-                          "http://13.209.41.43/map/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+                    onTap: () {
+                      setState(() {
+                        switchbtn = true;
+                        print(switchbtn);
+                      });
                     },
-                    javascriptMode: JavascriptMode.unrestricted,
-                    javascriptChannels: Set.from([
-                      JavascriptChannel(
-                          name: 'Print',
-                          onMessageReceived: (JavascriptMessage message) async {
-                            var messages = message.message;
-                            print("Print: $messages");
-                            var ex = messages.split(",");
-                            setState(() {
-                              for (int j = 0; j < 2; j++) {
-                                store_namelist[i] = ex[0];
-                                addresslist[i] = ex[1];
-                                print(i.toString() +
-                                    "store_namelist" +
-                                    store_namelist[i]);
-                                print(i.toString() +
-                                    "addresslist" +
-                                    addresslist[i]);
-                              }
-                              i++;
-                            });
-                          }),
-                      JavascriptChannel(
-                          name: 'Print1',
-                          onMessageReceived: (JavascriptMessage message) async {
-                            var messages = message.message;
-                            print("Print1: $messages");
-                            Message = messages.split("|");
-                            await getSubStarColor();
-                            showPopUpbottomMenu(
-                                context, screenHeight, screenWidth);
-                          })
-                    ]),
-                  ),
-                  position == 1
-                      ? Container(
-                          color: Colors.white,
-                          child: Center(
-                              child: buildSpinKitThreeBounce(80, screenWidth)),
-                        )
-                      : Container(),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(
-                        top: 250 / screenHeight,
-                      )),
-                      IconButton(
-                        icon: Icon(Icons.arrow_back_ios_sharp),
-                        iconSize: 100 / screenWidth,
-                        color: Color(0xffff7292),
-                        onPressed: () {
-                          setState(() {
-                            searchbtn = false;
-
-                            print(searchbtn);
-                          });
-                          Navigator.pop(context, 'Yep!');
-                        },
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(
-                        left: 950 / screenWidth,
-                      )),
-                      FutureBuilder(
-                        future: Future.delayed(Duration(milliseconds: 550)),
-                        builder: (c, s) =>
-                            s.connectionState == ConnectionState.done
-                                ? GestureDetector(
-                                    child: Image.asset(
-                                      './assets/on.png',
-                                      width: 290 / screenWidth,
-                                      height: 183 / screenHeight,
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        switchbtn = true;
-                                        print(switchbtn);
-                                      });
-                                    },
-                                  )
-                                : Text(
-                                    "Loading..",
-                                    style: TextStyle(
-                                      fontSize: 45 / screenWidth,
-                                      fontFamily: 'NotoSansCJKkr_Bold',
-                                      letterSpacing: 0,
-                                      color: Color(0xffff7292),
-                                    ),
-                                  ),
-                      ),
-                    ],
                   )
-                ]),
-              ),
-            ),
-          );
+                      : Text(
+                    "Loading..",
+                    style: TextStyle(
+                      fontSize: 45 .sp,
+                      fontFamily: 'NotoSansCJKkr_Bold',
+                      letterSpacing: 0,
+                      color: Color(0xffff7292),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ]),
+        ),
+      ),
+    );
   }
 
   Future<Object> showPopUpbottomMenu(
@@ -359,21 +356,21 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                 children: [
                   GestureDetector(
                     onPanDown: (a) {
-                      print('aha');
+
                       Navigator.pop(context);
                     },
                     child: Container(
                       color: Colors.transparent,
                       width: MediaQuery.of(context).size.width,
-                      height: 2100 / (screenHeight),
+                      height: 2100 .h,
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 2100 / (screenHeight),
-                        bottom: 50 / screenHeight,
-                        left: 33 / screenWidth,
-                        right: 33 / screenWidth),
+                        top: 2100 .h,
+                        bottom: 50 .h,
+                        left: 33 .w,
+                        right: 33 .w),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       elevation: 1,
@@ -412,43 +409,43 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                               ));
                           result
                               ? setState(() {
-                                  star_color = true;
-                                })
+                            star_color = true;
+                          })
                               : setState(() {
-                                  star_color = false;
-                                });
+                            star_color = false;
+                          });
                         },
                         child: Row(
                           children: [
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 30 /
-                                  (1501 / MediaQuery.of(context).size.width),
-                            )),
+                                  left: 30 /
+                                      (1501 / MediaQuery.of(context).size.width),
+                                )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
-                              height: 409 / screenHeight,
-                              width: 413 / screenWidth,
+                              height: 409 .h,
+                              width: 413 .w,
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 53 /
-                                  (1501 / MediaQuery.of(context).size.width),
-                            )),
+                                  left: 53 /
+                                      (1501 / MediaQuery.of(context).size.width),
+                                )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 60 / screenHeight),
-                                  width: 880 / screenWidth,
-                                  height: 82 / screenHeight,
+                                  EdgeInsets.only(top: 50.h),
+                                  width: 900.w,
+                                  height: 82.h,
                                   child: Row(
                                     //  crossAxisAlignment: CrossAxisAlignment.center,
                                     //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: 680 / screenWidth,
+                                        width: 700.w,
                                         child: Text(
                                             Message[0].length <= 10
                                                 ? Message[0]
@@ -458,56 +455,56 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
-                                              fontSize: 58 / screenWidth,
-                                              height: 1.2,
+                                              fontSize: 58 .sp,
+                                              height: 1.3,
                                             ),
                                             // overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(
-                                        //  iconSize: 60 / screenHeight,
+                                        //  iconSize: 60 .h,
                                         padding: EdgeInsets.all(0),
                                         icon: Image.asset(
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
-                                            height: 60 / screenHeight),
+                                            height: 60 .h),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                                show_toast.showToast(
-                                                    context, "로그인해주세요!");
-                                              }
+                                          show_toast.showToast(
+                                              context, "로그인해주세요!");
+                                        }
                                             : () async {
-                                                setState(() {
-                                                  star_color = !star_color;
-                                                });
-                                                await click_star();
-                                              },
+                                          setState(() {
+                                            star_color = !star_color;
+                                          });
+                                          await click_star();
+                                        },
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  width: 650 / screenWidth,
-                                  height: 138 / screenHeight,
+                                  EdgeInsets.only(top: 10 .h),
+                                  width: 650.w,
+                                  height: 135.h,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                         color: const Color(0xffb0b0b0),
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 55 / screenWidth,
-                                        height: 1.2,
+                                        fontSize: 55 .sp,
+                                        height: 1.3 ,
                                       ),
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
                                   margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  height: 120 / screenHeight,
-                                  width: 650 / screenWidth,
+                                  EdgeInsets.only(top: 10 .h),
+                                  height: 120 .h,
+                                  width: 650 .w,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     iconwidget.menu(Message[3], context),
@@ -536,7 +533,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
         },
         barrierDismissible: true,
         barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: null,
         transitionDuration: const Duration(milliseconds: 150));
   }

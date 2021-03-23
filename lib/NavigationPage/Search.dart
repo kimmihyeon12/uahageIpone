@@ -356,7 +356,7 @@ class _searchPageState extends State<searchPage> {
                       margin: EdgeInsets.only(
                           top: 600.h, bottom: 0.h, left: 190.w, right: 0.w),
                       width: 1100.w,
-                      height: 1100.h,
+                      height: 1060.h,
                       child: Card(
                         shadowColor: Colors.black54,
                         elevation: 1,
@@ -471,7 +471,7 @@ class _searchPageState extends State<searchPage> {
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 1930.h, bottom: 263.h, left: 33.w, right: 33.w),
+                        top: 1900.h, bottom: 263.h, left: 33.w, right: 33.w),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       shadowColor: Colors.black54,
@@ -543,7 +543,7 @@ class _searchPageState extends State<searchPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.only(top: 40.h),
+                                  margin: EdgeInsets.only(top: 50.h),
                                   width: 900.w,
                                   height: 82.h,
                                   child: Row(
@@ -567,8 +567,8 @@ class _searchPageState extends State<searchPage> {
                                         padding: EdgeInsets.all(0),
                                         icon: Image.asset(
                                             star_color
-                                                ? "./assets/listPage/star_grey.png"
-                                                : "./assets/listPage/star_color.png",
+                                                ? "./assets/listPage/star_color.png"
+                                                : "./assets/listPage/star_grey.png",
                                             height: 60.h),
                                         onPressed: loginOption == "login"
                                             ? () {
