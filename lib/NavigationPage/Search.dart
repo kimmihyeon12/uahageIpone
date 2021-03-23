@@ -139,7 +139,7 @@ class _searchPageState extends State<searchPage> {
   icon iconwidget = new icon();
   @override
   void initState() {
-    getSubStarColor();
+
     setState(() {
       loginOption = widget.loginOption;
       userId = widget.userId ?? "";
