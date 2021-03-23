@@ -58,9 +58,9 @@ script.
         function getResult1(storename,address,phone,menu,bed,tableware,meetingroom,diapers,playroom,carriage,nursingroom,chair){
             Print1.postMessage(storename+'|'+address+'|'+phone+'|'+menu+'|'+bed+'|'+tableware+'|'+meetingroom+'|'+diapers+'|'+playroom+'|'+carriage+'|'+nursingroom+'|'+chair);
         }
-        //-  function getResult(storename,address){
-        //-    Print.postMessage(storename+","+address);
-        //-   }
+         function getResult(storename,address){
+           Print.postMessage(storename+","+address);
+          }
         //distance 정렬
         function custonSort(a, b){ if(a.distance == b.distance){ return 0} return a.distance > b.distance ? 1 : -1; }
        //
@@ -173,7 +173,7 @@ script.
                     
                     for(var i =0; i<array_list.length; i++){
                      
-              //      getResult(array_list[i].storename+","+array_list[i].address);
+                    getResult(array_list[i].storename+","+array_list[i].address);
                       }
 
       

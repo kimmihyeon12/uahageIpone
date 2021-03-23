@@ -111,7 +111,6 @@ class _agreementPageState extends State<agreementPage> {
     try {
       var code = await AuthCodeClient.instance.requestWithTalk();
       await _issueAccessToken(code);
-      return;
     } catch (e) {
       print(e.toString());
     }
@@ -654,7 +653,29 @@ class _agreementPageState extends State<agreementPage> {
                               ),
                             );
                           else {
-                            _loginWithKakao();
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => FutureBuilder(
+                                future: _loginWithKakao(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return AlertDialog(
+                                      title: Text(snapshot.data),
+                                    );
+                                  } else if (snapshot.hasError) {
+                                    return AlertDialog(
+                                        title: Text(snapshot.error));
+                                  }
+                                  return Center(
+                                    child: SizedBox(
+                                        height: 200.h,
+                                        width: 200.w,
+                                        child:
+                                            buildSpinKitThreeBounce(80, 100.w)),
+                                  );
+                                },
+                              ),
+                            );
                           }
                           break;
                         case "naver":

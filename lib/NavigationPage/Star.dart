@@ -143,7 +143,7 @@ class _starPageState extends State<starPage> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
-                                            fontSize: 73.0.sp),
+                                            fontSize: 80.sp),
                                         text: "즐겨찾기 목록이 없습니다.\n"),
                                     TextSpan(
                                         style: TextStyle(
