@@ -77,7 +77,7 @@ class StarManage {
         "storeName": storename
       };
       response = await http.post(
-        "http://211.223.46.144:3000/getStarColor",
+        "http://13.209.41.43/getStarColor",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
