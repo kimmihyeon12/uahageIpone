@@ -42,7 +42,7 @@ class StarManage {
     };
 
     var response = await http.post(
-      "http://13.209.41.43/star",
+      "http://211.223.46.144:3000/star",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -54,7 +54,7 @@ class StarManage {
   getStarColor(userId, loginOption, liststringdata) async {
     List<bool> star_color_list = [];
     var data = await http.get(
-        'http://13.209.41.43/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
+        'http://211.223.46.144:3000/starcolor?user_id=$userId$loginOption&tablename=$liststringdata');
     var dec = jsonDecode(data.body);
 
     for (int i = 0; i < dec.length; i++) {
@@ -77,7 +77,7 @@ class StarManage {
         "storeName": storename
       };
       response = await http.post(
-        "http://13.209.41.43/getStarColor",
+        "http://211.223.46.144:3000/getStarColor",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

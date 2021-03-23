@@ -89,7 +89,7 @@ class _map_listState extends State<map_list> {
   Future searchCategory() async {
     print(grey_image);
     controller.loadUrl(
-        "http://13.209.41.43/map/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://211.223.46.144:3000/map/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   Future getSubStarColor() async {
@@ -104,8 +104,8 @@ class _map_listState extends State<map_list> {
     // ignore: unnecessary_statements
     print(searchKey);
     searchKey != ""
-        ? controller
-            .loadUrl('http://13.209.41.43/map/getAddress?address=$searchKey')
+        ? controller.loadUrl(
+            'http://211.223.46.144:3000/map/getAddress?address=$searchKey')
         : null;
   }
 
@@ -170,7 +170,7 @@ class _map_listState extends State<map_list> {
   }
 
   // uadate_location() async{
-  //   String url = 'http://13.209.41.43/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
+  //   String url = 'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
   //   var response = await http.get(url);
   //   setState(() {
   //     print('reload');
@@ -200,7 +200,7 @@ class _map_listState extends State<map_list> {
                     getLatLong();
                   } else {
                     controller.loadUrl(
-                        'http://13.209.41.43/map/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
+                        'http://211.223.46.144:3000/map/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
                   }
                 },
                 javascriptMode: JavascriptMode.unrestricted,
@@ -265,7 +265,7 @@ class _map_listState extends State<map_list> {
           //           //     uadate_location();
           //           lacations();
           //           controller.loadUrl(
-          //               'http://13.209.41.43/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
+          //               'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
           //         },
           //         child: Container(
           //           margin: EdgeInsets.only(
@@ -293,7 +293,7 @@ class _map_listState extends State<map_list> {
           //                 zoom -= 1;
           //               });
           //               controller.loadUrl(
-          //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
           //             },
           //             icon: Image.asset(
           //               "assets/searchPage/plus.png",
@@ -306,7 +306,7 @@ class _map_listState extends State<map_list> {
           //                 zoom += 1;
           //               });
           //               controller.loadUrl(
-          //                   "http://13.209.41.43/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
+          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
           //             },
           //             icon: Image.asset(
           //               "assets/searchPage/minus.png",

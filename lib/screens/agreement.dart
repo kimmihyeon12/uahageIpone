@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uahage/screens/allAppBar.dart';
+
 class agreementPage extends StatefulWidget {
   agreementPage({Key key, this.loginOption}) : super(key: key);
 
@@ -43,8 +44,8 @@ class _agreementPageState extends State<agreementPage> {
   Future checkNickname() async {
     var data;
     try {
-      var response = await http
-          .get("http://13.209.41.43/getEmail?email=$_accountEmail$loginOption");
+      var response = await http.get(
+          "http://211.223.46.144:3000/getEmail?email=$_accountEmail$loginOption");
       print("length " + response.body);
       if (response.statusCode == 200) {
         data = jsonDecode(response.body)["length"];
@@ -201,7 +202,7 @@ class _agreementPageState extends State<agreementPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size .w,
+      size: size.w,
     );
   }
 
@@ -224,7 +225,6 @@ class _agreementPageState extends State<agreementPage> {
   appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
-   
     KakaoContext.clientId = "581f27a7aed8a99e5b0a78b33c855dab";
 
     isIOS
@@ -239,12 +239,11 @@ class _agreementPageState extends State<agreementPage> {
           ));
 
     if (isIphoneX) {
-      ScreenUtil.init(context, width:  5076 , height:  2345 );
+      ScreenUtil.init(context, width: 5076, height: 2345);
     } else if (isIOS) {
-      ScreenUtil.init(context, width:  1390 , height:  781.5 );
-
+      ScreenUtil.init(context, width: 1390, height: 781.5);
     } else {
-      ScreenUtil.init(context, width:  1501 , height:  2667 );
+      ScreenUtil.init(context, width: 1501, height: 2667);
     }
     if (check2 && check3 && check4) {
       setState(() {
@@ -258,15 +257,14 @@ class _agreementPageState extends State<agreementPage> {
 
     return SafeArea(
       child: Scaffold(
-         appBar: bar.screen_appbar('약관동의',context),
+        appBar: bar.screen_appbar('약관동의', context),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(),
 
-
             Container(
-              margin: EdgeInsets.only(top: 441 .h),
+              margin: EdgeInsets.only(top: 441.h),
               child: // 서비스 약관에 동의해주세요.
                   Text("서비스 약관에 동의해주세요.",
                       style: TextStyle(
@@ -274,7 +272,7 @@ class _agreementPageState extends State<agreementPage> {
                           fontWeight: FontWeight.w700,
                           fontFamily: "NotoSansCJKkr_Bold",
                           fontStyle: FontStyle.normal,
-                          fontSize: 78 .sp),
+                          fontSize: 78.sp),
                       textAlign: TextAlign.left),
             ),
 
@@ -352,8 +350,8 @@ class _agreementPageState extends State<agreementPage> {
             // ),
 
             Container(
-              margin: EdgeInsets.only(top: 156 .h),
-              width: 1296 .w,
+              margin: EdgeInsets.only(top: 156.h),
+              width: 1296.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14.0),
                 border: Border.all(width: 0.1),
@@ -365,11 +363,9 @@ class _agreementPageState extends State<agreementPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: 91 .h,
+                        height: 91.h,
                         margin: EdgeInsets.only(
-                            left: 37 .w,
-                            top: 65 .h,
-                            bottom: 65 .h),
+                            left: 37.w, top: 65.h, bottom: 65.h),
                         child: InkWell(
                           onTap: () {
                             setState(() {
@@ -385,7 +381,7 @@ class _agreementPageState extends State<agreementPage> {
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                          left: 30 .w,
+                          left: 30.w,
                         ),
                         child: Text("모두 동의합니다.",
                             style: TextStyle(
@@ -393,7 +389,7 @@ class _agreementPageState extends State<agreementPage> {
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "NotoSansCJKkr_Bold",
                                 fontStyle: FontStyle.normal,
-                                fontSize: 62.5 .sp),
+                                fontSize: 62.5.sp),
                             textAlign: TextAlign.left),
                       ),
                     ],
@@ -403,11 +399,9 @@ class _agreementPageState extends State<agreementPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: 91 .h,
+                        height: 91.h,
                         margin: EdgeInsets.only(
-                            left: 37 .w,
-                            top: 65 .h,
-                            bottom: 65 .h),
+                            left: 37.w, top: 65.h, bottom: 65.h),
                         child: InkWell(
                             onTap: () {
                               setState(() {
@@ -421,9 +415,8 @@ class _agreementPageState extends State<agreementPage> {
                                     "./assets/agreementPage/unchecked.png")),
                       ),
                       Container(
-                        width: 1100 .w,
-                        margin:
-                            EdgeInsets.only(left: 34 .w, right: 0),
+                        width: 1100.w,
+                        margin: EdgeInsets.only(left: 34.w, right: 0),
                         child: InkWell(
                           onTap: () async {
                             final result = await Navigator.of(context).push(
@@ -447,12 +440,11 @@ class _agreementPageState extends State<agreementPage> {
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "NotoSansCJKkr_Medium",
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 62.5 .sp),
+                                      fontSize: 62.5.sp),
                                   textAlign: TextAlign.left),
                               Container(
-                                height: 74 .h,
-                                margin:
-                                    EdgeInsets.only(right: 20 .w),
+                                height: 74.h,
+                                margin: EdgeInsets.only(right: 20.w),
                                 child: Image.asset(
                                     "./assets/agreementPage/next.png"),
                               ),
@@ -467,11 +459,9 @@ class _agreementPageState extends State<agreementPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: 91 .h,
+                        height: 91.h,
                         margin: EdgeInsets.only(
-                            left: 37 .w,
-                            top: 65 .h,
-                            bottom: 65 .h),
+                            left: 37.w, top: 65.h, bottom: 65.h),
                         child: InkWell(
                             onTap: () {
                               setState(() {
@@ -485,9 +475,8 @@ class _agreementPageState extends State<agreementPage> {
                                     "./assets/agreementPage/unchecked.png")),
                       ),
                       Container(
-                        width: 1100 .w,
-                        margin:
-                            EdgeInsets.only(left: 34 .w, right: 0),
+                        width: 1100.w,
+                        margin: EdgeInsets.only(left: 34.w, right: 0),
                         child: // [필수] 이용약관 동의
                             InkWell(
                           onTap: () async {
@@ -511,12 +500,11 @@ class _agreementPageState extends State<agreementPage> {
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "NotoSansCJKkr_Medium",
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 62.5 .sp),
+                                      fontSize: 62.5.sp),
                                   textAlign: TextAlign.left),
                               Container(
-                                height: 74 .h,
-                                margin:
-                                    EdgeInsets.only(right: 20 .w),
+                                height: 74.h,
+                                margin: EdgeInsets.only(right: 20.w),
                                 child: Image.asset(
                                     "./assets/agreementPage/next.png"),
                               ),
@@ -531,11 +519,9 @@ class _agreementPageState extends State<agreementPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: 91 .h,
+                        height: 91.h,
                         margin: EdgeInsets.only(
-                            left: 37 .w,
-                            top: 65 .h,
-                            bottom: 65 .h),
+                            left: 37.w, top: 65.h, bottom: 65.h),
                         child: InkWell(
                             onTap: () {
                               setState(() {
@@ -549,9 +535,9 @@ class _agreementPageState extends State<agreementPage> {
                                     "./assets/agreementPage/unchecked.png")),
                       ),
                       Container(
-                        width: 1100 .w,
+                        width: 1100.w,
                         margin: EdgeInsets.only(
-                          left: 34 .w,
+                          left: 34.w,
                         ),
                         child: // [필수] 이용약관 동의
                             InkWell(
@@ -571,8 +557,8 @@ class _agreementPageState extends State<agreementPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: 1000 .w,
-                                height: 100 .h,
+                                width: 1000.w,
+                                height: 100.h,
                                 child: Text("[필수] 위치기반서비스 이용약관 동의",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -580,13 +566,12 @@ class _agreementPageState extends State<agreementPage> {
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 62.5 .sp),
+                                        fontSize: 62.5.sp),
                                     textAlign: TextAlign.left),
                               ),
                               Container(
-                                height: 74 .h,
-                                margin:
-                                    EdgeInsets.only(right: 20 .w),
+                                height: 74.h,
+                                margin: EdgeInsets.only(right: 20.w),
                                 child: Image.asset(
                                     "./assets/agreementPage/next.png"),
                               ),
@@ -602,10 +587,10 @@ class _agreementPageState extends State<agreementPage> {
 
             // Ok button
             Container(
-              margin: EdgeInsets.only(top: 243 .h),
+              margin: EdgeInsets.only(top: 243.h),
               child: SizedBox(
-                height: 194 .h,
-                width: 1193 .w,
+                height: 194.h,
+                width: 1193.w,
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0)),
@@ -622,7 +607,7 @@ class _agreementPageState extends State<agreementPage> {
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "NotoSansCJKkr_Medium",
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 62.5 .sp),
+                                      fontSize: 62.5.sp),
                                   textAlign: TextAlign.left),
                           actions: [
                             FlatButton(
@@ -636,7 +621,7 @@ class _agreementPageState extends State<agreementPage> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
-                                            fontSize: 62.5 .sp),
+                                            fontSize: 62.5.sp),
                                         textAlign: TextAlign.center))
                           ],
                         ),
@@ -660,10 +645,10 @@ class _agreementPageState extends State<agreementPage> {
                                   }
                                   return Center(
                                     child: SizedBox(
-                                        height: 200 .h,
-                                        width: 200 .w,
-                                        child: buildSpinKitThreeBounce(
-                                            80, 100.w)),
+                                        height: 200.h,
+                                        width: 200.w,
+                                        child:
+                                            buildSpinKitThreeBounce(80, 100.w)),
                                   );
                                 },
                               ),
@@ -694,7 +679,7 @@ class _agreementPageState extends State<agreementPage> {
                               fontWeight: FontWeight.w500,
                               fontFamily: "NotoSansCJKkr_Medium",
                               fontStyle: FontStyle.normal,
-                              fontSize: 62.5 .sp),
+                              fontSize: 62.5.sp),
                           textAlign: TextAlign.left),
                 ),
               ),

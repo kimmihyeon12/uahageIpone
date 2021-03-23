@@ -140,7 +140,7 @@ class _restaurantState extends State<restaurant> {
 
   Future<List<dynamic>> _getrestaurant() async {
     final response = await http.get(
-        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       restaurants.add(Restaurant.fromJson(data));

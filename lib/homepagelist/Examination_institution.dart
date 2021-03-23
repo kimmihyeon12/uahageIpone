@@ -122,7 +122,7 @@ class _examination_institutionState extends State<examination_institution> {
 
   Future<List<dynamic>> _getexamination_institution() async {
     var response = await http.get(
-        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       examination_institutions.add(examinationinstitution.fromJson(data));

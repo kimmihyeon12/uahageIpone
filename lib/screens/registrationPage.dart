@@ -55,7 +55,7 @@ class _registrationPageState extends State<registrationPage> {
     var data;
     try {
       var response =
-          await http.get("http://13.209.41.43/getNicknames/$nickName");
+          await http.get("http://211.223.46.144:3000/getNicknames/$nickName");
       if (response.statusCode == 200) {
         data = jsonDecode(response.body)["message"];
 
@@ -96,7 +96,7 @@ class _registrationPageState extends State<registrationPage> {
           };
     // print(ss);
     var response = await http.post(
-      "http://13.209.41.43/saveUser",
+      "http://211.223.46.144:3000/saveUser",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -115,7 +115,7 @@ class _registrationPageState extends State<registrationPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size .w,
+      size: size.w,
     );
   }
 
@@ -126,7 +126,7 @@ class _registrationPageState extends State<registrationPage> {
   appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
+    ScreenUtil.init(context, width: 1500, height: 2667);
     var _fontsize = 62.5.sp;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -140,8 +140,7 @@ class _registrationPageState extends State<registrationPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-
-              Padding(padding: EdgeInsets.only(top: 250 .h)),
+              Padding(padding: EdgeInsets.only(top: 250.h)),
 
               //membership_Nickname
 
@@ -149,22 +148,19 @@ class _registrationPageState extends State<registrationPage> {
                 child: Container(
                   child: Row(
                     children: [
-                      Padding(
-                          padding: EdgeInsets.only(left: 150 .w)),
+                      Padding(padding: EdgeInsets.only(left: 150.w)),
                       Text(
                         "닉네임",
                         style: TextStyle(
-                            fontSize: 58 .sp,
+                            fontSize: 58.sp,
                             color: Color.fromARGB(255, 255, 114, 148),
                             fontFamily: 'NotoSansCJKkr_Medium'),
                       ),
-                      Padding(padding: EdgeInsets.only(left: 88 .w)),
+                      Padding(padding: EdgeInsets.only(left: 88.w)),
                       Expanded(
                         flex: 1,
                         child: Container(
-                          margin: EdgeInsets.only(
-                            right: 121 .sp
-                          ),
+                          margin: EdgeInsets.only(right: 121.sp),
                           child: Stack(
                             children: [
                               TextFormField(
@@ -176,14 +172,12 @@ class _registrationPageState extends State<registrationPage> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: const Color(0xff3a3939),
-                                
                                   fontFamily: "NotoSansCJKkr_Medium",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 62.5 .sp,
+                                  fontSize: 62.5.sp,
                                 ),
                                 decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.only(right: 410 .w),
+                                  contentPadding: EdgeInsets.only(right: 410.w),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       color: const Color(0xffff7292),
@@ -198,15 +192,15 @@ class _registrationPageState extends State<registrationPage> {
                                   hintText: '닉네임을 입력하세요',
                                   hintStyle: TextStyle(
                                       color: Color(0xffcccccc),
-                                      fontSize: 58 .sp,
+                                      fontSize: 58.sp,
                                       letterSpacing: -1.0),
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Container(
-                                  width: 350 .w,
-                                  height: 125 .h,
+                                  width: 350.w,
+                                  height: 125.h,
                                   child: FlatButton(
                                     shape: new RoundedRectangleBorder(
                                       borderRadius:
@@ -245,7 +239,8 @@ class _registrationPageState extends State<registrationPage> {
                                                                             FontStyle
                                                                                 .normal,
                                                                         fontSize:
-                                                                            62.5  .sp),
+                                                                            62.5
+                                                                                .sp),
                                                                     textAlign:
                                                                         TextAlign
                                                                             .left),
@@ -284,7 +279,8 @@ class _registrationPageState extends State<registrationPage> {
                                                                             FontStyle
                                                                                 .normal,
                                                                         fontSize:
-                                                                            62.5 .sp),
+                                                                            62.5
+                                                                                .sp),
                                                                     textAlign:
                                                                         TextAlign
                                                                             .left),
@@ -303,14 +299,12 @@ class _registrationPageState extends State<registrationPage> {
 
                                                         return Center(
                                                           child: SizedBox(
-                                                              height: 200 .h,
-                                                              width: 200 .w ,
+                                                              height: 200.h,
+                                                              width: 200.w,
                                                               child:
                                                                   buildSpinKitThreeBounce(
                                                                       80,
-                                                                     1501.w)
-
-                                                              ),
+                                                                      1501.w)),
                                                         );
                                                       }),
                                             );
@@ -324,7 +318,7 @@ class _registrationPageState extends State<registrationPage> {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'NotoSansCJKkr_Medium',
-                                        fontSize: 58 .sp,
+                                        fontSize: 58.sp,
                                       ),
                                     ),
                                   ),
@@ -338,44 +332,44 @@ class _registrationPageState extends State<registrationPage> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 110 .h)),
+              Padding(padding: EdgeInsets.only(top: 110.h)),
 
               //baby_Gender
               Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 91 .w)),
+                    Padding(padding: EdgeInsets.only(left: 91.w)),
                     Container(
                       child: Text(
                         "아이성별",
                         style: TextStyle(
-                            fontSize: 58 .sp,
+                            fontSize: 58.sp,
                             color: Color.fromARGB(255, 255, 114, 148),
                             fontFamily: 'NotoSansCJKkr_Medium'),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 80 .w)),
+                    Padding(padding: EdgeInsets.only(left: 80.w)),
                     InkWell(
                       onTap: () {
                         _pressedbaby('boy');
                       },
                       child: Column(children: <Widget>[
                         Container(
-                          height: 362 .h,
+                          height: 362.h,
                           width: 262.w,
                           child: Image.asset(boy ? boy_image[0] : boy_image[1]),
                         ),
                         Padding(padding: EdgeInsets.only(bottom: 11)),
                       ]),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 98 .w)),
+                    Padding(padding: EdgeInsets.only(left: 98.w)),
                     InkWell(
                       onTap: () {
                         _pressedbaby('girl');
                       },
                       child: Column(children: <Widget>[
                         Container(
-                          height: 362 .h,
+                          height: 362.h,
                           width: 262.w,
                           child:
                               Image.asset(girl ? girl_image[0] : girl_image[1]),
@@ -387,23 +381,21 @@ class _registrationPageState extends State<registrationPage> {
 
               //baby_birtyday
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    99 .w, 20 .h, 0, 0),
+                margin: EdgeInsets.fromLTRB(99.w, 20.h, 0, 0),
                 child: Row(
                   children: [
                     // 아이생일
                     Text(
                       "아이생일",
                       style: TextStyle(
-                          fontSize: 58 .sp,
+                          fontSize: 58.sp,
                           color: Color.fromARGB(255, 255, 114, 148),
                           fontFamily: 'NotoSansCJKkr_Medium'),
                     ),
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(
-                            82 .w, 0, 118 .w, 0),
+                        margin: EdgeInsets.fromLTRB(82.w, 0, 118.w, 0),
                         child: Stack(
                           children: [
                             GestureDetector(
@@ -419,7 +411,7 @@ class _registrationPageState extends State<registrationPage> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Color(0xffff7292),
-                                      fontSize: 73 .sp,
+                                      fontSize: 73.sp,
                                       fontFamily: 'NotoSansCJKkr_Medium',
                                       fontStyle: FontStyle.normal,
                                       letterSpacing: -1.0),
@@ -439,8 +431,7 @@ class _registrationPageState extends State<registrationPage> {
                                         color: Color(0xffd4d4d4),
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
-
-                                        fontSize: 58.0 .sp),
+                                        fontSize: 58.0.sp),
                                   ),
                                 ),
                               ),
@@ -465,8 +456,7 @@ class _registrationPageState extends State<registrationPage> {
               ),
 
               Padding(
-                padding: EdgeInsets.fromLTRB(
-                    0, 98 .h, 0, 0 .h),
+                padding: EdgeInsets.fromLTRB(0, 98.h, 0, 0.h),
               ),
               //Parental age group
 
@@ -474,7 +464,7 @@ class _registrationPageState extends State<registrationPage> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 147 .w)),
+                    Padding(padding: EdgeInsets.only(left: 147.w)),
                     Text(
                       "보호자\n 연령대",
                       textAlign: TextAlign.right,
@@ -483,40 +473,40 @@ class _registrationPageState extends State<registrationPage> {
                           color: Color.fromARGB(255, 255, 114, 148),
                           fontFamily: 'NotoSansCJKkr_Medium'),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 62 .w)),
+                    Padding(padding: EdgeInsets.only(left: 62.w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[0]
                             ? './assets/registrationPage/10_pink.png'
                             : './assets/registrationPage/10_grey.png',
-                        height: 196 .h,
-                        width: 251 .w,
+                        height: 196.h,
+                        width: 251.w,
                       ),
                       onTap: () {
                         _change('10');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 .w)),
+                    Padding(padding: EdgeInsets.only(left: 55.w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[1]
                             ? './assets/registrationPage/20_pink.png'
                             : './assets/registrationPage/20_grey.png',
-                        height: 196 .h,
-                        width: 251 .w,
+                        height: 196.h,
+                        width: 251.w,
                       ),
                       onTap: () {
                         _change('20');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 .w)),
+                    Padding(padding: EdgeInsets.only(left: 55.w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[2]
                             ? './assets/registrationPage/30_pink.png'
                             : './assets/registrationPage/30_grey.png',
-                        height: 196 .h,
-                        width: 251 .w,
+                        height: 196.h,
+                        width: 251.w,
                       ),
                       onTap: () {
                         _change('30');
@@ -524,53 +514,53 @@ class _registrationPageState extends State<registrationPage> {
                     ),
                   ],
                 ),
-                Padding(padding: EdgeInsets.only(top: 25 .w)),
+                Padding(padding: EdgeInsets.only(top: 25.w)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 147 .w)),
+                    Padding(padding: EdgeInsets.only(left: 147.w)),
                     Text(
                       "보호자\n 연령대",
                       textAlign: TextAlign.right,
                       style: TextStyle(
-                          fontSize: 57 .sp,
+                          fontSize: 57.sp,
                           color: Colors.transparent,
                           fontFamily: 'NotoSansCJKkr_Medium'),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 62 .w)),
+                    Padding(padding: EdgeInsets.only(left: 62.w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[3]
                             ? './assets/registrationPage/40_pink.png'
                             : './assets/registrationPage/40_grey.png',
-                        height: 196 .h,
-                        width: 251 .w,
+                        height: 196.h,
+                        width: 251.w,
                       ),
                       onTap: () {
                         _change('40');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 .w)),
+                    Padding(padding: EdgeInsets.only(left: 55.w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[4]
                             ? './assets/registrationPage/50_pink.png'
                             : './assets/registrationPage/50_grey.png',
-                        height: 196 .h,
-                        width: 251 .w,
+                        height: 196.h,
+                        width: 251.w,
                       ),
                       onTap: () {
                         _change('50');
                       },
                     ),
-                    Padding(padding: EdgeInsets.only(left: 55 .w)),
+                    Padding(padding: EdgeInsets.only(left: 55.w)),
                     InkWell(
                       child: Image.asset(
                         changeimage[5]
                             ? './assets/registrationPage/others_pink.png'
                             : './assets/registrationPage/others_grey.png',
-                        height: 196 .h,
-                        width: 251 .w,
+                        height: 196.h,
+                        width: 251.w,
                       ),
                       onTap: () {
                         _change('ohters');
@@ -579,12 +569,12 @@ class _registrationPageState extends State<registrationPage> {
                   ],
                 ),
               ]),
-              Padding(padding: EdgeInsets.only(top: 125 .h)),
+              Padding(padding: EdgeInsets.only(top: 125.h)),
 
               //ok button
               Container(
-                width: 1193 .w,
-                height: 194 .h,
+                width: 1193.w,
+                height: 194.h,
                 // margin: EdgeInsets.only(bottom: 70/(2667/ScreenHeight)),
                 child: FlatButton(
                   shape: new RoundedRectangleBorder(
@@ -625,11 +615,10 @@ class _registrationPageState extends State<registrationPage> {
                                               ));
                                     });
                                   } else if (snapshot.hasError)
-                                    return buildAlertDialog(snapshot,
-                                        1500.h, context, _fontsize);
+                                    return buildAlertDialog(
+                                        snapshot, 1500.h, context, _fontsize);
 
-                                  return buildCenterProgress(
-                                      1500.h, 2667.h);
+                                  return buildCenterProgress(1500.h, 2667.h);
                                 }),
                           );
                         }
@@ -646,7 +635,7 @@ class _registrationPageState extends State<registrationPage> {
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'NotoSansCJKkr_Medium',
-                      fontSize: 57 .sp,
+                      fontSize: 57.sp,
                     ),
                   ),
                 ),
@@ -702,7 +691,7 @@ class _registrationPageState extends State<registrationPage> {
                     style: TextStyle(
                       color: Color.fromRGBO(255, 114, 148, 1.0),
                       fontFamily: 'NotoSansCJKkr_Medium',
-                      fontSize: 58 .sp,
+                      fontSize: 58.sp,
                     ),
                   ),
                 ),
@@ -717,8 +706,8 @@ class _registrationPageState extends State<registrationPage> {
   Center buildCenterProgress(double screenHeight, double screenWidth) {
     return Center(
       child: SizedBox(
-          height: 200 .h,
-          width: 200 .w,
+          height: 200.h,
+          width: 200.w,
           child: buildSpinKitThreeBounce(80, screenWidth)
           // CircularProgressIndicator(
           //   strokeWidth: 5.0,
@@ -743,7 +732,7 @@ class _registrationPageState extends State<registrationPage> {
                   fontWeight: FontWeight.w500,
                   fontFamily: "NotoSansCJKkr_Medium",
                   fontStyle: FontStyle.normal,
-                  fontSize: 62.5 .sp),
+                  fontSize: 62.5.sp),
               textAlign: TextAlign.left),
       actions: [
         FlatButton(
@@ -808,7 +797,7 @@ class _registrationPageState extends State<registrationPage> {
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Color.fromRGBO(255, 114, 148, 1.0),
-              fontSize: 56 .sp,
+              fontSize: 56.sp,
             ),
             textAlign: TextAlign.center,
           ),
@@ -834,7 +823,7 @@ class _registrationPageState extends State<registrationPage> {
                 style: TextStyle(
                   color: Color.fromRGBO(255, 114, 148, 1.0),
                   fontFamily: 'NotoSansCJKkr_Medium',
-                  fontSize: 57 .sp,
+                  fontSize: 57.sp,
                 ),
               ),
               onPressed: () {

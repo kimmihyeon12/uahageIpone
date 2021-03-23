@@ -17,6 +17,7 @@ import 'package:uahage/StarManage.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class starPage extends StatefulWidget {
   String loginOption;
   String userId;
@@ -47,7 +48,7 @@ class _starPageState extends State<starPage> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size .w,
+      size: size.w,
     );
   }
 
@@ -91,17 +92,13 @@ class _starPageState extends State<starPage> {
   appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
-   
     if (isIphoneX) {
-      ScreenUtil.init(context, width:  2345 , height:  5076 );
-      
+      ScreenUtil.init(context, width: 2345, height: 5076);
     } else if (isIOS) {
       print("shu1");
-      ScreenUtil.init(context, width:  781.5 , height:  1390 );
-    
+      ScreenUtil.init(context, width: 781.5, height: 1390);
     } else {
-      ScreenUtil.init(context, width:  1501 , height:  2667 );
-   
+      ScreenUtil.init(context, width: 1501, height: 2667);
     }
     return Scaffold(
         backgroundColor: Colors.white,
@@ -128,16 +125,15 @@ class _starPageState extends State<starPage> {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                margin:
-                                    EdgeInsets.only(top: 803.h),
+                                margin: EdgeInsets.only(top: 803.h),
                                 child: Image.asset(
                                   './assets/starPage/group.png',
-                                  height: 357 .h,
-                                  width: 325 .w,
+                                  height: 357.h,
+                                  width: 325.w,
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 68 .h),
+                                margin: EdgeInsets.only(top: 68.h),
                                 child: // 즐겨찾기 목록이 없습니다. 관심장소를 즐겨찾기에 등록해 보세요.
                                     RichText(
                                   text: TextSpan(children: [
@@ -147,7 +143,7 @@ class _starPageState extends State<starPage> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
-                                            fontSize: 73.0 .sp),
+                                            fontSize: 73.0.sp),
                                         text: "즐겨찾기 목록이 없습니다.\n"),
                                     TextSpan(
                                         style: TextStyle(
@@ -155,7 +151,7 @@ class _starPageState extends State<starPage> {
                                             fontWeight: FontWeight.w500,
                                             fontFamily: "NotoSansCJKkr_Medium",
                                             fontStyle: FontStyle.normal,
-                                            fontSize: 50.0 .sp),
+                                            fontSize: 50.0.sp),
                                         text: "관심장소를 즐겨찾기에 등록해 보세요.")
                                   ]),
                                 ),
@@ -171,7 +167,7 @@ class _starPageState extends State<starPage> {
                                   return Card(
                                     elevation: 0.3,
                                     child: Container(
-                                        height: 450 .h,
+                                        height: 450.h,
                                         padding: EdgeInsets.only(
                                           top: 1.h,
                                           left: 26.w,
@@ -186,7 +182,7 @@ class _starPageState extends State<starPage> {
                                                     snapshot, index, context);
                                               },
                                               child: Container(
-                                                width: 1280 .w,
+                                                width: 1280.w,
                                                 child: Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -223,7 +219,7 @@ class _starPageState extends State<starPage> {
                                                     Padding(
                                                         padding:
                                                             EdgeInsets.only(
-                                                      left: 53 .w,
+                                                      left: 53.w,
                                                     )),
                                                     Column(
                                                       crossAxisAlignment:
@@ -233,16 +229,14 @@ class _starPageState extends State<starPage> {
                                                         Padding(
                                                             padding:
                                                                 EdgeInsets.only(
-                                                          top:
-                                                              25 .h,
+                                                          top: 25.h,
                                                         )),
                                                         Container(
-
                                                           child: Row(
                                                             children: [
                                                               Container(
                                                                 width: 700.w,
-                                                                height: 82 .h,
+                                                                height: 82.h,
                                                                 child: Text(
                                                                   snapshot
                                                                       .data[
@@ -250,8 +244,8 @@ class _starPageState extends State<starPage> {
                                                                       .store_name,
                                                                   style:
                                                                       TextStyle(
-                                                                    fontSize: 56
-                                                                        .sp,
+                                                                    fontSize:
+                                                                        56.sp,
                                                                     fontFamily:
                                                                         'NotoSansCJKkr_Medium',
                                                                   ),
@@ -260,11 +254,9 @@ class _starPageState extends State<starPage> {
                                                             ],
                                                           ),
                                                         ),
-                                                          Container(
-
-                                                          width:
-                                                              650 .w,
-                                                          height: 135 .h,
+                                                        Container(
+                                                          width: 650.w,
+                                                          height: 135.h,
                                                           child: Text(
                                                             snapshot.data[index]
                                                                 .address,
@@ -272,7 +264,7 @@ class _starPageState extends State<starPage> {
                                                               // fontFamily: 'NatoSans',
                                                               color:
                                                                   Colors.grey,
-                                                              fontSize: 55 .sp,
+                                                              fontSize: 55.sp,
                                                               fontFamily:
                                                                   'NotoSansCJKkr_Medium',
                                                               height: 1.3,
@@ -280,7 +272,7 @@ class _starPageState extends State<starPage> {
                                                           ),
                                                         ),
                                                         Container(
-                                                          height: 140 .h,
+                                                          height: 140.h,
                                                           //  width: 650 .w,
                                                           alignment: Alignment
                                                               .bottomRight,
@@ -351,19 +343,18 @@ class _starPageState extends State<starPage> {
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(
-                                                  left: 20 .w,
-                                                  top: 25.h),
+                                                  left: 20.w, top: 25.h),
                                               child: IconButton(
                                                 alignment:
                                                     Alignment.centerRight,
                                                 padding: EdgeInsets.all(0),
                                                 constraints: BoxConstraints(
-                                                  maxWidth: 170 .w,
-                                                  maxHeight: 170 .h,
+                                                  maxWidth: 170.w,
+                                                  maxHeight: 170.h,
                                                 ),
                                                 icon: Image.asset(
                                                   "./assets/listPage/star_color.png",
-                                                  height: 60 .h,
+                                                  height: 60.h,
                                                 ),
                                                 onPressed: () async {
                                                   var data =
@@ -465,7 +456,7 @@ class _starPageState extends State<starPage> {
     var star_list1 = [];
     // starColor = [];
     var data = await http
-        .get('http://13.209.41.43/starlist?user_id=$userId$loginOption');
+        .get('http://211.223.46.144:3000/starlist?user_id=$userId$loginOption');
 
     var jsonData = json.decode(data.body);
     for (var r in jsonData) {

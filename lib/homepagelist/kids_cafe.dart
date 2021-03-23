@@ -128,7 +128,7 @@ class _kids_cafeState extends State<kids_cafe> {
   Future<List<dynamic>> _getkidcafe() async {
     String liststringdata = "Kids_cafe";
     var response = await http.get(
-        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       kids_cafes.add(KidsCafe.fromJson(data));

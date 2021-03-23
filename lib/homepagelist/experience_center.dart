@@ -133,7 +133,7 @@ class _experience_centerState extends State<experience_center> {
 
   Future<List<dynamic>> _getexperience_center() async {
     var response = await http.get(
-        'http://13.209.41.43/map/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/map/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     for (var data in responseJson) {
       experience_centers.add(Experiencecenter.fromJson(data));

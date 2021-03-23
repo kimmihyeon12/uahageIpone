@@ -344,7 +344,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                                     (WebViewController webViewController) {
                                   controller = webViewController;
                                   controller.loadUrl(
-                                      'http://13.209.41.43/map/storename?storename=$storename&address=$address');
+                                      'http://211.223.46.144:3000/map/storename?storename=$storename&address=$address');
                                 },
                                 javascriptMode: JavascriptMode.unrestricted,
                               ),
