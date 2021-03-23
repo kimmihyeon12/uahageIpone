@@ -37,8 +37,8 @@ class kids_cafe extends StatefulWidget {
 
 class _kids_cafeState extends State<kids_cafe> {
   var listimage = [
-    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image1.png",
-    "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/kids_cafe/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/kids_cafe/image2.png",
   ];
 
   String latitude = "";

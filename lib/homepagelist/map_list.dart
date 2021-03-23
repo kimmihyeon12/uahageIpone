@@ -16,6 +16,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class map_list extends StatefulWidget {
   map_list(
@@ -159,7 +160,7 @@ class _map_listState extends State<map_list> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size.w,
     );
   }
 
@@ -178,8 +179,7 @@ class _map_listState extends State<map_list> {
   // }
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width: 1500, height: 2667);
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
@@ -218,13 +218,13 @@ class _map_listState extends State<map_list> {
                         Message = messages.split("|");
                         print("Message: $Message");
                         await getSubStarColor();
-                        showPopUpbottomMenu(context, screenHeight, screenWidth);
+                        showPopUpbottomMenu(context, 2667.h, 1501.w);
                       }),
                 ]),
               ),
               Container(
                 color: Colors.white,
-                child: Center(child: buildSpinKitThreeBounce(80, screenWidth)),
+                child: Center(child: buildSpinKitThreeBounce(80, 1501.w)),
               ),
             ],
           ),
@@ -244,14 +244,13 @@ class _map_listState extends State<map_list> {
                         true,
                       ];
                     });
-                    await showPopUpMenu(context, screenHeight, screenWidth);
+                    await showPopUpMenu(context, 2667.h, 1501.w);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(
-                        left: 1250 / screenWidth, top: 30 / screenHeight),
+                    margin: EdgeInsets.only(left: 1250.w, top: 30.h),
                     child: Image.asset(
                       "./assets/searchPage/cat_btn.png",
-                      height: 158 / screenHeight,
+                      height: 158.h,
                     ),
                   ),
                 )
@@ -269,10 +268,10 @@ class _map_listState extends State<map_list> {
           //         },
           //         child: Container(
           //           margin: EdgeInsets.only(
-          //               left: 48 / screenWidth, bottom: 76 / screenHeight),
+          //               left: 48 .w, bottom: 76 .h),
           //           child: SizedBox(
-          //             height: 159 / screenHeight,
-          //             width: 161 / screenWidth,
+          //             height: 159 .h,
+          //             width: 161 .w,
           //             child: Image.asset("assets/searchPage/location.png"),
           //           ),
           //         ),
@@ -282,7 +281,7 @@ class _map_listState extends State<map_list> {
           //   alignment: Alignment.bottomRight,
           //   child: Container(
           //     margin: EdgeInsets.fromLTRB(
-          //         1060 / screenWidth, 0, 0, 47 / screenHeight),
+          //         1060 .w, 0, 0, 47 .h),
           //     child: Column(
           //       mainAxisAlignment: MainAxisAlignment.end,
           //       // crossAxisAlignment: CrossAxisAlignment.end,
@@ -297,8 +296,8 @@ class _map_listState extends State<map_list> {
           //             },
           //             icon: Image.asset(
           //               "assets/searchPage/plus.png",
-          //               width: 105 / screenWidth,
-          //               height: 105 / screenHeight,
+          //               width: 105 .w,
+          //               height: 105 .h,
           //             )),
           //         IconButton(
           //             onPressed: () {
@@ -310,8 +309,8 @@ class _map_listState extends State<map_list> {
           //             },
           //             icon: Image.asset(
           //               "assets/searchPage/minus.png",
-          //               width: 105 / screenWidth,
-          //               height: 105 / screenHeight,
+          //               width: 105 .w,
+          //               height: 105 .h,
           //             )),
           //       ],
           //     ),
@@ -338,21 +337,17 @@ class _map_listState extends State<map_list> {
                 children: [
                   GestureDetector(
                     onPanDown: (a) {
-                      print('aha');
                       Navigator.pop(context);
                     },
                     child: Container(
                       color: Colors.transparent,
                       width: MediaQuery.of(context).size.width,
-                      height: 2100 / (screenHeight),
+                      height: 2100.h,
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 2100 / (screenHeight),
-                        bottom: 50 / screenHeight,
-                        left: 33 / screenWidth,
-                        right: 33 / screenWidth),
+                        top: 2100.h, bottom: 50.h, left: 33.w, right: 33.w),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       elevation: 1,
@@ -453,8 +448,8 @@ class _map_listState extends State<map_list> {
                             )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
-                              height: 409 / screenHeight,
-                              width: 413 / screenWidth,
+                              height: 409.h,
+                              width: 413.w,
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -465,16 +460,15 @@ class _map_listState extends State<map_list> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 60 / screenHeight),
-                                  width: 880 / screenWidth,
-                                  height: 82 / screenHeight,
+                                  margin: EdgeInsets.only(top: 50.h),
+                                  width: 900.w,
+                                  height: 82.h,
                                   child: Row(
                                     //  crossAxisAlignment: CrossAxisAlignment.center,
                                     //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: 680 / screenWidth,
+                                        width: 700.w,
                                         child: Text(
                                             Message[0].length <= 10
                                                 ? Message[0]
@@ -484,20 +478,20 @@ class _map_listState extends State<map_list> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
-                                              fontSize: 58 / screenWidth,
-                                              height: 1.2,
+                                              fontSize: 58.sp,
+                                              height: 1.3,
                                             ),
                                             // overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(
-                                        //  iconSize: 60 / screenHeight,
+                                        //  iconSize: 60 .h,
                                         padding: EdgeInsets.all(0),
                                         icon: Image.asset(
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
-                                            height: 60 / screenHeight),
+                                            height: 60.h),
                                         onPressed: loginOption == "login"
                                             ? () {
                                                 Fluttertoast.showToast(
@@ -509,7 +503,7 @@ class _map_listState extends State<map_list> {
                                                   backgroundColor:
                                                       Colors.black45,
                                                   textColor: Colors.white,
-                                                  fontSize: 56 / screenWidth,
+                                                  fontSize: 56.sp,
                                                 );
                                               }
                                             : () async {
@@ -523,26 +517,24 @@ class _map_listState extends State<map_list> {
                                   ),
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  width: 650 / screenWidth,
-                                  height: 138 / screenHeight,
+                                  margin: EdgeInsets.only(top: 10.h),
+                                  width: 650.w,
+                                  height: 135.h,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                         color: const Color(0xffb0b0b0),
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 55 / screenWidth,
-                                        height: 1.2,
+                                        fontSize: 55.sp,
+                                        height: 1.3,
                                       ),
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  height: 120 / screenHeight,
-                                  width: 650 / screenWidth,
+                                  margin: EdgeInsets.only(top: 10.h),
+                                  height: 120.h,
+                                  width: 650.w,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     iconwidget.menu(Message[3], context),
@@ -589,12 +581,9 @@ class _map_listState extends State<map_list> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: 600 / (screenHeight),
-                          bottom: 0 / screenHeight,
-                          left: 190 / screenWidth,
-                          right: 0 / screenWidth),
-                      width: 1100 / screenWidth,
-                      height: 1100 / screenHeight,
+                          top: 600.h, bottom: 0.h, left: 190.w, right: 0.w),
+                      width: 1100.w,
+                      height: 1060.h,
                       child: Card(
                         shadowColor: Colors.black54,
                         elevation: 1,
@@ -604,12 +593,10 @@ class _map_listState extends State<map_list> {
                         ),
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: 110 / (screenHeight),
-                              left: 50 / screenWidth,
-                              right: 50 / screenWidth),
+                              top: 80.h, left: 50.w, right: 50.w),
                           child: SizedBox(
-                            //       width: 888 / screenWidth,
-                            //     height: 800 / screenHeight,
+                            //       width: 888 .w,
+                            //     height: 800 .h,
                             child: GridView.count(
                               // childAspectRatio: 3 / 2,
                               crossAxisCount: 3,
@@ -630,15 +617,15 @@ class _map_listState extends State<map_list> {
                                               "./assets/searchPage/image" +
                                                   (index + 1).toString() +
                                                   "_grey.png",
-                                              height: 293 / screenHeight,
-                                              width: 218 / screenWidth,
+                                              height: 293.h,
+                                              width: 218.w,
                                             )
                                           : Image.asset(
                                               "./assets/searchPage/image" +
                                                   (index + 1).toString() +
                                                   ".png",
-                                              height: 293 / screenHeight,
-                                              width: 218 / screenWidth,
+                                              height: 293.h,
+                                              width: 218.w,
                                             ),
                                     ),
                                   ),
@@ -650,12 +637,12 @@ class _map_listState extends State<map_list> {
                       ),
                     ),
                     Positioned(
-                      top: 1850 / screenHeight,
-                      left: 400 / screenWidth,
-                      right: 400 / screenWidth,
+                      top: 1850.h,
+                      left: 400.w,
+                      right: 400.w,
                       child: SizedBox(
-                        width: 611 / screenWidth,
-                        height: 195 / screenHeight,
+                        width: 611.w,
+                        height: 195.h,
                         child: FlatButton(
                           onPressed: () async {
                             await searchCategory();
@@ -672,7 +659,7 @@ class _map_listState extends State<map_list> {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'NotoSansCJKkr_Medium',
-                              fontSize: 62 / screenWidth,
+                              fontSize: 62.sp,
                             ),
                           ),
                         ),

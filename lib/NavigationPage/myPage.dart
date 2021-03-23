@@ -923,12 +923,10 @@ class _myPageState extends State<myPage> {
                                         : birthday,
                                     hintStyle: TextStyle(
                                         color: Color(0xffd4d4d4),
-                                        // onEdit
-                                        //     ? Color(0xffd4d4d4)
-                                        //     : Color(0xffff7292),
-                                        fontWeight: FontWeight.w500,
+
+
                                         fontFamily: "NotoSansCJKkr_Medium",
-                                        fontStyle: FontStyle.normal,
+
                                         fontSize: 57.0.sp),
                                   ),
                                 ),
@@ -955,7 +953,7 @@ class _myPageState extends State<myPage> {
               ),
               // Ages
               Container(
-                margin: EdgeInsets.fromLTRB(155.w, 130.h, 0, 0),
+                margin: EdgeInsets.fromLTRB(155.w, 91.h, 0, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

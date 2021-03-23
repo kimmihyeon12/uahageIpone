@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/icon.dart';
 import 'package:uahage/ToastManage.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(
@@ -99,7 +100,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
-      size: size / screenWidth,
+      size: size.w,
     );
   }
 
@@ -114,10 +115,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    var ScreenHeight = MediaQuery.of(context).size.height;
-    var ScreenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
-    double screenWidth = 1500 / MediaQuery.of(context).size.width;
+    ScreenUtil.init(context, width: 1500, height: 2667);
 
     return switchbtn
         ? WillPopScope(
@@ -125,7 +123,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
             child: Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
-                toolbarHeight: 250 / screenHeight,
+                toolbarHeight: 250.h,
                 // automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
@@ -133,7 +131,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                     Icons.arrow_back_ios_sharp,
                     color: Color(0xffff7292),
                   ),
-                  iconSize: 100 / screenWidth,
+                  iconSize: 100.w,
                   color: Colors.white,
                   onPressed: () {
                     // setState(() {
@@ -149,17 +147,17 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                   children: [
                     Padding(
                         padding: EdgeInsets.only(
-                      top: 500 / screenHeight,
+                      top: 500.h,
                     )),
                     // Padding(
                     //     padding: EdgeInsets.only(
-                    //   left: 870 / screenWidth,
+                    //   left: 870 .w,
                     // )),
                     GestureDetector(
                       child: Image.asset(
                         './assets/off.png',
-                        width: 290 / screenWidth,
-                        height: 183 / screenHeight,
+                        width: 290.w,
+                        height: 183.h,
                       ),
                       onTap: () {
                         setState(() {
@@ -181,10 +179,10 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       elevation: 0.3,
                       child: GestureDetector(
                         child: Container(
-                            height: 400 / screenHeight,
+                            height: 400.h,
                             padding: EdgeInsets.only(
-                              top: 30 / screenHeight,
-                              left: 26 / screenWidth,
+                              top: 30.h,
+                              left: 26.w,
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,29 +197,29 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 1300 / screenWidth,
-                                      height: 100 / screenHeight,
+                                      width: 1300.w,
+                                      height: 100.h,
                                       child: Text(
                                         store_namelist[index],
                                         style: TextStyle(
-                                          fontSize: 56 / screenWidth,
+                                          fontSize: 56.sp,
                                           fontFamily: 'NotoSansCJKkr_Medium',
                                         ),
                                       ),
                                     ),
                                     SafeArea(
                                       child: Container(
-                                        height: 200 / screenHeight,
-                                        width: 800 / screenWidth,
+                                        height: 200.h,
+                                        width: 800.w,
                                         child: Text(
                                           addresslist[index],
                                           style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize: 56 / screenWidth,
+                                              fontSize: 56.sp,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
-                                              height: 1.2),
+                                              height: 1.3),
                                         ),
                                       ),
                                     ),
@@ -246,7 +244,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                         (WebViewController webViewController) async {
                       controller = webViewController;
                       await controller.loadUrl(
-                          "http://211.223.46.144:3000/map/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
+                          "http://13.209.41.43/map/homesearch?lat=$latitude&long=$longitude&address='$searchkey'");
                     },
                     javascriptMode: JavascriptMode.unrestricted,
                     javascriptChannels: Set.from([
@@ -277,8 +275,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                             print("Print1: $messages");
                             Message = messages.split("|");
                             await getSubStarColor();
-                            showPopUpbottomMenu(
-                                context, screenHeight, screenWidth);
+                            showPopUpbottomMenu(context, 2667.h, 1501.w);
                           })
                     ]),
                   ),
@@ -286,18 +283,18 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       ? Container(
                           color: Colors.white,
                           child: Center(
-                              child: buildSpinKitThreeBounce(80, screenWidth)),
+                              child: buildSpinKitThreeBounce(80, 1501.w)),
                         )
                       : Container(),
                   Row(
                     children: [
                       Padding(
                           padding: EdgeInsets.only(
-                        top: 250 / screenHeight,
+                        top: 250.h,
                       )),
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios_sharp),
-                        iconSize: 100 / screenWidth,
+                        iconSize: 100.w,
                         color: Color(0xffff7292),
                         onPressed: () {
                           setState(() {
@@ -310,7 +307,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                       ),
                       Padding(
                           padding: EdgeInsets.only(
-                        left: 950 / screenWidth,
+                        left: 950.w,
                       )),
                       FutureBuilder(
                         future: Future.delayed(Duration(milliseconds: 550)),
@@ -319,8 +316,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 ? GestureDetector(
                                     child: Image.asset(
                                       './assets/on.png',
-                                      width: 290 / screenWidth,
-                                      height: 183 / screenHeight,
+                                      width: 290.w,
+                                      height: 183.h,
                                     ),
                                     onTap: () {
                                       setState(() {
@@ -332,7 +329,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                 : Text(
                                     "Loading..",
                                     style: TextStyle(
-                                      fontSize: 45 / screenWidth,
+                                      fontSize: 45.sp,
                                       fontFamily: 'NotoSansCJKkr_Bold',
                                       letterSpacing: 0,
                                       color: Color(0xffff7292),
@@ -359,21 +356,17 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                 children: [
                   GestureDetector(
                     onPanDown: (a) {
-                      print('aha');
                       Navigator.pop(context);
                     },
                     child: Container(
                       color: Colors.transparent,
                       width: MediaQuery.of(context).size.width,
-                      height: 2100 / (screenHeight),
+                      height: 2100.h,
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                        top: 2100 / (screenHeight),
-                        bottom: 50 / screenHeight,
-                        left: 33 / screenWidth,
-                        right: 33 / screenWidth),
+                        top: 2100.h, bottom: 50.h, left: 33.w, right: 33.w),
                     width: MediaQuery.of(context).size.width,
                     child: Card(
                       elevation: 1,
@@ -427,8 +420,8 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                             )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
-                              height: 409 / screenHeight,
-                              width: 413 / screenWidth,
+                              height: 409.h,
+                              width: 413.w,
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
@@ -439,16 +432,15 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 60 / screenHeight),
-                                  width: 880 / screenWidth,
-                                  height: 82 / screenHeight,
+                                  margin: EdgeInsets.only(top: 50.h),
+                                  width: 900.w,
+                                  height: 82.h,
                                   child: Row(
                                     //  crossAxisAlignment: CrossAxisAlignment.center,
                                     //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: 680 / screenWidth,
+                                        width: 700.w,
                                         child: Text(
                                             Message[0].length <= 10
                                                 ? Message[0]
@@ -458,20 +450,20 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: "NotoSansCJKkr_Bold",
                                               fontStyle: FontStyle.normal,
-                                              fontSize: 58 / screenWidth,
-                                              height: 1.2,
+                                              fontSize: 58.sp,
+                                              height: 1.3,
                                             ),
                                             // overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left),
                                       ),
                                       IconButton(
-                                        //  iconSize: 60 / screenHeight,
+                                        //  iconSize: 60 .h,
                                         padding: EdgeInsets.all(0),
                                         icon: Image.asset(
                                             star_color
                                                 ? "./assets/listPage/star_color.png"
                                                 : "./assets/listPage/star_grey.png",
-                                            height: 60 / screenHeight),
+                                            height: 60.h),
                                         onPressed: loginOption == "login"
                                             ? () {
                                                 show_toast.showToast(
@@ -488,26 +480,24 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                                   ),
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  width: 650 / screenWidth,
-                                  height: 138 / screenHeight,
+                                  margin: EdgeInsets.only(top: 10.h),
+                                  width: 650.w,
+                                  height: 135.h,
                                   child: Text(Message[1],
                                       style: TextStyle(
                                         color: const Color(0xffb0b0b0),
                                         fontWeight: FontWeight.w500,
                                         fontFamily: "NotoSansCJKkr_Medium",
                                         fontStyle: FontStyle.normal,
-                                        fontSize: 55 / screenWidth,
-                                        height: 1.2,
+                                        fontSize: 55.sp,
+                                        height: 1.3,
                                       ),
                                       textAlign: TextAlign.left),
                                 ),
                                 Container(
-                                  margin:
-                                      EdgeInsets.only(top: 10 / screenHeight),
-                                  height: 120 / screenHeight,
-                                  width: 650 / screenWidth,
+                                  margin: EdgeInsets.only(top: 10.h),
+                                  height: 120.h,
+                                  width: 650.w,
                                   alignment: Alignment.bottomRight,
                                   child: Row(children: [
                                     iconwidget.menu(Message[3], context),
