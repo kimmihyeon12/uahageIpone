@@ -81,8 +81,9 @@ class _examination_institutionState extends State<examination_institution> {
       // double delta =
       //     100.0; // or something else..maxScroll - currentScroll <= delta
       if (currentScroll >= maxScroll * 0.7 &&
-          currentScroll >= maxScroll * 0.75 &&
-          !_isLoading) {
+              currentScroll <= maxScroll * 0.75 &&
+              !_isLoading ||
+          currentScroll == maxScroll) {
         print("scrolling");
         print("isloading: $_isLoading");
         _currentMax += 10;
@@ -124,14 +125,21 @@ class _examination_institutionState extends State<examination_institution> {
 
   Future<List<dynamic>> _getexamination_institution() async {
     var response = await http.get(
-        'http://211.223.46.144:3000/map/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
-    for (var data in responseJson) {
-      examination_institutions.add(examinationinstitution.fromJson(data));
+    if (json.decode(response.body)[0] == false) {
+      setState(() {
+        _scrollController.dispose();
+        _isLoading = false;
+      });
+    } else {
+      for (var data in responseJson) {
+        examination_institutions.add(examinationinstitution.fromJson(data));
+      }
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
     return examination_institutions;
   }
 

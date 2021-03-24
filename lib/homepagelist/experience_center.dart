@@ -91,8 +91,9 @@ class _experience_centerState extends State<experience_center> {
       // double delta =
       //     100.0; // or something else..maxScroll - currentScroll <= delta
       if (currentScroll >= maxScroll * 0.7 &&
-          currentScroll >= maxScroll * 0.75 &&
-          !_isLoading) {
+              currentScroll <= maxScroll * 0.75 &&
+              !_isLoading ||
+          currentScroll == maxScroll) {
         print("scrolling");
         print("isloading: $_isLoading");
         _currentMax += 10;
@@ -135,14 +136,23 @@ class _experience_centerState extends State<experience_center> {
 
   Future<List<dynamic>> _getexperience_center() async {
     var response = await http.get(
-        'http://211.223.46.144:3000/map/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
-    for (var data in responseJson) {
-      experience_centers.add(Experiencecenter.fromJson(data));
+    print(json.decode(response.body));
+    if (json.decode(response.body)[0] == false) {
+      setState(() {
+        _scrollController.dispose();
+        _isLoading = false;
+      });
+    } else {
+      for (var data in responseJson) {
+        experience_centers.add(Experiencecenter.fromJson(data));
+      }
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
+
     return experience_centers;
   }
 
