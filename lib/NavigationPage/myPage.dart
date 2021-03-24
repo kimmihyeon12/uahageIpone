@@ -135,6 +135,7 @@ class _myPageState extends State<myPage> {
 
   Future checkNickname() async {
     var data;
+    print("nick in func: $nickName");
     try {
       var response =
           await http.get("http://211.223.46.144:3000/getNicknames/$nickName");
@@ -556,7 +557,6 @@ class _myPageState extends State<myPage> {
                                 child: Stack(
                                   children: [
                                     TextFormField(
-                                      // controller: yController,
                                       maxLength: 10,
                                       onChanged: (txt) {
                                         txt.length <= 10
@@ -565,7 +565,6 @@ class _myPageState extends State<myPage> {
                                               })
                                             : null;
                                       },
-
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           color: Color(0xff3a3939),
@@ -606,6 +605,7 @@ class _myPageState extends State<myPage> {
                                             loginOption != "login" &&
                                                     nickName != ""
                                                 ? () {
+                                                    print(nickName);
                                                     currentFocus.unfocus();
                                                     showDialog(
                                                       context: context,
@@ -652,8 +652,7 @@ class _myPageState extends State<myPage> {
                                                                     title:
                                                                         // id already exists.
                                                                         Text(
-                                                                            snapshot
-                                                                                .error,
+                                                                            "${snapshot.error}",
                                                                             style: TextStyle(
                                                                                 color: Color(0xff4d4d4d),
                                                                                 fontWeight: FontWeight.w500,

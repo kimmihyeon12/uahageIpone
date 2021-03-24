@@ -164,209 +164,244 @@ class _starPageState extends State<starPage> {
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
                                   // print("startColor: $starColor");
-                                  return Card(
-                                    elevation: 0.3,
-                                    child: Container(
-                                        height: 450.h,
-                                        padding: EdgeInsets.only(
-                                          top: 1.h,
-                                          left: 26.w,
-                                        ),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                listClicked(
-                                                    snapshot, index, context);
-                                              },
-                                              child: Container(
-                                                width: 1280.w,
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    (() {
-                                                      if (index % 4 == 1) {
-                                                        return Image.asset(
-                                                          listimage[0],
-                                                          height: 414.h,
-                                                          width: 413.w,
-                                                        );
-                                                      } else if (index % 4 ==
-                                                          2) {
-                                                        return Image.asset(
-                                                          listimage[1],
-                                                          height: 414.h,
-                                                          width: 413.w,
-                                                        );
-                                                      } else if (index % 4 ==
-                                                          3) {
-                                                        return Image.asset(
-                                                          listimage[2],
-                                                          height: 414.h,
-                                                          width: 413.w,
-                                                        );
-                                                      } else {
-                                                        return Image.asset(
-                                                          listimage[3],
-                                                          height: 414.h,
-                                                          width: 413.w,
-                                                        );
-                                                      }
-                                                    }()),
-                                                    Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                      left: 53.w,
-                                                    )),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                          top: 25.h,
-                                                        )),
-                                                        Container(
-                                                          child: Row(
-                                                            children: [
-                                                              Container(
-                                                                width: 700.w,
-                                                                height: 82.h,
-                                                                child: Text(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .store_name,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        56.sp,
-                                                                    fontFamily:
-                                                                        'NotoSansCJKkr_Medium',
+                                  return Dismissible(
+                                    key: UniqueKey(),
+                                    resizeDuration: Duration(milliseconds: 200),
+                                    background: Container(
+                                      color: Colors.red[400],
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Icon(
+                                            Icons.delete,
+                                            color: Colors.white,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 30.w),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    onDismissed: (direction) async {
+                                      var data = snapshot.data[index];
+                                      await click_star(data.address);
+                                      // setState(() {
+                                      snapshot.data.removeAt(index);
+                                      // });
+                                    },
+                                    child: Card(
+                                      elevation: 0.3,
+                                      child: Container(
+                                          height: 450.h,
+                                          padding: EdgeInsets.only(
+                                            top: 1.h,
+                                            left: 26.w,
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  listClicked(
+                                                      snapshot, index, context);
+                                                },
+                                                child: Container(
+                                                  width: 1280.w,
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      (() {
+                                                        if (index % 4 == 1) {
+                                                          return Image.asset(
+                                                            listimage[0],
+                                                            height: 414.h,
+                                                            width: 413.w,
+                                                          );
+                                                        } else if (index % 4 ==
+                                                            2) {
+                                                          return Image.asset(
+                                                            listimage[1],
+                                                            height: 414.h,
+                                                            width: 413.w,
+                                                          );
+                                                        } else if (index % 4 ==
+                                                            3) {
+                                                          return Image.asset(
+                                                            listimage[2],
+                                                            height: 414.h,
+                                                            width: 413.w,
+                                                          );
+                                                        } else {
+                                                          return Image.asset(
+                                                            listimage[3],
+                                                            height: 414.h,
+                                                            width: 413.w,
+                                                          );
+                                                        }
+                                                      }()),
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                        left: 53.w,
+                                                      )),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .only(
+                                                            top: 25.h,
+                                                          )),
+                                                          Container(
+                                                            child: Row(
+                                                              children: [
+                                                                Container(
+                                                                  width: 700.w,
+                                                                  height: 82.h,
+                                                                  child: Text(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .store_name,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          56.sp,
+                                                                      fontFamily:
+                                                                          'NotoSansCJKkr_Medium',
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 650.w,
-                                                          height: 135.h,
-                                                          child: Text(
-                                                            snapshot.data[index]
-                                                                .address,
-                                                            style: TextStyle(
-                                                              // fontFamily: 'NatoSans',
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontSize: 55.sp,
-                                                              fontFamily:
-                                                                  'NotoSansCJKkr_Medium',
-                                                              height: 1.3,
+                                                              ],
                                                             ),
                                                           ),
-                                                        ),
-                                                        Container(
-                                                          height: 140.h,
-                                                          //  width: 650 .w,
-                                                          alignment: Alignment
-                                                              .bottomRight,
-                                                          child: Row(
-                                                            children: [
-                                                              iconwidget.chair(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .chair,
-                                                                  context),
-                                                              iconwidget.carriage(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .carriage,
-                                                                  context),
-                                                              iconwidget.menu(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .menu,
-                                                                  context),
-                                                              iconwidget.bed(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .bed,
-                                                                  context),
-                                                              iconwidget.tableware(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .tableware,
-                                                                  context),
-                                                              iconwidget.meetingroom(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .meetingroom,
-                                                                  context),
-                                                              iconwidget.diapers(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .diapers,
-                                                                  context),
-                                                              iconwidget.playroom(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .playroom,
-                                                                  context),
-                                                              iconwidget.nursingroom(
-                                                                  snapshot
-                                                                      .data[
-                                                                          index]
-                                                                      .nursingroom,
-                                                                  context),
-                                                            ],
+                                                          Container(
+                                                            width: 650.w,
+                                                            height: 135.h,
+                                                            child: Text(
+                                                              snapshot
+                                                                  .data[index]
+                                                                  .address,
+                                                              style: TextStyle(
+                                                                // fontFamily: 'NatoSans',
+                                                                color:
+                                                                    Colors.grey,
+                                                                fontSize: 55.sp,
+                                                                fontFamily:
+                                                                    'NotoSansCJKkr_Medium',
+                                                                height: 1.3,
+                                                              ),
+                                                            ),
                                                           ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
+                                                          Container(
+                                                            height: 140.h,
+                                                            //  width: 650 .w,
+                                                            alignment: Alignment
+                                                                .bottomRight,
+                                                            child: Row(
+                                                              children: [
+                                                                iconwidget.chair(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .chair,
+                                                                    context),
+                                                                iconwidget.carriage(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .carriage,
+                                                                    context),
+                                                                iconwidget.menu(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .menu,
+                                                                    context),
+                                                                iconwidget.bed(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .bed,
+                                                                    context),
+                                                                iconwidget.tableware(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .tableware,
+                                                                    context),
+                                                                iconwidget.meetingroom(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .meetingroom,
+                                                                    context),
+                                                                iconwidget.diapers(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .diapers,
+                                                                    context),
+                                                                iconwidget.playroom(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .playroom,
+                                                                    context),
+                                                                iconwidget.nursingroom(
+                                                                    snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .nursingroom,
+                                                                    context),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  left: 20.w, top: 25.h),
-                                              child: IconButton(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                padding: EdgeInsets.all(0),
-                                                constraints: BoxConstraints(
-                                                  maxWidth: 170.w,
-                                                  maxHeight: 170.h,
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    left: 20.w, top: 25.h),
+                                                child: IconButton(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  padding: EdgeInsets.all(0),
+                                                  constraints: BoxConstraints(
+                                                    maxWidth: 170.w,
+                                                    maxHeight: 170.h,
+                                                  ),
+                                                  icon: Image.asset(
+                                                    "./assets/listPage/star_color.png",
+                                                    height: 60.h,
+                                                  ),
+                                                  onPressed: () async {
+                                                    var data =
+                                                        snapshot.data[index];
+                                                    await click_star(
+                                                      data.address,
+                                                    );
+                                                    //setState(() {
+                                                    snapshot.data
+                                                        .removeAt(index);
+                                                    // });
+                                                  },
                                                 ),
-                                                icon: Image.asset(
-                                                  "./assets/listPage/star_color.png",
-                                                  height: 60.h,
-                                                ),
-                                                onPressed: () async {
-                                                  var data =
-                                                      snapshot.data[index];
-                                                  await click_star(
-                                                    data.address,
-                                                  );
-                                                },
-                                              ),
-                                            )
-                                          ],
-                                        )),
+                                              )
+                                            ],
+                                          )),
+                                    ),
                                   );
                                 }),
                           );

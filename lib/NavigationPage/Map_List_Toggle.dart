@@ -173,8 +173,6 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
               body: ListView.builder(
                   itemCount: i,
                   itemBuilder: (context, index) {
-                    print('snapshot.data.length');
-                    // print(snapshot.data.id[index]);
                     return Card(
                       elevation: 0.3,
                       child: GestureDetector(

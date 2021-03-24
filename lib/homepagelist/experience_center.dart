@@ -90,7 +90,9 @@ class _experience_centerState extends State<experience_center> {
       double currentScroll = _scrollController.position.pixels;
       // double delta =
       //     100.0; // or something else..maxScroll - currentScroll <= delta
-      if (currentScroll == maxScroll && !_isLoading) {
+      if (currentScroll >= maxScroll * 0.7 &&
+          currentScroll >= maxScroll * 0.75 &&
+          !_isLoading) {
         print("scrolling");
         print("isloading: $_isLoading");
         _currentMax += 10;

@@ -85,7 +85,9 @@ class _kids_cafeState extends State<kids_cafe> {
       double currentScroll = _scrollController.position.pixels;
       double delta =
           100.0; // or something else..maxScroll - currentScroll <= delta
-      if (currentScroll == maxScroll && !_isLoading) {
+      if (currentScroll >= maxScroll * 0.7 &&
+          currentScroll >= maxScroll * 0.75 &&
+          !_isLoading) {
         print("scrolling");
         _currentMax += 10;
         _isLoading = true;
