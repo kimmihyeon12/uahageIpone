@@ -1,6 +1,6 @@
 #!bin/bash
 
-cd /home/ubuntu
+cd /home/ubuntu/server/
 
 sudo forever stop 0
 sudo git pull origin master
