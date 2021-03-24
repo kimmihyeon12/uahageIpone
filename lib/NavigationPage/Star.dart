@@ -491,7 +491,7 @@ class _starPageState extends State<starPage> {
     var star_list1 = [];
     // starColor = [];
     var data = await http
-        .get('http://211.223.46.144:3000/starlist?user_id=$userId$loginOption');
+        .get('http://13.209.41.43/starlist?user_id=$userId$loginOption');
 
     var jsonData = json.decode(data.body);
     for (var r in jsonData) {
