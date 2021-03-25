@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -153,6 +151,7 @@ class _restaurant_sublistState extends State<restaurant_sublist> {
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, star_color);
+        return;
       },
       child: SafeArea(
         child: Scaffold(

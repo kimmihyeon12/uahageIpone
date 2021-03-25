@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,7 +11,6 @@ import 'package:kakao_flutter_sdk/all.dart';
 import 'registrationPage.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:http/http.dart' as http;
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uahage/screens/allAppBar.dart';
 

@@ -1,18 +1,13 @@
-import 'dart:collection';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uahage/NavigationPage/Home.dart';
 import 'package:uahage/NavigationPage/MyPage.dart';
 import 'package:uahage/NavigationPage/Search.dart';
 import 'package:uahage/NavigationPage/Star.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/screens/SnackBar.dart';
-
 import '../connectivity_status.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +41,7 @@ class _navigationPageState extends State<navigationPage> {
     String long = sharedPreferences.getString("uahageLong") ?? "";
     String area = sharedPreferences.getString("uahageArea") ?? "";
     String locality = sharedPreferences.getString("uahageLocality") ?? "";
-    print("lat: ${lat} long: ${long}");
+    print("lat: $lat long: $long");
 
     if (lat == "" || long == "") {
       await lacations();
@@ -97,7 +92,7 @@ class _navigationPageState extends State<navigationPage> {
             statusBarColor: Color(0xffd9d4d5), // status bar color
           ));
     return WillPopScope(
-      onWillPop: () async {
+      onWillPop: () {
         if (loginOption == 'login') {
           Navigator.pop(context, true);
         } else
@@ -153,7 +148,7 @@ class _navigationPageState extends State<navigationPage> {
                                 width: 79.w,
                                 height: 144.h,
                               ),
-                              title: Text("home"),
+                              label: "home",
                               activeIcon: Image.asset(
                                 "assets/NavigationbarPage/home_pink.png",
                                 width: 79.w,
@@ -162,7 +157,7 @@ class _navigationPageState extends State<navigationPage> {
                               // title: Text("home"),
                             ),
                             BottomNavigationBarItem(
-                              title: Text(""),
+                              label: "",
                               icon: Image.asset(
                                 "assets/NavigationbarPage/search_grey.png",
                                 width: 79.w,
@@ -176,8 +171,7 @@ class _navigationPageState extends State<navigationPage> {
                               // title: Text("search"),
                             ),
                             BottomNavigationBarItem(
-                              title: Text(""),
-
+                              label: "",
                               icon: Image.asset(
                                 "assets/NavigationbarPage/star_grey.png",
                                 width: 162.w,
@@ -191,7 +185,7 @@ class _navigationPageState extends State<navigationPage> {
                               // title: Text("star"),
                             ),
                             BottomNavigationBarItem(
-                              title: Text(""),
+                              label: "",
 
                               icon: Image.asset(
                                 "assets/NavigationbarPage/mypage_grey.png",

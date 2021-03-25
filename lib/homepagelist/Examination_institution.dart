@@ -3,7 +3,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:geolocator/geolocator.dart';
 import 'package:uahage/homepagelist/map_list.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:page_transition/page_transition.dart';

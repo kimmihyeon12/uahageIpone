@@ -165,10 +165,12 @@ class _registrationPageState extends State<registrationPage> {
                             children: [
                               TextFormField(
                                 onChanged: (value) {
-                                  setState(() {
-                                    nickName = value;
-                                  });
+                                  if (value.length <= 10)
+                                    setState(() {
+                                      nickName = value;
+                                    });
                                 },
+                                maxLength: 10,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: const Color(0xff3a3939),
@@ -783,7 +785,7 @@ class _registrationPageState extends State<registrationPage> {
   //picker(캘린더)
   yearPicker() {
     final year = DateTime.now().year;
-    double screenHeight = 2667 / MediaQuery.of(context).size.height;
+    // double screenHeight = 2667 / MediaQuery.of(context).size.height;
     // double screenWidth = 1501 / MediaQuery.of(context).size.width;
     showDialog(
       context: context,

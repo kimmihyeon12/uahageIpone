@@ -1,13 +1,10 @@
 import 'dart:io';
-
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
@@ -42,9 +39,6 @@ class _starPageState extends State<starPage> {
 
   List<bool> arr = [];
   var list = true;
-  int _currentMax = 0;
-  ScrollController _scrollController = ScrollController();
-
   SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
     return SpinKitThreeBounce(
       color: Color(0xffFF728E),
@@ -491,7 +485,7 @@ class _starPageState extends State<starPage> {
     var star_list1 = [];
     // starColor = [];
     var data = await http
-        .get('http://13.209.41.43/starlist?user_id=$userId$loginOption');
+        .get('http://hohocompany.co.kr/starlist?user_id=$userId$loginOption');
 
     var jsonData = json.decode(data.body);
     for (var r in jsonData) {

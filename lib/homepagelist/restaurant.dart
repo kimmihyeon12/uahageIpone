@@ -6,8 +6,6 @@ import 'dart:async';
 // import 'package:uahage/homepagelist/Restaurant_helper.dart';
 import 'map_list.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';

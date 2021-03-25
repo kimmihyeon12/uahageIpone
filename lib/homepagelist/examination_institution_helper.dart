@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class examinationinstitution {
   examinationinstitution({
     this.id,

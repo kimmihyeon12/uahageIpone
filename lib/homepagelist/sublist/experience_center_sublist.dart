@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';

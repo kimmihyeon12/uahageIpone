@@ -1,12 +1,8 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';

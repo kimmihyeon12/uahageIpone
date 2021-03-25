@@ -1,21 +1,15 @@
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:uahage/Location.dart';
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
-import 'dart:convert';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class searchPage extends StatefulWidget {
@@ -95,6 +89,7 @@ class _searchPageState extends State<searchPage> {
     searchKey != ""
         ? controller.loadUrl(
             'http://211.223.46.144:3000/map/getAddress?address=$searchKey')
+        // ignore: unnecessary_statements
         : null;
   }
 

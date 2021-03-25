@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -104,6 +102,7 @@ class _examination_institution_sublistState
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, star_color);
+        return;
       },
       child: SafeArea(
         child: Scaffold(

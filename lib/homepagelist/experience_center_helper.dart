@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Experiencecenter {
   Experiencecenter({
     this.id,

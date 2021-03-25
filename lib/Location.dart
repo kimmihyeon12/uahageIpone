@@ -5,7 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Location {
   Map<String, String> getlocator;
 
-  Future<Map<String, String>> getCurrentLocation() async {
+  Future getCurrentLocation() async {
+    //<Map<String, String>>
     Map<String, String> adminArea = {"Gwangju": "광주", "Jeollanam-do": "전남"};
     Map<String, String> subLocality = {
       "Dong-gu": '동구',

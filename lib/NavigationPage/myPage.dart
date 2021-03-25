@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -275,7 +274,7 @@ class _myPageState extends State<myPage> {
     } catch (error) {}
   }
 
-  Future _showPicker(context) {
+  void _showPicker(context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {

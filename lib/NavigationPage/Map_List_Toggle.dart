@@ -1,14 +1,10 @@
-import 'package:http/http.dart' as http;
 import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'dart:convert';
 import 'package:uahage/StarManage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:uahage/icon.dart';
 import 'package:uahage/ToastManage.dart';
@@ -33,7 +29,6 @@ class Map_List_Toggle extends StatefulWidget {
 }
 
 class _Map_List_ToggleState extends State<Map_List_Toggle> {
-  @override
   String userId = "";
   String loginOption = "";
   int position;
@@ -48,6 +43,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
   List<String> store_namelist = List(500);
   List<String> addresslist = List(500);
 
+  @override
   void initState() {
     super.initState();
     loginOption = widget.loginOption;
@@ -91,7 +87,7 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
     });
   }
 
-  Widget startLoading(String A) {
+  startLoading(String A) {
     setState(() {
       position = 1;
     });

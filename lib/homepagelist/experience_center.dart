@@ -3,8 +3,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:geolocator/geolocator.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:uahage/homepagelist/map_list.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';

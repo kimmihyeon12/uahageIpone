@@ -1,13 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
-import 'package:uahage/NavigationPage/Navigationbar.dart';
-import 'package:uahage/main.dart';
 import 'package:uahage/screens/agreement.dart';
-import 'package:uahage/screens/registrationPage.dart';
 import 'package:uahage/screens/SnackBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../connectivity_status.dart';
@@ -22,17 +16,15 @@ class _loginPageState extends State<loginPage> {
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
 
- 
   @override
   Widget build(BuildContext context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
     if (isIphoneX) {
-      ScreenUtil.init(context, width:  5076 , height:  2345 );
+      ScreenUtil.init(context, width: 5076, height: 2345);
     } else if (isIOS) {
-      ScreenUtil.init(context, width:  1390 , height:  781.5 );
-       
+      ScreenUtil.init(context, width: 1390, height: 781.5);
     } else {
-      ScreenUtil.init(context, width:  1501 , height:  2667 );
+      ScreenUtil.init(context, width: 1501, height: 2667);
     }
 
     return Scaffold(
@@ -43,22 +35,21 @@ class _loginPageState extends State<loginPage> {
             children: [
               // logo 1
               Container(
-                margin: EdgeInsets.fromLTRB(588 .w,
-                    489 .h, 588 .w, 0),
+                margin: EdgeInsets.fromLTRB(588.w, 489.h, 588.w, 0),
                 child: Image.asset(
                   "./assets/secondPage/logo.png",
-                  height: 357 .h,
-                  width: 325 .w,
+                  height: 357.h,
+                  width: 325.w,
                 ),
               ),
 
               // 우리아이와 함께하는
               Container(
-                margin: EdgeInsets.fromLTRB(0, 79 .h, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 79.h, 0, 0),
                 child: RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                        style:   TextStyle(
+                        style: TextStyle(
                             color: const Color(0xffff7292),
                             fontWeight: FontWeight.w900,
                             fontFamily: "S_CoreDream_8",
@@ -66,7 +57,7 @@ class _loginPageState extends State<loginPage> {
                             fontSize: 80.sp),
                         text: "우리아이와"),
                     TextSpan(
-                        style:   TextStyle(
+                        style: TextStyle(
                             color: const Color(0xffff7292),
                             fontWeight: FontWeight.w400,
                             fontFamily: "S_CoreDream_4",
@@ -79,23 +70,20 @@ class _loginPageState extends State<loginPage> {
 
               // Logo Image
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    545 .w, 49 .h, 546 .w, 0),
+                margin: EdgeInsets.fromLTRB(545.w, 49.h, 546.w, 0),
                 child: Image.asset("./assets/secondPage/logoName.png"),
               ),
 
               //hearts
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    79 .w, 71 .h, 79 .w, 0),
+                margin: EdgeInsets.fromLTRB(79.w, 71.h, 79.w, 0),
                 child: Image.asset("./assets/secondPage/hearts.png"),
               ),
 
               // kakao
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    96 .w, 69 .h, 94 .w, 0),
-                height: 195 .h,
+                margin: EdgeInsets.fromLTRB(96.w, 69.h, 94.w, 0),
+                height: 195.h,
                 child: InkWell(
                   onTap: () async {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -104,17 +92,16 @@ class _loginPageState extends State<loginPage> {
                   },
                   child: Image.asset(
                     "./assets/secondPage/kakao.png",
-                    height: 195 .h,
-                    width: 1311 .w,
+                    height: 195.h,
+                    width: 1311.w,
                   ),
                 ),
               ),
 
               // Naver
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    96 .w, 53 .h, 94 .w, 0),
-                height: 195 .h,
+                margin: EdgeInsets.fromLTRB(96.w, 53.h, 94.w, 0),
+                height: 195.h,
                 child: InkWell(
                   onTap: () {
                     print("Naver login");
@@ -128,9 +115,8 @@ class _loginPageState extends State<loginPage> {
 
               // Button
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    96 .w, 53 .h, 94 .w, 0),
-                height: 195 .h,
+                margin: EdgeInsets.fromLTRB(96.w, 53.h, 94.w, 0),
+                height: 195.h,
                 child: InkWell(
                   onTap: () {
                     print("login");

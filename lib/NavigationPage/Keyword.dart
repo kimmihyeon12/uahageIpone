@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -67,7 +66,6 @@ class _KeywordState extends State<Keyword> {
   toast show_toast = new toast();
   @override
   Widget build(BuildContext context) {
-    double screenHeight = 2668 / MediaQuery.of(context).size.height;
     double screenWidth = 1500 / MediaQuery.of(context).size.width;
     FocusScopeNode currentFocus = FocusScope.of(context);
 

@@ -3,8 +3,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:geolocator/geolocator.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:uahage/homepagelist/map_list.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
@@ -83,8 +81,6 @@ class _kids_cafeState extends State<kids_cafe> {
     _scrollController.addListener(() {
       double maxScroll = _scrollController.position.maxScrollExtent;
       double currentScroll = _scrollController.position.pixels;
-      double delta =
-          100.0; // or something else..maxScroll - currentScroll <= delta
       if (currentScroll >= maxScroll * 0.7 &&
               currentScroll <= maxScroll * 0.75 &&
               !_isLoading ||
