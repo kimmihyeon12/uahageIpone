@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-class appbar extends StatelessWidget {
 
-  sub_appbar(String text ,context , star_color){
-   
-    ScreenUtil.init(context, width:  1500 , height:  2667 );
-    return  PreferredSize(
-      preferredSize: Size.fromHeight(180 .h),
+class appbar extends StatelessWidget {
+  sub_appbar(String text, context, star_color) {
+    ScreenUtil.init(context, width: 1500, height: 2667);
+    return PreferredSize(
+      preferredSize: Size.fromHeight(180.h),
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0, centerTitle: true,
@@ -15,8 +14,9 @@ class appbar extends StatelessWidget {
         // ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
-          onPressed: (){Navigator.pop(context, star_color);
-          print(star_color.toString());
+          onPressed: () {
+            Navigator.pop(context, star_color);
+            print(star_color.toString());
           },
         ),
         title: Text(
@@ -24,23 +24,23 @@ class appbar extends StatelessWidget {
           style: TextStyle(
               color: Color(0xffff7292),
               fontFamily: "NotoSansCJKkr_Medium",
-              fontSize: 67.0 .sp),
+              fontSize: 67.0.sp),
         ),
       ),
     );
   }
-  navHome_abbbar(String text,context){
 
-   return PreferredSize(
-      preferredSize: Size.fromHeight(178 .h),
+  navHome_abbbar(String text, context) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(178.h),
       child: Container(
         color: Color.fromRGBO(255, 114, 148, 1.0),
-        height: 178 .h,
+        height: 178.h,
         child: Center(
           child: Text(
-             text,
+            text,
             style: TextStyle(
-              fontSize: 73 .sp,
+              fontSize: 73.sp,
               fontFamily: 'NotoSansCJKkr_Bold',
               letterSpacing: 0,
               color: Colors.white,
@@ -51,55 +51,55 @@ class appbar extends StatelessWidget {
       // ),
     );
   }
-  screen_appbar(String text,context){
 
+  screen_appbar(String text, context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(178 .h),
+      preferredSize: Size.fromHeight(178.h),
       child: Container(
         color: Color.fromRGBO(255, 114, 148, 1.0),
-        height: 178 .h,
-         child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              Center(
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Container(
-                    height: 76 .h,
-                    width: 43 .w,
-                    margin: EdgeInsets.only(left: 31 .w),
-                    child: Image.asset(
-                        "./assets/agreementPage/back.png"),
+        height: 178.h,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Center(
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Container(
+                      height: 76.h,
+                      width: 43.w,
+                      margin: EdgeInsets.only(left: 31.w),
+                      child: Image.asset("./assets/agreementPage/back.png"),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                  height: 178 .h,
-                  width: 1500 .w,
-                  child: // 약관동의
-                  // 위치기반서비스 이용약관
-                  Center(
-                    child: Text(text,
-                        style: TextStyle(
-                            color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "NotoSansCJKkr_Bold",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 75.sp  ),
-                        textAlign: TextAlign.left),
-                  )),
-            ],
-          ),
-        ],
-      ),
+                Container(
+                    height: 178.h,
+                    width: 1500.w,
+                    child: // 약관동의
+                        // 위치기반서비스 이용약관
+                        Center(
+                      child: Text(text,
+                          style: TextStyle(
+                              color: const Color(0xffffffff),
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "NotoSansCJKkr_Bold",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 75.sp),
+                          textAlign: TextAlign.left),
+                    )),
+              ],
+            ),
+          ],
+        ),
       ),
       // ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Container();

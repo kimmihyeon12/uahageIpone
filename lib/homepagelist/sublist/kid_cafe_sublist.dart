@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -27,6 +29,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   var userId = "", loginOption = "";
   var data, storename, address;
   var star_color = false;
+  int index;
 
   var mainimage = [
     "https://uahage.s3.ap-northeast-2.amazonaws.com/images_kidscafe_sublist/image1.png",
@@ -35,6 +38,7 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
   @override
   void initState() {
     setState(() {
+      index = widget.index;
       data = widget.data;
       storename = data.store_name;
       address = data.address;
@@ -84,19 +88,6 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
     );
   }
 
-  // Image mainImage(image, screenWidth) {
-  //   return Image.network(
-  //     image,
-  //     loadingBuilder: (context, child, loadingProgress) {
-  //       if (loadingProgress == null) return child;
-  //       return Center(
-  //         child: buildSpinKitThreeBounce(50, screenWidth),
-  //       );
-  //     },
-  //     // width: MediaQuery.of(context).size.width,
-  //     fit: BoxFit.fitWidth,
-  //   );
-  // }
   mainImage(image, screenWidth) {
     return CachedNetworkImage(
       imageUrl: image,
@@ -338,12 +329,14 @@ class _kid_cafe_sublistState extends State<kid_cafe_sublist> {
                             Container(
                               height: 1100.h,
                               child: WebView(
-                                onWebViewCreated:
-                                    (WebViewController webViewController) {
-                                  controller = webViewController;
-                                  controller.loadUrl(
-                                      'http://211.223.46.144:3000/map/storename?storename=$storename&address=$address');
-                                },
+                                // onWebViewCreated:
+                                //     (WebViewController webViewController) {
+                                //   controller = webViewController;
+                                //   controller.loadUrl(
+                                //       'http://211.223.46.144:3000/map/storename?storename=$storename&address=$address');
+                                // },
+                                initialUrl:
+                                    'http://211.223.46.144:3000/map/storename?storename=$storename&address=$address',
                                 javascriptMode: JavascriptMode.unrestricted,
                               ),
                             ),

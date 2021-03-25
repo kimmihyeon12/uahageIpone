@@ -257,7 +257,9 @@ class _homePageState extends State<homePage> {
                           letterSpacing: -1.0),
                       suffixIcon: IconButton(
                           onPressed: searchkey != ""
-                              ? () async {
+                              ? () {
+                                  FocusScope.of(context).unfocus();
+
                                   Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -267,11 +269,15 @@ class _homePageState extends State<homePage> {
                                                   latitude: latitude,
                                                   longitude: longitude,
                                                   searchkey: searchkey)))
-                                      .then((value) => _controller.clear());
-                                  currentFocus.unfocus();
+                                      .then((value) {
+                                    _controller.clear();
+                                    searchkey = "";
+                                  });
+                                  // currentFocus.unfocus();
                                 }
                               : () {
-                                  currentFocus.unfocus();
+                                  _controller.clear();
+                                  FocusScope.of(context).unfocus();
                                   show_toast.showToast(context, "주소를 입력해주세요!");
                                 },
                           icon: Image.asset(
