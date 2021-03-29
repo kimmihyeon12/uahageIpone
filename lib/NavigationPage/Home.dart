@@ -154,18 +154,11 @@ class _homePageState extends State<homePage> {
                 height: 900.h,
                 child: Stack(
                   children: [
-                    PageView(
-                      controller: PageController(
-                        initialPage: 0,
-                      ),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        imageView("image1"),
-                        imageView("image2"),
-                        imageView("image3"),
-                        imageView("image4"),
-                        imageView("image5")
-                      ],
+                    PageView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return imageView("image${index + 1}");
+                      },
                       onPageChanged: (int page) {
                         setState(() {
                           print(page);
@@ -173,6 +166,7 @@ class _homePageState extends State<homePage> {
                         });
                       },
                     ),
+
                     Align(
                       alignment: Alignment.topRight,
                       child: Container(
