@@ -8,6 +8,7 @@ import 'package:uahage/NavigationPage/Navigationbar.dart';
 import 'package:uahage/screens/announce.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kakao_flutter_sdk/all.dart';
+import 'package:uahage/screens/buildShowDialog.dart';
 import 'registrationPage.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:http/http.dart' as http;
@@ -160,24 +161,22 @@ class _agreementPageState extends State<agreementPage> {
       // create database
       if (isAlreadyRegistered) {
         await _saveUserId();
-        Navigator.pushAndRemoveUntil(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => navigationPage(
                     userId: _accountEmail,
                     loginOption: loginOption,
                   )),
-          (Route<dynamic> route) => false,
         );
       } else {
-        Navigator.pushAndRemoveUntil(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => registrationPage(
                     userId: _accountEmail,
                     loginOption: loginOption,
                   )),
-          (Route<dynamic> route) => false,
         );
       }
     } catch (e) {
@@ -194,13 +193,6 @@ class _agreementPageState extends State<agreementPage> {
     loginOption = widget.loginOption;
     // });
     super.initState();
-  }
-
-  SpinKitThreeBounce buildSpinKitThreeBounce(double size, double screenWidth) {
-    return SpinKitThreeBounce(
-      color: Color(0xffFF728E),
-      size: size.w,
-    );
   }
 
   bool isAllSelected = false;
@@ -627,57 +619,16 @@ class _agreementPageState extends State<agreementPage> {
                       switch (loginOption) {
                         case "kakao":
                           if (_isKakaoTalkInstalled)
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => FutureBuilder(
-                                future: _loginWithTalk(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return AlertDialog(
-                                      title: Text(snapshot.data),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return AlertDialog(
-                                        title: Text(snapshot.error));
-                                  }
-                                  return Center(
-                                    child: SizedBox(
-                                        height: 200.h,
-                                        width: 200.w,
-                                        child:
-                                            buildSpinKitThreeBounce(80, 100.w)),
-                                  );
-                                },
-                              ),
-                            );
+                            buildShowDialogOnOk(_loginWithTalk(), context,
+                                200.h, 200.w, 80.w, 100.w, 62.5.sp);
                           else {
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => FutureBuilder(
-                                future: _loginWithKakao(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return AlertDialog(
-                                      title: Text(snapshot.data),
-                                    );
-                                  } else if (snapshot.hasError) {
-                                    return AlertDialog(
-                                        title: Text(snapshot.error));
-                                  }
-                                  return Center(
-                                    child: SizedBox(
-                                        height: 200.h,
-                                        width: 200.w,
-                                        child:
-                                            buildSpinKitThreeBounce(80, 100.w)),
-                                  );
-                                },
-                              ),
-                            );
+                            buildShowDialogOnOk(_loginWithKakao(), context,
+                                200.h, 200.w, 80.w, 100.w, 62.5.sp);
                           }
                           break;
                         case "naver":
-                          naverLogin();
+                          buildShowDialogOnOk(naverLogin(), context, 200.h,
+                              200.w, 80.w, 100.w, 62.5.sp);
                           break;
                         case "login":
                           Navigator.of(context).pushReplacement(

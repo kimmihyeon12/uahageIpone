@@ -192,7 +192,7 @@ class _navigationPageState extends State<navigationPage> {
                                 width: 132.w,
                               ),
                               activeIcon: Image.asset(
-                                "assets/NavigationbarPage/mypage_grey.png",
+                                "assets/NavigationbarPage/mypage_pink.png",
                                 width: 132.w,
                                 height: 141.h,
                               ),

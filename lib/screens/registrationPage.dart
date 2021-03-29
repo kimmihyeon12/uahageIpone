@@ -10,6 +10,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/screens/buildShowDialog.dart';
 
 class registrationPage extends StatefulWidget {
   String userId;
@@ -211,105 +212,14 @@ class _registrationPageState extends State<registrationPage> {
                                     onPressed: nickName != ""
                                         ? () {
                                             currentFocus.unfocus();
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  FutureBuilder(
-                                                      future: checkNickname(),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        if (snapshot.hasData) {
-                                                          return AlertDialog(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            20.0))),
-                                                            title: // 사용 가능한 닉네임입니다.
-                                                                Text(
-                                                                    snapshot
-                                                                        .data,
-                                                                    style: TextStyle(
-                                                                        color: const Color(
-                                                                            0xff4d4d4d),
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontFamily:
-                                                                            "NotoSansCJKkr_Medium",
-                                                                        fontStyle:
-                                                                            FontStyle
-                                                                                .normal,
-                                                                        fontSize:
-                                                                            62.5
-                                                                                .sp),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .left),
-                                                            actions: [
-                                                              FlatButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  child: // 확인
-                                                                      buildText(
-                                                                          _fontsize))
-                                                            ],
-                                                          );
-                                                        } else if (snapshot
-                                                            .hasError)
-                                                          return AlertDialog(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            20.0))),
-                                                            title:
-                                                                // id already exists.
-                                                                Text(snapshot.error,
-                                                                    style: TextStyle(
-                                                                        color: Color(
-                                                                            0xff4d4d4d),
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontFamily:
-                                                                            "NotoSansCJKkr_Medium",
-                                                                        fontStyle:
-                                                                            FontStyle
-                                                                                .normal,
-                                                                        fontSize:
-                                                                            62.5
-                                                                                .sp),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .left),
-                                                            actions: [
-                                                              FlatButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  child: // 확인
-                                                                      buildText(
-                                                                          _fontsize))
-                                                            ],
-                                                          );
-
-                                                        return Center(
-                                                          child: SizedBox(
-                                                              height: 200.h,
-                                                              width: 200.w,
-                                                              child:
-                                                                  buildSpinKitThreeBounce(
-                                                                      80,
-                                                                      1501.w)),
-                                                        );
-                                                      }),
-                                            );
+                                            buildShowDialogOnOk(
+                                                checkNickname(),
+                                                context,
+                                                200.h,
+                                                200.w,
+                                                80.w,
+                                                1501.w,
+                                                62.5.sp);
                                           }
                                         : () {},
                                     color: nickName == ""
@@ -745,17 +655,6 @@ class _registrationPageState extends State<registrationPage> {
                 buildText(_fontsize))
       ],
     );
-  }
-
-  Text buildText(double _fontsize) {
-    return Text("확인",
-        style: TextStyle(
-            color: const Color(0xffff7292),
-            fontWeight: FontWeight.w500,
-            fontFamily: "NotoSansCJKkr_Medium",
-            fontStyle: FontStyle.normal,
-            fontSize: _fontsize),
-        textAlign: TextAlign.center);
   }
 
   //gender event

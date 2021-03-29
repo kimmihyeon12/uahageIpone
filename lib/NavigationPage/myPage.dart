@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:uahage/screens/buildShowDialog.dart';
 import 'package:uahage/screens/withdrawal.dart';
 import './../screens/loginPage.dart';
 import 'dart:io';
@@ -600,99 +601,21 @@ class _myPageState extends State<myPage> {
                                         color: nickName == ""
                                             ? Color(0xffcacaca)
                                             : Color(0xffff7292),
-                                        onPressed:
-                                            loginOption != "login" &&
-                                                    nickName != ""
-                                                ? () {
-                                                    print(nickName);
-                                                    currentFocus.unfocus();
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          FutureBuilder(
-                                                              future:
-                                                                  checkNickname(),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                if (snapshot
-                                                                    .hasData) {
-                                                                  // print(snapshot.data);
-                                                                  return AlertDialog(
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(20.0))),
-                                                                    title: // 사용 가능한 닉네임입니다.
-                                                                        Text(
-                                                                            snapshot
-                                                                                .data,
-                                                                            style: TextStyle(
-                                                                                color: const Color(0xff4d4d4d),
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontFamily: "NotoSansCJKkr_Medium",
-                                                                                fontStyle: FontStyle.normal,
-                                                                                fontSize: 55.sp),
-                                                                            textAlign: TextAlign.left),
-                                                                    actions: [
-                                                                      FlatButton(
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                          child: // 확인
-                                                                              Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
-                                                                    ],
-                                                                  );
-                                                                } else if (snapshot
-                                                                    .hasError)
-                                                                  return AlertDialog(
-                                                                    shape: RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.all(Radius.circular(20.0))),
-                                                                    title:
-                                                                        // id already exists.
-                                                                        Text(
-                                                                            "${snapshot.error}",
-                                                                            style: TextStyle(
-                                                                                color: Color(0xff4d4d4d),
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontFamily: "NotoSansCJKkr_Medium",
-                                                                                fontStyle: FontStyle.normal,
-                                                                                fontSize: 55.sp),
-                                                                            textAlign: TextAlign.left),
-                                                                    actions: [
-                                                                      FlatButton(
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                          child: // 확인
-                                                                              Text("확인", style: TextStyle(color: const Color(0xffff7292), fontWeight: FontWeight.w500, fontFamily: "NotoSansCJKkr_Medium", fontStyle: FontStyle.normal, fontSize: _fontsize), textAlign: TextAlign.center))
-                                                                    ],
-                                                                  );
-
-                                                                return Center(
-                                                                  child: SizedBox(
-                                                                      height:
-                                                                          300.h,
-                                                                      width:
-                                                                          200.w,
-                                                                      child: buildSpinKitThreeBounce(
-                                                                          80,
-                                                                          1500.w)
-                                                                      // CircularProgressIndicator(
-                                                                      //   strokeWidth:
-                                                                      //       5.0,
-                                                                      //   valueColor:
-                                                                      //       new AlwaysStoppedAnimation<Color>(
-                                                                      //     Colors.pinkAccent,
-                                                                      //   ),
-                                                                      // )
-                                                                      ),
-                                                                );
-                                                              }),
-                                                    );
-                                                  }
-                                                : () {},
+                                        onPressed: loginOption != "login" &&
+                                                nickName != ""
+                                            ? () {
+                                                print(nickName);
+                                                currentFocus.unfocus();
+                                                buildShowDialogOnOk(
+                                                    checkNickname(),
+                                                    context,
+                                                    300.h,
+                                                    200.h,
+                                                    80.h,
+                                                    1500.h,
+                                                    _fontsize);
+                                              }
+                                            : () {},
                                         child: // 중복확인
                                             Text("중복확인",
                                                 style: TextStyle(
