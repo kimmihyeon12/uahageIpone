@@ -656,7 +656,7 @@ class _myPageState extends State<myPage> {
                                       } else if (snapshot.hasError) {
                                         // print("haserror " + snapshot.error);
                                         return nickNameShow(
-                                            snapshot.error, 1500.w);
+                                            "${snapshot.error}", 1500.w);
                                       }
                                       return Center(
                                         child: SizedBox(
@@ -1035,7 +1035,7 @@ class _myPageState extends State<myPage> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20.0)),
                                             ),
-                                            title: Text(snapshot.error),
+                                            title: Text("${snapshot.error}"),
                                             actions: [
                                               FlatButton(
                                                 onPressed: () {

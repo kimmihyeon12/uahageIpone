@@ -54,7 +54,7 @@ Future buildShowDialogOnOk(var function, BuildContext context, var heightSize,
         } else if (snapshot.hasError) {
           return AlertDialog(
             title: Text(
-              snapshot.error,
+              "${snapshot.error}",
               style: TextStyle(
                   color: const Color(0xff4d4d4d),
                   fontWeight: FontWeight.w500,

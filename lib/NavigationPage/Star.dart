@@ -106,7 +106,7 @@ class _starPageState extends State<starPage> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasError) {
                     return Center(
-                      child: Text(snapshot.error),
+                      child: Text("${snapshot.error}"),
                     );
                   } else if (snapshot.hasData) {
                     print("snapshot length " + snapshot.data.length.toString());

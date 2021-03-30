@@ -638,7 +638,7 @@ class _registrationPageState extends State<registrationPage> {
           borderRadius: BorderRadius.all(Radius.circular(20.0))),
       title:
           // id already exists.
-          Text(snapshot.error,
+          Text("${snapshot.error}",
               style: TextStyle(
                   color: Color(0xff4d4d4d),
                   fontWeight: FontWeight.w500,
