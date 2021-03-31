@@ -18,7 +18,7 @@ class _WrapperState extends State<Wrapper> {
   void initState() {
     super.initState();
     _loadUserId();
-    // _saveUserId();
+
   }
 
   _loadUserId() async {
@@ -31,7 +31,7 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    // final user = Provider.of<User>(context);
+
     print("userID = " + userId);
     if (userId == "") {
       return loginPage();

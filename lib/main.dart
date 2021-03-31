@@ -3,13 +3,12 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uahage/Location.dart';
 import 'package:uahage/screens/wrapper.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'ConnectivityService.dart';
-import 'connectivity_status.dart';
-
+import 'package:uahage/Provider/locationProvider.dart';
+import 'package:uahage/Provider/connectivityservice.dart';
+import 'package:uahage/Provider/ConnectivityStatus.dart';
 void main() {
   runApp(MyApp());
 }
@@ -18,8 +17,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<ConnectivityStatus>(
-      builder: (context) => ConnectivityService().connectionStatusController,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocationProvider()),
+        StreamProvider<ConnectivityStatus>.value(
+          value: ConnectivityService().connectionStatusController.stream,
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MyHomePage(),
@@ -27,7 +31,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -40,31 +43,34 @@ class _MyHomePageState extends State<MyHomePage> {
   var Locality;
   String latitude = "";
   String longitude = "";
-
   @override
   void initState() {
-    lacations();
     super.initState();
+    startTime();
   }
 
-  Future lacations() async {
-    Location location = new Location();
-    await location.getCurrentLocation();
+
+
+  startTime() async {
+    var duration = new Duration(seconds: 3);
+    return new Timer(duration, route);
   }
 
-  Future startTime() async => Future.delayed(
-        Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Wrapper()),
-        ),
-      );
+  route() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Wrapper()),
+    );
+  }
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
   @override
   Widget build(BuildContext context) {
+    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
+    locationProvider.setCurrentLocation();
+
     ScreenUtil.init(context, width: 1500, height: 2667);
-    print("iphoneX $isIphoneX");
+
     double screenHeight;
     double screenWidth;
     if (isIphoneX) {
@@ -78,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    startTime();
+
     return isIphoneX
         ? Scaffold(
             backgroundColor: Color(0xfffff1f0),

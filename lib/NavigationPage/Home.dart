@@ -11,7 +11,7 @@ import 'package:uahage/homepagelist/kids_cafe.dart';
 import 'package:uahage/homepagelist/Examination_institution.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:uahage/Location.dart';
+
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,35 +54,14 @@ class _homePageState extends State<homePage> {
       userId = widget.userId ?? "";
       latitude = widget.latitude ?? "";
       longitude = widget.longitude ?? "";
-      // oldNickname = userId != "" ? getMyNickname().toString() : "";
+
     });
-    if (latitude == "" || longitude == "") getLatLong();
-    super.initState();
+     super.initState();
   }
 
   toast show_toast = new toast();
-  Location location = new Location();
-  Future lacations() async {
-    await location.getCurrentLocation();
-  }
 
-  getLatLong() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String lat = sharedPreferences.getString("uahageLat") ?? "";
-    String long = sharedPreferences.getString("uahageLong") ?? "";
-    String area = sharedPreferences.getString("uahageArea") ?? "";
-    String locality = sharedPreferences.getString("uahageLocality") ?? "";
-    print("search lat: $lat");
-    if (lat == "" || long == "") {
-      await lacations();
-    } else
-      setState(() {
-        latitude = lat;
-        longitude = long;
-        Area = area;
-        Locality = locality;
-      });
-  }
+
 
   int index = 1;
 

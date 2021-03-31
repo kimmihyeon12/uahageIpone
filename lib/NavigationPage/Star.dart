@@ -14,6 +14,8 @@ import 'package:uahage/StarManage.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:uahage/Provider/ConnectivityStatus.dart';
 
 class starPage extends StatefulWidget {
   String loginOption;
@@ -81,11 +83,13 @@ class _starPageState extends State<starPage> {
     if (jsonDecode(response)["affectedRows"] == 1) setState(() {});
   }
 
+
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
   appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
+    ConnectivityStatus connectionStatus = Provider.of<ConnectivityStatus>(context);
     if (isIphoneX) {
       ScreenUtil.init(context, width: 2345, height: 5076);
     } else if (isIOS) {
@@ -102,7 +106,7 @@ class _starPageState extends State<starPage> {
             Expanded(
               flex: 1,
               child: FutureBuilder(
-                future: _getstar(),
+                future: connectionStatus != ConnectivityStatus.Offline ? _getstar() : null,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasError) {
                     return Center(

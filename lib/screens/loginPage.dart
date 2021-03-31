@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
+import 'package:uahage/Provider/ConnectivityStatus.dart';
 import 'package:uahage/screens/agreement.dart';
 import 'package:uahage/screens/SnackBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../connectivity_status.dart';
+
 import 'package:provider/provider.dart';
 
 class loginPage extends StatefulWidget {

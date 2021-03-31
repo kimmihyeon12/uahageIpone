@@ -7,20 +7,23 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:uahage/ToastManage.dart';
-import 'package:uahage/Location.dart';
+
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uahage/NavigationPage/indexMap.dart';
+import 'package:uahage/Provider/locationProvider.dart';
+import 'package:provider/provider.dart';
 
 class searchPage extends StatefulWidget {
   searchPage(
       {Key key,
-      this.latitude,
-      this.longitude,
-      this.userId,
-      this.loginOption,
-      this.Area,
-      this.Locality})
+        this.latitude,
+        this.longitude,
+        this.userId,
+        this.loginOption,
+        this.Area,
+        this.Locality})
       : super(key: key);
   String latitude;
   String longitude;
@@ -33,9 +36,8 @@ class searchPage extends StatefulWidget {
 }
 
 class _searchPageState extends State<searchPage> {
-  // getting current location
-  String latitude = "";
-  String longitude = "";
+  var latitude;
+  var longitude;
   String Area = "";
   String Locality = "";
   String searchKey = "";
@@ -59,44 +61,21 @@ class _searchPageState extends State<searchPage> {
     true
   ];
 
-  Location location = new Location();
-
-  Future lacations() async {
-    await location.getCurrentLocation();
-  }
-
-  getLatLong() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String lat = sharedPreferences.getString("uahageLat") ?? "";
-    String long = sharedPreferences.getString("uahageLong") ?? "";
-    String area = sharedPreferences.getString("uahageArea") ?? "";
-    String locality = sharedPreferences.getString("uahageLocality") ?? "";
-    print("search lat: $lat");
-    if (lat == "" || long == "") {
-      await lacations();
-    } else
-      setState(() {
-        latitude = lat;
-        longitude = long;
-        Area = area;
-        Locality = locality;
-      });
-  }
 
   searchAddress(searchKey) async {
     // ignore: unnecessary_statements
     print(searchKey);
     searchKey != ""
         ? controller.loadUrl(
-            'http://211.223.46.144:3000/map/getAddress?address=$searchKey')
-        // ignore: unnecessary_statements
+        'http://13.209.41.43/map/getAddress?address=$searchKey')
+    // ignore: unnecessary_statements
         : null;
   }
 
-  Future searchCategory() async {
+  Future searchCategory(latitude,longitude) async {
     print(grey_image);
     controller.loadUrl(
-        "http://211.223.46.144:3000/map/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
+        "http://13.209.41.43/map/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
   }
 
   StarManage starInsertDelete = new StarManage();
@@ -123,7 +102,7 @@ class _searchPageState extends State<searchPage> {
 
   Future getSubStarColor() async {
     star_color =
-        await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
+    await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
     setState(() {
       star_color = star_color;
     });
@@ -134,42 +113,26 @@ class _searchPageState extends State<searchPage> {
   icon iconwidget = new icon();
   @override
   void initState() {
-    // getSubStarColor();
-
     setState(() {
-      loginOption = widget.loginOption;
+      longitude = widget.longitude?? "";
+      latitude = widget.latitude?? "";
+      loginOption = widget.loginOption?? "";
       userId = widget.userId ?? "";
-      latitude = widget.latitude ?? "";
-      longitude = widget.longitude ?? "";
       Area = widget.Area ?? "";
       Locality = widget.Locality ?? "";
     });
 
-    if (latitude == "" || longitude == "" || Locality == "" || Area == "")
-      getLatLong();
-    super.initState();
-    // getCurrentLocation();
-    print("latitude: $latitude");
-    print("longitude: $longitude");
   }
 
-  @override
-  void didChangeDependencies() {
-    getLatLong();
-    super.didChangeDependencies();
-  }
 
-  int position = 1;
+  int position = 0;
   final key = UniqueKey();
 
   doneLoading(String A) {
     setState(() {
       position = 0;
     });
-    // setState(() {
-    //   isLoading = false;
-    // });
-    // print("isloading: $isLoading");
+
   }
 
   startLoading(String A) {
@@ -188,48 +151,54 @@ class _searchPageState extends State<searchPage> {
   bool isIOS = Platform.isIOS;
   var isLoading = true;
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    latitude==""&&longitude==""? currentLocation(): "";
+
     ScreenUtil.init(context, width: 1500, height: 2667);
     return Scaffold(
+
       body: Stack(
         children: [
-          WebView(
-            key: key,
-            onPageFinished: doneLoading,
-            onPageStarted: startLoading,
-            // initialUrl: 'http://211.223.46.144:3000/map',
-            onWebViewCreated: (WebViewController webViewController) {
-              controller = webViewController;
-              controller.loadUrl(latitude == 'NaN' ||
+          IndexedStack(
+            index : position,
+            children: [
+              WebView(
+                key: key,
+                onPageFinished: doneLoading,
+                onPageStarted: startLoading,
+                // initialUrl: 'http://13.209.41.43/map',
+                onWebViewCreated: (WebViewController webViewController) {
+                  controller = webViewController;
+                  controller.loadUrl(latitude == 'NaN' ||
                       longitude == 'NaN' ||
                       latitude == '' ||
                       longitude == ''
-                  ? 'http://211.223.46.144:3000/map/'
-                  : 'http://211.223.46.144:3000/map/getPos?lat=$latitude&long=$longitude');
-            },
-            javascriptMode: JavascriptMode.unrestricted,
-            javascriptChannels: Set.from([
-              JavascriptChannel(
-                  name: 'Print',
-                  onMessageReceived: (JavascriptMessage message) async {
-                    var messages = message.message;
-                    Message = messages.split("|");
-                    await getSubStarColor();
-                    print("star_color: $star_color");
-                    print("Message: $Message");
-                    showPopUpbottomMenu(context, 2667.h, 1501.w);
-                  })
-            ]),
-          ),
-          position == 1
-              ? Center(
-                  child: Container(
-                    color: Colors.white,
-                    child: Center(child: buildSpinKitThreeBounce(80, 1501.w)),
-                  ),
-                )
-              : SizedBox.shrink(),
+                      ? 'http://13.209.41.43/map/'
+                      : 'http://13.209.41.43/map/getPos?lat=$latitude&long=$longitude');
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                javascriptChannels: Set.from([
+                  JavascriptChannel(
+                      name: 'Print',
+                      onMessageReceived: (JavascriptMessage message) async {
+                        var messages = message.message;
+                        Message = messages.split("|");
+                        await getSubStarColor();
+                        print("star_color: $star_color");
+                        print("Message: $Message");
+                        showPopUpbottomMenu(context, 2667.h, 1501.w);
+                      })
+                ]),
+              ),
+              IndexMap(),
+            ],
+          ) ,
+
+
 
           GestureDetector(
             onTap: () async {
@@ -246,7 +215,7 @@ class _searchPageState extends State<searchPage> {
                   true,
                 ];
               });
-              await showPopUpMenu(context, 2667.h, 1501.w);
+              await showPopUpMenu(context, 2667.h, 1501.w ,latitude , longitude);
             },
             child: Container(
               decoration: BoxDecoration(
@@ -277,7 +246,7 @@ class _searchPageState extends State<searchPage> {
                     margin: EdgeInsets.only(left: 41.w),
                     width: 1200.w,
                     child: // 검색 조건을 설정해주세요
-                        Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("검색 조건을 설정해주세요",
@@ -302,43 +271,14 @@ class _searchPageState extends State<searchPage> {
             ),
           ),
 
-          // bottom Buttons
-          // Row(
-          //   children: [
-          //     Align(
-          //       alignment: Alignment.bottomLeft,
-          //       child: InkWell(
-          //         onTap: () async {
-          //           //var response = await getMap(latitude, longitude);
-          //           if (latitude == 'NaN' ||
-          //               longitude == 'NaN' ||
-          //               latitude == '' ||
-          //               longitude == '') await lacations();
-          //           // controller.loadUrl(
-          //           //     'http://211.223.46.144:3000/getPos?lat=$latitude&long=$longitude');
-          //           controller.loadUrl(
-          //               "http://211.223.46.144:3000/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
-          //         },
-          //         child: Container(
-          //           margin: EdgeInsets.only(
-          //               left: 48.w, bottom: 76.h),
-          //           child: SizedBox(
-          //             height: 159.h,
-          //             width: 161.w,
-          //             child: Image.asset("assets/searchPage/location.png"),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
+
         ],
       ),
     );
   }
 
   Future<Object> showPopUpMenu(
-      BuildContext context, double screenHeight, double screenWidth) {
+      BuildContext context, double screenHeight, double screenWidth , latitude , longitude) {
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -375,25 +315,25 @@ class _searchPageState extends State<searchPage> {
                                       onTap: () {
                                         setState(() {
                                           grey_image[index] =
-                                              !grey_image[index];
+                                          !grey_image[index];
                                         });
                                         print(grey_image);
                                       },
                                       child: grey_image[index]
                                           ? Image.asset(
-                                              "./assets/searchPage/image" +
-                                                  (index + 1).toString() +
-                                                  "_grey.png",
-                                              height: 293.h,
-                                              width: 218.w,
-                                            )
+                                        "./assets/searchPage/image" +
+                                            (index + 1).toString() +
+                                            "_grey.png",
+                                        height: 293.h,
+                                        width: 218.w,
+                                      )
                                           : Image.asset(
-                                              "./assets/searchPage/image" +
-                                                  (index + 1).toString() +
-                                                  ".png",
-                                              height: 293.h,
-                                              width: 218.w,
-                                            ),
+                                        "./assets/searchPage/image" +
+                                            (index + 1).toString() +
+                                            ".png",
+                                        height: 293.h,
+                                        width: 218.w,
+                                      ),
                                     ),
                                   ),
                                 );
@@ -412,7 +352,7 @@ class _searchPageState extends State<searchPage> {
                         height: 195.h,
                         child: FlatButton(
                           onPressed: () async {
-                            await searchCategory();
+                            await searchCategory(latitude ,longitude);
 
                             Navigator.of(context).pop();
                             // print(isBirthdayFree);
@@ -440,7 +380,7 @@ class _searchPageState extends State<searchPage> {
         },
         barrierDismissible: true,
         barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: null,
         transitionDuration: const Duration(milliseconds: 150));
   }
@@ -514,18 +454,18 @@ class _searchPageState extends State<searchPage> {
                               ));
                           result
                               ? setState(() {
-                                  star_color = true;
-                                })
+                            star_color = true;
+                          })
                               : setState(() {
-                                  star_color = false;
-                                });
+                            star_color = false;
+                          });
                         },
                         child: Row(
                           children: [
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 30.w,
-                            )),
+                                  left: 30.w,
+                                )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
                               height: 409.h,
@@ -533,8 +473,8 @@ class _searchPageState extends State<searchPage> {
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                              left: 53.w,
-                            )),
+                                  left: 53.w,
+                                )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -568,18 +508,18 @@ class _searchPageState extends State<searchPage> {
                                             height: 60.h),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                                show_toast.showToast(
-                                                    context, "로그인해주세요!");
-                                              }
+                                          show_toast.showToast(
+                                              context, "로그인해주세요!");
+                                        }
                                             : () async {
-                                                setState(() {
-                                                  star_color = !star_color;
-                                                });
+                                          setState(() {
+                                            star_color = !star_color;
+                                          });
 
-                                                loginOption != "login"
-                                                    ? await click_star()
-                                                    : null;
-                                              },
+                                          loginOption != "login"
+                                              ? await click_star()
+                                              : null;
+                                        },
                                       ),
                                     ],
                                   ),
@@ -630,8 +570,13 @@ class _searchPageState extends State<searchPage> {
         },
         barrierDismissible: true,
         barrierLabel:
-            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: null,
         transitionDuration: const Duration(milliseconds: 150));
+  }
+
+  currentLocation() {
+    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
+    locationProvider.setCurrentLocation();
   }
 }

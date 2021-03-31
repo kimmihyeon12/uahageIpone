@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
-import 'package:uahage/connectivity_status.dart';
+import 'ConnectivityStatus.dart';
 
 class ConnectivityService {
   // Create our public controller
   StreamController<ConnectivityStatus> connectionStatusController =
-      StreamController<ConnectivityStatus>();
+  StreamController<ConnectivityStatus>();
   ConnectivityService() {
     // Subscribe to the connectivity Chanaged Steam
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
@@ -27,3 +27,4 @@ class ConnectivityService {
     }
   }
 }
+

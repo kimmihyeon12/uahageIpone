@@ -6,9 +6,11 @@ import 'package:uahage/NavigationPage/MyPage.dart';
 import 'package:uahage/NavigationPage/Search.dart';
 import 'package:uahage/NavigationPage/Star.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uahage/Location.dart';
+import 'package:uahage/Provider/ConnectivityStatus.dart';
+import 'package:uahage/Provider/locationProvider.dart';
+
 import 'package:uahage/screens/SnackBar.dart';
-import '../connectivity_status.dart';
+
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,33 +32,13 @@ class _navigationPageState extends State<navigationPage> {
   String oldNickname = "";
   var Area;
   var Locality;
-  Location location = new Location();
-  Future lacations() async {
-    await location.getCurrentLocation();
-  }
-
-  getLatLong() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String lat = sharedPreferences.getString("uahageLat") ?? "";
-    String long = sharedPreferences.getString("uahageLong") ?? "";
-    String area = sharedPreferences.getString("uahageArea") ?? "";
-    String locality = sharedPreferences.getString("uahageLocality") ?? "";
-    print("lat: $lat long: $long");
-
-    if (lat == "" || long == "") {
-      await lacations();
-    } else
-      setState(() {
-        latitude = lat;
-        longitude = long;
-        Area = area;
-        Locality = locality;
-      });
-  }
+  int _selectedTabIndex = 0;
+  LocationProvider lacationprovider;
+  ConnectivityStatus connectionStatus;
 
   @override
   void initState() {
-    getLatLong();
+
     setState(() {
       userId = widget.userId ?? "";
       oldNickname = widget.oldNickname ?? "";
@@ -69,13 +51,26 @@ class _navigationPageState extends State<navigationPage> {
   void dispose() {
     super.dispose();
   }
-
-  int _selectedTabIndex = 0;
+ void currentLocation() async {
+    lacationprovider = Provider.of<LocationProvider>(context);
+    await lacationprovider.setCurrentLocation();
+    setState(() {
+      latitude = lacationprovider.getlatitude;
+      longitude = lacationprovider.getlongitude;
+    });
+  }
 
   bool isIOS = Platform.isIOS;
   @override
   Widget build(BuildContext context) {
-    var connectionStatus = Provider.of<ConnectivityStatus>(context);
+    connectionStatus = Provider.of<ConnectivityStatus>(context);
+    lacationprovider = Provider.of<LocationProvider>(context);
+  //  print(latitude+","+longitude);
+    latitude=="35.146076"&&longitude=="126.9231225"?  currentLocation(): "";
+    latitude = lacationprovider.getlatitude;
+    longitude = lacationprovider.getlongitude;
+
+
     ScreenUtil.init(context, width: 1500, height: 2667);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

@@ -9,7 +9,7 @@ import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
 import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
 import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:uahage/Location.dart';
+
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -127,15 +127,7 @@ class _map_listState extends State<map_list> {
     // getCurrentLocation();
   }
 
-  getLatLong() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String lat = sharedPreferences.getString("uahageLat");
-    String long = sharedPreferences.getString("uahageLong");
-    setState(() {
-      latitude = lat;
-      longitude = long;
-    });
-  }
+
 
   int zoom = 4;
   int position = 1;
@@ -160,19 +152,8 @@ class _map_listState extends State<map_list> {
     );
   }
 
-  Location location = new Location();
 
-  Future lacations() async {
-    await location.getCurrentLocation();
-  }
 
-  // uadate_location() async{
-  //   String url = 'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=35.146076&long=126.9231225&Area=광주&Locality=동구';
-  //   var response = await http.get(url);
-  //   setState(() {
-  //     print('reload');
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 1500, height: 2667);
@@ -193,7 +174,7 @@ class _map_listState extends State<map_list> {
                       longitude == 'NaN' ||
                       latitude == '' ||
                       longitude == '') {
-                    getLatLong();
+
                   } else {
                     controller.loadUrl(
                         'http://211.223.46.144:3000/map/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
