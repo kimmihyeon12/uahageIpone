@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:uahage/homepagelist/distance.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:uahage/homepagelist/map_list.dart';
@@ -57,6 +58,10 @@ class _examination_institutionState extends State<examination_institution> {
   Future<List<dynamic>> myFuture;
   List<dynamic> examination_institutions = [];
   ScrollController _scrollController = ScrollController();
+
+  List<dynamic> sortedKidsCafe = [];
+  Map<double, dynamic> map = new Map();
+  var sortedKeys;
   bool _isLoading;
   toast show_toast = new toast();
   @override
@@ -74,22 +79,22 @@ class _examination_institutionState extends State<examination_institution> {
     get_star_color();
     myFuture = _getexamination_institution();
 
-    _scrollController.addListener(() {
-      double maxScroll = _scrollController.position.maxScrollExtent;
-      double currentScroll = _scrollController.position.pixels;
-      // double delta =
-      //     100.0; // or something else..maxScroll - currentScroll <= delta
-      if (currentScroll >= maxScroll * 0.7 &&
-              currentScroll <= maxScroll * 0.75 &&
-              !_isLoading ||
-          currentScroll == maxScroll) {
-        print("scrolling");
-        print("isloading: $_isLoading");
-        _currentMax += 10;
-        _isLoading = true;
-        _getexamination_institution();
-      }
-    });
+    // _scrollController.addListener(() {
+    //   double maxScroll = _scrollController.position.maxScrollExtent;
+    //   double currentScroll = _scrollController.position.pixels;
+    //   // double delta =
+    //   //     100.0; // or something else..maxScroll - currentScroll <= delta
+    //   if (currentScroll >= maxScroll * 0.7 &&
+    //           currentScroll <= maxScroll * 0.75 &&
+    //           !_isLoading ||
+    //       currentScroll == maxScroll) {
+    //     print("scrolling");
+    //     print("isloading: $_isLoading");
+    //     _currentMax += 10;
+    //     _isLoading = true;
+    //     _getexamination_institution();
+    //   }
+    // });
     // getCurrentLocation();
     super.initState();
   }
@@ -124,20 +129,39 @@ class _examination_institutionState extends State<examination_institution> {
 
   Future<List<dynamic>> _getexamination_institution() async {
     var response = await http.get(
-        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     if (json.decode(response.body)[0] == false) {
-      setState(() {
-        _scrollController.dispose();
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _scrollController.dispose();
+      //   _isLoading = false;
+      // });
     } else {
+      var currentData;
+      var distance;
       for (var data in responseJson) {
-        examination_institutions.add(examinationinstitution.fromJson(data));
+        currentData = examinationinstitution.fromJson(data);
+        // start sorting KIDS CAFE
+        distance = distancePoints(
+          double.parse(latitude),
+          double.parse(longitude),
+          currentData.lon,
+          currentData.lat,
+        );
+        sortedKidsCafe.add(distance);
+        print("adding to sortedlist");
+        map[distance] = currentData;
+        // examination_institutions.add(examinationinstitution.fromJson(data));
       }
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
+
+    }
+    sortedKeys = map.keys.toList()..sort();
+    for (var keys in sortedKeys) {
+      // print("$keys ${map[keys].store_name}");
+      examination_institutions.add(map[keys]);
     }
     return examination_institutions;
   }

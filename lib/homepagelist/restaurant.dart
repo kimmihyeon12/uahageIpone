@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:uahage/homepagelist/distance.dart';
 import 'dart:convert';
 import 'dart:async';
 // import 'package:uahage/homepagelist/Restaurant_helper.dart';
@@ -76,6 +77,9 @@ class _restaurantState extends State<restaurant> {
   bool _isLoading;
   List<dynamic> restaurants;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<dynamic> sortedRestaurants = [];
+  Map<double, dynamic> map = new Map();
+  var sortedKeys;
 
   @override
   void initState() {
@@ -91,22 +95,22 @@ class _restaurantState extends State<restaurant> {
     // });
     get_star_color();
     myFuture = _getrestaurant();
-    _scrollController.addListener(() {
-      double maxScroll = _scrollController.position.maxScrollExtent;
-      double currentScroll = _scrollController.position.pixels;
-      // double delta =
-      //     100.0; // or something else..maxScroll - currentScroll <= delta
-      if (currentScroll >= maxScroll * 0.7 &&
-              currentScroll <= maxScroll * 0.75 &&
-              !_isLoading ||
-          currentScroll == maxScroll) {
-        print("scrolling");
-        print("isloading: $_isLoading");
-        _currentMax += 10;
-        _isLoading = true;
-        _getrestaurant();
-      }
-    });
+    // _scrollController.addListener(() {
+    //   double maxScroll = _scrollController.position.maxScrollExtent;
+    //   double currentScroll = _scrollController.position.pixels;
+    //   // double delta =
+    //   //     100.0; // or something else..maxScroll - currentScroll <= delta
+    //   if (currentScroll >= maxScroll * 0.7 &&
+    //           currentScroll <= maxScroll * 0.75 &&
+    //           !_isLoading ||
+    //       currentScroll == maxScroll) {
+    //     print("scrolling");
+    //     print("isloading: $_isLoading");
+    //     _currentMax += 10;
+    //     _isLoading = true;
+    //     _getrestaurant();
+    //   }
+    // });
     super.initState();
   }
 
@@ -141,20 +145,40 @@ class _restaurantState extends State<restaurant> {
 
   Future<List<dynamic>> _getrestaurant() async {
     final response = await http.get(
-        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     if (json.decode(response.body)[0] == false) {
-      setState(() {
-        _scrollController.dispose();
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _scrollController.dispose();
+      //   _isLoading = false;
+      // });
     } else {
+      var currentData;
+      var distance;
+      int i = 0;
       for (var data in responseJson) {
-        restaurants.add(Restaurant.fromJson(data));
+        // restaurants.add(Restaurant.fromJson(data));
+        currentData = Restaurant.fromJson(data);
+        // start sorting KIDS CAFE
+        distance = distancePoints(
+          double.parse(latitude),
+          double.parse(longitude),
+          currentData.lon,
+          currentData.lat,
+        );
+        sortedRestaurants.add(distance);
+        // print("adding to sortedlist");
+        map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
+        i++;
       }
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
+      sortedKeys = map.keys.toList()..sort();
+      for (var keys in sortedKeys) {
+        print("$keys ${map[keys]['data']}");
+        restaurants.add(map[keys]);
+      }
     }
     return restaurants;
   }
@@ -284,7 +308,7 @@ class _restaurantState extends State<restaurant> {
           print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
           return Scrollbar(
             child: ListView.builder(
-                controller: _scrollController,
+                // controller: _scrollController,
                 itemCount: restaurants?.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {

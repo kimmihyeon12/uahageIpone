@@ -5,6 +5,8 @@ class KidsCafe {
     this.address,
     this.phone,
     this.fare,
+    this.lat,
+    this.lon,
   });
 
   int id;
@@ -12,6 +14,9 @@ class KidsCafe {
   String address;
   String phone;
   String fare;
+  double lat;
+  double lon;
+  double dist;
 
   factory KidsCafe.fromJson(Map<String, dynamic> json) => KidsCafe(
         id: json["id"],
@@ -19,5 +24,7 @@ class KidsCafe {
         address: json["address"],
         phone: json["phone"],
         fare: json["fare"],
+        lat: json["lat"],
+        lon: json["lon"],
       );
 }

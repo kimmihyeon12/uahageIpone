@@ -5,6 +5,8 @@ class examinationinstitution {
     this.address,
     this.phone,
     this.Examination_item,
+    this.lat,
+    this.lon,
   });
 
   int id;
@@ -12,6 +14,8 @@ class examinationinstitution {
   String address;
   String phone;
   String Examination_item;
+  double lat;
+  double lon;
 
   factory examinationinstitution.fromJson(Map<String, dynamic> json) =>
       examinationinstitution(
@@ -20,5 +24,7 @@ class examinationinstitution {
         address: json["address"],
         phone: json["phone"],
         Examination_item: json["Examination_item"],
+        lat: json["lat"],
+        lon: json["lon"],
       );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:uahage/homepagelist/distance.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:uahage/homepagelist/map_list.dart';
@@ -68,6 +69,9 @@ class _experience_centerState extends State<experience_center> {
   Future<List<dynamic>> myFuture;
   List<dynamic> experience_centers = [];
   ScrollController _scrollController = ScrollController();
+  List<dynamic> sortedExperinceCenter = [];
+  Map<double, dynamic> map = new Map();
+  var sortedKeys;
 
   @override
   void initState() {
@@ -81,24 +85,24 @@ class _experience_centerState extends State<experience_center> {
     // oldNickname = userId != "" ? getMyNickname().toString() : "";
     // });
     get_star_color();
-    _isLoading = false;
+    // _isLoading = false;
     myFuture = _getexperience_center();
-    _scrollController.addListener(() {
-      double maxScroll = _scrollController.position.maxScrollExtent;
-      double currentScroll = _scrollController.position.pixels;
-      // double delta =
-      //     100.0; // or something else..maxScroll - currentScroll <= delta
-      if (currentScroll >= maxScroll * 0.7 &&
-              currentScroll <= maxScroll * 0.75 &&
-              !_isLoading ||
-          currentScroll == maxScroll) {
-        print("scrolling");
-        print("isloading: $_isLoading");
-        _currentMax += 10;
-        _isLoading = true;
-        _getexperience_center();
-      }
-    });
+    // _scrollController.addListener(() {
+    //   double maxScroll = _scrollController.position.maxScrollExtent;
+    //   double currentScroll = _scrollController.position.pixels;
+    //   // double delta =
+    //   //     100.0; // or something else..maxScroll - currentScroll <= delta
+    //   if (currentScroll >= maxScroll * 0.7 &&
+    //           currentScroll <= maxScroll * 0.75 &&
+    //           !_isLoading ||
+    //       currentScroll == maxScroll) {
+    //     print("scrolling");
+    //     print("isloading: $_isLoading");
+    //     _currentMax += 10;
+    //     _isLoading = true;
+    //     _getexperience_center();
+    //   }
+    // });
     // getCurrentLocation();
     super.initState();
   }
@@ -134,21 +138,38 @@ class _experience_centerState extends State<experience_center> {
 
   Future<List<dynamic>> _getexperience_center() async {
     var response = await http.get(
-        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata'); // ?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
-    print(json.decode(response.body));
     if (json.decode(response.body)[0] == false) {
-      setState(() {
-        _scrollController.dispose();
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _scrollController.dispose();
+      //   _isLoading = false;
+      // });
     } else {
+      var currentData;
+      var distance;
       for (var data in responseJson) {
-        experience_centers.add(Experiencecenter.fromJson(data));
+        currentData = Experiencecenter.fromJson(data);
+        // start sorting KIDS CAFE
+        distance = distancePoints(
+          double.parse(latitude),
+          double.parse(longitude),
+          currentData.lon,
+          currentData.lat,
+        );
+        sortedExperinceCenter.add(distance);
+        print("adding to sortedlist");
+        map[distance] = currentData;
+        // experience_centers.add(Experiencecenter.fromJson(data));
       }
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
+    }
+    sortedKeys = map.keys.toList()..sort();
+    for (var keys in sortedKeys) {
+      // print("$keys ${map[keys].store_name}");
+      experience_centers.add(map[keys]);
     }
 
     return experience_centers;
@@ -267,7 +288,7 @@ class _experience_centerState extends State<experience_center> {
             star_color_list.length != 0) {
           return Scrollbar(
             child: ListView.builder(
-                controller: _scrollController,
+                // controller: _scrollController,
                 itemCount: experience_centers?.length,
                 itemBuilder: (context, index) {
                   print("List index: $index");
@@ -425,7 +446,6 @@ class _experience_centerState extends State<experience_center> {
                                             star_color = false;
                                             star_color_list[index] = false;
                                           }
-                                          ;
 
                                           click_star();
                                         });

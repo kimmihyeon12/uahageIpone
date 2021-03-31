@@ -5,6 +5,8 @@ class Experiencecenter {
     this.address,
     this.phone,
     this.fare,
+    this.lat,
+    this.lon,
   });
 
   int id;
@@ -12,6 +14,8 @@ class Experiencecenter {
   String address;
   String phone;
   String fare;
+  double lat;
+  double lon;
 
   factory Experiencecenter.fromJson(Map<String, dynamic> json) =>
       Experiencecenter(
@@ -20,5 +24,7 @@ class Experiencecenter {
         address: json["address"],
         phone: json["phone"],
         fare: json["fare"],
+        lat: json["lat"],
+        lon: json["lon"],
       );
 }

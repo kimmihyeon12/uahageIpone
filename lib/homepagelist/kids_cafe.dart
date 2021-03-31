@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:uahage/homepagelist/distance.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:uahage/homepagelist/map_list.dart';
@@ -59,16 +62,20 @@ class _kids_cafeState extends State<kids_cafe> {
 
   int _currentMax = 0;
   ScrollController _scrollController = ScrollController();
-  bool _isLoading;
+  // bool _isLoading;
   String userId = "";
   String loginOption = "";
 
   Future<List<dynamic>> myFuture;
-  List<dynamic> kids_cafes;
+  List<dynamic> kidsCafe;
+  List<dynamic> sortedKidsCafe = [];
+  Map<double, dynamic> map = new Map();
+  var sortedKeys;
+
   void initState() {
     // setState(() {
-    kids_cafes = [];
-    _isLoading = false;
+    kidsCafe = [];
+    // _isLoading = false;
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
     latitude = widget.latitude;
@@ -78,19 +85,19 @@ class _kids_cafeState extends State<kids_cafe> {
     get_star_color();
     myFuture = _getkidcafe();
 
-    _scrollController.addListener(() {
-      double maxScroll = _scrollController.position.maxScrollExtent;
-      double currentScroll = _scrollController.position.pixels;
-      if (currentScroll >= maxScroll * 0.7 &&
-              currentScroll <= maxScroll * 0.75 &&
-              !_isLoading ||
-          currentScroll == maxScroll) {
-        print("scrolling");
-        _currentMax += 10;
-        _isLoading = true;
-        _getkidcafe();
-      }
-    });
+    // _scrollController.addListener(() {
+    //   double maxScroll = _scrollController.position.maxScrollExtent;
+    //   double currentScroll = _scrollController.position.pixels;
+    //   if (currentScroll >= maxScroll * 0.7 &&
+    //           currentScroll <= maxScroll * 0.75 &&
+    //           !_isLoading ||
+    //       currentScroll == maxScroll) {
+    //     print("scrolling");
+    //     _currentMax += 10;
+    //     _isLoading = true;
+    //     _getkidcafe();
+    //   }
+    // });
 
     super.initState();
   }
@@ -126,24 +133,61 @@ class _kids_cafeState extends State<kids_cafe> {
 
   Future<List<dynamic>> _getkidcafe() async {
     String liststringdata = "Kids_cafe";
+
     var response = await http.get(
-        'http://211.223.46.144:3000/getList/$liststringdata?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     if (json.decode(response.body)[0] == false) {
-      setState(() {
-        _scrollController.dispose();
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _scrollController.dispose();
+      //   _isLoading = false;
+      // });
     } else {
+      var currentData;
+      var distance;
       for (var data in responseJson) {
-        kids_cafes.add(KidsCafe.fromJson(data));
+        // print("calling kidscafe class");
+        currentData = KidsCafe.fromJson(data);
+        // start sorting KIDS CAFE
+        distance = distancePoints(
+          double.parse(latitude),
+          double.parse(longitude),
+          currentData.lon,
+          currentData.lat,
+        );
+        sortedKidsCafe.add(distance);
+        print("adding to sortedlist");
+        map[distance] = currentData;
       }
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
     }
-    return kids_cafes;
+    sortedKeys = map.keys.toList()..sort();
+    for (var keys in sortedKeys) {
+      // print("$keys ${map[keys].store_name}");
+      kidsCafe.add(map[keys]);
+    }
+    // print(sortedKidsCafe..sort());
+
+    return kidsCafe;
   }
+
+  // distance calculating function of two points
+  // getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  //   var R = 6371; // Radius of the earth in km
+  //   var dLat = deg2rad(lat2 - lat1); // deg2rad below
+  //   var dLon = deg2rad(lon2 - lon1);
+  //   var a = sin(dLat / 2) * sin(dLat / 2) +
+  //       cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * sin(dLon / 2) * sin(dLon / 2);
+  //   var c = 2 * atan2(sqrt(a), sqrt(1 - a));
+  //   var d = R * c; // Distance in km
+  //   return d;
+  // }
+
+  // deg2rad(deg) {
+  //   return deg * (pi / 180);
+  // }
 
   @override
   void dispose() {
@@ -258,11 +302,10 @@ class _kids_cafeState extends State<kids_cafe> {
         } else if (snapshot.hasData &&
             snapshot.data != null &&
             star_color_list.length != 0) {
-          print("snapshot data: ${snapshot.data[0].address}");
           return Scrollbar(
             child: ListView.builder(
-                controller: _scrollController,
-                itemCount: kids_cafes?.length,
+                // controller: _scrollController,
+                itemCount: kidsCafe?.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return Card(
