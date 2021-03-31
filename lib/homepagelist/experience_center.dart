@@ -70,6 +70,7 @@ class _experience_centerState extends State<experience_center> {
   List<dynamic> experience_centers = [];
   ScrollController _scrollController = ScrollController();
   List<dynamic> sortedExperinceCenter = [];
+  List<dynamic> sortedStarList = [];
   Map<double, dynamic> map = new Map();
   var sortedKeys;
 
@@ -84,7 +85,7 @@ class _experience_centerState extends State<experience_center> {
     Locality = widget.Locality ?? "";
     // oldNickname = userId != "" ? getMyNickname().toString() : "";
     // });
-    get_star_color();
+    // get_star_color();
     // _isLoading = false;
     myFuture = _getexperience_center();
     // _scrollController.addListener(() {
@@ -133,10 +134,11 @@ class _experience_centerState extends State<experience_center> {
   Future get_star_color() async {
     star_color_list = await starInsertDelete.getStarColor(
         userId, loginOption, liststringdata);
-    setState(() {});
+    // setState(() {});
   }
 
   Future<List<dynamic>> _getexperience_center() async {
+    await get_star_color();
     var response = await http.get(
         'http://211.223.46.144:3000/getList/$liststringdata'); // ?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
@@ -148,6 +150,7 @@ class _experience_centerState extends State<experience_center> {
     } else {
       var currentData;
       var distance;
+      int i = 0;
       for (var data in responseJson) {
         currentData = Experiencecenter.fromJson(data);
         // start sorting KIDS CAFE
@@ -159,7 +162,8 @@ class _experience_centerState extends State<experience_center> {
         );
         sortedExperinceCenter.add(distance);
         print("adding to sortedlist");
-        map[distance] = currentData;
+        map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
+        i++;
         // experience_centers.add(Experiencecenter.fromJson(data));
       }
       // setState(() {
@@ -169,7 +173,8 @@ class _experience_centerState extends State<experience_center> {
     sortedKeys = map.keys.toList()..sort();
     for (var keys in sortedKeys) {
       // print("$keys ${map[keys].store_name}");
-      experience_centers.add(map[keys]);
+      experience_centers.add(map[keys]['data']);
+      sortedStarList.add(map[keys]['starIndex']);
     }
 
     return experience_centers;
@@ -285,7 +290,7 @@ class _experience_centerState extends State<experience_center> {
           );
         } else if (snapshot.hasData &&
             snapshot.data != null &&
-            star_color_list.length != 0) {
+            sortedStarList.length != 0) {
           return Scrollbar(
             child: ListView.builder(
                 // controller: _scrollController,
@@ -322,9 +327,9 @@ class _experience_centerState extends State<experience_center> {
 
                                 setState(() {
                                   if (result) {
-                                    star_color_list[index] = true;
+                                    sortedStarList[index] = true;
                                   } else {
-                                    star_color_list[index] = false;
+                                    sortedStarList[index] = false;
                                   }
                                 });
                               },
@@ -420,7 +425,7 @@ class _experience_centerState extends State<experience_center> {
                                   maxHeight: 170.h,
                                 ),
                                 icon: Image.asset(
-                                  !star_color_list[index]
+                                  !sortedStarList[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
                                   height: 60.h,
@@ -439,12 +444,12 @@ class _experience_centerState extends State<experience_center> {
                                           phone1 = snapshot.data[index].phone;
                                           fare1 = snapshot.data[index].fare;
 
-                                          if (star_color_list[index] == false) {
+                                          if (sortedStarList[index] == false) {
                                             star_color = true;
-                                            star_color_list[index] = true;
+                                            sortedStarList[index] = true;
                                           } else {
                                             star_color = false;
-                                            star_color_list[index] = false;
+                                            sortedStarList[index] = false;
                                           }
 
                                           click_star();

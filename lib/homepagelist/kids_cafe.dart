@@ -70,6 +70,7 @@ class _kids_cafeState extends State<kids_cafe> {
   List<dynamic> kidsCafe;
   List<dynamic> sortedKidsCafe = [];
   Map<double, dynamic> map = new Map();
+  List<dynamic> sortedStarList = [];
   var sortedKeys;
 
   void initState() {
@@ -82,7 +83,7 @@ class _kids_cafeState extends State<kids_cafe> {
     longitude = widget.longitude;
     Area = widget.Area ?? "";
     Locality = widget.Locality ?? "";
-    get_star_color();
+    // get_star_color();
     myFuture = _getkidcafe();
 
     // _scrollController.addListener(() {
@@ -133,7 +134,7 @@ class _kids_cafeState extends State<kids_cafe> {
 
   Future<List<dynamic>> _getkidcafe() async {
     String liststringdata = "Kids_cafe";
-
+    await get_star_color();
     var response = await http.get(
         'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
@@ -145,6 +146,7 @@ class _kids_cafeState extends State<kids_cafe> {
     } else {
       var currentData;
       var distance;
+      int i = 0;
       for (var data in responseJson) {
         // print("calling kidscafe class");
         currentData = KidsCafe.fromJson(data);
@@ -157,7 +159,8 @@ class _kids_cafeState extends State<kids_cafe> {
         );
         sortedKidsCafe.add(distance);
         print("adding to sortedlist");
-        map[distance] = currentData;
+        map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
+        i++;
       }
       // setState(() {
       //   _isLoading = false;
@@ -166,7 +169,8 @@ class _kids_cafeState extends State<kids_cafe> {
     sortedKeys = map.keys.toList()..sort();
     for (var keys in sortedKeys) {
       // print("$keys ${map[keys].store_name}");
-      kidsCafe.add(map[keys]);
+      kidsCafe.add(map[keys]['data']);
+      sortedStarList.add(map[keys]['starIndex']);
     }
     // print(sortedKidsCafe..sort());
 
@@ -301,7 +305,7 @@ class _kids_cafeState extends State<kids_cafe> {
           );
         } else if (snapshot.hasData &&
             snapshot.data != null &&
-            star_color_list.length != 0) {
+            sortedStarList.length != 0) {
           return Scrollbar(
             child: ListView.builder(
                 // controller: _scrollController,
@@ -338,9 +342,9 @@ class _kids_cafeState extends State<kids_cafe> {
 
                                 setState(() {
                                   if (result) {
-                                    star_color_list[index] = true;
+                                    sortedStarList[index] = true;
                                   } else {
-                                    star_color_list[index] = false;
+                                    sortedStarList[index] = false;
                                   }
                                 });
                               },
@@ -430,7 +434,7 @@ class _kids_cafeState extends State<kids_cafe> {
                                   maxHeight: 70.h,
                                 ),
                                 icon: Image.asset(
-                                  !star_color_list[index]
+                                  !sortedStarList[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
                                   height: 60.h,
@@ -449,14 +453,13 @@ class _kids_cafeState extends State<kids_cafe> {
                                           phone1 = snapshot.data[index].phone;
                                           fare1 = snapshot.data[index].fare;
 
-                                          if (star_color_list[index] == false) {
+                                          if (sortedStarList[index] == false) {
                                             star_color = true;
-                                            star_color_list[index] = true;
+                                            sortedStarList[index] = true;
                                           } else {
                                             star_color = false;
-                                            star_color_list[index] = false;
+                                            sortedStarList[index] = false;
                                           }
-                                          ;
 
                                           click_star();
                                         });

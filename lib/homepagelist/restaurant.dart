@@ -78,6 +78,7 @@ class _restaurantState extends State<restaurant> {
   List<dynamic> restaurants;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<dynamic> sortedRestaurants = [];
+  List<dynamic> sortedStarList = [];
   Map<double, dynamic> map = new Map();
   var sortedKeys;
 
@@ -93,7 +94,7 @@ class _restaurantState extends State<restaurant> {
     Area = widget.Area ?? "";
     Locality = widget.Locality ?? "";
     // });
-    get_star_color();
+    // get_star_color();
     myFuture = _getrestaurant();
     // _scrollController.addListener(() {
     //   double maxScroll = _scrollController.position.maxScrollExtent;
@@ -144,6 +145,7 @@ class _restaurantState extends State<restaurant> {
   }
 
   Future<List<dynamic>> _getrestaurant() async {
+    await get_star_color();
     final response = await http.get(
         'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
@@ -177,7 +179,8 @@ class _restaurantState extends State<restaurant> {
       sortedKeys = map.keys.toList()..sort();
       for (var keys in sortedKeys) {
         print("$keys ${map[keys]['data']}");
-        restaurants.add(map[keys]);
+        restaurants.add(map[keys]['data']);
+        sortedStarList.add(map[keys]['starIndex']);
       }
     }
     return restaurants;
@@ -304,7 +307,7 @@ class _restaurantState extends State<restaurant> {
           );
         } else if (snapshot.hasData &&
             snapshot.data != null &&
-            star_color_list.length != 0) {
+            sortedStarList.length != 0) {
           print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
           return Scrollbar(
             child: ListView.builder(
@@ -344,9 +347,9 @@ class _restaurantState extends State<restaurant> {
 
                                 setState(() {
                                   if (result) {
-                                    star_color_list[index] = true;
+                                    sortedStarList[index] = true;
                                   } else {
-                                    star_color_list[index] = false;
+                                    sortedStarList[index] = false;
                                   }
                                 });
                               },
@@ -479,7 +482,7 @@ class _restaurantState extends State<restaurant> {
                                   maxHeight: 70.h,
                                 ),
                                 icon: Image.asset(
-                                  !star_color_list[index]
+                                  !sortedStarList[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
                                   height: 60.h,
@@ -512,15 +515,15 @@ class _restaurantState extends State<restaurant> {
                                               snapshot.data[index].nursingroom;
                                           chair1 = snapshot.data[index].chair;
 
-                                          if (star_color_list[index] == false) {
+                                          if (sortedStarList[index] == false) {
                                             setState(() {
                                               star_color = true;
-                                              star_color_list[index] = true;
+                                              sortedStarList[index] = true;
                                             });
                                           } else {
                                             setState(() {
                                               star_color = false;
-                                              star_color_list[index] = false;
+                                              sortedStarList[index] = false;
                                             });
                                           }
 

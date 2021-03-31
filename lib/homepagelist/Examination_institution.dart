@@ -60,14 +60,15 @@ class _examination_institutionState extends State<examination_institution> {
   ScrollController _scrollController = ScrollController();
 
   List<dynamic> sortedKidsCafe = [];
+  List<dynamic> sortedStarList = [];
   Map<double, dynamic> map = new Map();
   var sortedKeys;
-  bool _isLoading;
+  // bool _isLoading;
   toast show_toast = new toast();
   @override
   void initState() {
     // setState(() {
-    _isLoading = false;
+    // _isLoading = false;
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
     latitude = widget.latitude;
@@ -76,7 +77,7 @@ class _examination_institutionState extends State<examination_institution> {
     Locality = widget.Locality ?? "";
     // oldNickname = userId != "" ? getMyNickname().toString() : "";
     // });
-    get_star_color();
+    // get_star_color();
     myFuture = _getexamination_institution();
 
     // _scrollController.addListener(() {
@@ -128,6 +129,7 @@ class _examination_institutionState extends State<examination_institution> {
   }
 
   Future<List<dynamic>> _getexamination_institution() async {
+    await get_star_color();
     var response = await http.get(
         'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
@@ -139,6 +141,7 @@ class _examination_institutionState extends State<examination_institution> {
     } else {
       var currentData;
       var distance;
+      int i = 0;
       for (var data in responseJson) {
         currentData = examinationinstitution.fromJson(data);
         // start sorting KIDS CAFE
@@ -150,7 +153,8 @@ class _examination_institutionState extends State<examination_institution> {
         );
         sortedKidsCafe.add(distance);
         print("adding to sortedlist");
-        map[distance] = currentData;
+        map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
+        i++;
         // examination_institutions.add(examinationinstitution.fromJson(data));
       }
       // setState(() {
@@ -161,7 +165,8 @@ class _examination_institutionState extends State<examination_institution> {
     sortedKeys = map.keys.toList()..sort();
     for (var keys in sortedKeys) {
       // print("$keys ${map[keys].store_name}");
-      examination_institutions.add(map[keys]);
+      examination_institutions.add(map[keys]['data']);
+      sortedStarList.add(map[keys]['starIndex']);
     }
     return examination_institutions;
   }
@@ -287,7 +292,7 @@ class _examination_institutionState extends State<examination_institution> {
           );
         } else if (snapshot.hasData &&
             snapshot.data != null &&
-            star_color_list.length != 0) {
+            sortedStarList.length != 0) {
           return Scrollbar(
             child: ListView.builder(
                 controller: _scrollController,
@@ -323,9 +328,9 @@ class _examination_institutionState extends State<examination_institution> {
 
                                 setState(() {
                                   if (result) {
-                                    star_color_list[index] = true;
+                                    sortedStarList[index] = true;
                                   } else {
-                                    star_color_list[index] = false;
+                                    sortedStarList[index] = false;
                                   }
                                 });
                               },
@@ -415,7 +420,7 @@ class _examination_institutionState extends State<examination_institution> {
                                   maxHeight: 70.h,
                                 ),
                                 icon: Image.asset(
-                                  !star_color_list[index]
+                                  !sortedStarList[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
                                   height: 60.h,
@@ -435,14 +440,14 @@ class _examination_institutionState extends State<examination_institution> {
                                           Examination_item1 = snapshot
                                               .data[index].Examination_item;
 
-                                          if (star_color_list[index] == false) {
+                                          if (sortedStarList[index] == false) {
                                             star_color = true;
-                                            star_color_list[index] = true;
-                                            print(' star_color_list[index]');
-                                            print(star_color_list[index]);
+                                            sortedStarList[index] = true;
+                                            print(' sortedStarList[index]');
+                                            print(sortedStarList[index]);
                                           } else {
                                             star_color = false;
-                                            star_color_list[index] = false;
+                                            sortedStarList[index] = false;
                                           }
 
                                           click_star();
