@@ -133,6 +133,7 @@ class _navigationPageState extends State<navigationPage> {
                           showSelectedLabels: false, // <-- HERE
                           showUnselectedLabels: false,
                           elevation: 15,
+                          backgroundColor: Colors.white,
                           onTap: (value) {
                             setState(() {
                               _selectedTabIndex = value;

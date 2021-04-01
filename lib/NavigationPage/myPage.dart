@@ -112,7 +112,7 @@ class _myPageState extends State<myPage> {
           setState(() {
             imageLink = _imageLink.toString();
           });
-      } else {}
+      }
     } catch (err) {
       print(err);
       return err["message"];
@@ -132,31 +132,6 @@ class _myPageState extends State<myPage> {
           .then((value) => print(value.body))
           .catchError((err) => print(err));
     } catch (error) {}
-  }
-
-  Future checkNickname() async {
-    var data;
-    print("nick in func: $nickName");
-    try {
-      var response =
-          await http.get("http://211.223.46.144:3000/getNicknames/$nickName");
-      if (response.statusCode == 200) {
-        data = jsonDecode(response.body)["message"];
-        setState(() {
-          isIdValid = true;
-        });
-        return data;
-      } else {
-        data = jsonDecode(response.body)["message"];
-        setState(() {
-          isIdValid = false;
-        });
-        return data;
-      }
-    } catch (err) {
-      // print(err);
-      return err["message"];
-    }
   }
 
   Future updateNickname() async {
@@ -401,44 +376,6 @@ class _myPageState extends State<myPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              //back button
-              // Container(
-              //   margin: EdgeInsets.fromLTRB(60.w, 50.h, 0, 0),
-              //   child: onEdit
-              //       ? InkWell(
-              //           onTap: () async {
-              //             setState(() {
-              //               onEdit = false;
-              //               yController.text = "";
-              //               birthday = "";
-              //               changeimage.fillRange(0, 6, false);
-              //             });
-              //             await getMyInfo();
-              //           },
-              //           child: Row(
-              //             children: [
-              //               Image.asset(
-              //                 "./assets/myPage/back.png",
-              //                 width: 43.w,
-              //                 height: 76.h,
-              //               ),
-              //               // 내 정보
-              //               Container(
-              //                 margin: EdgeInsets.only(left: 33.w),
-              //                 child: Text("내 정보",
-              //                     style: TextStyle(
-              //                       color: Color.fromRGBO(255, 114, 148, 1.0),
-              //                       fontFamily: 'NotoSansCJKkr_Medium',
-              //                       fontSize: 62.sp,
-              //                     ),
-              //                     textAlign: TextAlign.left),
-              //               )
-              //             ],
-              //           ),
-              //         )
-              //       : Container(),
-              // ),
-
               //Center avatar
               Padding(
                 padding: EdgeInsets.only(top: 150.h),
@@ -452,21 +389,6 @@ class _myPageState extends State<myPage> {
                       child: CircleAvatar(
                         backgroundImage:
                             AssetImage("./assets/myPage/avatar.png"),
-                        // backgroundImage: (() {
-                        //   if (_image != null) {
-                        //     print("1");
-                        //     return FileImage(_image);
-                        //   } else if (imageLink != "" && imageLink != null) {
-                        //     print("2");
-                        //     // print("here " + imageLink);
-                        //     return NetworkImage(imageLink); //imageURL
-
-                        //   } else {
-                        //     print("3");
-                        //     return AssetImage("./assets/myPage/avatar.png");
-                        //   }
-                        // }()),
-                        // child: Image.network(imageLink),
                         child: (() {
                           // your code here
 
@@ -533,114 +455,6 @@ class _myPageState extends State<myPage> {
               ),
 
               // Nickname
-              // onEdit
-              //     ? Container(
-              //         margin: EdgeInsets.only(
-              //           top: 85.h,
-              //         ),
-              //         child: Container(
-              //           child: Row(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: [
-              //               // 닉네임
-              //               Container(
-              //                 margin: EdgeInsets.fromLTRB(157.w, 40.h, 88.w, 0),
-              //                 child: Text("닉네임",
-              //                     style: TextStyle(
-              //                         color: const Color(0xffff7292),
-              //                         fontFamily: "NotoSansCJKkr_Medium",
-              //                         fontSize: 57.sp),
-              //                     textAlign: TextAlign.left),
-              //               ),
-              //               Expanded(
-              //                 flex: 1,
-              //                 child: Container(
-              //                   margin: EdgeInsets.only(
-              //                     right: 121.w,
-              //                   ),
-              //                   child: Stack(
-              //                     children: [
-              //                       TextFormField(
-              //                         cursorColor: Color(0xffff7292),
-              //                         maxLength: 10,
-              //                         onChanged: (txt) {
-              //                           txt.length <= 10
-              //                               ? setState(() {
-              //                                   nickName = txt;
-              //                                 })
-              //                               : null;
-              //                         },
-              //                         textAlign: TextAlign.left,
-              //                         style: TextStyle(
-              //                             color: Color(0xff3a3939),
-              //                             fontFamily: "NotoSansCJKkr_Bold",
-              //                             fontSize: 58.sp),
-              //                         decoration: InputDecoration(
-              //                           contentPadding:
-              //                               EdgeInsets.only(right: 410.w),
-              //                           enabledBorder: UnderlineInputBorder(
-              //                             borderSide: BorderSide(
-              //                               color: const Color(0xffff7292),
-              //                             ),
-
-              //                             //Color.fromRGBO(255, 114, 148, 1.0)
-              //                           ),
-              //                           focusedBorder: UnderlineInputBorder(
-              //                             borderSide: BorderSide(
-              //                                 color: Color(0xffff7292)),
-              //                           ),
-              //                           hintText: '닉네임을 입력하세요',
-              //                           hintStyle: TextStyle(
-              //                               color: const Color(0xffcacaca),
-              //                               fontFamily: "NotoSansCJKkr_Medium",
-              //                               fontSize: 57.sp),
-              //                         ),
-              //                       ),
-              //                       Align(
-              //                         alignment: Alignment.topRight,
-              //                         child: FlatButton(
-              //                           height: 125.h,
-              //                           shape: RoundedRectangleBorder(
-              //                               borderRadius:
-              //                                   BorderRadius.circular(8.0)),
-              //                           color: nickName == ""
-              //                               ? Color(0xffcacaca)
-              //                               : Color(0xffff7292),
-              //                           onPressed: loginOption != "login" &&
-              //                                   nickName != ""
-              //                               ? () {
-              //                                   print(nickName);
-              //                                   currentFocus.unfocus();
-              //                                   buildShowDialogOnOk(
-              //                                       checkNickname(),
-              //                                       context,
-              //                                       300.h,
-              //                                       200.h,
-              //                                       80.h,
-              //                                       1500.h,
-              //                                       _fontsize);
-              //                                 }
-              //                               : () {},
-              //                           child: // 중복확인
-              //                               Text("중복확인",
-              //                                   style: TextStyle(
-              //                                       color:
-              //                                           const Color(0xffffffff),
-              //                                       fontFamily:
-              //                                           "NotoSansCJKkr_Medium",
-              //                                       fontSize: 58.sp),
-              //                                   textAlign: TextAlign.left),
-              //                         ),
-              //                       ),
-              //                     ],
-              //                   ),
-              //                 ),
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       )
-              //     :
               Container(
                 margin: EdgeInsets.only(top: 31.h),
                 child: Column(
@@ -668,14 +482,6 @@ class _myPageState extends State<myPage> {
                                     height: 50.h,
                                     width: 50.w,
                                     child: buildSpinKitThreeBounce(30, 1500.w),
-                                    // CircularProgressIndicator(
-                                    //   strokeWidth: 5.0,
-                                    //   valueColor:
-                                    //       new AlwaysStoppedAnimation<
-                                    //           Color>(
-                                    //     Colors.pinkAccent,
-                                    //   ),
-                                    // ),
                                   ),
                                 );
                               },
@@ -695,38 +501,31 @@ class _myPageState extends State<myPage> {
                                   height: 147.h,
                                 )
                               : InkWell(
-                                  onTap: () {
-                                    final result = Navigator.push(
+                                  onTap: () async {
+                                    // print(_uploadedFileURL);
+                                    final result = await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => UserModify(
                                                 loginOption: loginOption,
                                                 userId: userId,
-                                                // recievedImage: _image == null
-                                                //     ? _uploadedFileURL == ""
-                                                //         ? "./assets/myPage/avatar.png"
-                                                //         : _uploadedFileURL
-                                                //     : _image,
+                                                recievedImage: _image == null
+                                                    ? imageLink == ""
+                                                        ? null
+                                                        : imageLink
+                                                    : _image,
                                               )),
                                     );
-                                    print("result $result");
-                                    // setState(() {
-                                    //   isIdValid = false;
-                                    //   nickName = "";
-                                    //   onEdit = true;
-                                    //   genderImage[0] = false;
-                                    //   genderImage[1] = false;
-                                    //   birthday = "";
-                                    //   yController.text = "";
-                                    //   changeimage.fillRange(0, 6, false);
-                                    //   userAge = "";
-                                    //   // changeimage[0] = false;
-                                    //   // changeimage[1] = false;
-                                    //   // changeimage[2] = false;
-                                    //   // changeimage[3] = false;
-                                    //   // changeimage[4] = false;
-                                    //   // changeimage[5] = false;
-                                    // });
+
+                                    // ignore: unnecessary_statements
+                                    if (result) {
+                                      setState(() {
+                                        _image = null;
+                                      });
+
+                                      getMyAvatar();
+                                      getMyInfo();
+                                    }
                                   },
                                   child: Image.asset(
                                     "./assets/myPage/button1_pink.png",
@@ -819,59 +618,38 @@ class _myPageState extends State<myPage> {
                         margin: EdgeInsets.fromLTRB(82.w, 0, 121.w, 0),
                         child: Stack(
                           children: [
-                            GestureDetector(
-                              onTap: onEdit ? yearPicker : null,
-                              child: AbsorbPointer(
-                                child: TextFormField(
-                                  readOnly: true,
-                                  controller: yController,
-
-                                  // onChanged: (txt) {
-                                  //   setState(() {
-                                  //     birthday = txt;
-                                  //   });
-                                  // },
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      color: Color(0xffff7292),
-                                      fontSize: 57.sp,
-                                      fontFamily: 'NotoSansCJKkr_Medium',
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -1.0),
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: const Color(0xffff7292),
-                                      ),
-                                      //Color.fromRGBO(255, 114, 148, 1.0)
+                            AbsorbPointer(
+                              child: TextFormField(
+                                readOnly: true,
+                                controller: yController,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color: Color(0xffff7292),
+                                    fontSize: 57.sp,
+                                    fontFamily: 'NotoSansCJKkr_Medium',
+                                    fontStyle: FontStyle.normal,
+                                    letterSpacing: -1.0),
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: const Color(0xffff7292),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffff7292)),
-                                    ),
-                                    hintText: birthday == ""
-                                        ? '생년월일을 선택해주세요'
-                                        : birthday,
-                                    hintStyle: TextStyle(
-                                        color: Color(0xffd4d4d4),
-                                        fontFamily: "NotoSansCJKkr_Medium",
-                                        fontSize: 57.0.sp),
+                                    //Color.fromRGBO(255, 114, 148, 1.0)
                                   ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xffff7292)),
+                                  ),
+                                  hintText: birthday == ""
+                                      ? '생년월일을 선택해주세요'
+                                      : birthday,
+                                  hintStyle: TextStyle(
+                                      color: Color(0xffd4d4d4),
+                                      fontFamily: "NotoSansCJKkr_Medium",
+                                      fontSize: 57.0.sp),
                                 ),
                               ),
                             ),
-                            onEdit
-                                ? Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        yearPicker();
-                                      },
-                                      icon: Image.asset(
-                                          "./assets/myPage/calendar.png"),
-                                    ),
-                                  )
-                                : Container(),
                           ],
                         ),
                       ),
@@ -901,53 +679,32 @@ class _myPageState extends State<myPage> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(left: 59.w),
-                                child: InkWell(
-                                  child: Image.asset(
-                                    changeimage[0]
-                                        ? './assets/registrationPage/10_pink.png'
-                                        : './assets/registrationPage/10_grey.png',
-                                    height: 194.h,
-                                    width: 249.w,
-                                  ),
-                                  onTap: onEdit
-                                      ? () {
-                                          _change('10');
-                                        }
-                                      : null,
+                                child: Image.asset(
+                                  changeimage[0]
+                                      ? './assets/registrationPage/10_pink.png'
+                                      : './assets/registrationPage/10_grey.png',
+                                  height: 194.h,
+                                  width: 249.w,
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 55.w),
-                                child: InkWell(
-                                  child: Image.asset(
-                                    changeimage[1]
-                                        ? './assets/registrationPage/20_pink.png'
-                                        : './assets/registrationPage/20_grey.png',
-                                    height: 194.h,
-                                    width: 249.w,
-                                  ),
-                                  onTap: onEdit
-                                      ? () {
-                                          _change('20');
-                                        }
-                                      : null,
+                                child: Image.asset(
+                                  changeimage[1]
+                                      ? './assets/registrationPage/20_pink.png'
+                                      : './assets/registrationPage/20_grey.png',
+                                  height: 194.h,
+                                  width: 249.w,
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 55.w),
-                                child: InkWell(
-                                  child: Image.asset(
-                                    changeimage[2]
-                                        ? './assets/registrationPage/30_pink.png'
-                                        : './assets/registrationPage/30_grey.png',
-                                    height: 194.h,
-                                    width: 249.w,
-                                  ),
-                                  onTap: onEdit
-                                      ? () {
-                                          _change('30');
-                                        }
-                                      : null,
+                                child: Image.asset(
+                                  changeimage[2]
+                                      ? './assets/registrationPage/30_pink.png'
+                                      : './assets/registrationPage/30_grey.png',
+                                  height: 194.h,
+                                  width: 249.w,
                                 ),
                               ),
                             ],
@@ -956,53 +713,32 @@ class _myPageState extends State<myPage> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(left: 59.w, top: 45.h),
-                                child: InkWell(
-                                  child: Image.asset(
-                                    changeimage[3]
-                                        ? './assets/registrationPage/40_pink.png'
-                                        : './assets/registrationPage/40_grey.png',
-                                    height: 194.h,
-                                    width: 249.w,
-                                  ),
-                                  onTap: onEdit
-                                      ? () {
-                                          _change('40');
-                                        }
-                                      : null,
+                                child: Image.asset(
+                                  changeimage[3]
+                                      ? './assets/registrationPage/40_pink.png'
+                                      : './assets/registrationPage/40_grey.png',
+                                  height: 194.h,
+                                  width: 249.w,
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 55.w, top: 45.h),
-                                child: InkWell(
-                                  child: Image.asset(
-                                    changeimage[4]
-                                        ? './assets/registrationPage/50_pink.png'
-                                        : './assets/registrationPage/50_grey.png',
-                                    height: 194.h,
-                                    width: 249.w,
-                                  ),
-                                  onTap: onEdit
-                                      ? () {
-                                          _change('50');
-                                        }
-                                      : null,
+                                child: Image.asset(
+                                  changeimage[4]
+                                      ? './assets/registrationPage/50_pink.png'
+                                      : './assets/registrationPage/50_grey.png',
+                                  height: 194.h,
+                                  width: 249.w,
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 55.w, top: 45.h),
-                                child: InkWell(
-                                  child: Image.asset(
-                                    changeimage[5]
-                                        ? './assets/registrationPage/others_pink.png'
-                                        : './assets/registrationPage/others_grey.png',
-                                    height: 194.h,
-                                    width: 249.w,
-                                  ),
-                                  onTap: onEdit
-                                      ? () {
-                                          _change('60');
-                                        }
-                                      : null,
+                                child: Image.asset(
+                                  changeimage[5]
+                                      ? './assets/registrationPage/others_pink.png'
+                                      : './assets/registrationPage/others_grey.png',
+                                  height: 194.h,
+                                  width: 249.w,
                                 ),
                               ),
                             ],
@@ -1015,97 +751,6 @@ class _myPageState extends State<myPage> {
               ),
 
               // Ok Button
-              onEdit
-                  ? Container(
-                      margin: EdgeInsets.only(top: 87.h),
-                      child: SizedBox(
-                        height: 194.w,
-                        width: 1193.h,
-                        child: FlatButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0)),
-                          color:
-                              isIdValid ? Color(0xffff7292) : Color(0xffcacaca),
-                          onPressed: isIdValid &&
-                                  nickName != "" &&
-                                  yController.text != "" &&
-                                  gender != "" &&
-                                  userAge != ""
-                              ? () {
-                                  print(userAge);
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => FutureBuilder(
-                                      future: updateNickname(),
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData) {
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            setState(() {
-                                              onEdit = false;
-                                            });
-                                            // Add Your Code here.
-                                            Navigator.pop(context);
-                                          });
-                                        } else if (snapshot.hasError) {
-                                          return AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20.0)),
-                                            ),
-                                            title: Text("${snapshot.error}"),
-                                            actions: [
-                                              FlatButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: // 확인
-                                                    Text("확인",
-                                                        style: TextStyle(
-                                                            color: const Color(
-                                                                0xffff7292),
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontFamily:
-                                                                "NotoSansCJKkr_Medium",
-                                                            fontStyle: FontStyle
-                                                                .normal,
-                                                            fontSize:
-                                                                _fontsize),
-                                                        textAlign:
-                                                            TextAlign.center),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                        return Center(
-                                          child: SizedBox(
-                                              height: 200.h,
-                                              width: 200.w,
-                                              child: buildSpinKitThreeBounce(
-                                                  80, 1500.w)),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                }
-                              : () {
-                                  show_toast.showToast(
-                                      context, "모든 필드를 입력하십시오");
-                                },
-                          child: // 중복확인
-                              Text("OK",
-                                  style: TextStyle(
-                                      color: const Color(0xffffffff),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "NotoSansCJKkr_Medium",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 62.sp),
-                                  textAlign: TextAlign.left),
-                        ),
-                      ),
-                    )
-                  : Container(),
 
               //logout
 
@@ -1435,62 +1080,5 @@ class _myPageState extends State<myPage> {
         changeimage[5] = true;
       });
     }
-  }
-
-  yearPicker() {
-    final year = DateTime.now().year;
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          title: Text(
-            '생년월일을 입력하세요',
-            style: TextStyle(
-              color: Color.fromRGBO(255, 114, 148, 1.0),
-              fontWeight: FontWeight.w500,
-              fontSize: 56.sp,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          content: Container(
-              height: MediaQuery.of(context).size.height / 5.0,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.white,
-              child: CupertinoDatePicker(
-                initialDateTime: DateTime.now(),
-                onDateTimeChanged: (DateTime newDate) async {
-                  var datee = newDate.toString().substring(0, 10).split('-');
-                  yController.text =
-                      datee[0] + "년 " + datee[1] + "월 " + datee[2] + "일";
-                },
-                minimumYear: 2000,
-                maximumYear: year,
-                mode: CupertinoDatePickerMode.date,
-              )),
-          actions: <Widget>[
-            FlatButton(
-              child: Text(
-                '확인',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 114, 148, 1.0),
-                  fontFamily: 'NotoSansCJKkr_Medium',
-                  fontSize: 57.sp,
-                ),
-              ),
-              onPressed: () {
-                setState(() {
-                  birthday = yController.text;
-                  Navigator.of(context).pop();
-                });
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }
