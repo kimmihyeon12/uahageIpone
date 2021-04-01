@@ -93,6 +93,10 @@ class _navigationPageState extends State<navigationPage> {
       onWillPop: () {
         if (loginOption == 'login') {
           Navigator.pop(context, true);
+        } else if (_selectedTabIndex >= 1) {
+          setState(() {
+            _selectedTabIndex = 0;
+          });
         } else
           SystemNavigator.pop();
         // Navigator.pop(context, true);

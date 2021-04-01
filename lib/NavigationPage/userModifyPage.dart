@@ -770,8 +770,13 @@ class _UserModifyState extends State<UserModify> {
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
-                        color:
-                            isIdValid ? Color(0xffff7292) : Color(0xffcacaca),
+                        color: isIdValid &&
+                                nickName != "" &&
+                                yController.text != "" &&
+                                gender != "" &&
+                                userAge != ""
+                            ? Color(0xffff7292)
+                            : Color(0xffcacaca),
                         onPressed: isIdValid &&
                                 nickName != "" &&
                                 yController.text != "" &&
