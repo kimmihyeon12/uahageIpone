@@ -18,8 +18,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class homePage extends StatefulWidget {
   String loginOption;
   String userId;
-  String latitude = "";
-  String longitude = "";
+  var latitude;
+  var longitude;
   // String oldNickname;
   homePage({
     Key key,
@@ -39,8 +39,8 @@ class _homePageState extends State<homePage> {
   String Locality = "";
   var searchkey = "";
 
-  String latitude = "";
-  String longitude = "";
+  var latitude;
+  var longitude;
   var i;
 
   WebViewController controller;
@@ -54,14 +54,11 @@ class _homePageState extends State<homePage> {
       userId = widget.userId ?? "";
       latitude = widget.latitude ?? "";
       longitude = widget.longitude ?? "";
-
     });
-     super.initState();
+    super.initState();
   }
 
   toast show_toast = new toast();
-
-
 
   int index = 1;
 
@@ -89,7 +86,8 @@ class _homePageState extends State<homePage> {
     FocusScopeNode currentFocus = FocusScope.of(context);
     bool isIOS = Platform.isIOS;
     ScreenUtil.init(context, width: 1500, height: 2667);
-
+    print("latitude in home provider: ${latitude}");
+    print("longitude in widget home provider: ${widget.longitude}");
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -204,6 +202,7 @@ class _homePageState extends State<homePage> {
                     },
                     // autofocus: false,
                     // showCursor: false,
+                    cursorColor: Color(0xffff7292),
                     style: TextStyle(
                         color: Color(0xffcccccc),
                         fontSize: 60.sp,

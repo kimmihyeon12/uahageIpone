@@ -38,7 +38,6 @@ class _navigationPageState extends State<navigationPage> {
 
   @override
   void initState() {
-
     setState(() {
       userId = widget.userId ?? "";
       oldNickname = widget.oldNickname ?? "";
@@ -51,7 +50,8 @@ class _navigationPageState extends State<navigationPage> {
   void dispose() {
     super.dispose();
   }
- void currentLocation() async {
+
+  void currentLocation() async {
     lacationprovider = Provider.of<LocationProvider>(context);
     await lacationprovider.setCurrentLocation();
     setState(() {
@@ -65,11 +65,14 @@ class _navigationPageState extends State<navigationPage> {
   Widget build(BuildContext context) {
     connectionStatus = Provider.of<ConnectivityStatus>(context);
     lacationprovider = Provider.of<LocationProvider>(context);
-  //  print(latitude+","+longitude);
-    latitude=="35.146076"&&longitude=="126.9231225"?  currentLocation(): "";
+    //  print(latitude+","+longitude);
+    latitude == "35.146076" && longitude == "126.9231225"
+        ? currentLocation()
+        : "";
     latitude = lacationprovider.getlatitude;
     longitude = lacationprovider.getlongitude;
-
+    print("latitude in nav provider: $latitude");
+    print("longitude in nav provider: $longitude");
 
     ScreenUtil.init(context, width: 1500, height: 2667);
     SystemChrome.setPreferredOrientations([

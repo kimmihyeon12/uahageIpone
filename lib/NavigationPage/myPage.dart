@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:uahage/NavigationPage/userModifyPage.dart';
 import 'package:uahage/screens/buildShowDialog.dart';
 import 'package:uahage/screens/withdrawal.dart';
 import './../screens/loginPage.dart';
@@ -113,7 +114,7 @@ class _myPageState extends State<myPage> {
           });
       } else {}
     } catch (err) {
-      // print(err);
+      print(err);
       return err["message"];
     }
   }
@@ -401,44 +402,47 @@ class _myPageState extends State<myPage> {
           child: Column(
             children: [
               //back button
-              Container(
-                margin: EdgeInsets.fromLTRB(60.w, 50.h, 0, 0),
-                child: onEdit
-                    ? InkWell(
-                        onTap: () async {
-                          setState(() {
-                            onEdit = false;
-                            yController.text = "";
-                            birthday = "";
-                            changeimage.fillRange(0, 6, false);
-                          });
-                          await getMyInfo();
-                        },
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "./assets/myPage/back.png",
-                              width: 43.w,
-                              height: 76.h,
-                            ),
-                            // 내 정보
-                            Container(
-                              margin: EdgeInsets.only(left: 33.w),
-                              child: Text("내 정보",
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(255, 114, 148, 1.0),
-                                    fontFamily: 'NotoSansCJKkr_Medium',
-                                    fontSize: 62.sp,
-                                  ),
-                                  textAlign: TextAlign.left),
-                            )
-                          ],
-                        ),
-                      )
-                    : Container(),
-              ),
+              // Container(
+              //   margin: EdgeInsets.fromLTRB(60.w, 50.h, 0, 0),
+              //   child: onEdit
+              //       ? InkWell(
+              //           onTap: () async {
+              //             setState(() {
+              //               onEdit = false;
+              //               yController.text = "";
+              //               birthday = "";
+              //               changeimage.fillRange(0, 6, false);
+              //             });
+              //             await getMyInfo();
+              //           },
+              //           child: Row(
+              //             children: [
+              //               Image.asset(
+              //                 "./assets/myPage/back.png",
+              //                 width: 43.w,
+              //                 height: 76.h,
+              //               ),
+              //               // 내 정보
+              //               Container(
+              //                 margin: EdgeInsets.only(left: 33.w),
+              //                 child: Text("내 정보",
+              //                     style: TextStyle(
+              //                       color: Color.fromRGBO(255, 114, 148, 1.0),
+              //                       fontFamily: 'NotoSansCJKkr_Medium',
+              //                       fontSize: 62.sp,
+              //                     ),
+              //                     textAlign: TextAlign.left),
+              //               )
+              //             ],
+              //           ),
+              //         )
+              //       : Container(),
+              // ),
 
               //Center avatar
+              Padding(
+                padding: EdgeInsets.only(top: 150.h),
+              ),
               Center(
                 child: Stack(
                   children: [
@@ -474,7 +478,7 @@ class _myPageState extends State<myPage> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image: FileImage(_image), //imageURL
-                                    fit: BoxFit.fill),
+                                    fit: BoxFit.cover),
                               ),
                             );
                           } else if (imageLink != "" && imageLink != null) {
@@ -484,7 +488,7 @@ class _myPageState extends State<myPage> {
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image: NetworkImage(imageLink),
-                                    fit: BoxFit.fill),
+                                    fit: BoxFit.cover),
                               ),
                             );
                           } else {
@@ -529,197 +533,211 @@ class _myPageState extends State<myPage> {
               ),
 
               // Nickname
-              onEdit
-                  ? Container(
-                      margin: EdgeInsets.only(
-                        top: 85.h,
-                      ),
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // 닉네임
-                            Container(
-                              margin: EdgeInsets.fromLTRB(157.w, 40.h, 88.w, 0),
-                              child: Text("닉네임",
-                                  style: TextStyle(
-                                      color: const Color(0xffff7292),
-                                      fontFamily: "NotoSansCJKkr_Medium",
-                                      fontSize: 57.sp),
-                                  textAlign: TextAlign.left),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: 121.w,
-                                ),
-                                child: Stack(
-                                  children: [
-                                    TextFormField(
-                                      maxLength: 10,
-                                      onChanged: (txt) {
-                                        txt.length <= 10
-                                            ? setState(() {
-                                                nickName = txt;
-                                              })
-                                            : null;
-                                      },
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          color: Color(0xff3a3939),
-                                          fontFamily: "NotoSansCJKkr_Bold",
-                                          fontSize: 58.sp),
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.only(right: 410.w),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: const Color(0xffff7292),
-                                          ),
+              // onEdit
+              //     ? Container(
+              //         margin: EdgeInsets.only(
+              //           top: 85.h,
+              //         ),
+              //         child: Container(
+              //           child: Row(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               // 닉네임
+              //               Container(
+              //                 margin: EdgeInsets.fromLTRB(157.w, 40.h, 88.w, 0),
+              //                 child: Text("닉네임",
+              //                     style: TextStyle(
+              //                         color: const Color(0xffff7292),
+              //                         fontFamily: "NotoSansCJKkr_Medium",
+              //                         fontSize: 57.sp),
+              //                     textAlign: TextAlign.left),
+              //               ),
+              //               Expanded(
+              //                 flex: 1,
+              //                 child: Container(
+              //                   margin: EdgeInsets.only(
+              //                     right: 121.w,
+              //                   ),
+              //                   child: Stack(
+              //                     children: [
+              //                       TextFormField(
+              //                         cursorColor: Color(0xffff7292),
+              //                         maxLength: 10,
+              //                         onChanged: (txt) {
+              //                           txt.length <= 10
+              //                               ? setState(() {
+              //                                   nickName = txt;
+              //                                 })
+              //                               : null;
+              //                         },
+              //                         textAlign: TextAlign.left,
+              //                         style: TextStyle(
+              //                             color: Color(0xff3a3939),
+              //                             fontFamily: "NotoSansCJKkr_Bold",
+              //                             fontSize: 58.sp),
+              //                         decoration: InputDecoration(
+              //                           contentPadding:
+              //                               EdgeInsets.only(right: 410.w),
+              //                           enabledBorder: UnderlineInputBorder(
+              //                             borderSide: BorderSide(
+              //                               color: const Color(0xffff7292),
+              //                             ),
 
-                                          //Color.fromRGBO(255, 114, 148, 1.0)
-                                        ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Color(0xffff7292)),
-                                        ),
-                                        hintText: '닉네임을 입력하세요',
-                                        hintStyle: TextStyle(
-                                            color: const Color(0xffcacaca),
-                                            fontFamily: "NotoSansCJKkr_Medium",
-                                            fontSize: 57.sp),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: FlatButton(
-                                        height: 125.h,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0)),
-                                        color: nickName == ""
-                                            ? Color(0xffcacaca)
-                                            : Color(0xffff7292),
-                                        onPressed: loginOption != "login" &&
-                                                nickName != ""
-                                            ? () {
-                                                print(nickName);
-                                                currentFocus.unfocus();
-                                                buildShowDialogOnOk(
-                                                    checkNickname(),
-                                                    context,
-                                                    300.h,
-                                                    200.h,
-                                                    80.h,
-                                                    1500.h,
-                                                    _fontsize);
-                                              }
-                                            : () {},
-                                        child: // 중복확인
-                                            Text("중복확인",
-                                                style: TextStyle(
-                                                    color:
-                                                        const Color(0xffffffff),
-                                                    fontFamily:
-                                                        "NotoSansCJKkr_Medium",
-                                                    fontSize: 58.sp),
-                                                textAlign: TextAlign.left),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(
-                      margin: EdgeInsets.only(top: 31.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            // width: 320 .w,
-                            child: userId == ""
-                                ? nickNameShow("우아하게", 1500.w)
-                                : FutureBuilder(
-                                    future: getMyNickname(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        // print("hasdata " + snapshot.data);
-                                        return snapshot.data != ""
-                                            ? nickNameShow(
-                                                snapshot.data, 1500.w)
-                                            : nickNameShow("우아하게", 1500.w);
-                                      } else if (snapshot.hasError) {
-                                        // print("haserror " + snapshot.error);
-                                        return nickNameShow(
-                                            "${snapshot.error}", 1500.w);
-                                      }
-                                      return Center(
-                                        child: SizedBox(
-                                          height: 50.h,
-                                          width: 50.w,
-                                          child: buildSpinKitThreeBounce(
-                                              30, 1500.w),
-                                          // CircularProgressIndicator(
-                                          //   strokeWidth: 5.0,
-                                          //   valueColor:
-                                          //       new AlwaysStoppedAnimation<
-                                          //           Color>(
-                                          //     Colors.pinkAccent,
-                                          //   ),
-                                          // ),
-                                        ),
-                                      );
-                                    },
+              //                             //Color.fromRGBO(255, 114, 148, 1.0)
+              //                           ),
+              //                           focusedBorder: UnderlineInputBorder(
+              //                             borderSide: BorderSide(
+              //                                 color: Color(0xffff7292)),
+              //                           ),
+              //                           hintText: '닉네임을 입력하세요',
+              //                           hintStyle: TextStyle(
+              //                               color: const Color(0xffcacaca),
+              //                               fontFamily: "NotoSansCJKkr_Medium",
+              //                               fontSize: 57.sp),
+              //                         ),
+              //                       ),
+              //                       Align(
+              //                         alignment: Alignment.topRight,
+              //                         child: FlatButton(
+              //                           height: 125.h,
+              //                           shape: RoundedRectangleBorder(
+              //                               borderRadius:
+              //                                   BorderRadius.circular(8.0)),
+              //                           color: nickName == ""
+              //                               ? Color(0xffcacaca)
+              //                               : Color(0xffff7292),
+              //                           onPressed: loginOption != "login" &&
+              //                                   nickName != ""
+              //                               ? () {
+              //                                   print(nickName);
+              //                                   currentFocus.unfocus();
+              //                                   buildShowDialogOnOk(
+              //                                       checkNickname(),
+              //                                       context,
+              //                                       300.h,
+              //                                       200.h,
+              //                                       80.h,
+              //                                       1500.h,
+              //                                       _fontsize);
+              //                                 }
+              //                               : () {},
+              //                           child: // 중복확인
+              //                               Text("중복확인",
+              //                                   style: TextStyle(
+              //                                       color:
+              //                                           const Color(0xffffffff),
+              //                                       fontFamily:
+              //                                           "NotoSansCJKkr_Medium",
+              //                                       fontSize: 58.sp),
+              //                                   textAlign: TextAlign.left),
+              //                         ),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       )
+              //     :
+              Container(
+                margin: EdgeInsets.only(top: 31.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      // width: 320 .w,
+                      child: userId == ""
+                          ? nickNameShow("우아하게", 1500.w)
+                          : FutureBuilder(
+                              future: getMyNickname(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  // print("hasdata " + snapshot.data);
+                                  return snapshot.data != ""
+                                      ? nickNameShow(snapshot.data, 1500.w)
+                                      : nickNameShow("우아하게", 1500.w);
+                                } else if (snapshot.hasError) {
+                                  // print("haserror " + snapshot.error);
+                                  return nickNameShow(
+                                      "${snapshot.error}", 1500.w);
+                                }
+                                return Center(
+                                  child: SizedBox(
+                                    height: 50.h,
+                                    width: 50.w,
+                                    child: buildSpinKitThreeBounce(30, 1500.w),
+                                    // CircularProgressIndicator(
+                                    //   strokeWidth: 5.0,
+                                    //   valueColor:
+                                    //       new AlwaysStoppedAnimation<
+                                    //           Color>(
+                                    //     Colors.pinkAccent,
+                                    //   ),
+                                    // ),
                                   ),
-                          ),
-                          Container(
-                            // margin: EdgeInsets.fromLTRB(
-                            //     992 .w,
-                            //     0,
-                            //     148 .w,
-                            //     0),
-                            child: loginOption ==
-                                    "login" // Change this on release to ==
-                                ? Image.asset(
-                                    "./assets/myPage/button1_grey.png",
+                                );
+                              },
+                            ),
+                    ),
+                    Container(
+                      // margin: EdgeInsets.fromLTRB(
+                      //     992 .w,
+                      //     0,
+                      //     148 .w,
+                      //     0),
+                      child:
+                          loginOption == "login" // Change this on release to ==
+                              ? Image.asset(
+                                  "./assets/myPage/button1_grey.png",
+                                  width: 361.w,
+                                  height: 147.h,
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    final result = Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => UserModify(
+                                                loginOption: loginOption,
+                                                userId: userId,
+                                                // recievedImage: _image == null
+                                                //     ? _uploadedFileURL == ""
+                                                //         ? "./assets/myPage/avatar.png"
+                                                //         : _uploadedFileURL
+                                                //     : _image,
+                                              )),
+                                    );
+                                    print("result $result");
+                                    // setState(() {
+                                    //   isIdValid = false;
+                                    //   nickName = "";
+                                    //   onEdit = true;
+                                    //   genderImage[0] = false;
+                                    //   genderImage[1] = false;
+                                    //   birthday = "";
+                                    //   yController.text = "";
+                                    //   changeimage.fillRange(0, 6, false);
+                                    //   userAge = "";
+                                    //   // changeimage[0] = false;
+                                    //   // changeimage[1] = false;
+                                    //   // changeimage[2] = false;
+                                    //   // changeimage[3] = false;
+                                    //   // changeimage[4] = false;
+                                    //   // changeimage[5] = false;
+                                    // });
+                                  },
+                                  child: Image.asset(
+                                    "./assets/myPage/button1_pink.png",
                                     width: 361.w,
                                     height: 147.h,
-                                  )
-                                : InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        isIdValid = false;
-                                        nickName = "";
-                                        onEdit = true;
-                                        genderImage[0] = false;
-                                        genderImage[1] = false;
-                                        birthday = "";
-                                        yController.text = "";
-                                        changeimage.fillRange(0, 6, false);
-                                        userAge = "";
-                                        // changeimage[0] = false;
-                                        // changeimage[1] = false;
-                                        // changeimage[2] = false;
-                                        // changeimage[3] = false;
-                                        // changeimage[4] = false;
-                                        // changeimage[5] = false;
-                                      });
-                                    },
-                                    child: Image.asset(
-                                      "./assets/myPage/button1_pink.png",
-                                      width: 361.w,
-                                      height: 147.h,
-                                    ),
                                   ),
-                          )
-                        ],
-                      ),
-                    ),
+                                ),
+                    )
+                  ],
+                ),
+              ),
 
               //Gender
               Container(

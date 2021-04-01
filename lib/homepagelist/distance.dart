@@ -1,6 +1,6 @@
 import 'dart:math';
 
-distancePoints(lat1, lon1, lat2, lon2) {
+distancePoints(lat1, lon1, lat2, lon2) async {
   var p = 0.017453292519943295; // Math.PI / 180
   var c = cos;
   var a = 0.5 -

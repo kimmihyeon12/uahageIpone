@@ -145,7 +145,7 @@ class _examination_institutionState extends State<examination_institution> {
       for (var data in responseJson) {
         currentData = examinationinstitution.fromJson(data);
         // start sorting KIDS CAFE
-        distance = distancePoints(
+        distance = await distancePoints(
           double.parse(latitude),
           double.parse(longitude),
           currentData.lon,

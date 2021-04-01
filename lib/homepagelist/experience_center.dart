@@ -154,7 +154,7 @@ class _experience_centerState extends State<experience_center> {
       for (var data in responseJson) {
         currentData = Experiencecenter.fromJson(data);
         // start sorting KIDS CAFE
-        distance = distancePoints(
+        distance = await distancePoints(
           double.parse(latitude),
           double.parse(longitude),
           currentData.lon,

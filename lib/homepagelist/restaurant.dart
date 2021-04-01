@@ -162,12 +162,14 @@ class _restaurantState extends State<restaurant> {
         // restaurants.add(Restaurant.fromJson(data));
         currentData = Restaurant.fromJson(data);
         // start sorting KIDS CAFE
-        distance = distancePoints(
+        print("distancePoints $latitude");
+        distance = await distancePoints(
           double.parse(latitude),
           double.parse(longitude),
           currentData.lon,
           currentData.lat,
         );
+        print(distance);
         sortedRestaurants.add(distance);
         // print("adding to sortedlist");
         map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
@@ -539,14 +541,13 @@ class _restaurantState extends State<restaurant> {
                   );
                 }),
           );
-        } else {
-          return Center(
-            child: SizedBox(
-                width: 60,
-                height: 60,
-                child: buildSpinKitThreeBounce(80, screenWidth)),
-          );
         }
+        return Center(
+          child: SizedBox(
+              width: 60,
+              height: 60,
+              child: buildSpinKitThreeBounce(80, screenWidth)),
+        );
       },
     );
   }

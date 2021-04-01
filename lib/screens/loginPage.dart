@@ -18,7 +18,7 @@ class _loginPageState extends State<loginPage> {
   bool isIphoneX = Device.get().isIphoneX;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
     if (isIphoneX) {
       ScreenUtil.init(context, width: 5076, height: 2345);
@@ -88,7 +88,7 @@ class _loginPageState extends State<loginPage> {
                 child: InkWell(
                   onTap: () async {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) =>
+                        builder: (context) =>
                             agreementPage(loginOption: "kakao")));
                   },
                   child: Image.asset(

@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uahage/Provider/locationProvider.dart';
 import 'package:uahage/Provider/connectivityservice.dart';
 import 'package:uahage/Provider/ConnectivityStatus.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -46,10 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    startTime();
   }
-
-
 
   startTime() async {
     var duration = new Duration(seconds: 3);
@@ -62,13 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(builder: (context) => Wrapper()),
     );
   }
+
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
   @override
   Widget build(BuildContext context) {
     LocationProvider locationProvider = Provider.of<LocationProvider>(context);
     locationProvider.setCurrentLocation();
-
+    startTime();
     ScreenUtil.init(context, width: 1500, height: 2667);
 
     double screenHeight;

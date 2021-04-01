@@ -151,7 +151,7 @@ class _kids_cafeState extends State<kids_cafe> {
         // print("calling kidscafe class");
         currentData = KidsCafe.fromJson(data);
         // start sorting KIDS CAFE
-        distance = distancePoints(
+        distance = await distancePoints(
           double.parse(latitude),
           double.parse(longitude),
           currentData.lon,
