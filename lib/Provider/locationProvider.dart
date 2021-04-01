@@ -3,8 +3,8 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class LocationProvider extends ChangeNotifier{
-  String _latitude ='35.146076';
-  String _longitude = '126.9231225';
+  String _latitude ;
+  String _longitude ;
   String get getlatitude => _latitude;
   String get getlongitude => _longitude;
 
@@ -21,32 +21,21 @@ class LocationProvider extends ChangeNotifier{
       "Naju": "나주"
     };
 
-    bool serviceEnabled;
-    LocationPermission permission;
 
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return Future.error('Location services are disabled.');
-    }
 
-    permission = await Geolocator.checkPermission();
+    LocationPermission  permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.deniedForever) {
-         _latitude ='35.146076';
-         _longitude = '126.9231225';
-      }
+
 
       if (permission == LocationPermission.denied) {
         _latitude ='35.146076';
         _longitude = '126.9231225';
-        return print('permission Deny');
+        return print(
+            'Location permissions are denied');
       }
-    }else{
+    }
+
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       final coordinates = new Coordinates(position.latitude, position.longitude);
       var addresses =
@@ -60,9 +49,6 @@ class LocationProvider extends ChangeNotifier{
 
       _latitude = latitude;
       _longitude = longitude;
-    }
-
-
 
 
 
