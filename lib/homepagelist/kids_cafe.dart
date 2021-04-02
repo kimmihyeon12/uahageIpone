@@ -158,7 +158,7 @@ class _kids_cafeState extends State<kids_cafe> {
           currentData.lat,
         );
         sortedKidsCafe.add(distance);
-        print("adding to sortedlist");
+        // print("adding to sortedlist");
         map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
         i++;
       }

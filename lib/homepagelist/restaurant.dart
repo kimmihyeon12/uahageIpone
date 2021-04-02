@@ -162,14 +162,14 @@ class _restaurantState extends State<restaurant> {
         // restaurants.add(Restaurant.fromJson(data));
         currentData = Restaurant.fromJson(data);
         // start sorting KIDS CAFE
-        print("distancePoints $latitude");
+        // print("distancePoints $latitude");
         distance = await distancePoints(
           double.parse(latitude),
           double.parse(longitude),
           currentData.lon,
           currentData.lat,
         );
-        print(distance);
+        // print(distance);
         sortedRestaurants.add(distance);
         // print("adding to sortedlist");
         map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
@@ -180,7 +180,7 @@ class _restaurantState extends State<restaurant> {
       // });
       sortedKeys = map.keys.toList()..sort();
       for (var keys in sortedKeys) {
-        print("$keys ${map[keys]['data']}");
+        // print("$keys ${map[keys]['data']}");
         restaurants.add(map[keys]['data']);
         sortedStarList.add(map[keys]['starIndex']);
       }
@@ -310,7 +310,7 @@ class _restaurantState extends State<restaurant> {
         } else if (snapshot.hasData &&
             snapshot.data != null &&
             sortedStarList.length != 0) {
-          print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
+          // print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
           return Scrollbar(
             child: ListView.builder(
                 // controller: _scrollController,
@@ -318,7 +318,7 @@ class _restaurantState extends State<restaurant> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   // print(snapshot.data.id[index]);
-                  print("List index: $index");
+                  // print("List index: $index");
                   return Card(
                     elevation: 0.3,
                     child: Container(

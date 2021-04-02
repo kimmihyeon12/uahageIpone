@@ -152,7 +152,7 @@ class _examination_institutionState extends State<examination_institution> {
           currentData.lat,
         );
         sortedKidsCafe.add(distance);
-        print("adding to sortedlist");
+        // print("adding to sortedlist");
         map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
         i++;
         // examination_institutions.add(examinationinstitution.fromJson(data));
@@ -443,8 +443,8 @@ class _examination_institutionState extends State<examination_institution> {
                                           if (sortedStarList[index] == false) {
                                             star_color = true;
                                             sortedStarList[index] = true;
-                                            print(' sortedStarList[index]');
-                                            print(sortedStarList[index]);
+                                            // print(' sortedStarList[index]');
+                                            // print(sortedStarList[index]);
                                           } else {
                                             star_color = false;
                                             sortedStarList[index] = false;

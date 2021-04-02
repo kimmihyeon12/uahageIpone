@@ -161,7 +161,7 @@ class _experience_centerState extends State<experience_center> {
           currentData.lat,
         );
         sortedExperinceCenter.add(distance);
-        print("adding to sortedlist");
+        // print("adding to sortedlist");
         map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
         i++;
         // experience_centers.add(Experiencecenter.fromJson(data));
@@ -296,7 +296,7 @@ class _experience_centerState extends State<experience_center> {
                 // controller: _scrollController,
                 itemCount: experience_centers?.length,
                 itemBuilder: (context, index) {
-                  print("List index: $index");
+                  // print("List index: $index");
                   return Card(
                     elevation: 0.3,
                     child: Container(
