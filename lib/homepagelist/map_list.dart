@@ -4,15 +4,13 @@ import 'package:uahage/NavigationPage/Bottom.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
-import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
-import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:uahage/StarManage.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uahage/homepagelist/subList.dart';
 
 class map_list extends StatefulWidget {
   map_list(
@@ -232,71 +230,7 @@ class _map_listState extends State<map_list> {
                   ),
                 )
               : Container(),
-          // Row(
-          //   children: [
-          //     Align(
-          //       alignment: Alignment.bottomLeft,
-          //       child: GestureDetector(
-          //         onTap: () async {
-          //           //     uadate_location();
-          //           lacations();
-          //           controller.loadUrl(
-          //               'http://211.223.46.144:3000/listsearchmarker/$listrequest?lat=$latitude&long=$longitude&Area=$Area&Locality=$Locality');
-          //         },
-          //         child: Container(
-          //           margin: EdgeInsets.only(
-          //               left: 48 .w, bottom: 76 .h),
-          //           child: SizedBox(
-          //             height: 159 .h,
-          //             width: 161 .w,
-          //             child: Image.asset("assets/searchPage/location.png"),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          // Align(
-          //   alignment: Alignment.bottomRight,
-          //   child: Container(
-          //     margin: EdgeInsets.fromLTRB(
-          //         1060 .w, 0, 0, 47 .h),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.end,
-          //       // crossAxisAlignment: CrossAxisAlignment.end,
-          //       children: [
-          //         IconButton(
-          //             onPressed: () {
-          //               setState(() {
-          //                 zoom -= 1;
-          //               });
-          //               controller.loadUrl(
-          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
-          //             },
-          //             icon: Image.asset(
-          //               "assets/searchPage/plus.png",
-          //               width: 105 .w,
-          //               height: 105 .h,
-          //             )),
-          //         IconButton(
-          //             onPressed: () {
-          //               setState(() {
-          //                 zoom += 1;
-          //               });
-          //               controller.loadUrl(
-          //                   "http://211.223.46.144:3000/test/$listrequest?lat=$latitude&long=$longitude&zoomLevel=$zoom");
-          //             },
-          //             icon: Image.asset(
-          //               "assets/searchPage/minus.png",
-          //               width: 105 .w,
-          //               height: 105 .h,
-          //             )),
-          //       ],
-          //     ),
-          //   ),
-          // )
-          // //
-          //   ],
-          // ),
-          // ],
+
         ]),
       ),
     );
@@ -360,11 +294,13 @@ class _map_listState extends State<map_list> {
                             if (Message[14] == 'restaurant') {
                               return PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: restaurant_sublist(
+                                child:
+                                SubListPage(
                                   index: index++,
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
+                                  tableType:'restaurant',
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
@@ -373,11 +309,12 @@ class _map_listState extends State<map_list> {
                                 'Examination_institution') {
                               return PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: examination_institution_sublist(
+                                child:   SubListPage(
                                   index: index++,
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
+                                  tableType:'Examination_institution',
                                 ),
                                 duration: Duration(milliseconds: 250),
                                 reverseDuration: Duration(milliseconds: 100),
@@ -385,11 +322,12 @@ class _map_listState extends State<map_list> {
                             } else if (Message[14] == 'Experience_center') {
                               return PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: experience_center_sublist(
+                                child:  SubListPage(
                                   index: index++,
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
+                                  tableType:'Experience_center',
                                 ),
                                 duration: Duration(milliseconds: 250),
                                 reverseDuration: Duration(milliseconds: 100),
@@ -397,11 +335,12 @@ class _map_listState extends State<map_list> {
                             } else {
                               return PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: kid_cafe_sublist(
+                                child: SubListPage(
                                   index: index++,
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
+                                  tableType:'Kids_cafe',
                                 ),
                                 duration: Duration(milliseconds: 250),
                                 reverseDuration: Duration(milliseconds: 100),

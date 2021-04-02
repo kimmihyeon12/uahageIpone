@@ -51,7 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   startTime() async {
-    var duration = new Duration(seconds: 3);
+    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
+    await locationProvider.setCurrentLocation();
+    var duration = new Duration(seconds: 2);
     return new Timer(duration, route);
   }
 
@@ -66,8 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isIphoneX = Device.get().isIphoneX;
   @override
   Widget build(BuildContext context) {
-    LocationProvider locationProvider = Provider.of<LocationProvider>(context);
-    locationProvider.setCurrentLocation();
+
     startTime();
     ScreenUtil.init(context, width: 1500, height: 2667);
 
