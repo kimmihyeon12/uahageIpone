@@ -3,13 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uahage/NavigationPage/Keyword.dart';
-
-import 'package:uahage/ToastManage.dart';
+import 'package:uahage/View/Navigations/HomeSub/searchBar.dart';
+import 'package:uahage/Widget/toast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:uahage/homepagelist/list.dart';
-import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/View/Navigations/HomeSub/list.dart';
+import 'package:uahage/Widget//appBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class homePage extends StatefulWidget {

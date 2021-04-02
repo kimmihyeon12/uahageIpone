@@ -1,16 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:uahage/NavigationPage/Home.dart';
-import 'package:uahage/NavigationPage/MyPage.dart';
-import 'package:uahage/NavigationPage/Search.dart';
-import 'package:uahage/NavigationPage/Star.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uahage/View/Navigations/Home.dart';
+import 'package:uahage/View/Navigations/MyPage.dart';
+import 'package:uahage/View/Navigations/Search.dart';
+import 'package:uahage/View/Navigations/Star.dart';
 import 'package:uahage/Provider/ConnectivityStatus.dart';
 import 'package:uahage/Provider/locationProvider.dart';
-
-import 'package:uahage/screens/SnackBar.dart';
-
+import 'package:uahage/Widget/SnackBar.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

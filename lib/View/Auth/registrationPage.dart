@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
-import 'package:uahage/NavigationPage/Navigationbar.dart';
+import 'package:uahage/View/Navigations/Navigationbar.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uahage/screens/allAppBar.dart';
-import 'package:uahage/screens/buildShowDialog.dart';
+import 'package:uahage/Widget/appBar.dart';
+import 'package:uahage/Widget/showDialog.dart';
 
 class registrationPage extends StatefulWidget {
   String userId;

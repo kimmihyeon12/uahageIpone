@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/Widget/appBar.dart';
 class announce extends StatefulWidget {
   announce({Key key, this.choice}) : super(key: key);
   String choice;

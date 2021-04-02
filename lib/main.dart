@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uahage/screens/wrapper.dart';
+import 'package:uahage/View/Auth/wrapper.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uahage/Provider/locationProvider.dart';

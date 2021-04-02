@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uahage/NavigationPage/Navigationbar.dart';
-import 'package:uahage/screens/loginPage.dart';
+import 'package:uahage/View/Navigations//Navigationbar.dart';
+import 'package:uahage/View/Auth/loginPage.dart';
 
 class Wrapper extends StatefulWidget {
   /* bool data;

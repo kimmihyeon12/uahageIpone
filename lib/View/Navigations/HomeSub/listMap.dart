@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uahage/NavigationPage/Bottom.dart';
+import 'package:uahage/Model/bottom_helper.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:uahage/StarManage.dart';
-import 'package:uahage/icon.dart';
+import 'package:uahage/Widget/starManager.dart';
+import 'package:uahage/Widget/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uahage/homepagelist/subList.dart';
+import 'package:uahage/View/Navigations/HomeSub/listSub.dart';
 
 class map_list extends StatefulWidget {
   map_list(

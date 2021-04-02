@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:uahage/NavigationPage/Bottom.dart';
+import 'package:uahage/Model/bottom_helper.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'package:clipboard/clipboard.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:uahage/screens/allAppBar.dart';
-import 'package:uahage/StarManage.dart';
-import 'package:uahage/ToastManage.dart';
+import 'package:uahage/Widget/appBar.dart';
+import 'package:uahage/Widget/starManager.dart';
+import 'package:uahage/Widget/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubListPage extends StatefulWidget {

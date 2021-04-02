@@ -1,23 +1,19 @@
-import 'package:http/http.dart' as http;
-import 'package:uahage/NavigationPage/Bottom.dart';
-import 'package:uahage/homepagelist/subList.dart';
+
+import 'package:uahage/Model/bottom_helper.dart';
+import 'package:uahage/View/Navigations/HomeSub/listSub.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-
-import 'dart:convert';
-import 'package:uahage/StarManage.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uahage/Widget/starManager.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:uahage/icon.dart';
-import 'package:uahage/ToastManage.dart';
+import 'package:uahage/Widget/icon.dart';
+import 'package:uahage/Widget/toast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:uahage/Provider/ConnectivityStatus.dart';
 
-import 'package:uahage/screens/SnackBar.dart';
+import 'package:uahage/Widget/snackBar.dart';
 
 class Map_List_Toggle extends StatefulWidget {
   Map_List_Toggle(

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:uahage/screens/loginPage.dart';
+import 'package:uahage/View/Auth/loginPage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class withdrawal extends StatefulWidget {

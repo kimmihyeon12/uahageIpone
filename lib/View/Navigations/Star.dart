@@ -6,10 +6,10 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:uahage/StarManage.dart';
-import 'package:uahage/homepagelist/subList.dart';
-import 'package:uahage/screens/allAppBar.dart';
-import 'package:uahage/icon.dart';
+import 'package:uahage/Widget/starManager.dart';
+import 'package:uahage/View/Navigations/HomeSub/listSub.dart ';
+import 'package:uahage/Widget/appBar.dart';
+import 'package:uahage/Widget/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:uahage/Provider/ConnectivityStatus.dart';
@@ -80,13 +80,13 @@ class _starPageState extends State<starPage> {
     if (jsonDecode(response)["affectedRows"] == 1) setState(() {});
   }
 
-
   bool isIOS = Platform.isIOS;
   bool isIphoneX = Device.get().isIphoneX;
   appbar bar = new appbar();
   @override
   Widget build(BuildContext context) {
-    ConnectivityStatus connectionStatus = Provider.of<ConnectivityStatus>(context);
+    ConnectivityStatus connectionStatus =
+        Provider.of<ConnectivityStatus>(context);
     if (isIphoneX) {
       ScreenUtil.init(context, width: 2345, height: 5076);
     } else if (isIOS) {
@@ -103,7 +103,9 @@ class _starPageState extends State<starPage> {
             Expanded(
               flex: 1,
               child: FutureBuilder(
-                future: connectionStatus != ConnectivityStatus.Offline ? _getstar() : null,
+                future: connectionStatus != ConnectivityStatus.Offline
+                    ? _getstar()
+                    : null,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasError) {
                     return Center(
@@ -428,13 +430,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child:
-            SubListPage(
+            child: SubListPage(
               index: index++,
               data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
-              tableType:'restaurant',
+              tableType: 'restaurant',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),
@@ -444,12 +445,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child:    SubListPage(
+            child: SubListPage(
               index: index++,
               data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
-              tableType:'Kids_cafe',
+              tableType: 'Kids_cafe',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),
@@ -459,12 +460,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child:  SubListPage(
+            child: SubListPage(
               index: index++,
               data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
-              tableType:'Examination_institution',
+              tableType: 'Examination_institution',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),
@@ -474,12 +475,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child:  SubListPage(
+            child: SubListPage(
               index: index++,
               data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
-              tableType:'Experience_center',
+              tableType: 'Experience_center',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),

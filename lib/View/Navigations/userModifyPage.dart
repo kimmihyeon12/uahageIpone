@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uahage/ToastManage.dart';
-import 'package:uahage/screens/buildShowDialog.dart';
+import 'package:uahage/Widget/toast.dart';
+import 'package:uahage/Widget/showDialog.dart';
 
 class UserModify extends StatefulWidget {
   final loginOption;
@@ -79,7 +79,7 @@ class _UserModifyState extends State<UserModify> {
                         Icons.photo_library,
                         color: Color.fromRGBO(255, 114, 148, 1.0),
                       ),
-                      title: new Text('Photo Gallery'),
+                      title: new Text('겔러리'),
                       onTap: () async {
                         await _imgFromGallery();
                         // print("Calling upload func");
@@ -92,7 +92,7 @@ class _UserModifyState extends State<UserModify> {
                       Icons.photo_camera,
                       color: Color.fromRGBO(255, 114, 148, 1.0),
                     ),
-                    title: new Text('Camera'),
+                    title: new Text('카메라'),
                     onTap: () async {
                       await _imgFromCamera();
                       // print("Calling upload func");
@@ -105,7 +105,7 @@ class _UserModifyState extends State<UserModify> {
                       Icons.delete_rounded,
                       color: Color.fromRGBO(255, 114, 148, 1.0),
                     ),
-                    title: new Text('Delete Image'),
+                    title: new Text('삭제'),
                     onTap: () async {
                       await deleteFile();
                       setState(() {

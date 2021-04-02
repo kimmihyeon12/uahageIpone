@@ -1,19 +1,19 @@
 class BottomButton {
   BottomButton(
       {this.storeName,
-      this.address1,
-      this.phone1,
-      this.menu1,
-      this.bed1,
-      this.tableware1,
-      this.meetingroom1,
-      this.diapers1,
-      this.playroom1,
-      this.carriage1,
-      this.nursingroom1,
-      this.chair1,
-      this.Examination_item1,
-      this.fare1});
+        this.address1,
+        this.phone1,
+        this.menu1,
+        this.bed1,
+        this.tableware1,
+        this.meetingroom1,
+        this.diapers1,
+        this.playroom1,
+        this.carriage1,
+        this.nursingroom1,
+        this.chair1,
+        this.Examination_item1,
+        this.fare1});
   String storeName;
   String address1;
   String phone1;
@@ -43,20 +43,20 @@ class BottomButton {
   String get chair => chair1;
   String get Examination_item => Examination_item1;
   String get fare => fare1;
-  // Map<String, dynamic> toMap() {
-  //   return {
-  //     "store_name": store_name,
-  //     "address": address,
-  //     "phone": phone,
-  //     "menu": menu,
-  //     "bed": bed,
-  //     "tableware": tableware,
-  //     "meetingroom": meetingroom,
-  //     "diapers": diapers,
-  //     "playroom": playroom,
-  //     "carriage": carriage,
-  //     "nursingroom": nursingroom,
-  //     "chair": chair
-  //   };
-  // }
+// Map<String, dynamic> toMap() {
+//   return {
+//     "store_name": store_name,
+//     "address": address,
+//     "phone": phone,
+//     "menu": menu,
+//     "bed": bed,
+//     "tableware": tableware,
+//     "meetingroom": meetingroom,
+//     "diapers": diapers,
+//     "playroom": playroom,
+//     "carriage": carriage,
+//     "nursingroom": nursingroom,
+//     "chair": chair
+//   };
+// }
 }

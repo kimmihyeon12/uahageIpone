@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:uahage/NavigationPage/Map_List_Toggle.dart';
+import 'package:uahage/View/Navigations/HomeSub/searchBarMapList.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:uahage/ToastManage.dart';
+import 'package:uahage/Widget/toast.dart';
 import 'package:provider/provider.dart';
 import 'package:uahage/Provider/ConnectivityStatus.dart';
 
-import 'package:uahage/screens/SnackBar.dart';
+import 'package:uahage/Widget/SnackBar.dart';
 class Keyword extends StatefulWidget {
   Keyword(
       {Key key,

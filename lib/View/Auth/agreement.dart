@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:convert';
-import 'package:uahage/NavigationPage/Navigationbar.dart';
-import 'package:uahage/screens/announce.dart';
+import 'package:uahage/View/Navigations/Navigationbar.dart';
+import 'package:uahage/View/Auth/announce.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:kakao_flutter_sdk/all.dart';
-import 'package:uahage/screens/buildShowDialog.dart';
+import 'package:uahage/Widget//showDialog.dart';
 import 'registrationPage.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:uahage/screens/allAppBar.dart';
+import 'package:uahage/Widget//appBar.dart';
 
 class agreementPage extends StatefulWidget {
   agreementPage({Key key, this.loginOption}) : super(key: key);
