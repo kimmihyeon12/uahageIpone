@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   startTime() async {
     LocationProvider locationProvider = Provider.of<LocationProvider>(context);
     await locationProvider.setCurrentLocation();
-    var duration = new Duration(seconds: 3);
+    var duration = new Duration(seconds: 2);
     return new Timer(duration, route);
   }
 

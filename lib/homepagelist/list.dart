@@ -1,50 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
-import 'package:uahage/homepagelist/distance.dart';
+import 'package:uahage/Model/distance.dart';
 import 'dart:convert';
 import 'dart:async';
-// import 'package:uahage/homepagelist/Restaurant_helper.dart';
 import 'map_list.dart';
-import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uahage/ToastManage.dart';
 import 'package:uahage/StarManage.dart';
-import 'package:uahage/homepagelist/Restaurant_helper.dart';
+import 'package:uahage/Model//Restaurant_helper.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uahage/Model/Kids_cafe_helper.dart';
+import 'package:uahage/Model/experience_center_helper.dart';
+import 'package:uahage/Model/examination_institution_helper.dart';
+import 'package:uahage/homepagelist/subList.dart';
 
-class restaurant extends StatefulWidget {
+class ListPage extends StatefulWidget {
   String loginOption;
   String userId;
   String latitude = "";
   String longitude = "";
   String Area = "";
   String Locality = "";
+  String tableType = "";
 
   // String oldNickname;
-  restaurant(
+  ListPage(
       {Key key,
       this.userId,
       this.loginOption,
       this.latitude,
       this.longitude,
       this.Area,
-      this.Locality})
-      : super(key: key);
+      this.Locality,
+      this.tableType});
   @override
-  _restaurantState createState() => _restaurantState();
+  _ListPageState createState() => _ListPageState();
 }
 
-class _restaurantState extends State<restaurant> {
+class _ListPageState extends State<ListPage> {
   var indexcount = 0;
-
   String latitude = "";
   String longitude = "";
   String userId = "";
   String loginOption = "";
   String Area = "";
   String Locality = "";
+  String tableType = "";
   String store_name1,
       address1,
       phone1,
@@ -64,58 +67,47 @@ class _restaurantState extends State<restaurant> {
   var star_color = false;
   bool toggle = false;
 
-  String liststringdata = "restaurant";
-  var listimage = [
+  var restaurantListImage = [
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image1.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image2.png",
     "https://uahage.s3.ap-northeast-2.amazonaws.com/restaurant_image/image3.png",
   ];
-
+  var hospitalListImage = [
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/hospital_image/image2.png",
+  ];
+  var kidsCafeListImage = [
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/kids_cafe/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/kids_cafe/image2.png",
+  ];
+  var experienceListImage = [
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image1.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image2.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image3.png",
+    "https://uahage.s3.ap-northeast-2.amazonaws.com/experience_/image4.png",
+  ];
   Future<List<dynamic>> myFuture;
-  int _currentMax = 0;
-  ScrollController _scrollController = ScrollController();
-  bool _isLoading;
-  List<dynamic> restaurants;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<dynamic> sortedRestaurants = [];
+  ScrollController _scrollController = ScrollController();
+  StarManage starInsertDelete = new StarManage();
+  List<dynamic> sortedListData = [];
   List<dynamic> sortedStarList = [];
   Map<double, dynamic> map = new Map();
   var sortedKeys;
 
   @override
   void initState() {
-    // setState(() {
-    restaurants = [];
-    _isLoading = false;
+    sortedListData = [];
     loginOption = widget.loginOption;
     userId = widget.userId ?? "";
     latitude = widget.latitude ?? "";
     longitude = widget.longitude ?? "";
     Area = widget.Area ?? "";
     Locality = widget.Locality ?? "";
-    // });
-    // get_star_color();
-    myFuture = _getrestaurant();
-    // _scrollController.addListener(() {
-    //   double maxScroll = _scrollController.position.maxScrollExtent;
-    //   double currentScroll = _scrollController.position.pixels;
-    //   // double delta =
-    //   //     100.0; // or something else..maxScroll - currentScroll <= delta
-    //   if (currentScroll >= maxScroll * 0.7 &&
-    //           currentScroll <= maxScroll * 0.75 &&
-    //           !_isLoading ||
-    //       currentScroll == maxScroll) {
-    //     print("scrolling");
-    //     print("isloading: $_isLoading");
-    //     _currentMax += 10;
-    //     _isLoading = true;
-    //     _getrestaurant();
-    //   }
-    // });
+    tableType = widget.tableType ?? "";
+    myFuture = _getDataList();
     super.initState();
   }
-
-  StarManage starInsertDelete = new StarManage();
 
   Future click_star() async {
     await starInsertDelete.click_star(
@@ -135,57 +127,55 @@ class _restaurantState extends State<restaurant> {
         null,
         null,
         star_color,
-        liststringdata);
+        tableType);
   }
 
   Future get_star_color() async {
-    star_color_list = await starInsertDelete.getStarColor(
-        userId, loginOption, liststringdata);
+    star_color_list =
+        await starInsertDelete.getStarColor(userId, loginOption, tableType);
     setState(() {});
   }
 
-  Future<List<dynamic>> _getrestaurant() async {
+  Future<List<dynamic>> _getDataList() async {
     await get_star_color();
     final response = await http.get(
-        'http://211.223.46.144:3000/getList/$liststringdata'); //?maxCount=$_currentMax');
+        'http://211.223.46.144:3000/getList/$tableType'); //?maxCount=$_currentMax');
     List responseJson = json.decode(response.body);
     if (json.decode(response.body)[0] == false) {
-      // setState(() {
-      //   _scrollController.dispose();
-      //   _isLoading = false;
-      // });
     } else {
       var currentData;
       var distance;
       int i = 0;
       for (var data in responseJson) {
-        // restaurants.add(Restaurant.fromJson(data));
-        currentData = Restaurant.fromJson(data);
-        // start sorting KIDS CAFE
-        // print("distancePoints $latitude");
+        if (tableType == 'restaurant') {
+          currentData = Restaurant.fromJson(data);
+        } else if (tableType == 'Examination_institution') {
+          currentData = examinationinstitution.fromJson(data);
+        } else if (tableType == 'Experience_center') {
+          currentData = Experiencecenter.fromJson(data);
+        } else if (tableType == 'Kids_cafe') {
+          currentData = KidsCafe.fromJson(data);
+        }
+
+        print("distancePoints $latitude");
         distance = await distancePoints(
           double.parse(latitude),
           double.parse(longitude),
           currentData.lon,
           currentData.lat,
         );
-        // print(distance);
-        sortedRestaurants.add(distance);
-        // print("adding to sortedlist");
         map[distance] = {"data": currentData, "starIndex": star_color_list[i]};
         i++;
       }
-      // setState(() {
-      //   _isLoading = false;
-      // });
+
       sortedKeys = map.keys.toList()..sort();
       for (var keys in sortedKeys) {
-        // print("$keys ${map[keys]['data']}");
-        restaurants.add(map[keys]['data']);
+        print("$keys ${map[keys]['data']}");
+        sortedListData.add(map[keys]['data']);
         sortedStarList.add(map[keys]['starIndex']);
       }
     }
-    return restaurants;
+    return sortedListData;
   }
 
   @override
@@ -236,7 +226,17 @@ class _restaurantState extends State<restaurant> {
                       Container(
                         // width: 310.w,
                         child: Text(
-                          '식당·카페',
+                          (() {
+                            if (tableType == 'restaurant') {
+                              return "식당·카페";
+                            } else if (tableType == "Examination_institution") {
+                              return "병원";
+                            } else if (tableType == "Experience_center") {
+                              return "체험관";
+                            } else {
+                              return "키즈카페";
+                            }
+                          }()),
                           style: TextStyle(
                               fontSize: 62.sp,
                               fontFamily: 'NotoSansCJKkr_Medium',
@@ -292,7 +292,7 @@ class _restaurantState extends State<restaurant> {
                 loginOption: loginOption,
                 latitude: latitude,
                 longitude: longitude,
-                list: liststringdata,
+                list: tableType,
                 Area: Area,
                 Locality: Locality),
           ])),
@@ -314,11 +314,9 @@ class _restaurantState extends State<restaurant> {
           return Scrollbar(
             child: ListView.builder(
                 // controller: _scrollController,
-                itemCount: restaurants?.length,
+                itemCount: sortedListData?.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  // print(snapshot.data.id[index]);
-                  // print("List index: $index");
                   return Card(
                     elevation: 0.3,
                     child: Container(
@@ -337,11 +335,13 @@ class _restaurantState extends State<restaurant> {
                                     context,
                                     PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: restaurant_sublist(
-                                          index: index,
-                                          data: snapshot.data[index],
-                                          userId: userId,
-                                          loginOption: loginOption),
+                                      child: SubListPage(
+                                        index: index,
+                                        data: snapshot.data[index],
+                                        userId: userId,
+                                        loginOption: loginOption,
+                                        tableType: tableType,
+                                      ),
                                       duration: Duration(milliseconds: 250),
                                       reverseDuration:
                                           Duration(milliseconds: 100),
@@ -367,12 +367,42 @@ class _restaurantState extends State<restaurant> {
                                           image: DecorationImage(
                                             image: NetworkImage(
                                               (() {
-                                                if (index % 3 == 1)
-                                                  return listimage[0];
-                                                else if (index % 3 == 2)
-                                                  return listimage[1];
-                                                else
-                                                  return listimage[2];
+                                                if (tableType == 'restaurant') {
+                                                  if (index % 3 == 1)
+                                                    return restaurantListImage[
+                                                        0];
+                                                  else if (index % 3 == 2)
+                                                    return restaurantListImage[
+                                                        1];
+                                                  else
+                                                    return restaurantListImage[
+                                                        2];
+                                                } else if (tableType ==
+                                                    'Examination_institution') {
+                                                  if (index % 2 == 1)
+                                                    return hospitalListImage[0];
+                                                  else
+                                                    return hospitalListImage[1];
+                                                } else if (tableType ==
+                                                    'Experience_center') {
+                                                  if (index % 4 == 1)
+                                                    return experienceListImage[
+                                                        0];
+                                                  else if (index % 4 == 2)
+                                                    return experienceListImage[
+                                                        1];
+                                                  else if (index % 4 == 3)
+                                                    return experienceListImage[
+                                                        2];
+                                                  else
+                                                    return experienceListImage[
+                                                        3];
+                                                } else {
+                                                  if (index % 2 == 1)
+                                                    return kidsCafeListImage[0];
+                                                  else
+                                                    return kidsCafeListImage[1];
+                                                }
                                               }()),
                                             ),
                                           ),
@@ -427,46 +457,56 @@ class _restaurantState extends State<restaurant> {
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 15.h),
-                                          height: 120.h,
-                                          width: 650.w,
-                                          alignment: Alignment.bottomRight,
-                                          child: Row(
-                                            children: [
-                                              iconwidget.chair(
-                                                  snapshot.data[index].chair,
-                                                  context),
-                                              iconwidget.carriage(
-                                                  snapshot.data[index].carriage,
-                                                  context),
-                                              iconwidget.menu(
-                                                  snapshot.data[index].menu,
-                                                  context),
-                                              iconwidget.bed(
-                                                  snapshot.data[index].bed,
-                                                  context),
-                                              iconwidget.tableware(
-                                                  snapshot
-                                                      .data[index].tableware,
-                                                  context),
-                                              iconwidget.meetingroom(
-                                                  snapshot
-                                                      .data[index].meetingroom,
-                                                  context),
-                                              iconwidget.diapers(
-                                                  snapshot.data[index].diapers,
-                                                  context),
-                                              iconwidget.playroom(
-                                                  snapshot.data[index].playroom,
-                                                  context),
-                                              iconwidget.nursingroom(
-                                                  snapshot
-                                                      .data[index].nursingroom,
-                                                  context),
-                                            ],
-                                          ),
-                                        ),
+                                        tableType == 'restaurant'
+                                            ? Container(
+                                                margin:
+                                                    EdgeInsets.only(top: 15.h),
+                                                height: 120.h,
+                                                width: 650.w,
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                child: Row(
+                                                  children: [
+                                                    iconwidget.chair(
+                                                        snapshot
+                                                            .data[index].chair,
+                                                        context),
+                                                    iconwidget.carriage(
+                                                        snapshot.data[index]
+                                                            .carriage,
+                                                        context),
+                                                    iconwidget.menu(
+                                                        snapshot
+                                                            .data[index].menu,
+                                                        context),
+                                                    iconwidget.bed(
+                                                        snapshot
+                                                            .data[index].bed,
+                                                        context),
+                                                    iconwidget.tableware(
+                                                        snapshot.data[index]
+                                                            .tableware,
+                                                        context),
+                                                    iconwidget.meetingroom(
+                                                        snapshot.data[index]
+                                                            .meetingroom,
+                                                        context),
+                                                    iconwidget.diapers(
+                                                        snapshot.data[index]
+                                                            .diapers,
+                                                        context),
+                                                    iconwidget.playroom(
+                                                        snapshot.data[index]
+                                                            .playroom,
+                                                        context),
+                                                    iconwidget.nursingroom(
+                                                        snapshot.data[index]
+                                                            .nursingroom,
+                                                        context),
+                                                  ],
+                                                ),
+                                              )
+                                            : Container()
                                       ],
                                     ),
                                   ],
@@ -530,8 +570,6 @@ class _restaurantState extends State<restaurant> {
                                           }
 
                                           click_star();
-
-                                          //    _star_color();
                                         });
                                       },
                               ),

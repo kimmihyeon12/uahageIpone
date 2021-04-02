@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Bottom.dart';
+import 'package:uahage/homepagelist/subList.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
+
 import 'package:uahage/ToastManage.dart';
 
 import 'package:uahage/StarManage.dart';
@@ -443,11 +444,12 @@ class _searchPageState extends State<searchPage> {
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: restaurant_sublist(
+                                child: SubListPage(
                                   index: index++,
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
+                                  tableType:'restaurant',
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),

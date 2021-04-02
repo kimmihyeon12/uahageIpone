@@ -46,5 +46,7 @@ class LocationProvider extends ChangeNotifier {
 
     _latitude = latitude;
     _longitude = longitude;
+
+    return true;
   }
 }

@@ -1,11 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'package:uahage/NavigationPage/Bottom.dart';
+import 'package:uahage/homepagelist/subList.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
+
 import 'dart:convert';
 import 'package:uahage/StarManage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -404,11 +405,12 @@ class _Map_List_ToggleState extends State<Map_List_Toggle> {
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: restaurant_sublist(
+                                child:  SubListPage(
                                   index: index++,
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
+                                  tableType:'restaurant',
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),

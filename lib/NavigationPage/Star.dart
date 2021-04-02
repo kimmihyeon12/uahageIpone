@@ -6,11 +6,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:uahage/homepagelist/sublist/restaurant_sublist.dart';
-import 'package:uahage/homepagelist/sublist/kid_cafe_sublist.dart';
-import 'package:uahage/homepagelist/sublist/experience_center_sublist.dart';
-import 'package:uahage/homepagelist/sublist/exaimination_institution_sublist.dart';
 import 'package:uahage/StarManage.dart';
+import 'package:uahage/homepagelist/subList.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:uahage/icon.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -431,11 +428,14 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child: restaurant_sublist(
-                index: index,
-                data: snapshot.data[index],
-                userId: userId,
-                loginOption: loginOption),
+            child:
+            SubListPage(
+              index: index++,
+              data: snapshot.data[index],
+              userId: userId,
+              loginOption: loginOption,
+              tableType:'restaurant',
+            ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),
           ));
@@ -444,11 +444,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child: kid_cafe_sublist(
-              index: index,
+            child:    SubListPage(
+              index: index++,
               data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
+              tableType:'Kids_cafe',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),
@@ -458,10 +459,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child: examination_institution_sublist(
-              index: index,
+            child:  SubListPage(
+              index: index++,
               data: snapshot.data[index],
+              userId: userId,
               loginOption: loginOption,
+              tableType:'Examination_institution',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),
@@ -471,11 +474,12 @@ class _starPageState extends State<starPage> {
           context,
           PageTransition(
             type: PageTransitionType.rightToLeft,
-            child: experience_center_sublist(
-              index: index,
+            child:  SubListPage(
+              index: index++,
               data: snapshot.data[index],
               userId: userId,
               loginOption: loginOption,
+              tableType:'Experience_center',
             ),
             duration: Duration(milliseconds: 250),
             reverseDuration: Duration(milliseconds: 100),

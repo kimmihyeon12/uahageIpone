@@ -5,13 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uahage/NavigationPage/Keyword.dart';
-import 'package:uahage/homepagelist/experience_center.dart';
-import 'package:uahage/homepagelist/restaurant.dart';
-import 'package:uahage/homepagelist/kids_cafe.dart';
-import 'package:uahage/homepagelist/Examination_institution.dart';
+
 import 'package:uahage/ToastManage.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
+import 'package:uahage/homepagelist/list.dart';
 import 'package:uahage/screens/allAppBar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -165,22 +162,6 @@ class _homePageState extends State<homePage> {
                         ),
                       ),
                     ),
-                    // Align(
-                    //   alignment: Alignment.topLeft,
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(
-                    //       top: 60 .h,
-                    //       left: 70 .w,
-                    //     ),
-                    //     child: Text(
-                    //       "영·유아 보호자와\n함께하는\n정보제공 서비스",
-                    //       style: TextStyle(
-                    //           fontSize: 80 .w,
-                    //           color: Color(0xffff7292),
-                    //           fontFamily: 'NotoSansCJKkr_Medium'),
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ),
@@ -285,13 +266,14 @@ class _homePageState extends State<homePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => restaurant(
+                                  builder: (context) => ListPage(
                                         userId: userId,
                                         loginOption: loginOption,
                                         latitude: latitude,
                                         longitude: longitude,
                                         Area: Area,
                                         Locality: Locality,
+                                        tableType: "restaurant",
                                       )));
                         },
                       ),
@@ -310,11 +292,12 @@ class _homePageState extends State<homePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => examination_institution(
+                                  builder: (context) => ListPage(
                                         userId: userId,
                                         loginOption: loginOption,
                                         latitude: latitude,
                                         longitude: longitude,
+                                         tableType: "Examination_institution",
                                       )));
                         },
                       ),
@@ -372,11 +355,12 @@ class _homePageState extends State<homePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => kids_cafe(
+                                  builder: (context) => ListPage(
                                         userId: userId,
                                         loginOption: loginOption,
                                         latitude: latitude,
                                         longitude: longitude,
+                                    tableType: "Kids_cafe",
                                       )));
                         },
                       ),
@@ -395,11 +379,12 @@ class _homePageState extends State<homePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => experience_center(
+                                  builder: (context) => ListPage(
                                         userId: userId,
                                         loginOption: loginOption,
                                         latitude: latitude,
                                         longitude: longitude,
+                                    tableType: "Experience_center",
                                       )));
                         },
                       ),
