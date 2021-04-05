@@ -16,12 +16,12 @@ import 'package:provider/provider.dart';
 class searchPage extends StatefulWidget {
   searchPage(
       {Key key,
-        this.latitude,
-        this.longitude,
-        this.userId,
-        this.loginOption,
-        this.Area,
-        this.Locality})
+      this.latitude,
+      this.longitude,
+      this.userId,
+      this.loginOption,
+      this.Area,
+      this.Locality})
       : super(key: key);
   String latitude;
   String longitude;
@@ -59,18 +59,17 @@ class _searchPageState extends State<searchPage> {
     true
   ];
 
-
   searchAddress(searchKey) async {
     // ignore: unnecessary_statements
     print(searchKey);
     searchKey != ""
-        ? controller.loadUrl(
-        'http://13.209.41.43/map/getAddress?address=$searchKey')
-    // ignore: unnecessary_statements
+        ? controller
+            .loadUrl('http://13.209.41.43/map/getAddress?address=$searchKey')
+        // ignore: unnecessary_statements
         : null;
   }
 
-  Future searchCategory(latitude,longitude) async {
+  Future searchCategory(latitude, longitude) async {
     print(grey_image);
     controller.loadUrl(
         "http://13.209.41.43/map/searchCategory?lat=$latitude&long=$longitude&menu=${grey_image[0]}&bed=${grey_image[1]}&tableware=${grey_image[2]}&meetingroom=${grey_image[3]}&diapers=${grey_image[4]}&playroom=${grey_image[5]}&carriages=${grey_image[6]}&nursingroom=${grey_image[7]}&chair=${grey_image[8]}&Area=$Area&Locality=$Locality");
@@ -100,7 +99,7 @@ class _searchPageState extends State<searchPage> {
 
   Future getSubStarColor() async {
     star_color =
-    await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
+        await starInsertDelete.getSubStarColor(userId, loginOption, Message[0]);
     setState(() {
       star_color = star_color;
     });
@@ -112,16 +111,14 @@ class _searchPageState extends State<searchPage> {
   @override
   void initState() {
     setState(() {
-      longitude = widget.longitude?? "";
-      latitude = widget.latitude?? "";
-      loginOption = widget.loginOption?? "";
+      longitude = widget.longitude ?? "";
+      latitude = widget.latitude ?? "";
+      loginOption = widget.loginOption ?? "";
       userId = widget.userId ?? "";
       Area = widget.Area ?? "";
       Locality = widget.Locality ?? "";
     });
-
   }
-
 
   int position = 0;
   final key = UniqueKey();
@@ -130,7 +127,6 @@ class _searchPageState extends State<searchPage> {
     setState(() {
       position = 0;
     });
-
   }
 
   startLoading(String A) {
@@ -149,20 +145,16 @@ class _searchPageState extends State<searchPage> {
   bool isIOS = Platform.isIOS;
   var isLoading = true;
 
-
-
   @override
   Widget build(BuildContext context) {
+    latitude == "" && longitude == "" ? currentLocation() : "";
 
-    latitude==""&&longitude==""? currentLocation(): "";
-
-    ScreenUtil.init(context, width: 1500, height: 2667);
+    ScreenUtil.init(context, width: 2435, height: 5075);
     return Scaffold(
-
       body: Stack(
         children: [
           IndexedStack(
-            index : position,
+            index: position,
             children: [
               WebView(
                 key: key,
@@ -172,9 +164,9 @@ class _searchPageState extends State<searchPage> {
                 onWebViewCreated: (WebViewController webViewController) {
                   controller = webViewController;
                   controller.loadUrl(latitude == 'NaN' ||
-                      longitude == 'NaN' ||
-                      latitude == '' ||
-                      longitude == ''
+                          longitude == 'NaN' ||
+                          latitude == '' ||
+                          longitude == ''
                       ? 'http://13.209.41.43/map/'
                       : 'http://13.209.41.43/map/getPos?lat=$latitude&long=$longitude');
                 },
@@ -194,10 +186,7 @@ class _searchPageState extends State<searchPage> {
               ),
               IndexMap(),
             ],
-          ) ,
-
-
-
+          ),
           GestureDetector(
             onTap: () async {
               setState(() {
@@ -213,7 +202,7 @@ class _searchPageState extends State<searchPage> {
                   true,
                 ];
               });
-              await showPopUpMenu(context, 2667.h, 1501.w ,latitude , longitude);
+              await showPopUpMenu(context, 2667.h, 1501.w, latitude, longitude);
             },
             child: Container(
               decoration: BoxDecoration(
@@ -228,23 +217,23 @@ class _searchPageState extends State<searchPage> {
                   ),
                 ],
               ),
-              margin: EdgeInsets.fromLTRB(51.w, 161.h, 51.w, 0),
-              height: 196.h,
+              margin: EdgeInsets.fromLTRB(98.w, 489.h, 98.w, 0),
+              height: 299.h,
               child: Row(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 53.w),
+                    margin: EdgeInsets.only(left: 65.w),
                     child: Image.asset(
                       "./assets/searchPage/arrow.png",
-                      height: 68.h,
+                      height: 103.h,
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 41.w),
-                    width: 1200.w,
+                    margin: EdgeInsets.only(left: 64.w),
+                    width: 1980.w,
                     child: // 검색 조건을 설정해주세요
-                    Row(
+                        Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("검색 조건을 설정해주세요",
@@ -253,12 +242,12 @@ class _searchPageState extends State<searchPage> {
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "NotoSansCJKkr_Medium",
                                 fontStyle: FontStyle.normal,
-                                fontSize: 60.sp),
+                                fontSize: 86.sp),
                             textAlign: TextAlign.left),
                         InkWell(
                           child: Image.asset(
                             "./assets/searchPage/cat_btn.png",
-                            height: 158.h,
+                            height: 241.h,
                           ),
                         ),
                       ],
@@ -268,15 +257,13 @@ class _searchPageState extends State<searchPage> {
               ),
             ),
           ),
-
-
         ],
       ),
     );
   }
 
-  Future<Object> showPopUpMenu(
-      BuildContext context, double screenHeight, double screenWidth , latitude , longitude) {
+  Future<Object> showPopUpMenu(BuildContext context, double screenHeight,
+      double screenWidth, latitude, longitude) {
     return showGeneralDialog(
         context: context,
         pageBuilder: (BuildContext buildContext, Animation<double> animation,
@@ -288,9 +275,9 @@ class _searchPageState extends State<searchPage> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: 600.h, bottom: 0.h, left: 190.w, right: 0.w),
-                      width: 1100.w,
-                      height: 1060.h,
+                          top: 1300.h, bottom: 0.h, left: 342.w, right: 0.w),
+                      width: 1661.w,
+                      height: 1825.h,
                       child: Card(
                         shadowColor: Colors.black54,
                         elevation: 1,
@@ -300,7 +287,7 @@ class _searchPageState extends State<searchPage> {
                         ),
                         child: Container(
                           margin: EdgeInsets.only(
-                              top: 85.h, left: 50.w, right: 50.w),
+                              top: 80.h, left: 50.w, right: 50.w),
                           child: SizedBox(
                             child: GridView.count(
                               // childAspectRatio: 3 / 2,
@@ -313,25 +300,25 @@ class _searchPageState extends State<searchPage> {
                                       onTap: () {
                                         setState(() {
                                           grey_image[index] =
-                                          !grey_image[index];
+                                              !grey_image[index];
                                         });
                                         print(grey_image);
                                       },
                                       child: grey_image[index]
                                           ? Image.asset(
-                                        "./assets/searchPage/image" +
-                                            (index + 1).toString() +
-                                            "_grey.png",
-                                        height: 293.h,
-                                        width: 218.w,
-                                      )
+                                              "./assets/searchPage/image" +
+                                                  (index + 1).toString() +
+                                                  "_grey.png",
+                                              height: 452.h,
+                                              width: 336.w,
+                                            )
                                           : Image.asset(
-                                        "./assets/searchPage/image" +
-                                            (index + 1).toString() +
-                                            ".png",
-                                        height: 293.h,
-                                        width: 218.w,
-                                      ),
+                                              "./assets/searchPage/image" +
+                                                  (index + 1).toString() +
+                                                  ".png",
+                                        height: 452.h,
+                                        width: 336.w,
+                                            ),
                                     ),
                                   ),
                                 );
@@ -342,15 +329,15 @@ class _searchPageState extends State<searchPage> {
                       ),
                     ),
                     Positioned(
-                      top: 1850.h,
-                      left: 400.w,
-                      right: 400.w,
+                      top: 3300.h,
+                      left: 639.w,
+                      right: 639.w,
                       child: SizedBox(
-                        width: 611.w,
-                        height: 195.h,
+                        width: 950.w,
+                        height: 302.h,
                         child: FlatButton(
                           onPressed: () async {
-                            await searchCategory(latitude ,longitude);
+                            await searchCategory(latitude, longitude);
 
                             Navigator.of(context).pop();
                             // print(isBirthdayFree);
@@ -364,7 +351,7 @@ class _searchPageState extends State<searchPage> {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'NotoSansCJKkr_Medium',
-                              fontSize: 60.sp,
+                              fontSize: 91.sp,
                             ),
                           ),
                         ),
@@ -378,7 +365,7 @@ class _searchPageState extends State<searchPage> {
         },
         barrierDismissible: true,
         barrierLabel:
-        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: null,
         transitionDuration: const Duration(milliseconds: 150));
   }
@@ -446,25 +433,25 @@ class _searchPageState extends State<searchPage> {
                                   data: btm,
                                   userId: userId,
                                   loginOption: loginOption,
-                                  tableType:'restaurant',
+                                  tableType: 'restaurant',
                                 ),
                                 duration: Duration(milliseconds: 100),
                                 reverseDuration: Duration(milliseconds: 100),
                               ));
                           result
                               ? setState(() {
-                            star_color = true;
-                          })
+                                  star_color = true;
+                                })
                               : setState(() {
-                            star_color = false;
-                          });
+                                  star_color = false;
+                                });
                         },
                         child: Row(
                           children: [
                             Padding(
                                 padding: EdgeInsets.only(
-                                  left: 30.w,
-                                )),
+                              left: 30.w,
+                            )),
                             Image.asset(
                               "./assets/listPage/clipGroup1.png",
                               height: 409.h,
@@ -472,8 +459,8 @@ class _searchPageState extends State<searchPage> {
                             ),
                             Padding(
                                 padding: EdgeInsets.only(
-                                  left: 53.w,
-                                )),
+                              left: 53.w,
+                            )),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -507,18 +494,18 @@ class _searchPageState extends State<searchPage> {
                                             height: 60.h),
                                         onPressed: loginOption == "login"
                                             ? () {
-                                          show_toast.showToast(
-                                              context, "로그인해주세요!");
-                                        }
+                                                show_toast.showToast(
+                                                    context, "로그인해주세요!");
+                                              }
                                             : () async {
-                                          setState(() {
-                                            star_color = !star_color;
-                                          });
+                                                setState(() {
+                                                  star_color = !star_color;
+                                                });
 
-                                          loginOption != "login"
-                                              ? await click_star()
-                                              : null;
-                                        },
+                                                loginOption != "login"
+                                                    ? await click_star()
+                                                    : null;
+                                              },
                                       ),
                                     ],
                                   ),
@@ -569,7 +556,7 @@ class _searchPageState extends State<searchPage> {
         },
         barrierDismissible: true,
         barrierLabel:
-        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: null,
         transitionDuration: const Duration(milliseconds: 150));
   }

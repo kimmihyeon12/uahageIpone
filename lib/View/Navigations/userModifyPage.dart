@@ -245,7 +245,7 @@ class _UserModifyState extends State<UserModify> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 1500, height: 2667);
+    ScreenUtil.init(context, width: 2435, height: 5075);
     FocusScopeNode currentFocus = FocusScope.of(context);
     isIOS
         ? SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
@@ -271,7 +271,7 @@ class _UserModifyState extends State<UserModify> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    margin: EdgeInsets.fromLTRB(60.w, 50.h, 0, 0),
+                    margin: EdgeInsets.fromLTRB(60.w, 80.h, 0, 0),
                     child: InkWell(
                       onTap: () async {
                         Navigator.pop(context, false);
@@ -281,7 +281,7 @@ class _UserModifyState extends State<UserModify> {
                         children: [
                           Image.asset(
                             "./assets/myPage/back.png",
-                            width: 43.w,
+                            width: 96.w,
                             height: 76.h,
                           ),
                           // 내 정보
@@ -291,7 +291,7 @@ class _UserModifyState extends State<UserModify> {
                                 style: TextStyle(
                                   color: Color.fromRGBO(255, 114, 148, 1.0),
                                   fontFamily: 'NotoSansCJKkr_Medium',
-                                  fontSize: 62.sp,
+                                  fontSize: 96.sp,
                                 ),
                                 textAlign: TextAlign.left),
                           ),
@@ -300,107 +300,110 @@ class _UserModifyState extends State<UserModify> {
                         ],
                       ),
                     )),
-                Center(
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        height: 439.h,
-                        width: 439.w,
-                        child: CircleAvatar(
-                          backgroundImage:
-                              AssetImage("./assets/myPage/avatar.png"),
-                          child: (() {
-                            // your code here
-                            if (recievedImage != null) {
-                              if (recievedImage is String) {
-                                setState(() {
-                                  imageLink = recievedImage;
-                                });
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 520.h, 0, 0),
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                          height: 684.h,
+                          width: 684.w,
+                          child: CircleAvatar(
+                            backgroundImage:
+                                AssetImage("./assets/myPage/avatar.png"),
+                            child: (() {
+                              // your code here
+                              if (recievedImage != null) {
+                                if (recievedImage is String) {
+                                  setState(() {
+                                    imageLink = recievedImage;
+                                  });
 
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              recievedImage), //imageURL
+                                          fit: BoxFit.cover),
+                                    ),
+                                  );
+                                } else
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: FileImage(
+                                              recievedImage), //imageURL
+                                          fit: BoxFit.cover),
+                                    ),
+                                  );
+                              } else if (_image != null) {
+                                print("1");
+                                print("here " + imageLink);
                                 return Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image: NetworkImage(
-                                            recievedImage), //imageURL
+                                        image: FileImage(_image), //imageURL
                                         fit: BoxFit.cover),
                                   ),
                                 );
-                              } else
+                              } else if (imageLink != "" && imageLink != null) {
+                                print("2");
                                 return Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                        image:
-                                            FileImage(recievedImage), //imageURL
+                                        image: NetworkImage(imageLink),
                                         fit: BoxFit.cover),
                                   ),
                                 );
-                            } else if (_image != null) {
-                              print("1");
-                              print("here " + imageLink);
-                              return Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: FileImage(_image), //imageURL
-                                      fit: BoxFit.cover),
-                                ),
-                              );
-                            } else if (imageLink != "" && imageLink != null) {
-                              print("2");
-                              return Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: NetworkImage(imageLink),
-                                      fit: BoxFit.cover),
-                                ),
-                              );
-                            } else {
-                              print("3");
-                              return Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        "./assets/myPage/avatar.png"),
+                              } else {
+                                print("3");
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          "./assets/myPage/avatar.png"),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                          }()),
+                                );
+                              }
+                            }()),
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: Container(
-                          // margin: EdgeInsets.fromLTRB(
-                          //     330 .w, 341 .h, 0, 0),
-                          child: InkWell(
-                            onTap: loginOption != "login"
-                                ? () {
-                                    _showPicker(context);
-                                  }
-                                : () {
-                                    show_toast.showToast(context, "로그인해주세요!");
-                                  },
-                            child: Image.asset(
-                              "./assets/myPage/camera.png",
-                              height: 109.h,
-                              width: 110.w,
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            // margin: EdgeInsets.fromLTRB(
+                            //     330 .w, 341 .h, 0, 0),
+                            child: InkWell(
+                              onTap: loginOption != "login"
+                                  ? () {
+                                      _showPicker(context);
+                                    }
+                                  : () {
+                                      show_toast.showToast(context, "로그인해주세요!");
+                                    },
+                              child: Image.asset(
+                                "./assets/myPage/camera.png",
+                                height: 167.h,
+                                width: 167.w,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
 
                 Container(
                   margin: EdgeInsets.only(
-                    top: 85.h,
+                    top: 264.h,
                   ),
                   child: Container(
                     child: Row(
@@ -408,19 +411,19 @@ class _UserModifyState extends State<UserModify> {
                       children: [
                         // 닉네임
                         Container(
-                          margin: EdgeInsets.fromLTRB(157.w, 40.h, 88.w, 0),
+                          margin: EdgeInsets.fromLTRB(257.w, 80.h, 88.w, 0),
                           child: Text("닉네임",
                               style: TextStyle(
                                   color: const Color(0xffff7292),
                                   fontFamily: "NotoSansCJKkr_Medium",
-                                  fontSize: 57.sp),
+                                  fontSize: 96.sp),
                               textAlign: TextAlign.left),
                         ),
                         Expanded(
                           flex: 1,
                           child: Container(
                             margin: EdgeInsets.only(
-                              right: 121.w,
+                              right: 128.w,
                             ),
                             child: Stack(
                               children: [
@@ -438,7 +441,7 @@ class _UserModifyState extends State<UserModify> {
                                   style: TextStyle(
                                       color: Color(0xff3a3939),
                                       fontFamily: "NotoSansCJKkr_Bold",
-                                      fontSize: 58.sp),
+                                      fontSize: 96.sp),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.only(right: 410.w),
@@ -457,13 +460,13 @@ class _UserModifyState extends State<UserModify> {
                                     hintStyle: TextStyle(
                                         color: const Color(0xffcacaca),
                                         fontFamily: "NotoSansCJKkr_Medium",
-                                        fontSize: 57.sp),
+                                        fontSize: 96.sp),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.topRight,
                                   child: FlatButton(
-                                    height: 125.h,
+                                    height: 223.h,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(8.0)),
@@ -491,7 +494,7 @@ class _UserModifyState extends State<UserModify> {
                                                 color: const Color(0xffffffff),
                                                 fontFamily:
                                                     "NotoSansCJKkr_Medium",
-                                                fontSize: 58.sp),
+                                                fontSize: 96.sp),
                                             textAlign: TextAlign.left),
                                   ),
                                 ),
@@ -505,19 +508,19 @@ class _UserModifyState extends State<UserModify> {
                 ),
                 //Gender
                 Container(
-                  margin: EdgeInsets.fromLTRB(99.w, 35.h, 0, 0),
+                  margin: EdgeInsets.fromLTRB(165.w, 123.h, 0, 0),
                   child: Row(
                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // 아이성별
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 24.h, 56.w, 0),
+                        margin: EdgeInsets.fromLTRB(0, 24.h, 94.w, 0),
                         child: Text("아이성별",
                             style: TextStyle(
                                 color: const Color(0xffff7292),
                                 fontFamily: "NotoSansCJKkr_Medium",
-                                fontSize: 57.sp),
+                                fontSize: 96.sp),
                             textAlign: TextAlign.left),
                       ),
                       InkWell(
@@ -532,8 +535,8 @@ class _UserModifyState extends State<UserModify> {
                           genderImage[0]
                               ? "./assets/myPage/boy_pink.png"
                               : "./assets/myPage/boy_grey.png",
-                          height: 363.h,
-                          width: 262.w,
+                          height: 566.h,
+                          width: 409.w,
                         ),
                       ),
                       Container(
@@ -550,8 +553,8 @@ class _UserModifyState extends State<UserModify> {
                             genderImage[1]
                                 ? "./assets/myPage/girl_pink.png"
                                 : "./assets/myPage/girl_grey.png",
-                            height: 363.h,
-                            width: 262.w,
+                            height: 567.h,
+                            width: 409.w,
                           ),
                         ),
                       ),
@@ -562,13 +565,13 @@ class _UserModifyState extends State<UserModify> {
                 // Birthday
 
                 Container(
-                  margin: EdgeInsets.fromLTRB(99.w, 5.h, 0, 0),
+                  margin: EdgeInsets.fromLTRB(165.w, 5.h, 0, 0),
                   child: Row(
                     children: [
                       // 아이생일
                       Text("아이생일",
                           style: TextStyle(
-                            fontSize: 57.sp,
+                            fontSize: 96.sp,
                             color: const Color(0xffff7292),
                             fontFamily: "NotoSansCJKkr_Medium",
                           ),
@@ -588,7 +591,7 @@ class _UserModifyState extends State<UserModify> {
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         color: Color(0xffff7292),
-                                        fontSize: 57.sp,
+                                        fontSize: 96.sp,
                                         fontFamily: 'NotoSansCJKkr_Medium',
                                         fontStyle: FontStyle.normal,
                                         letterSpacing: -1.0),
@@ -609,7 +612,7 @@ class _UserModifyState extends State<UserModify> {
                                       hintStyle: TextStyle(
                                           color: Color(0xffd4d4d4),
                                           fontFamily: "NotoSansCJKkr_Medium",
-                                          fontSize: 57.0.sp),
+                                          fontSize: 96.0.sp),
                                     ),
                                   ),
                                 ),
@@ -634,7 +637,7 @@ class _UserModifyState extends State<UserModify> {
 
                 //Ages
                 Container(
-                  margin: EdgeInsets.fromLTRB(155.w, 91.h, 0, 0),
+                  margin: EdgeInsets.fromLTRB(257.w, 91.h, 0, 0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -644,7 +647,7 @@ class _UserModifyState extends State<UserModify> {
                             color: const Color(0xffff7292),
                             fontWeight: FontWeight.w500,
                             fontFamily: "NotoSansCJKkr_Medium",
-                            fontSize: 57.sp,
+                            fontSize: 96.sp,
                           ),
                           textAlign: TextAlign.right),
                       Container(
@@ -653,14 +656,14 @@ class _UserModifyState extends State<UserModify> {
                             Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 59.w),
+                                  padding: EdgeInsets.only(left: 93.w),
                                   child: InkWell(
                                     child: Image.asset(
                                       changeimage[0]
                                           ? './assets/registrationPage/10_pink.png'
                                           : './assets/registrationPage/10_grey.png',
-                                      height: 194.h,
-                                      width: 249.w,
+                                      height: 306.h,
+                                      width: 390.w,
                                     ),
                                     onTap: () {
                                       _change('10');
@@ -668,14 +671,14 @@ class _UserModifyState extends State<UserModify> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 55.w),
+                                  padding: EdgeInsets.only(left: 88.w),
                                   child: InkWell(
                                     child: Image.asset(
                                       changeimage[1]
                                           ? './assets/registrationPage/20_pink.png'
                                           : './assets/registrationPage/20_grey.png',
-                                      height: 194.h,
-                                      width: 249.w,
+                                      height: 306.h,
+                                      width: 390.w,
                                     ),
                                     onTap: () {
                                       _change('20');
@@ -689,8 +692,8 @@ class _UserModifyState extends State<UserModify> {
                                       changeimage[2]
                                           ? './assets/registrationPage/30_pink.png'
                                           : './assets/registrationPage/30_grey.png',
-                                      height: 194.h,
-                                      width: 249.w,
+                                      height: 306.h,
+                                      width: 390.w,
                                     ),
                                     onTap: () {
                                       _change('30');
@@ -703,14 +706,14 @@ class _UserModifyState extends State<UserModify> {
                               children: [
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: 59.w, top: 45.h),
+                                      EdgeInsets.only(left: 88.w, top: 72.h),
                                   child: InkWell(
                                     child: Image.asset(
                                       changeimage[3]
                                           ? './assets/registrationPage/40_pink.png'
                                           : './assets/registrationPage/40_grey.png',
-                                      height: 194.h,
-                                      width: 249.w,
+                                      height: 306.h,
+                                      width: 390.w,
                                     ),
                                     onTap: () {
                                       _change('40');
@@ -719,14 +722,14 @@ class _UserModifyState extends State<UserModify> {
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: 55.w, top: 45.h),
+                                      EdgeInsets.only(left: 88.w, top: 72.h),
                                   child: InkWell(
                                     child: Image.asset(
                                       changeimage[4]
                                           ? './assets/registrationPage/50_pink.png'
                                           : './assets/registrationPage/50_grey.png',
-                                      height: 194.h,
-                                      width: 249.w,
+                                      height: 306.h,
+                                      width: 390.w,
                                     ),
                                     onTap: () {
                                       _change('50');
@@ -735,14 +738,14 @@ class _UserModifyState extends State<UserModify> {
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(left: 55.w, top: 45.h),
+                                      EdgeInsets.only(left: 55.w, top: 72.h),
                                   child: InkWell(
                                     child: Image.asset(
                                       changeimage[5]
                                           ? './assets/registrationPage/others_pink.png'
                                           : './assets/registrationPage/others_grey.png',
-                                      height: 194.h,
-                                      width: 249.w,
+                                      height: 306.h,
+                                      width: 390.w,
                                     ),
                                     onTap: () {
                                       _change('60');
@@ -762,11 +765,12 @@ class _UserModifyState extends State<UserModify> {
                 Center(
                   child: Container(
                     margin: EdgeInsets.only(
-                      top: 87.h,
+                      top: 129.h,
+                      left: 150.w,
                     ),
                     child: SizedBox(
-                      height: 194.w,
-                      width: 1193.h,
+                      height: 304.w,
+                      width: 2000.h,
                       child: FlatButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -848,7 +852,7 @@ class _UserModifyState extends State<UserModify> {
                                     fontWeight: FontWeight.w500,
                                     fontFamily: "NotoSansCJKkr_Medium",
                                     fontStyle: FontStyle.normal,
-                                    fontSize: 62.sp),
+                                    fontSize: 96.sp),
                                 textAlign: TextAlign.left),
                       ),
                     ),

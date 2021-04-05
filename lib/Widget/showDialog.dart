@@ -22,7 +22,7 @@ Text buildText(double _fontsize) {
 
 Future buildShowDialogOnOk(var function, BuildContext context, var heightSize,
     var widthSize, var height, var width, var _fontsize) {
-  ScreenUtil.init(context, width: 1500, height: 2667);
+  ScreenUtil.init(context, width: 2435, height: 5075);
   return showDialog(
     context: context,
     builder: (ctx) => FutureBuilder(
@@ -40,7 +40,7 @@ Future buildShowDialogOnOk(var function, BuildContext context, var heightSize,
                   fontWeight: FontWeight.w500,
                   fontFamily: "NotoSansCJKkr_Medium",
                   fontStyle: FontStyle.normal,
-                  fontSize: 55.sp),
+                  fontSize: 81.sp),
             ),
             actions: [
               FlatButton(

@@ -153,7 +153,7 @@ class _map_listState extends State<map_list> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 1500, height: 2667);
+    ScreenUtil.init(context, width: 2345, height: 5076);
     return Scaffold(
       body: SafeArea(
         child: Stack(children: [
@@ -221,10 +221,10 @@ class _map_listState extends State<map_list> {
                     await showPopUpMenu(context, 2667.h, 1501.w);
                   },
                   child: Container(
-                    margin: EdgeInsets.only(left: 1250.w, top: 30.h),
+                    margin: EdgeInsets.only(left: 2000.w, top: 45.h),
                     child: Image.asset(
                       "./assets/searchPage/cat_btn.png",
-                      height: 158.h,
+                      height: 300.h,
                     ),
                   ),
                 )
@@ -496,9 +496,9 @@ class _map_listState extends State<map_list> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: 600.h, bottom: 0.h, left: 190.w, right: 0.w),
-                      width: 1100.w,
-                      height: 1060.h,
+                          top: 1300.h, bottom: 0.h, left: 342.w, right: 0.w),
+                      width: 1661.w,
+                      height: 1825.h,
                       child: Card(
                         shadowColor: Colors.black54,
                         elevation: 1,
@@ -532,15 +532,15 @@ class _map_listState extends State<map_list> {
                                               "./assets/searchPage/image" +
                                                   (index + 1).toString() +
                                                   "_grey.png",
-                                              height: 293.h,
-                                              width: 218.w,
+                                        height: 452.h,
+                                        width: 336.w,
                                             )
                                           : Image.asset(
                                               "./assets/searchPage/image" +
                                                   (index + 1).toString() +
                                                   ".png",
-                                              height: 293.h,
-                                              width: 218.w,
+                                        height: 452.h,
+                                        width: 336.w,
                                             ),
                                     ),
                                   ),
@@ -552,12 +552,12 @@ class _map_listState extends State<map_list> {
                       ),
                     ),
                     Positioned(
-                      top: 1850.h,
-                      left: 400.w,
-                      right: 400.w,
+                      top: 3300.h,
+                      left: 639.w,
+                      right: 639.w,
                       child: SizedBox(
-                        width: 611.w,
-                        height: 195.h,
+                        width: 950.w,
+                        height: 302.h,
                         child: FlatButton(
                           onPressed: () async {
                             await searchCategory();
@@ -574,7 +574,7 @@ class _map_listState extends State<map_list> {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'NotoSansCJKkr_Medium',
-                              fontSize: 62.sp,
+                              fontSize: 91.sp,
                             ),
                           ),
                         ),

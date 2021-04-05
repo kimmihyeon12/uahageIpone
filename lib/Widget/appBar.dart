@@ -3,9 +3,50 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class appbar extends StatelessWidget {
   sub_appbar(String text, context, star_color) {
-    ScreenUtil.init(context, width: 1500, height: 2667);
-    return PreferredSize(
-      preferredSize: Size.fromHeight(180.h),
+    ScreenUtil.init(context, width: 2345, height: 5075);
+    return  PreferredSize(
+      preferredSize: Size.fromHeight(553.h),
+      child: Container(
+        color: Colors.white,
+        height: 553.h,
+        
+        child: Container(
+          
+          margin:EdgeInsets.only(top: 350.h,),
+          child: Row(
+            children: [
+
+              Padding(padding:EdgeInsets.only( left: 62.w)),
+              InkWell(
+
+                child:   Icon(Icons.arrow_back_ios, color: Color(0xffff7292)),
+                onTap: (){   Navigator.pop(context, star_color);},
+              ),
+
+
+              Container(
+                width: 2000.w,
+                child: Center(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 107.sp,
+                      fontFamily: 'NotoSansCJKkr_Bold',
+                      letterSpacing: 0,
+                      color:Color.fromRGBO(255, 114, 148, 1.0),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      // ),
+    );
+    
+    PreferredSize(
+      preferredSize: Size.fromHeight(553.h),
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0, centerTitle: true,
@@ -24,23 +65,25 @@ class appbar extends StatelessWidget {
           style: TextStyle(
               color: Color(0xffff7292),
               fontFamily: "NotoSansCJKkr_Medium",
-              fontSize: 67.0.sp),
+              fontSize: 107.0.sp),
         ),
       ),
     );
   }
 
   navHome_abbbar(String text, context) {
+    ScreenUtil.init(context, width: 2435, height: 5075);
     return PreferredSize(
-      preferredSize: Size.fromHeight(178.h),
+      preferredSize: Size.fromHeight(553.h),
       child: Container(
         color: Color.fromRGBO(255, 114, 148, 1.0),
-        height: 178.h,
-        child: Center(
+        height: 553.h,
+        child: Container(
+          margin: EdgeInsets.only(top: 350.h, left: 968.w),
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 73.sp,
+              fontSize: 107.sp,
               fontFamily: 'NotoSansCJKkr_Bold',
               letterSpacing: 0,
               color: Colors.white,
@@ -53,6 +96,7 @@ class appbar extends StatelessWidget {
   }
 
   screen_appbar(String text, context) {
+    ScreenUtil.init(context, width: 2345, height: 5075);
     return PreferredSize(
       preferredSize: Size.fromHeight(178.h),
       child: Container(

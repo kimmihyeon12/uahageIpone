@@ -195,98 +195,103 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 1500, height: 2667);
+    ScreenUtil.init(context, width: 2345, height: 5076);
+
     return SafeArea(
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  highlightColor: Colors.white,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "./assets/listPage/backbutton.png",
-                        width: 44.w,
-                        height: 76.h,
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(
-                        left: 45.w,
-                      )),
-                      Container(
-                        // width: 310.w,
-                        child: Text(
-                          (() {
-                            if (tableType == 'restaurant') {
-                              return "식당·카페";
-                            } else if (tableType == "Examination_institution") {
-                              return "병원";
-                            } else if (tableType == "Experience_center") {
-                              return "체험관";
-                            } else {
-                              return "키즈카페";
-                            }
-                          }()),
-                          style: TextStyle(
-                              fontSize: 62.sp,
-                              fontFamily: 'NotoSansCJKkr_Medium',
-                              color: Color.fromRGBO(255, 114, 148, 1.0)),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 30.w),
-                  child: toggle
-                      ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              toggle = !toggle;
-                              if (indexcount == 1)
-                                indexcount = 0;
-                              else
-                                indexcount = 1;
-                            });
-                          },
-                          child: Image.asset(
-                            './assets/on.png',
-                            width: 284.w,
-                            height: 133.h,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(600.h),
+            child: Container(
+              color: Colors.white,
+              child: Container(
+                margin: EdgeInsets.only(left: 62.w, top: 350.h),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "./assets/listPage/backbutton.png",
+                            width: 64.w,
+                            height: 114.h,
                           ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              toggle = !toggle;
-                              if (indexcount == 1)
-                                indexcount = 0;
-                              else
-                                indexcount = 1;
-                            });
-                          },
-                          child: Image.asset(
-                            './assets/off.png',
-                            width: 284.w,
-                            height: 133.h,
+                          Padding(
+                              padding: EdgeInsets.only(
+                            left: 46.w,
+                          )),
+                          Container(
+                             width: 1700.w,
+                            child: Text(
+                              (() {
+                                if (tableType == 'restaurant') {
+                                  return "식당·카페";
+                                } else if (tableType ==
+                                    "Examination_institution") {
+                                  return "병원";
+                                } else if (tableType == "Experience_center") {
+                                  return "체험관";
+                                } else {
+                                  return "키즈카페";
+                                }
+                              }()),
+                              style: TextStyle(
+                                  fontSize: 116.sp,
+                                  fontFamily: 'NotoSansCJKkr_Medium',
+                                  color: Color.fromRGBO(255, 114, 148, 1.0)),
+                            ),
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+                    Container(
+
+                      child: toggle
+                          ? GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  toggle = !toggle;
+                                  if (indexcount == 1)
+                                    indexcount = 0;
+                                  else
+                                    indexcount = 1;
+                                });
+                              },
+                              child: Image.asset(
+                                './assets/on.png',
+                                width: 446.w,
+                                height: 270.h,
+                              ),
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  toggle = !toggle;
+                                  if (indexcount == 1)
+                                    indexcount = 0;
+                                  else
+                                    indexcount = 1;
+                                });
+                              },
+                              child: Image.asset(
+                                './assets/off.png',
+                                width: 446.w,
+                                height: 270.h,
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
+            // ),
           ),
           body: IndexedStack(index: indexcount, children: <Widget>[
-            restaruant_view(context, 1501.w, 2667.h),
+            restaruant_view(context),
             map_list(
                 userId: userId,
                 loginOption: loginOption,
@@ -299,7 +304,7 @@ class _ListPageState extends State<ListPage> {
     );
   }
 
-  Widget restaruant_view(context, screenWidth, screenHeight) {
+  Widget restaruant_view(context) {
     return FutureBuilder(
       future: myFuture,
       builder: (context, snapshot) {
@@ -310,7 +315,7 @@ class _ListPageState extends State<ListPage> {
         } else if (snapshot.hasData &&
             snapshot.data != null &&
             sortedStarList.length != 0) {
-          // print("snapshot.hasData: ${snapshot.hasData}  ${snapshot.data}");
+
           return Scrollbar(
             child: ListView.builder(
                 // controller: _scrollController,
@@ -320,10 +325,10 @@ class _ListPageState extends State<ListPage> {
                   return Card(
                     elevation: 0.3,
                     child: Container(
-                        height: 450.h,
+                        height: 770.h,
                         padding: EdgeInsets.only(
-                          top: 1.h,
-                          left: 26.w,
+                          top: 40.h,
+                          left: 76.w,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,7 +361,7 @@ class _ListPageState extends State<ListPage> {
                                 });
                               },
                               child: Container(
-                                width: 1280.w,
+                                width: 2000.w,
                                 //     color:Colors.pink,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,12 +413,12 @@ class _ListPageState extends State<ListPage> {
                                           ),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10.0))),
-                                      height: 414.h,
-                                      width: 413.w,
+                                      height: 639.h,
+                                      width: 639.w,
                                     ),
                                     Padding(
                                         padding: EdgeInsets.only(
-                                      left: 53.w,
+                                      left: 86.w,
                                     )),
                                     Column(
                                       crossAxisAlignment:
@@ -429,12 +434,12 @@ class _ListPageState extends State<ListPage> {
                                             Container(
                                               margin:
                                                   EdgeInsets.only(top: 20.h),
-                                              width: 700.w,
-                                              height: 82.h,
+                                              width: 900.w,
+                                              height: 160.h,
                                               child: Text(
                                                 snapshot.data[index].store_name,
                                                 style: TextStyle(
-                                                  fontSize: 56.sp,
+                                                  fontSize: 96.sp,
                                                   fontFamily:
                                                       'NotoSansCJKkr_Medium',
                                                 ),
@@ -443,14 +448,14 @@ class _ListPageState extends State<ListPage> {
                                           ],
                                         ),
                                         Container(
-                                          height: 135.h,
-                                          width: 650.w,
+                                          height: 250.h,
+                                          width: 900.w,
                                           child: Text(
                                             snapshot.data[index].address,
                                             style: TextStyle(
                                               // fontFamily: 'NatoSans',
                                               color: Colors.grey,
-                                              fontSize: 56.sp,
+                                              fontSize: 86.sp,
                                               fontFamily:
                                                   'NotoSansCJKkr_Medium',
                                               height: 1.3,
@@ -461,8 +466,8 @@ class _ListPageState extends State<ListPage> {
                                             ? Container(
                                                 margin:
                                                     EdgeInsets.only(top: 15.h),
-                                                height: 120.h,
-                                                width: 650.w,
+                                                height: 175.h,
+                                                width: 900.w,
                                                 alignment:
                                                     Alignment.bottomRight,
                                                 child: Row(
@@ -514,20 +519,20 @@ class _ListPageState extends State<ListPage> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 30.w, top: 25.h),
+                              margin: EdgeInsets.only(left: 30.w, top: 40.h),
 
                               //         color:Colors.yellow,
                               child: IconButton(
                                 padding: EdgeInsets.all(0),
                                 constraints: BoxConstraints(
-                                  maxWidth: 70.w,
-                                  maxHeight: 70.h,
+                                  maxWidth: 125.w,
+                                  maxHeight: 95.h,
                                 ),
                                 icon: Image.asset(
                                   !sortedStarList[index]
                                       ? "./assets/listPage/star_grey.png"
                                       : "./assets/listPage/star_color.png",
-                                  height: 60.h,
+                                  height: 95.h,
                                 ),
                                 onPressed: loginOption == "login"
                                     ? () {
@@ -536,26 +541,28 @@ class _ListPageState extends State<ListPage> {
                                       }
                                     : () async {
                                         setState(() {
-                                          store_name1 =
-                                              snapshot.data[index].store_name;
-                                          address1 =
-                                              snapshot.data[index].address;
-                                          bed1 = snapshot.data[index].bed;
-                                          phone1 = snapshot.data[index].phone;
-                                          menu1 = snapshot.data[index].menu;
-                                          tableware1 =
-                                              snapshot.data[index].tableware;
-                                          meetingroom1 =
-                                              snapshot.data[index].meetingroom;
-                                          diapers1 =
-                                              snapshot.data[index].diapers;
-                                          playroom1 =
-                                              snapshot.data[index].playroom;
-                                          carriage1 =
-                                              snapshot.data[index].carriage;
-                                          nursingroom1 =
-                                              snapshot.data[index].nursingroom;
-                                          chair1 = snapshot.data[index].chair;
+                                          if( tableType =='restaurant'){
+                                            store_name1 =
+                                                snapshot.data[index].store_name;
+                                            address1 =
+                                                snapshot.data[index].address;
+                                            bed1 = snapshot.data[index].bed;
+                                            phone1 = snapshot.data[index].phone;
+                                            menu1 = snapshot.data[index].menu;
+                                            tableware1 =
+                                                snapshot.data[index].tableware;
+                                            meetingroom1 =
+                                                snapshot.data[index].meetingroom;
+                                            diapers1 =
+                                                snapshot.data[index].diapers;
+                                            playroom1 =
+                                                snapshot.data[index].playroom;
+                                            carriage1 =
+                                                snapshot.data[index].carriage;
+                                            nursingroom1 =
+                                                snapshot.data[index].nursingroom;
+                                            chair1 = snapshot.data[index].chair;
+                                          }
 
                                           if (sortedStarList[index] == false) {
                                             setState(() {
@@ -584,7 +591,7 @@ class _ListPageState extends State<ListPage> {
           child: SizedBox(
               width: 60,
               height: 60,
-              child: buildSpinKitThreeBounce(80, screenWidth)),
+              child: buildSpinKitThreeBounce(80, 2345.h)),
         );
       },
     );

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class toast extends StatelessWidget {
   showToast(context, text) {
-    ScreenUtil.init(context, width: 1500, height: 2667);
+    ScreenUtil.init(context, width: 2435, height: 5075);
     FToast fToast = FToast();
     fToast.init(context);
     Widget toast = Container(
@@ -19,7 +19,7 @@ class toast extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              fontSize: 45.sp,
+              fontSize: 81.sp,
               fontFamily: 'NotoSansCJKkr_Medium',
               letterSpacing: 0,
               color: Colors.white,

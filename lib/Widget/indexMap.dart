@@ -17,7 +17,7 @@ class _IndexMapState extends State<IndexMap> {
   ConnectivityStatus connectionStatus;
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 1501, height: 2667);
+    ScreenUtil.init(context, width: 2435, height: 5075);
     connectionStatus = Provider.of<ConnectivityStatus>(context);
     lacationprovider = Provider.of<LocationProvider>(context);
     var latitude = lacationprovider.getlatitude;
