@@ -118,7 +118,7 @@ class _homePageState extends State<homePage> {
           child: Column(
             children: [
               Container(
-                width: 2344.w,
+
                 height: 1412.h,
                 child: Stack(
                   children: [
