@@ -160,7 +160,7 @@ class _homePageState extends State<homePage> {
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(78.w, 85.h, 78.w, 0),
-                height: 281.h,
+                height: 282.h,
                 child: Theme(
                   data: new ThemeData(
                       primaryColor: Color.fromRGBO(255, 114, 148, 1.0),
